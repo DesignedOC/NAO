@@ -10,8 +10,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Observations
 {
-
-
     const STATUS_UNTREATED = 'untreated';
     const STATUS_ACCEPTED = 'accepted';
     const STATUS_REJECTED = 'rejected';
@@ -30,19 +28,20 @@ class Observations
     private $date;
 
     /**
-     * @ORM\Column(type="float")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="float", nullable=false)
+     * @Assert\NotBlank(message = "La lattitude est obligatoire")
      */
     private $latitude;
 
     /**
-     * @ORM\Column(type="float")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="float", nullable=false)
+     * @Assert\NotBlank(message = "La longitude est obligatoire")
      */
     private $longitude;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Valid
      */
     private $picture;
 
@@ -54,9 +53,7 @@ class Observations
     private $bird;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="statut")
-     * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", cascade={"persist"})
      */
     private $user;
 

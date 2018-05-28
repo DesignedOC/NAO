@@ -12,7 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User
 {
-
     const VISITOR = 'visitor';
     const ADMIN = 'admin';
     /**
@@ -41,17 +40,18 @@ class User
     private $pseudo;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\NotBlank(message = "La date d'observation est obligatoire")
      */
     private $dateAt;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $updateAt;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, unique=true)
      * @Assert\Email()
      */
     private $email;
