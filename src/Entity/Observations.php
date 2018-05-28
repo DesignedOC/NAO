@@ -40,7 +40,7 @@ class Observations
     private $longitude;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="string")
      * @Assert\Valid
      */
     private $picture;
@@ -64,10 +64,18 @@ class Observations
     private $statut;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      * @Assert\NotBlank()
      */
     private $description;
+
+    public function __construct()
+    {
+        $this->date = new \Datetime();
+    }
+
+
+
 
     public function getId()
     {
