@@ -24,7 +24,7 @@ class Badge
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $photo;
+    private $picture;
 
     public function getId()
     {
@@ -43,14 +43,14 @@ class Badge
         return $this;
     }
 
-    public function getPhoto(): ?string
+    public function getPicture(): ?string
     {
-        return $this->photo;
+        return $this->picture;
     }
 
-    public function setPhoto(string $photo): self
+    public function setPicture(string $picture): self
     {
-        $this->photo = $photo;
+        $this->picture = $picture;
 
         return $this;
     }
