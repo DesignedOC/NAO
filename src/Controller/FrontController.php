@@ -16,4 +16,14 @@ class FrontController extends Controller
             'controller_name' => 'FrontController',
         ]);
     }
+
+    /**
+     * @Route("/association", name="association")
+     */
+    public function association()
+    {
+        return $this->render('front/association.html.twig', [
+            'controller_name' => 'FrontController',
+        ]);
+    }
 }
