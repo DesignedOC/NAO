@@ -13,9 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User
 {
 
-    const VISITEUR = 1;
-    const NATURALISTE = 2;
-    const ADMIN = 3;
+    const VISITOR = 'visitor';
+    const ADMIN = 'admin';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -76,19 +75,15 @@ class User
 
     /**
      * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=64, nullable=false, columnDefinition="ENUM('visitor', 'admin')", options={"default":"visitor"})
      */
     private $role;
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @ORM\OneToOne(targetEntity="App\Entity\Picture", cascade={"persist"})
      */
     private $picture;
 
-    /**
-     *
-     */
-    private $statut;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Badge", mappedBy="user")
@@ -97,7 +92,6 @@ class User
 
     public function __construct()
     {
-        $this->statut = new ArrayCollection();
         $this->badges = new ArrayCollection();
     }
 
@@ -241,33 +235,6 @@ class User
     /**
      * @return Collection|Observations[]
      */
-    public function getStatut(): Collection
-    {
-        return $this->statut;
-    }
-
-    public function addStatut(Observations $statut): self
-    {
-        if (!$this->statut->contains($statut)) {
-            $this->statut[] = $statut;
-            $statut->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStatut(Observations $statut): self
-    {
-        if ($this->statut->contains($statut)) {
-            $this->statut->removeElement($statut);
-            // set the owning side to null (unless already changed)
-            if ($statut->getUser() === $this) {
-                $statut->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Badge[]

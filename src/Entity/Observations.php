@@ -12,10 +12,10 @@ class Observations
 {
 
 
-    const WAITING_STATUS = 0;
-    const ACCEPTED_STATUS = 1;
-    const REFUSED_STATUS = 2;
-    const DRAFT_STATUS = 3;
+    const STATUS_UNTREATED = 'untreated';
+    const STATUS_ACCEPTED = 'accepted';
+    const STATUS_REJECTED = 'rejected';
+    const STATUS_DRAFT = 'draft';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -43,7 +43,6 @@ class Observations
 
     /**
      * @ORM\Column(type="float")
-     * @ORM\OneToOne(targetEntity="App\Entity\Picture", cascade={"persist"})
      */
     private $picture;
 
@@ -62,7 +61,7 @@ class Observations
     private $user;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=64, nullable=false, columnDefinition="ENUM('untreated', 'accepted', 'rejected', 'draft')", options={"default":"untreated"})
      * @Assert\NotBlank()
      */
     private $statut;
