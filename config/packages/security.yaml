@@ -18,7 +18,7 @@ security:
                     check_path: /connexion_check
                     default_target_path: /interface/
                     always_use_default_target_path: true
-                    #csrf_provider: form.csrf_provider
+                    csrf_token_generator: security.csrf.token_manager
             anonymous: true
             logout:
                 path: /deconnexion
@@ -26,7 +26,8 @@ security:
 
     access_control:
          - { path: ^/connexion$, allow_if: "not has_role('ROLE_USER')" }
-         - { path: ^/inscription, allow_if: "not has_role('ROLE_USER')" }
+         - { path: ^[/inscription]+$, allow_if: "not has_role('ROLE_USER')" }
+         - { path: ^/inscription/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/manage, allow_if: "not has_role('ROLE_USER')" }
          - { path: ^/interface/*, roles: ROLE_USER }
          - { path: ^/admin/*, roles: ROLE_ADMIN }
@@ -40,8 +41,8 @@ fos_user:
         firewall_name: main
         user_class: App\Entity\User
         from_email:
-                address:        noreply@nao.com
-                sender_name:    Nos Amis les Oiseaux
+                address:        '%env(MAILER_ADDRESS)%'
+                sender_name:    '%env(MAILER_SENDER)%'
         registration:
                 confirmation:
                         enabled: true

@@ -5,7 +5,8 @@
 fos_user_security_login:
     path:      /connexion
     methods: GET|POST
-    defaults:  { _controller: FOSUserBundle:Security:login }
+    controller: fos_user.security.controller:loginAction
+#    defaults:  { _controller: FOSUserBundle:Security:login }
 
 fos_user_security_check:
     path:      /connexion_check
