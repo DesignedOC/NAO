@@ -46,7 +46,7 @@ class Observations
     private $picture;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=1)
      * @ORM\ManyToOne(targetEntity="App\Entity\Species", cascade={"persist"})
      * @Assert\NotBlank()
      */
