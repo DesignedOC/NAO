@@ -41,7 +41,6 @@ class User
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Assert\NotBlank(message = "La date d'observation est obligatoire")
      */
     private $dateAt;
 
