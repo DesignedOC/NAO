@@ -7,7 +7,7 @@ easy_admin:
         menu:
             - { entity: 'User', icon: 'user', label: 'Utilisateurs' }
             - { entity: 'Observations', icon: '', label: 'Observation' }
-           # - { entity: 'Species', icon: '', label: 'Especes' }
+            - { entity: 'Species', icon: '', label: 'Especes' }
 
 
     entities:
@@ -93,6 +93,60 @@ easy_admin:
                     - { property: 'user', label: 'Utilisateur'}
                     - { property: 'statut'}
                     - { property: 'description'}
+
+        Species:
+            class: App\Entity\Species
+            list:
+                actions:
+                    - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
+                    - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
+                    - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
+                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+                fields:
+                    - { property: 'order'}
+                    - { property: 'family'}
+                    - { property: 'cdNom'}
+                    - { property: 'lbNom'}
+                    - { property: 'nomVern'}
+                    - { property: 'habitat'}
+                    - { property: 'statut'}
+                    - { property: 'url'}
+            new:
+                title: 'Créer un nouvel oiseau'
+                fields:
+                    - { property: 'order'}
+                    - { property: 'family'}
+                    - { property: 'cdNom'}
+                    - { property: 'lbNom'}
+                    - { property: 'nomVern'}
+                    - { property: 'habitat'}
+                    - { property: 'statut'}
+                    - { property: 'url'}
+            edit:
+                title: "Editer l'oiseau"
+                fields:
+                    - { property: 'order'}
+                    - { property: 'family'}
+                    - { property: 'cdNom'}
+                    - { property: 'lbNom'}
+                    - { property: 'nomVern'}
+                    - { property: 'habitat'}
+                    - { property: 'statut'}
+                    - { property: 'url'}
+            show:
+                title: "Voir l'oiseau"
+                fields:
+                    - { property: 'order'}
+                    - { property: 'family'}
+                    - { property: 'cdNom'}
+                    - { property: 'lbNom'}
+                    - { property: 'nomVern'}
+                    - { property: 'habitat'}
+                    - { property: 'statut'}
+                    - { property: 'url'}
+
+
+
 
 
 
