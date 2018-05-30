@@ -1,6 +1,49 @@
-#easy_admin:
-#    entities:
-#        # List the entity class name you want to manage
-#        - App\Entity\Product
-#        - App\Entity\Category
-#        - App\Entity\User
+easy_admin:
+    site_name: 'Administration'
+    formats:
+        date: 'd/m/Y'
+    design:
+        brand-color: green
+        menu:
+            - { entity: 'User', icon: 'user', label: 'Utilisateurs' }
+           # - { entity: 'Observations', icon: '', label: 'Observation' }
+           # - { entity: 'Species', icon: '', label: 'Especes' }
+
+
+    entities:
+        User:
+            class: App\Entity\User
+            list:
+                actions:
+                    - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
+                    - { name: 'delete', icon: '', label: 'Supprimer', title: 'Supprimer' }
+                    - { name: 'new', icon: '', label: 'Ajouter', title: 'Ajouter' }
+                fields:
+                    - { property: 'id' }
+                    - { property: 'lastname' }
+                    - { property: 'firstname' }
+                    - { property: 'birth' }
+                    - { property: 'observation' }
+                    - { property: 'badges' }
+            new:
+                title: "Créer un nouvel utilisateur"
+                fields:
+                    - { property: 'lastname' }
+                    - { property: 'firstname' }
+                    - { property: 'birth' }
+                    - { property: 'observation' }
+                    - { property: 'badges' }
+            edit:
+                title: "Edition du profil utilisateur"
+                fields:
+                    - { property: 'lastname' }
+                    - { property: 'firstname' }
+                    - { property: 'birth' }
+                    - { property: 'observation' }
+                    - { property: 'badges' }
+
+
+
+
+
+
