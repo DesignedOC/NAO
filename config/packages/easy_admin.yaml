@@ -6,7 +6,7 @@ easy_admin:
         brand-color: green
         menu:
             - { entity: 'User', icon: 'user', label: 'Utilisateurs' }
-           # - { entity: 'Observations', icon: '', label: 'Observation' }
+            - { entity: 'Observations', icon: '', label: 'Observation' }
            # - { entity: 'Species', icon: '', label: 'Especes' }
 
 
@@ -41,6 +41,58 @@ easy_admin:
                     - { property: 'birth' }
                     - { property: 'observation' }
                     - { property: 'badges' }
+
+        Observations:
+            class: App\Entity\Observations
+            list:
+                actions:
+                    - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
+                    - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
+                    - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
+                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+                fields:
+                    - { property: 'id'}
+                    - { property: 'date'}
+                    - { property: 'latitude'}
+                    - { property: 'longitude'}
+                    - { property: 'picture', label: 'Image'}
+                    - { property: 'bird', label: 'Oiseau'}
+                    - { property: 'user', label: 'Utilisateur'}
+                    - { property: 'statut'}
+                    - { property: 'description'}
+            new:
+                title: 'Créer une nouvelle observation'
+                fields:
+                    - { property: 'date', type: 'date'}
+                    - { property: 'latitude'}
+                    - { property: 'longitude'}
+                    - { property: 'picture', label: 'Image'}
+                    - { property: 'bird', label: 'Oiseau'}
+                    - { property: 'user', label: 'Utilisateur'}
+                    - { property: 'statut'}
+                    - { property: 'description'}
+            edit:
+                title: "Editer l'observation"
+                fields:
+                    - { property: 'date', type: 'date'}
+                    - { property: 'latitude'}
+                    - { property: 'longitude'}
+                    - { property: 'picture', label: 'Image'}
+                    - { property: 'bird', label: 'Oiseau'}
+                    - { property: 'user', label: 'Utilisateur'}
+                    - { property: 'statut'}
+                    - { property: 'description'}
+            show:
+                title: "Voir l'observation"
+                fields:
+                    - { property: 'date', type: 'date'}
+                    - { property: 'latitude'}
+                    - { property: 'longitude'}
+                    - { property: 'picture', label: 'Image'}
+                    - { property: 'bird', label: 'Oiseau'}
+                    - { property: 'user', label: 'Utilisateur'}
+                    - { property: 'statut'}
+                    - { property: 'description'}
 
 
 
