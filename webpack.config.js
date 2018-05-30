@@ -13,6 +13,7 @@ Encore
     .enableSassLoader()
     // uncomment for legacy applications that require $/jQuery as a global variable
     .autoProvidejQuery()
+    .addEntry('js/app', './assets/js/app.js')
     .addStyleEntry('css/app', ['./assets/scss/global.scss'])
     
 ;
