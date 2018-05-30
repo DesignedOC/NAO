@@ -2,24 +2,28 @@
 
 namespace App\Entity;
 
+use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ORM\Entity
+ * @ORM\Table(name="nao_user")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User extends BaseUser
 {
     const VISITOR = 'visitor';
     const ADMIN = 'admin';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -34,38 +38,9 @@ class User
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank()
-     */
-    private $pseudo;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Assert\NotBlank(message = "La date d'observation est obligatoire")
-     */
-    private $dateAt;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updateAt;
-
-    /**
-     * @ORM\Column(type="string", length=100, unique=true)
-     * @Assert\Email()
-     */
-    private $email;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $birth;
-
-    /**
-     * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank()
-     */
-    private $password;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Observations", cascade={"persist"})
@@ -74,30 +49,15 @@ class User
     private $observation;
 
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\Column(type="string", length=64, nullable=false, columnDefinition="ENUM('visitor', 'admin')", options={"default":"visitor"})
-     */
-    private $role;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $picture;
-
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Badge", mappedBy="user")
      */
     private $badges;
 
+
     public function __construct()
     {
+        parent::__construct();
         $this->badges = new ArrayCollection();
-    }
-
-    public function getId()
-    {
-        return $this->id;
     }
 
     public function getLastname(): ?string
@@ -124,54 +84,6 @@ class User
         return $this;
     }
 
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
-    }
-
-    public function getDateAt(): ?\DateTimeInterface
-    {
-        return $this->dateAt;
-    }
-
-    public function setDateAt(\DateTimeInterface $dateAt): self
-    {
-        $this->dateAt = $dateAt;
-
-        return $this;
-    }
-
-    public function getUpdateAt(): ?\DateTimeInterface
-    {
-        return $this->updateAt;
-    }
-
-    public function setUpdateAt(\DateTimeInterface $updateAt): self
-    {
-        $this->updateAt = $updateAt;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
     public function getBirth(): ?\DateTimeInterface
     {
         return $this->birth;
@@ -180,18 +92,6 @@ class User
     public function setBirth(\DateTimeInterface $birth): self
     {
         $this->birth = $birth;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
 
         return $this;
     }
@@ -207,34 +107,6 @@ class User
 
         return $this;
     }
-
-    public function getRole(): ?int
-    {
-        return $this->role;
-    }
-
-    public function setRole(int $role): self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    public function getPicture(): ?float
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(?float $picture): self
-    {
-        $this->picture = $picture;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Observations[]
-     */
 
     /**
      * @return Collection|Badge[]
