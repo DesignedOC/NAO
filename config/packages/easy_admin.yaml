@@ -8,6 +8,7 @@ easy_admin:
             - { entity: 'User', icon: 'user', label: 'Utilisateurs' }
             - { entity: 'Observations', icon: '', label: 'Observation' }
             - { entity: 'Species', icon: '', label: 'Especes' }
+            - { entity: 'Badge', icon: '', label: 'Badge' }
 
 
     entities:
@@ -144,6 +145,35 @@ easy_admin:
                     - { property: 'habitat'}
                     - { property: 'statut'}
                     - { property: 'url'}
+
+        Badge:
+            class: App\Entity\Badge
+            list:
+                actions:
+                    - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
+                    - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
+                    - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
+                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+                fields:
+                    - { property: 'id'}
+                    - { property: 'user'}
+                    - { property: 'picture'}
+            new:
+                title: 'Créer un nouveau badge'
+                fields:
+                    - { property: 'user'}
+                    - { property: 'picture'}
+            edit:
+                title: 'Editer un badge'
+                fields:
+                    - { property: 'user'}
+                    - { property: 'picture'}
+            show:
+                title: 'Voir un badge'
+                fields:
+                    - { property: 'user'}
+                    - { property: 'picture'}
+
 
 
 
