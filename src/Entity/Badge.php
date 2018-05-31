@@ -22,13 +22,13 @@ class Badge
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="badges")
      */
-
+    private $user;
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
-    private $user;
+
 
     /**
      * @ORM\Column(type="string", length=255)
