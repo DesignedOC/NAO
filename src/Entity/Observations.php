@@ -40,7 +40,7 @@ class Observations
     private $longitude;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string")
      * @Assert\Valid
      */
     private $picture;
