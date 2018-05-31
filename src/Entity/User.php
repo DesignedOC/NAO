@@ -24,36 +24,16 @@ class User extends BaseUser
     /**
      * @var string $lastname
      * @ORM\Column(name="usr_lastname", type="string", length=100, nullable=true)
-     * @Assert\NotBlank(message="Merci de saisir votre nom")
-     * @Assert\Length(
-     *     min=3,
-     *     max=100,
-     *     minMessage="Votre saisie est trop courte",
-     *     maxMessage="votre saisie est trop longue"
-     * )
      */
     private $lastname;
     /**
      * @var string $firstname
      * @ORM\Column(name="usr_firstname", type="string", length=100, nullable=true)
-     * @Assert\NotBlank(message="Merci de saisir votre prénom")
-     * @Assert\Length(
-     *     min=3,
-     *     max=100,
-     *     minMessage="Votre saisie est trop courte",
-     *     maxMessage="votre saisie est trop longue"
-     * )
      */
     private $firstname;
     /**
      * @var \DateTime $birth
      * @ORM\Column(name="usr_birth", type="datetime", nullable=true)
-     * @Assert\NotBlank()
-     * @Assert\LessThan(
-     *     "today",
-     *     message = "merci de vérifier la date de naissance"
-     * )
-     *
      */
     private $birth;
     /**
@@ -68,22 +48,13 @@ class User extends BaseUser
      * User constructor.
      */
 
-    /**
-     * 0 = admin, 1 = naturalist, 2 = regular
-     * @ORM\Column(type="integer")
-     * @Assert\Range(
-     *      min = 0,
-     *      max = 2
-     * )
-     */
-    private $role;
+
 
     public function __construct()
     {
         parent::__construct();
         $this->observations = new ArrayCollection();
         $this->badges = new ArrayCollection();
-        $this->setRole(2);
     }
     /**
      * @return null|string
@@ -170,14 +141,5 @@ class User extends BaseUser
         $this->badges->removeElement($badge);
     }
 
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
 
-    public function setRole(string $role): self
-    {
-        $this->role = $role;
-        return $this;
-    }
 }
