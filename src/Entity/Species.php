@@ -21,13 +21,13 @@ class Species
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $order;
+    private $ordre;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $family;
+    private $famille;
 
     /**
      * @ORM\Column(type="integer")
@@ -70,26 +70,26 @@ class Species
         return $this->id;
     }
 
-    public function getOrder(): ?string
+    public function getOrdre(): ?string
     {
-        return $this->order;
+        return $this->ordre;
     }
 
-    public function setOrder(string $order): self
+    public function setOrdre(string $ordre): self
     {
-        $this->order = $order;
+        $this->ordre = $ordre;
 
         return $this;
     }
 
-    public function getFamily(): ?string
+    public function getFamille(): ?string
     {
-        return $this->family;
+        return $this->famille;
     }
 
-    public function setFamily(string $family): self
+    public function setFamille(string $famille): self
     {
-        $this->family = $family;
+        $this->famille = $famille;
 
         return $this;
     }
