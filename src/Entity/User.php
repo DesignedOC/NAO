@@ -37,7 +37,7 @@ class User extends BaseUser
      */
     private $birth;
     /**
-     * @ORM\OneToMany(targetEntity="Observations", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Observation", mappedBy="user")
      */
     private $observations;
     /**
@@ -105,19 +105,19 @@ class User extends BaseUser
         return $this;
     }
     /**
-     * @return Collection|Observations[]
+     * @return Collection|Observation[]
      */
     public function getObservation() : Collection
     {
         return $this->observations;
     }
 
-    public function addObservations(Observations $observation)
+    public function addObservation(Observation $observation)
     {
         $this->observations[] = $observation;
         $observation->setUser($this);
     }
-    public function removeObservation(Observations $observation)
+    public function removeObservation(Observation $observation)
     {
         $this->observations->removeElement($observation);
     }

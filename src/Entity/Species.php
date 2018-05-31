@@ -78,7 +78,6 @@ class Species
     public function setOrder(string $order): self
     {
         $this->order = $order;
-
         return $this;
     }
 

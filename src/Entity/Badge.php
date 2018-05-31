@@ -27,9 +27,6 @@ class Badge
      * @ORM\Column(type="string", length=255)
      */
     private $name;
-
-
-
     /**
      * @ORM\Column(type="string", length=255)
      * @var string
