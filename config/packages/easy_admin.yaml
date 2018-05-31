@@ -61,7 +61,7 @@ easy_admin:
                     - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
                 fields:
                     - { property: 'id'}
-                    - { property: 'date'}
+                    - { property: 'date', format: 'd/m/Y'}
                     - { property: 'user', label: 'Utilisateur'}
                     - { property: 'statut'}
                     - { property: 'latitude'}
@@ -74,7 +74,7 @@ easy_admin:
                 fields:
                     - { property: 'date', type: 'date'}
                     - { property: 'user', label: 'Utilisateur'}
-                    - { property: 'statut'}
+                    - { property: 'statut', label: 'statut', type: 'choice', type_options: { expanded: true, multiple: false, choices: {'Non traitée' : 'untreated', 'Acceptée' : 'accepted', 'Rejetée' : 'rejected', 'Brouillon' : 'draft' }, choice_attr: {'style' : 'width: 100px'}}}
                     - { property: 'latitude'}
                     - { property: 'longitude'}
                     - { property: 'bird', label: 'Oiseau'}
@@ -85,7 +85,7 @@ easy_admin:
                 fields:
                     - { property: 'date', type: 'date'}
                     - { property: 'user', label: 'Utilisateur'}
-                    - { property: 'statut'}
+                    - { property: 'statut', label: 'statut', type: 'choice', type_options: { expanded: true, multiple: false, choices: {'Non traitée' : 'untreated', 'Acceptée' : 'accepted', 'Rejetée' : 'rejected', 'Brouillon' : 'draft' }, choice_attr: {'style' : 'width: 100px'}}}
                     - { property: 'latitude'}
                     - { property: 'longitude'}
                     - { property: 'bird', label: 'Oiseau'}
@@ -183,7 +183,7 @@ easy_admin:
                 title: 'Voir un badge'
                 fields:
                     - { property: 'user',label: 'Utilisateur'}
-                    - { property: 'picture', label: 'Image'}
+                    - { property: 'picture', label: 'Image',type: 'image'}
 
 
 
