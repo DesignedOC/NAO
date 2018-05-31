@@ -14,11 +14,7 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 class Observations
 {
-    const STATUS_UNTREATED = 'untreated';
-    const STATUS_ACCEPTED = 'accepted';
-    const STATUS_REJECTED = 'rejected';
-    const STATUS_DRAFT = 'draft';
-    /**
+        /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -46,6 +42,10 @@ class Observations
      */
     private $picture;
     /**
+     *  * @Assert\File(
+     *     maxSize="2M",
+     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
+     * )
      * @Vich\UploadableField(mapping="product_images", fileNameProperty="picture")
      * @var File
      */
@@ -62,8 +62,12 @@ class Observations
      */
     private $user;
     /**
-     * @ORM\Column(type="string", length=64, nullable=false, columnDefinition="ENUM('untreated', 'accepted', 'rejected', 'draft')", options={"default":"untreated"})
-     * @Assert\NotBlank()
+     * 0 = rejected, 1 = under validation, 2 = validated
+     * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 2
+     * )
      */
     private $statut;
     /**
@@ -72,9 +76,16 @@ class Observations
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
     public function __construct()
     {
         $this->date = new \Datetime();
+        $this->setStatut(1);
+        $this->updatedAt = new \DateTime();
     }
     /**
      * @return mixed
@@ -212,6 +223,17 @@ class Observations
     public function setDescription(string $description): self
     {
         $this->description = $description;
+        return $this;
+    }
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
         return $this;
     }
 }

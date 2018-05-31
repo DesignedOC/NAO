@@ -15,97 +15,128 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User extends BaseUser
 {
-    const VISITOR = 'visitor';
-    const ADMIN = 'admin';
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     protected $id;
-
     /**
-     * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank()
+     * @var string $lastname
+     * @ORM\Column(name="usr_lastname", type="string", length=100, nullable=true)
+     * @Assert\NotBlank(message="Merci de saisir votre nom")
+     * @Assert\Length(
+     *     min=3,
+     *     max=100,
+     *     minMessage="Votre saisie est trop courte",
+     *     maxMessage="votre saisie est trop longue"
+     * )
      */
     private $lastname;
-
     /**
-     * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank()
+     * @var string $firstname
+     * @ORM\Column(name="usr_firstname", type="string", length=100, nullable=true)
+     * @Assert\NotBlank(message="Merci de saisir votre prénom")
+     * @Assert\Length(
+     *     min=3,
+     *     max=100,
+     *     minMessage="Votre saisie est trop courte",
+     *     maxMessage="votre saisie est trop longue"
+     * )
      */
     private $firstname;
-
     /**
-     * @ORM\Column(type="datetime")
+     * @var \DateTime $birth
+     * @ORM\Column(name="usr_birth", type="datetime", nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\LessThan(
+     *     "today",
+     *     message = "merci de vérifier la date de naissance"
+     * )
+     *
      */
     private $birth;
-
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Observations", cascade={"persist"})
-     * @ORM\Column(type="string", length=100)
+     * @ORM\OneToMany(targetEntity="Observations", mappedBy="user")
      */
-    private $observation;
-
+    private $observations;
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Badge", mappedBy="user")
      */
     private $badges;
-
-
+    /**
+     * User constructor.
+     */
     public function __construct()
     {
         parent::__construct();
+        $this->observations = new ArrayCollection();
         $this->badges = new ArrayCollection();
     }
-
+    /**
+     * @return null|string
+     */
     public function getLastname(): ?string
     {
         return $this->lastname;
     }
-
+    /**
+     * @param string $lastname
+     * @return User
+     */
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
-
         return $this;
     }
-
+    /**
+     * @return null|string
+     */
     public function getFirstname(): ?string
     {
         return $this->firstname;
     }
-
+    /**
+     * @param string $firstname
+     * @return User
+     */
     public function setFirstname(string $firstname): self
     {
         $this->firstname = $firstname;
-
         return $this;
     }
-
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getBirth(): ?\DateTimeInterface
     {
         return $this->birth;
     }
-
+    /**
+     * @param \DateTimeInterface $birth
+     * @return User
+     */
     public function setBirth(\DateTimeInterface $birth): self
     {
         $this->birth = $birth;
-
         return $this;
     }
-
-    public function getObservation(): ?string
+    /**
+     * @return Collection|Observations[]
+     */
+    public function getObservation() : Collection
     {
-        return $this->observation;
+        return $this->observations;
     }
 
-    public function setObservation(string $observation): self
+    public function addObservations(Observations $observation)
     {
-        $this->observation = $observation;
-
-        return $this;
+        $this->observations[] = $observation;
+        $observation->setUser($this);
+    }
+    public function removeObservation(Observations $observation)
+    {
+        $this->observations->removeElement($observation);
     }
 
     /**
@@ -118,24 +149,12 @@ class User extends BaseUser
 
     public function addBadge(Badge $badge): self
     {
-        if (!$this->badges->contains($badge)) {
-            $this->badges[] = $badge;
-            $badge->setUser($this);
-        }
-
-        return $this;
+        $this->badges[] = $badge;
+        $badge->setUser($this);
     }
 
     public function removeBadge(Badge $badge): self
     {
-        if ($this->badges->contains($badge)) {
-            $this->badges->removeElement($badge);
-            // set the owning side to null (unless already changed)
-            if ($badge->getUser() === $this) {
-                $badge->setUser(null);
-            }
-        }
-
-        return $this;
+        $this->badges->removeElement($badge);
     }
 }
