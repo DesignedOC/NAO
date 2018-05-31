@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ObservationsRepository")
+ * @Vich\Uploadable
  */
 class Observations
 {
@@ -40,7 +43,8 @@ class Observations
     private $longitude;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
+     * @var string
      * @Assert\Valid
      */
     private $picture;
@@ -69,12 +73,22 @@ class Observations
      */
     private $description;
 
+    /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="picture")
+     * @var File
+     */
+    private $pictureFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
     public function __construct()
     {
         $this->date = new \Datetime();
+        $this->updatedAt = new \DateTime();
     }
-
-
 
 
     public function getId()
@@ -118,16 +132,15 @@ class Observations
         return $this;
     }
 
-    public function getPicture(): ?float
+    public function getPicture(): ?string
     {
         return $this->picture;
     }
 
-    public function setPicture(float $picture): self
+    public function setPicture(?string $picture): void
     {
         $this->picture = $picture;
 
-        return $this;
     }
 
     public function getBird(): ?string
@@ -174,6 +187,33 @@ class Observations
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+
+    public function setPictureFile(?File $picture = null):void
+    {
+        $this->pictureFile = $picture;
+        if(null != $picture)
+        {
+            $this->updatedAt = new \DateTime();
+        }
+
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

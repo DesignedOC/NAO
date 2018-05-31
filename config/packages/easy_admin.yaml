@@ -1,7 +1,6 @@
 easy_admin:
     site_name: 'Administration'
-    formats:
-        date: 'd/m/Y'
+
     design:
         brand-color: green
         form_theme: 'vertical'
@@ -68,7 +67,7 @@ easy_admin:
                     - { property: 'longitude'}
                     - { property: 'bird', label: 'Oiseau'}
                     - { property: 'description'}
-                    - { property: 'picture', label: 'Image', type: 'file'}
+                   # - { property: 'pictureFile', label: 'Image', type: 'vich_picture'}
             new:
                 title: 'Créer une nouvelle observation'
                 fields:
@@ -78,7 +77,7 @@ easy_admin:
                     - { property: 'latitude'}
                     - { property: 'longitude'}
                     - { property: 'bird', label: 'Oiseau'}
-                    - { property: 'picture', label: 'Image',type: 'file'}
+                    - { property: 'pictureFile',type: 'vich_image'}
                     - { property: 'description'}
             edit:
                 title: "Editer l'observation"
@@ -89,7 +88,7 @@ easy_admin:
                     - { property: 'latitude'}
                     - { property: 'longitude'}
                     - { property: 'bird', label: 'Oiseau'}
-                    - { property: 'picture', label: 'Image',type: 'file'}
+                    - { property: 'pictureFile' ,type: 'vich_image'}
                     - { property: 'description'}
             show:
                 title: "Voir l'observation"
@@ -100,7 +99,7 @@ easy_admin:
                     - { property: 'latitude'}
                     - { property: 'longitude'}
                     - { property: 'bird', label: 'Oiseau'}
-                    - { property: 'picture', label: 'Image'}
+                    - { property: 'pictureFile', type: 'vich_image'}
                     - { property: 'description'}
 
         Species:
