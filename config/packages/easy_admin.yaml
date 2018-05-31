@@ -26,7 +26,7 @@ easy_admin:
                     - { property: 'id' }
                     - { property: 'lastname', label: 'Nom' }
                     - { property: 'firstname', label: 'Prénom' }
-                    - { property: 'birth', label: 'Date de naissance' }
+                    - { property: 'birth', label: 'Date de naissance',type: 'date' }
                     - { property: 'observation' }
                     - { property: 'badges' }
             new:
@@ -35,7 +35,7 @@ easy_admin:
                     - { type: 'group',css_class: 'col-sm-6', label: 'Informations : compte',icon: 'user'}
                     - { property: 'lastname', label: 'Nom' }
                     - { property: 'firstname', label: 'Prénom' }
-                    - { property: 'birth', label: ' Date de naissance' }
+                    - { property: 'birth', label: ' Date de naissance', type: 'date' }
                     - { type: 'group', css_class: 'col-sm-6',label: 'Informations : détails', icon: 'plus-circle'}
                     - { property: 'observation' }
                     - { property: 'badges' }
@@ -45,7 +45,7 @@ easy_admin:
                     - { type: 'tab', css_class: 'col-sm-6', label: 'Informations : compte', icon: 'user'}
                     - { property: 'lastname',label: 'Nom' }
                     - { property: 'firstname', label: 'Prénom' }
-                    - { property: 'birth', label: 'Date de naissance' }
+                    - { property: 'birth', label: 'Date de naissance', type: 'date' }
                     - { type: 'tab', css_class: 'col-sm-6', label: 'Informations : détails', icon: 'plus-circle'}
                     - { property: 'observation' }
                     - { property: 'badges' }
@@ -61,12 +61,12 @@ easy_admin:
                     - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
                 fields:
                     - { property: 'id'}
-                    - { property: 'date', format: 'd/m/Y'}
+                    - { property: 'date', type: 'date'}
                     - { property: 'user', label: 'Utilisateur'}
                     - { property: 'statut'}
                     - { property: 'latitude'}
                     - { property: 'longitude'}
-                    - { property: 'bird', label: 'Oiseau'}
+                    - { property: 'bird', label: 'Oiseau' }
                     - { property: 'description'}
                    # - { property: 'pictureFile', label: 'Image', type: 'vich_picture'}
             new:
@@ -91,17 +91,17 @@ easy_admin:
                     - { property: 'bird', label: 'Oiseau'}
                     - { property: 'pictureFile' ,type: 'vich_image'}
                     - { property: 'description'}
-            show:
-                title: "Voir l'observation"
-                fields:
-                    - { property: 'date', type: 'date'}
-                    - { property: 'user', label: 'Utilisateur'}
-                    - { property: 'statut'}
-                    - { property: 'latitude'}
-                    - { property: 'longitude'}
-                    - { property: 'bird', label: 'Oiseau'}
-                    - { property: 'pictureFile', type: 'vich_image'}
-                    - { property: 'description'}
+          #  show:
+          #      title: "Voir l'observation"
+          #      fields:
+          #          - { property: 'date', type: 'date'}
+          #          - { property: 'user', label: 'Utilisateur'}
+          #          - { property: 'statut'}
+          #          - { property: 'latitude'}
+          #          - { property: 'longitude'}
+          #          - { property: 'bird', label: 'Oiseau'}
+          #          - { property: 'pictureFile', type: 'vich_image'}
+          #          - { property: 'description'}
 
         Species:
             class: App\Entity\Species
@@ -144,17 +144,17 @@ easy_admin:
                     - { property: 'habitat'}
                     - { property: 'statut'}
                     - { property: 'url'}
-            show:
-                title: "Voir l'oiseau"
-                fields:
-                    - { property: 'ordre'}
-                    - { property: 'famille'}
-                    - { property: 'cdNom'}
-                    - { property: 'lbNom'}
-                    - { property: 'nomVern'}
-                    - { property: 'habitat'}
-                    - { property: 'statut'}
-                    - { property: 'url'}
+           # show:
+           #     title: "Voir l'oiseau"
+            #    fields:
+            #        - { property: 'ordre'}
+            #        - { property: 'famille'}
+            #        - { property: 'cdNom'}
+            #        - { property: 'lbNom'}
+            #        - { property: 'nomVern'}
+           #         - { property: 'habitat'}
+            #        - { property: 'statut'}
+            #        - { property: 'url'}
 
         Badge:
             class: App\Entity\Badge
@@ -164,26 +164,29 @@ easy_admin:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+                    #- { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
                 fields:
                     - { property: 'id'}
                     - { property: 'user', label: 'Utilisateur'}
-                    - { property: 'picture', label: 'Image'}
+                   # - { property: 'pictureFile', type: 'vich_image'}
             new:
                 title: 'Créer un nouveau badge'
                 fields:
                     - { property: 'user', label: 'Utilisateur'}
-                    - { property: 'picture', label: 'Image', type: 'file'}
+                    - { property: 'pictureFile', label: 'Image', type: 'vich_image'}
             edit:
                 title: 'Editer un badge'
                 fields:
                     - { property: 'user',label: 'Utilisateur'}
-                    - { property: 'picture',label: 'Image', type: 'file'}
-            show:
-                title: 'Voir un badge'
-                fields:
-                    - { property: 'user',label: 'Utilisateur'}
-                    - { property: 'picture', label: 'Image',type: 'image'}
+                    - { property: 'pictureFile',label: 'Image', type: 'vich_image'}
+           # show:
+            #    title: 'Voir un badge'
+            #    fields:
+            #        - { property: 'user',label: 'Utilisateur'}
+            #        - { property: 'picture', label: 'Image',type: 'image'}
+
+
+
 
 
 

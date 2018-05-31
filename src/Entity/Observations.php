@@ -90,7 +90,6 @@ class Observations
         $this->updatedAt = new \DateTime();
     }
 
-
     public function getId()
     {
         return $this->id;
@@ -205,7 +204,6 @@ class Observations
         }
 
     }
-
     public function getUpdatedAt()
     {
         return $this->updatedAt;

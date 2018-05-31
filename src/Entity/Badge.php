@@ -4,8 +4,11 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\file;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BadgeRepository")
+ * @Vich\Uploadable
  */
 class Badge
 {
@@ -25,6 +28,24 @@ class Badge
      * @ORM\Column(type="string", length=255)
      */
     private $picture;
+
+    /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty= "picture")
+     * @var File
+     */
+    private $pictureFile;
+
+
+    /**
+     * @ORM\Column(type="datetime",nullable=true)
+     */
+    private $updatedAt;
+
+
+    public function __construct()
+    {
+        $this->updatedAt = new \Datetime();
+    }
 
     public function getId()
     {
@@ -48,9 +69,34 @@ class Badge
         return $this->picture;
     }
 
-    public function setPicture(string $picture): self
+    public function setPicture(?string $picture): void
     {
         $this->picture = $picture;
+
+    }
+
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+    public function setPictureFile(?File $picture = null):void
+    {
+        $this->pictureFile = $picture;
+        if(null != $picture)
+        {
+            $this->updatedAt = new \DateTime();
+        }
+    }
+
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
