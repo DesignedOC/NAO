@@ -67,11 +67,23 @@ class User extends BaseUser
     /**
      * User constructor.
      */
+
+    /**
+     * 0 = admin, 1 = naturalist, 2 = regular
+     * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 2
+     * )
+     */
+    private $role;
+
     public function __construct()
     {
         parent::__construct();
         $this->observations = new ArrayCollection();
         $this->badges = new ArrayCollection();
+        $this->setRole(2);
     }
     /**
      * @return null|string
@@ -156,5 +168,16 @@ class User extends BaseUser
     public function removeBadge(Badge $badge): self
     {
         $this->badges->removeElement($badge);
+    }
+
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
+        return $this;
     }
 }
