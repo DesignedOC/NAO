@@ -19,15 +19,19 @@ easy_admin:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                   # - { name: 'show', icon: 'eye', label: 'Voir', title: 'Voir' }
+                    - { name: 'show', icon: 'eye', label: 'Voir', title: 'Voir' }
 
                 fields:
                     - { property: 'id' }
                     - { property: 'lastname', label: 'Nom' }
                     - { property: 'firstname', label: 'Prénom' }
                     - { property: 'birth', label: 'Date de naissance',type: 'date' }
-                    - { property: 'observation' }
-                    - { property: 'badges' }
+                    - email
+                    - enabled
+                    - lastLogin
+                    - { property: 'plainPassword', type: 'text', type_options: { required: false } }
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN', 'ROLE_NATURALIST': 'ROLE_NATURALIST' } } }
+
             new:
                 title: "Créer un nouvel utilisateur"
                 fields:
@@ -36,8 +40,12 @@ easy_admin:
                     - { property: 'firstname', label: 'Prénom' }
                     - { property: 'birth', label: ' Date de naissance', type: 'date' }
                     - { type: 'group', css_class: 'col-sm-6',label: 'Informations : détails', icon: 'plus-circle'}
-                    - { property: 'observation' }
-                    - { property: 'badges' }
+                    - username
+                    - email
+                    - enabled
+                    - lastLogin
+                    - { property: 'plainPassword', type: 'text', type_options: { required: false } }
+                    - { property: 'roles' ,type: 'choice', type_options: { multiple: true, choices : { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN', 'ROLE_NATURALIST': 'ROLE_NATURALIST' } }}
             edit:
                 title: "Edition du profil utilisateur"
                 fields:
@@ -46,8 +54,24 @@ easy_admin:
                     - { property: 'firstname', label: 'Prénom' }
                     - { property: 'birth', label: 'Date de naissance', type: 'date' }
                     - { type: 'tab', css_class: 'col-sm-6', label: 'Informations : détails', icon: 'plus-circle'}
-                    - { property: 'observation' }
-                    - { property: 'badges' }
+                    - username
+                    - email
+                    - enabled
+                    - lastLogin
+                    - { property: 'plainPassword', type: 'text', type_options: { required: false } }
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN', 'ROLE_NATURALIST': 'ROLE_NATURALIST' } } }
+            show:
+                title: "Voir du profil utilisateur"
+                fields:
+                    - lastname
+                    - firstname
+                    - birth
+                    - username
+                    - email
+                    - enabled
+                    - lastLogin
+                    - plainPassword
+                    - roles
 
         Observation:
             class: App\Entity\Observation
@@ -57,8 +81,7 @@ easy_admin:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-
-                  #  - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
                 fields:
                     - { property: 'id'}
                     - { property: 'date', type: 'date'}
@@ -68,7 +91,6 @@ easy_admin:
                     - { property: 'longitude'}
                     - { property: 'bird', label: 'Oiseau' }
                     - { property: 'description'}
-                   # - { property: 'pictureFile', label: 'Image', type: 'vich_picture'}
             new:
                 title: 'Créer une nouvelle observation'
                 fields:
@@ -100,12 +122,12 @@ easy_admin:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                  #  - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
 
                 fields:
                     - { property: 'id'}
-                    - { property: 'ordre'}
-                    - { property: 'famille'}
+                    - { property: 'order'}
+                    - { property: 'family'}
                     - { property: 'cdNom'}
                     - { property: 'lbNom'}
                     - { property: 'nomVern'}
@@ -115,8 +137,8 @@ easy_admin:
             new:
                 title: 'Ajouter un Oiseau'
                 fields:
-                    - { property: 'ordre'}
-                    - { property: 'famille'}
+                    - { property: 'order'}
+                    - { property: 'family'}
                     - { property: 'cdNom'}
                     - { property: 'lbNom'}
                     - { property: 'nomVern'}
@@ -126,8 +148,8 @@ easy_admin:
             edit:
                 title: "Editer l'oiseau"
                 fields:
-                    - { property: 'ordre'}
-                    - { property: 'famille'}
+                    - { property: 'order'}
+                    - { property: 'family'}
                     - { property: 'cdNom'}
                     - { property: 'lbNom'}
                     - { property: 'nomVern'}
@@ -144,7 +166,7 @@ easy_admin:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                    #- { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
                 fields:
                     - { property: 'id'}
                     - { property: 'user', label: 'Utilisateur'}

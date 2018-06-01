@@ -6,6 +6,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BadgeRepository")
+ * @Vich\Uploadable
  */
 class Badge
 {
