@@ -62,45 +62,45 @@ easy_admin:
                 fields:
                     - { property: 'id'}
                     - { property: 'date'}
-                    - { property: 'latitude'}
-                    - { property: 'longitude'}
-                    - { property: 'picture', label: 'Image', type: 'file'}
-                    - { property: 'bird', label: 'Oiseau'}
                     - { property: 'user', label: 'Utilisateur'}
                     - { property: 'statut'}
+                    - { property: 'latitude'}
+                    - { property: 'longitude'}
+                    - { property: 'bird', label: 'Oiseau'}
                     - { property: 'description'}
+                    - { property: 'picture', label: 'Image', type: 'file'}
             new:
                 title: 'Créer une nouvelle observation'
                 fields:
                     - { property: 'date', type: 'date'}
-                    - { property: 'latitude'}
-                    - { property: 'longitude'}
-                    - { property: 'picture', label: 'Image',type: 'file'}
-                    - { property: 'bird', label: 'Oiseau'}
                     - { property: 'user', label: 'Utilisateur'}
                     - { property: 'statut'}
+                    - { property: 'latitude'}
+                    - { property: 'longitude'}
+                    - { property: 'bird', label: 'Oiseau'}
+                    - { property: 'picture', label: 'Image',type: 'file'}
                     - { property: 'description'}
             edit:
                 title: "Editer l'observation"
                 fields:
                     - { property: 'date', type: 'date'}
-                    - { property: 'latitude'}
-                    - { property: 'longitude'}
-                    - { property: 'picture', label: 'Image',type: 'file'}
-                    - { property: 'bird', label: 'Oiseau'}
                     - { property: 'user', label: 'Utilisateur'}
                     - { property: 'statut'}
+                    - { property: 'latitude'}
+                    - { property: 'longitude'}
+                    - { property: 'bird', label: 'Oiseau'}
+                    - { property: 'picture', label: 'Image',type: 'file'}
                     - { property: 'description'}
             show:
                 title: "Voir l'observation"
                 fields:
                     - { property: 'date', type: 'date'}
-                    - { property: 'latitude'}
-                    - { property: 'longitude'}
-                    - { property: 'picture', label: 'Image'}
-                    - { property: 'bird', label: 'Oiseau'}
                     - { property: 'user', label: 'Utilisateur'}
                     - { property: 'statut'}
+                    - { property: 'latitude'}
+                    - { property: 'longitude'}
+                    - { property: 'bird', label: 'Oiseau'}
+                    - { property: 'picture', label: 'Image'}
                     - { property: 'description'}
 
         Species:
