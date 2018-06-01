@@ -1,6 +1,7 @@
 easy_admin:
     site_name: 'Administration'
-
+    formats:
+        date: 'd/m/Y'
     design:
         brand-color: green
         form_theme: 'vertical'
@@ -113,8 +114,8 @@ easy_admin:
                     - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
                 fields:
                     - { property: 'id'}
-                    - { property: 'order'}
-                    - { property: 'family'}
+                    - { property: 'ordre'}
+                    - { property: 'famille'}
                     - { property: 'cdNom'}
                     - { property: 'lbNom'}
                     - { property: 'nomVern'}
@@ -122,10 +123,10 @@ easy_admin:
                     - { property: 'statut'}
                     - { property: 'url'}
             new:
-                title: 'Créer une nouvelle espèce'
+                title: 'Ajouter un Oiseau'
                 fields:
-                    - { property: 'order'}
-                    - { property: 'family'}
+                    - { property: 'ordre'}
+                    - { property: 'famille'}
                     - { property: 'cdNom'}
                     - { property: 'lbNom'}
                     - { property: 'nomVern'}
@@ -135,8 +136,8 @@ easy_admin:
             edit:
                 title: "Editer l'oiseau"
                 fields:
-                    - { property: 'order'}
-                    - { property: 'family'}
+                    - { property: 'ordre'}
+                    - { property: 'famille'}
                     - { property: 'cdNom'}
                     - { property: 'lbNom'}
                     - { property: 'nomVern'}
@@ -146,8 +147,8 @@ easy_admin:
             show:
                 title: "Voir l'oiseau"
                 fields:
-                    - { property: 'order'}
-                    - { property: 'family'}
+                    - { property: 'ordre'}
+                    - { property: 'famille'}
                     - { property: 'cdNom'}
                     - { property: 'lbNom'}
                     - { property: 'nomVern'}

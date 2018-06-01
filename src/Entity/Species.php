@@ -21,13 +21,13 @@ class Species
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $order;
+    private $ordre;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $family;
+    private $famille;
 
     /**
      * @ORM\Column(type="integer")
@@ -74,14 +74,19 @@ class Species
         return $this->id;
     }
 
+<<<<<<< HEAD
     /**
      * @return null|string
      */
     public function getOrder(): ?string
+=======
+    public function getOrdre(): ?string
+>>>>>>> changing the family and order property names in the Species entity because order is a reserved name
     {
-        return $this->order;
+        return $this->ordre;
     }
 
+<<<<<<< HEAD
     /**
      * @param string $order
      * @return Species
@@ -96,17 +101,31 @@ class Species
      * @return null|string
      */
     public function getFamily(): ?string
+=======
+    public function setOrdre(string $ordre): self
     {
-        return $this->family;
+        $this->ordre = $ordre;
+
+        return $this;
     }
 
+    public function getFamille(): ?string
+>>>>>>> changing the family and order property names in the Species entity because order is a reserved name
+    {
+        return $this->famille;
+    }
+
+<<<<<<< HEAD
     /**
      * @param string $family
      * @return Species
      */
     public function setFamily(string $family): self
+=======
+    public function setFamille(string $famille): self
+>>>>>>> changing the family and order property names in the Species entity because order is a reserved name
     {
-        $this->family = $family;
+        $this->famille = $famille;
 
         return $this;
     }
