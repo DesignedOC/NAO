@@ -5,15 +5,10 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-<<<<<<< HEAD
 use Symfony\Component\HttpFoundation\File\File;
 
-=======
-use Symfony\Component\HttpFoundation\File\file;
->>>>>>> config vich in Badge Entity with add updatedAt and pictureFile fields + add vich type for Badge in easyAdmin.yaml
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BadgeRepository")
- * @Vich\Uploadable
  */
 class Badge
 {
@@ -42,20 +37,16 @@ class Badge
     private $picture;
 
     /**
-<<<<<<< HEAD
      *  * @Assert\File(
      *     maxSize="2M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
      * @Vich\UploadableField(mapping="product_images", fileNameProperty="picture")
-=======
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty= "picture")
->>>>>>> config vich in Badge Entity with add updatedAt and pictureFile fields + add vich type for Badge in easyAdmin.yaml
      * @var File
      */
     private $pictureFile;
 
-<<<<<<< HEAD
+
     /**
      * @ORM\Column(type="datetime")
      */
@@ -72,20 +63,8 @@ class Badge
     /**
      * @return mixed
      */
-=======
-
-    /**
-     * @ORM\Column(type="datetime",nullable=true)
-     */
-    private $updatedAt;
 
 
-    public function __construct()
-    {
-        $this->updatedAt = new \Datetime();
-    }
-
->>>>>>> config vich in Badge Entity with add updatedAt and pictureFile fields + add vich type for Badge in easyAdmin.yaml
     public function getId()
     {
         return $this->id;
@@ -134,67 +113,54 @@ class Badge
         return $this->picture;
     }
 
-<<<<<<< HEAD
+
     /**
      * @param null|string $picture
      */
-=======
->>>>>>> config vich in Badge Entity with add updatedAt and pictureFile fields + add vich type for Badge in easyAdmin.yaml
+
     public function setPicture(?string $picture): void
     {
         $this->picture = $picture;
 
     }
 
-<<<<<<< HEAD
     /**
      * @return null|File
      */
-=======
->>>>>>> config vich in Badge Entity with add updatedAt and pictureFile fields + add vich type for Badge in easyAdmin.yaml
+
     public function getPictureFile(): ?File
     {
         return $this->pictureFile;
     }
-<<<<<<< HEAD
 
     /**
      * @param null|File $picture
      */
-    public function setPictureFile(?File $picture = null): void
-    {
-        $this->pictureFile = $picture;
-        if (null != $picture) {
-=======
+
     public function setPictureFile(?File $picture = null):void
     {
         $this->pictureFile = $picture;
         if(null != $picture)
         {
->>>>>>> config vich in Badge Entity with add updatedAt and pictureFile fields + add vich type for Badge in easyAdmin.yaml
+
             $this->updatedAt = new \DateTime();
         }
     }
 
-<<<<<<< HEAD
     /**
      * @return \DateTime
      */
-=======
 
->>>>>>> config vich in Badge Entity with add updatedAt and pictureFile fields + add vich type for Badge in easyAdmin.yaml
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
-<<<<<<< HEAD
     /**
      * @param $updatedAt
      * @return $this
      */
-=======
->>>>>>> config vich in Badge Entity with add updatedAt and pictureFile fields + add vich type for Badge in easyAdmin.yaml
+
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
