@@ -7,10 +7,18 @@ easy_admin:
         form_theme: 'vertical'
         menu:
             - { entity: 'User', icon: 'user', label: 'Utilisateurs' }
+<<<<<<< HEAD
             - { entity: 'Observation', icon: 'binoculars', label: 'Observation' }
             - { entity: 'Species', icon: 'themeisle', label: 'Especes' }
             - { entity: 'Badge', icon: 'bookmark', label: 'Badge' }
 
+=======
+            - { entity: 'Observations', icon: 'binoculars', label: 'Observations' }
+            - { entity: 'Species', icon: 'themeisle', label: 'Especes' }
+            - { entity: 'Badge', icon: 'bookmark', label: 'Badge' }
+
+
+>>>>>>> 6e56c423c88086b41d509e95afb68723547553a4
     entities:
         User:
             class: App\Entity\User
@@ -20,13 +28,21 @@ easy_admin:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
+<<<<<<< HEAD
                    # - { name: 'show', icon: 'eye', label: 'Voir', title: 'Voir' }
+=======
+                    - { name: 'show', icon: 'eye', label: 'Voir', title: 'Voir' }
+>>>>>>> 6e56c423c88086b41d509e95afb68723547553a4
                 fields:
                     - { property: 'id' }
                     - { property: 'lastname', label: 'Nom' }
                     - { property: 'firstname', label: 'Prénom' }
                     - { property: 'birth', label: 'Date de naissance',type: 'date' }
+<<<<<<< HEAD
                     - { property: 'observations' }
+=======
+                    - { property: 'observation' }
+>>>>>>> 6e56c423c88086b41d509e95afb68723547553a4
                     - { property: 'badges' }
             new:
                 title: "Créer un nouvel utilisateur"
@@ -36,7 +52,11 @@ easy_admin:
                     - { property: 'firstname', label: 'Prénom' }
                     - { property: 'birth', label: ' Date de naissance', type: 'date' }
                     - { type: 'group', css_class: 'col-sm-6',label: 'Informations : détails', icon: 'plus-circle'}
+<<<<<<< HEAD
                     - { property: 'observations' }
+=======
+                    - { property: 'observation' }
+>>>>>>> 6e56c423c88086b41d509e95afb68723547553a4
                     - { property: 'badges' }
             edit:
                 title: "Edition du profil utilisateur"
@@ -46,6 +66,7 @@ easy_admin:
                     - { property: 'firstname', label: 'Prénom' }
                     - { property: 'birth', label: 'Date de naissance', type: 'date' }
                     - { type: 'tab', css_class: 'col-sm-6', label: 'Informations : détails', icon: 'plus-circle'}
+<<<<<<< HEAD
                     - { property: 'observations' }
                     - { property: 'badges' }
 
@@ -53,11 +74,24 @@ easy_admin:
             class: App\Entity\Observation
             list:
                 title: 'Observation'
+=======
+                    - { property: 'observation' }
+                    - { property: 'badges' }
+
+        Observations:
+            class: App\Entity\Observations
+            list:
+                title: 'Observations'
+>>>>>>> 6e56c423c88086b41d509e95afb68723547553a4
                 actions:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
+<<<<<<< HEAD
                   #  - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+=======
+                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+>>>>>>> 6e56c423c88086b41d509e95afb68723547553a4
                 fields:
                     - { property: 'id'}
                     - { property: 'date', type: 'date'}
@@ -73,7 +107,11 @@ easy_admin:
                 fields:
                     - { property: 'date', type: 'date'}
                     - { property: 'user', label: 'Utilisateur'}
+<<<<<<< HEAD
                     - { property: 'statut', label: 'statut'}
+=======
+                    - { property: 'statut', label: 'statut', type: 'choice', type_options: { expanded: true, multiple: false, choices: {'Non traitée' : 'untreated', 'Acceptée' : 'accepted', 'Rejetée' : 'rejected', 'Brouillon' : 'draft' }, choice_attr: {'style' : 'width: 100px'}}}
+>>>>>>> 6e56c423c88086b41d509e95afb68723547553a4
                     - { property: 'latitude'}
                     - { property: 'longitude'}
                     - { property: 'bird', label: 'Oiseau'}
@@ -84,12 +122,30 @@ easy_admin:
                 fields:
                     - { property: 'date', type: 'date'}
                     - { property: 'user', label: 'Utilisateur'}
+<<<<<<< HEAD
                     - { property: 'statut', label: 'statut'}
+=======
+                    - { property: 'statut', label: 'statut', type: 'choice', type_options: { expanded: true, multiple: false, choices: {'Non traitée' : 'untreated', 'Acceptée' : 'accepted', 'Rejetée' : 'rejected', 'Brouillon' : 'draft' }, choice_attr: {'style' : 'width: 100px'}}}
+>>>>>>> 6e56c423c88086b41d509e95afb68723547553a4
                     - { property: 'latitude'}
                     - { property: 'longitude'}
                     - { property: 'bird', label: 'Oiseau'}
                     - { property: 'pictureFile' ,type: 'vich_image'}
                     - { property: 'description'}
+<<<<<<< HEAD
+=======
+          #  show:
+          #      title: "Voir l'observation"
+          #      fields:
+          #          - { property: 'date', type: 'date'}
+          #          - { property: 'user', label: 'Utilisateur'}
+          #          - { property: 'statut'}
+          #          - { property: 'latitude'}
+          #          - { property: 'longitude'}
+          #          - { property: 'bird', label: 'Oiseau'}
+          #          - { property: 'pictureFile', type: 'vich_image'}
+          #          - { property: 'description'}
+>>>>>>> 6e56c423c88086b41d509e95afb68723547553a4
 
         Species:
             class: App\Entity\Species
@@ -99,7 +155,11 @@ easy_admin:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
+<<<<<<< HEAD
                   #  - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+=======
+                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+>>>>>>> 6e56c423c88086b41d509e95afb68723547553a4
                 fields:
                     - { property: 'id'}
                     - { property: 'ordre'}
@@ -132,6 +192,20 @@ easy_admin:
                     - { property: 'habitat'}
                     - { property: 'statut'}
                     - { property: 'url'}
+<<<<<<< HEAD
+=======
+           # show:
+           #     title: "Voir l'oiseau"
+            #    fields:
+            #        - { property: 'ordre'}
+            #        - { property: 'famille'}
+            #        - { property: 'cdNom'}
+            #        - { property: 'lbNom'}
+            #        - { property: 'nomVern'}
+           #         - { property: 'habitat'}
+            #        - { property: 'statut'}
+            #        - { property: 'url'}
+>>>>>>> 6e56c423c88086b41d509e95afb68723547553a4
 
         Badge:
             class: App\Entity\Badge
@@ -145,21 +219,36 @@ easy_admin:
                 fields:
                     - { property: 'id'}
                     - { property: 'user', label: 'Utilisateur'}
+<<<<<<< HEAD
                     - { property: 'name', label: 'Nom'}
+=======
+>>>>>>> 6e56c423c88086b41d509e95afb68723547553a4
                    # - { property: 'pictureFile', type: 'vich_image'}
             new:
                 title: 'Créer un nouveau badge'
                 fields:
                     - { property: 'user', label: 'Utilisateur'}
+<<<<<<< HEAD
                     - { property: 'name', label: 'Nom'}
+=======
+>>>>>>> 6e56c423c88086b41d509e95afb68723547553a4
                     - { property: 'pictureFile', label: 'Image', type: 'vich_image'}
             edit:
                 title: 'Editer un badge'
                 fields:
                     - { property: 'user',label: 'Utilisateur'}
+<<<<<<< HEAD
                     - { property: 'name',label: 'Nom'}
                     - { property: 'pictureFile',label: 'Image', type: 'vich_image'}
 
+=======
+                    - { property: 'pictureFile',label: 'Image', type: 'vich_image'}
+           # show:
+            #    title: 'Voir un badge'
+            #    fields:
+            #        - { property: 'user',label: 'Utilisateur'}
+            #        - { property: 'picture', label: 'Image',type: 'image'}
+>>>>>>> 6e56c423c88086b41d509e95afb68723547553a4
 
 
 

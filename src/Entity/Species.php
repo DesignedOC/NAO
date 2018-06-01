@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SpeciesRepository")
  */
@@ -16,56 +13,46 @@ class Species
      * @ORM\Column(type="integer")
      */
     private $id;
-
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $ordre;
-
+    private $order;
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $famille;
-
+    private $family;
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank()
      */
     private $cdNom;
-
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
     private $lbNom;
-
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
     private $nomVern;
-
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank()
      */
     private $habitat;
-
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
     private $statut;
-
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
     private $url;
-
-
     /**
      * @return mixed
      */
@@ -73,50 +60,38 @@ class Species
     {
         return $this->id;
     }
-
     /**
      * @return null|string
      */
-
-    public function getOrdre(): ?string
-
+    public function getOrder(): ?string
     {
-        return $this->ordre;
+        return $this->order;
     }
-
-
     /**
-     * @param string $ordre
+     * @param string $order
      * @return Species
      */
-
-    public function setOrdre(string $ordre): self
+    public function setOrder(string $order): self
     {
-        $this->ordre = $ordre;
-
+        $this->order = $order;
         return $this;
     }
-
-    public function getFamille(): ?string
-
-    {
-        return $this->famille;
-    }
-
-
     /**
-     * @param string $famille
+     * @return null|string
+     */
+    public function getFamily(): ?string
+    {
+        return $this->family;
+    }
+    /**
+     * @param string $family
      * @return Species
      */
-
-    public function setFamille(string $famille): self
-
+    public function setFamily(string $family): self
     {
-        $this->famille = $famille;
-
+        $this->family = $family;
         return $this;
     }
-
     /**
      * @return int|null
      */
@@ -124,7 +99,6 @@ class Species
     {
         return $this->cdNom;
     }
-
     /**
      * @param int $cdNom
      * @return Species
@@ -132,10 +106,8 @@ class Species
     public function setCdNom(int $cdNom): self
     {
         $this->cdNom = $cdNom;
-
         return $this;
     }
-
     /**
      * @return null|string
      */
@@ -143,7 +115,6 @@ class Species
     {
         return $this->lbNom;
     }
-
     /**
      * @param string $lbNom
      * @return Species
@@ -151,10 +122,8 @@ class Species
     public function setLbNom(string $lbNom): self
     {
         $this->lbNom = $lbNom;
-
         return $this;
     }
-
     /**
      * @return null|string
      */
@@ -162,7 +131,6 @@ class Species
     {
         return $this->nomVern;
     }
-
     /**
      * @param string $nomVern
      * @return Species
@@ -170,10 +138,8 @@ class Species
     public function setNomVern(string $nomVern): self
     {
         $this->nomVern = $nomVern;
-
         return $this;
     }
-
     /**
      * @return int|null
      */
@@ -181,7 +147,6 @@ class Species
     {
         return $this->habitat;
     }
-
     /**
      * @param int $habitat
      * @return Species
@@ -189,10 +154,8 @@ class Species
     public function setHabitat(int $habitat): self
     {
         $this->habitat = $habitat;
-
         return $this;
     }
-
     /**
      * @return null|string
      */
@@ -200,7 +163,6 @@ class Species
     {
         return $this->statut;
     }
-
     /**
      * @param string $statut
      * @return Species
@@ -208,10 +170,8 @@ class Species
     public function setStatut(string $statut): self
     {
         $this->statut = $statut;
-
         return $this;
     }
-
     /**
      * @return null|string
      */
@@ -219,7 +179,6 @@ class Species
     {
         return $this->url;
     }
-
     /**
      * @param string $url
      * @return Species
@@ -227,7 +186,6 @@ class Species
     public function setUrl(string $url): self
     {
         $this->url = $url;
-
         return $this;
     }
 }
