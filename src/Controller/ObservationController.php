@@ -5,27 +5,27 @@ namespace App\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Observations;
-use App\Form\ObservationsType;
+use App\Entity\Observation;
+use App\Form\ObservationType;
 
 
-class ObservationsController extends Controller
+class ObservationController extends Controller
 {
     /**
-     * @Route("/observations", name="observations")
+     * @Route("/observation", name="observation")
      */
     public function index(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $observation = new Observations();
-        $form = $this->createForm(ObservationsType::class, $observation);
+        $observation = new Observation();
+        $form = $this->createForm(ObservationType::class, $observation);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em->persist($observation);
             $em->flush();
         }
 
-        return $this->render('observations/index.html.twig', [
+        return $this->render('observation/index.html.twig', [
            'form' => $form->createView(),
         ]);
     }
