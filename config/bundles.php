@@ -16,9 +16,6 @@ return [
     Symfony\Bundle\WebServerBundle\WebServerBundle::class => ['dev' => true],
     EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
     FOS\UserBundle\FOSUserBundle::class => ['all' => true],
-<<<<<<< HEAD
     EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
-=======
->>>>>>> 6e56c423c88086b41d509e95afb68723547553a4
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
 ];
