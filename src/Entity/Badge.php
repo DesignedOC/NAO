@@ -23,16 +23,19 @@ class Badge
      * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="badges")
      */
     private $user;
+
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
     /**
      * @ORM\Column(type="string", length=255)
      * @var string
      * @Assert\Valid
      */
     private $picture;
+
     /**
      *  * @Assert\File(
      *     maxSize="2M",
@@ -48,19 +51,30 @@ class Badge
      */
     private $updatedAt;
 
+    /**
+     * Badge constructor.
+     */
     public function __construct()
     {
         $this->updatedAt = new \DateTime();
     }
 
+    /**
+     * @return mixed
+     */
     public function getId()
     {
         return $this->id;
     }
+
+    /**
+     * @return mixed
+     */
     public function getName()
     {
         return $this->name;
     }
+
     /**
      * @param mixed $name
      */
@@ -68,11 +82,19 @@ class Badge
     {
         $this->name = $name;
     }
+
+    /**
+     * @return user|null
+     */
     public function getUser(): ?user
     {
         return $this->user;
     }
 
+    /**
+     * @param user|null $user
+     * @return Badge
+     */
     public function setUser(?user $user): self
     {
         $this->user = $user;
@@ -80,40 +102,58 @@ class Badge
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getPicture(): ?string
     {
         return $this->picture;
     }
 
+    /**
+     * @param null|string $picture
+     */
     public function setPicture(?string $picture): void
     {
         $this->picture = $picture;
 
     }
 
+    /**
+     * @return null|File
+     */
     public function getPictureFile(): ?File
     {
         return $this->pictureFile;
     }
 
+    /**
+     * @param null|File $picture
+     */
     public function setPictureFile(?File $picture = null): void
     {
         $this->pictureFile = $picture;
         if (null != $picture) {
             $this->updatedAt = new \DateTime();
         }
-        public
-        function getUpdatedAt()
-        {
-            return $this->updatedAt;
-        }
+    }
 
-        public
-        function setUpdatedAt($updatedAt)
-        {
-            $this->updatedAt = $updatedAt;
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
 
-            return $this;
-        }
+    /**
+     * @param $updatedAt
+     * @return $this
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 }

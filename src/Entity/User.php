@@ -21,34 +21,38 @@ class User extends BaseUser
      * @ORM\Column(type="integer")
      */
     protected $id;
+
     /**
      * @var string $lastname
      * @ORM\Column(name="usr_lastname", type="string", length=100, nullable=true)
      */
+
     private $lastname;
     /**
      * @var string $firstname
      * @ORM\Column(name="usr_firstname", type="string", length=100, nullable=true)
      */
     private $firstname;
+
     /**
      * @var \DateTime $birth
      * @ORM\Column(name="usr_birth", type="datetime", nullable=true)
      */
     private $birth;
+
     /**
      * @ORM\OneToMany(targetEntity="Observation", mappedBy="user")
      */
     private $observations;
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Badge", mappedBy="user")
      */
     private $badges;
+
     /**
      * User constructor.
      */
-
-
 
     public function __construct()
     {
@@ -63,6 +67,7 @@ class User extends BaseUser
     {
         return $this->lastname;
     }
+
     /**
      * @param string $lastname
      * @return User
@@ -72,6 +77,7 @@ class User extends BaseUser
         $this->lastname = $lastname;
         return $this;
     }
+
     /**
      * @return null|string
      */
@@ -79,6 +85,7 @@ class User extends BaseUser
     {
         return $this->firstname;
     }
+
     /**
      * @param string $firstname
      * @return User
@@ -88,6 +95,7 @@ class User extends BaseUser
         $this->firstname = $firstname;
         return $this;
     }
+
     /**
      * @return \DateTimeInterface|null
      */
@@ -95,6 +103,7 @@ class User extends BaseUser
     {
         return $this->birth;
     }
+
     /**
      * @param \DateTimeInterface $birth
      * @return User
@@ -104,6 +113,7 @@ class User extends BaseUser
         $this->birth = $birth;
         return $this;
     }
+
     /**
      * @return Collection|Observation[]
      */
@@ -112,11 +122,18 @@ class User extends BaseUser
         return $this->observations;
     }
 
+    /**
+     * @param Observation $observation
+     */
     public function addObservation(Observation $observation)
     {
         $this->observations[] = $observation;
         $observation->setUser($this);
     }
+
+    /**
+     * @param Observation $observation
+     */
     public function removeObservation(Observation $observation)
     {
         $this->observations->removeElement($observation);
@@ -130,12 +147,20 @@ class User extends BaseUser
         return $this->badges;
     }
 
+    /**
+     * @param Badge $badge
+     * @return User
+     */
     public function addBadge(Badge $badge): self
     {
         $this->badges[] = $badge;
         $badge->setUser($this);
     }
 
+    /**
+     * @param Badge $badge
+     * @return User
+     */
     public function removeBadge(Badge $badge): self
     {
         $this->badges->removeElement($badge);
