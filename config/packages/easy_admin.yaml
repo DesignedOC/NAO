@@ -113,6 +113,17 @@ easy_admin:
                     - { property: 'bird', label: 'Oiseau'}
                     - { property: 'pictureFile' ,type: 'vich_image'}
                     - { property: 'description'}
+            show:
+                title: "voir l'observation"
+                fields:
+                    - { property: 'date', type: 'date'}
+                    - user
+                    - statut
+                    - latitude
+                    - longitude
+                    - bird
+                    - { property: 'pictureFile' ,type: 'vich_image'}
+                    - description
 
         Species:
             class: App\Entity\Species
@@ -183,8 +194,6 @@ easy_admin:
                     - { property: 'user',label: 'Utilisateur'}
                     - { property: 'name',label: 'Nom'}
                     - { property: 'pictureFile',label: 'Image', type: 'vich_image'}
-
-
 
 
 
