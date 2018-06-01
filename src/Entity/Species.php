@@ -74,34 +74,22 @@ class Species
         return $this->id;
     }
 
-<<<<<<< HEAD
     /**
      * @return null|string
      */
-    public function getOrder(): ?string
-=======
+
     public function getOrdre(): ?string
->>>>>>> changing the family and order property names in the Species entity because order is a reserved name
+
     {
         return $this->ordre;
     }
 
-<<<<<<< HEAD
-    /**
-     * @param string $order
-     * @return Species
-     */
-    public function setOrder(string $order): self
-    {
-        $this->order = $order;
-        return $this;
-    }
 
     /**
-     * @return null|string
+     * @param string $ordre
+     * @return Species
      */
-    public function getFamily(): ?string
-=======
+
     public function setOrdre(string $ordre): self
     {
         $this->ordre = $ordre;
@@ -110,20 +98,19 @@ class Species
     }
 
     public function getFamille(): ?string
->>>>>>> changing the family and order property names in the Species entity because order is a reserved name
+
     {
         return $this->famille;
     }
 
-<<<<<<< HEAD
+
     /**
-     * @param string $family
+     * @param string $famille
      * @return Species
      */
-    public function setFamily(string $family): self
-=======
+
     public function setFamille(string $famille): self
->>>>>>> changing the family and order property names in the Species entity because order is a reserved name
+
     {
         $this->famille = $famille;
 
