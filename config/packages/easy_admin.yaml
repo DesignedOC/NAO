@@ -7,10 +7,9 @@ easy_admin:
         form_theme: 'vertical'
         menu:
             - { entity: 'User', icon: 'user', label: 'Utilisateurs' }
-            - { entity: 'Observations', icon: 'binoculars', label: 'Observations' }
+            - { entity: 'Observation', icon: 'binoculars', label: 'Observation' }
             - { entity: 'Species', icon: 'themeisle', label: 'Especes' }
             - { entity: 'Badge', icon: 'bookmark', label: 'Badge' }
-
 
     entities:
         User:
@@ -21,13 +20,13 @@ easy_admin:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                    - { name: 'show', icon: 'eye', label: 'Voir', title: 'Voir' }
+                   # - { name: 'show', icon: 'eye', label: 'Voir', title: 'Voir' }
                 fields:
                     - { property: 'id' }
                     - { property: 'lastname', label: 'Nom' }
                     - { property: 'firstname', label: 'Prénom' }
                     - { property: 'birth', label: 'Date de naissance',type: 'date' }
-                    - { property: 'observation' }
+                    - { property: 'observations' }
                     - { property: 'badges' }
             new:
                 title: "Créer un nouvel utilisateur"
@@ -37,7 +36,7 @@ easy_admin:
                     - { property: 'firstname', label: 'Prénom' }
                     - { property: 'birth', label: ' Date de naissance', type: 'date' }
                     - { type: 'group', css_class: 'col-sm-6',label: 'Informations : détails', icon: 'plus-circle'}
-                    - { property: 'observation' }
+                    - { property: 'observations' }
                     - { property: 'badges' }
             edit:
                 title: "Edition du profil utilisateur"
@@ -47,18 +46,18 @@ easy_admin:
                     - { property: 'firstname', label: 'Prénom' }
                     - { property: 'birth', label: 'Date de naissance', type: 'date' }
                     - { type: 'tab', css_class: 'col-sm-6', label: 'Informations : détails', icon: 'plus-circle'}
-                    - { property: 'observation' }
+                    - { property: 'observations' }
                     - { property: 'badges' }
 
-        Observations:
-            class: App\Entity\Observations
+        Observation:
+            class: App\Entity\Observation
             list:
-                title: 'Observations'
+                title: 'Observation'
                 actions:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+                  #  - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
                 fields:
                     - { property: 'id'}
                     - { property: 'date', type: 'date'}
@@ -74,7 +73,7 @@ easy_admin:
                 fields:
                     - { property: 'date', type: 'date'}
                     - { property: 'user', label: 'Utilisateur'}
-                    - { property: 'statut', label: 'statut', type: 'choice', type_options: { expanded: true, multiple: false, choices: {'Non traitée' : 'untreated', 'Acceptée' : 'accepted', 'Rejetée' : 'rejected', 'Brouillon' : 'draft' }, choice_attr: {'style' : 'width: 100px'}}}
+                    - { property: 'statut', label: 'statut'}
                     - { property: 'latitude'}
                     - { property: 'longitude'}
                     - { property: 'bird', label: 'Oiseau'}
@@ -85,23 +84,12 @@ easy_admin:
                 fields:
                     - { property: 'date', type: 'date'}
                     - { property: 'user', label: 'Utilisateur'}
-                    - { property: 'statut', label: 'statut', type: 'choice', type_options: { expanded: true, multiple: false, choices: {'Non traitée' : 'untreated', 'Acceptée' : 'accepted', 'Rejetée' : 'rejected', 'Brouillon' : 'draft' }, choice_attr: {'style' : 'width: 100px'}}}
+                    - { property: 'statut', label: 'statut'}
                     - { property: 'latitude'}
                     - { property: 'longitude'}
                     - { property: 'bird', label: 'Oiseau'}
                     - { property: 'pictureFile' ,type: 'vich_image'}
                     - { property: 'description'}
-          #  show:
-          #      title: "Voir l'observation"
-          #      fields:
-          #          - { property: 'date', type: 'date'}
-          #          - { property: 'user', label: 'Utilisateur'}
-          #          - { property: 'statut'}
-          #          - { property: 'latitude'}
-          #          - { property: 'longitude'}
-          #          - { property: 'bird', label: 'Oiseau'}
-          #          - { property: 'pictureFile', type: 'vich_image'}
-          #          - { property: 'description'}
 
         Species:
             class: App\Entity\Species
@@ -111,7 +99,7 @@ easy_admin:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+                  #  - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
                 fields:
                     - { property: 'id'}
                     - { property: 'ordre'}
@@ -144,17 +132,6 @@ easy_admin:
                     - { property: 'habitat'}
                     - { property: 'statut'}
                     - { property: 'url'}
-           # show:
-           #     title: "Voir l'oiseau"
-            #    fields:
-            #        - { property: 'ordre'}
-            #        - { property: 'famille'}
-            #        - { property: 'cdNom'}
-            #        - { property: 'lbNom'}
-            #        - { property: 'nomVern'}
-           #         - { property: 'habitat'}
-            #        - { property: 'statut'}
-            #        - { property: 'url'}
 
         Badge:
             class: App\Entity\Badge
@@ -168,22 +145,21 @@ easy_admin:
                 fields:
                     - { property: 'id'}
                     - { property: 'user', label: 'Utilisateur'}
+                    - { property: 'name', label: 'Nom'}
                    # - { property: 'pictureFile', type: 'vich_image'}
             new:
                 title: 'Créer un nouveau badge'
                 fields:
                     - { property: 'user', label: 'Utilisateur'}
+                    - { property: 'name', label: 'Nom'}
                     - { property: 'pictureFile', label: 'Image', type: 'vich_image'}
             edit:
                 title: 'Editer un badge'
                 fields:
                     - { property: 'user',label: 'Utilisateur'}
+                    - { property: 'name',label: 'Nom'}
                     - { property: 'pictureFile',label: 'Image', type: 'vich_image'}
-           # show:
-            #    title: 'Voir un badge'
-            #    fields:
-            #        - { property: 'user',label: 'Utilisateur'}
-            #        - { property: 'picture', label: 'Image',type: 'image'}
+
 
 
 
