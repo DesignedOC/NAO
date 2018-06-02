@@ -16,7 +16,12 @@
 </head>
 
 <body>
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.css' type='text/css' />
+
     <div id='map' style='width: 1000px; height: 600px;'></div>
+
     <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiYWdlbmNlcDUiLCJhIjoiY2podnQxdWFlMDBjcDNycWc5Ym4ydjdmZiJ9.oxPKaDLfDplgUT5Xlca--Q';
     var map = new mapboxgl.Map({
@@ -28,7 +33,9 @@
 
     // Add zoom and rotation controls to the map.
     map.addControl(new mapboxgl.NavigationControl());
-
+    map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+}));
 
     </script>
 </body>
