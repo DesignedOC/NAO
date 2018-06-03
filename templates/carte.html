@@ -32,16 +32,21 @@
     zoom: 5
     });
 
+    //Put everything in french
+    mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.1.0/mapbox-gl-rtl-text.js');
+    map.addControl(new MapboxLanguage({
+    defaultLanguage: 'fr'
+    }));
 
     // Add zoom and rotation controls to the map.
     map.addControl(new mapboxgl.NavigationControl());
-map.addControl(new MapboxGeocoder({
+
+    //Search input
+    map.addControl(new MapboxGeocoder({
     accessToken: mapboxgl.accessToken
-}));
-mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.1.0/mapbox-gl-rtl-text.js');
-map.addControl(new MapboxLanguage({
-  defaultLanguage: 'fr'
-}));
+    }));
+
+ 
 </script>
 
 </body>

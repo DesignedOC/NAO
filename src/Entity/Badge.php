@@ -102,14 +102,14 @@ class Badge
         if (null != $picture) {
             $this->updatedAt = new \DateTime();
         }
-        public
-        function getUpdatedAt()
-        {
-            return $this->updatedAt;
-        }
 
-        public
-        function setUpdatedAt($updatedAt)
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt($updatedAt)
         {
             $this->updatedAt = $updatedAt;
 
