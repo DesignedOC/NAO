@@ -1,10 +1,14 @@
 // customize some Bootstrap variables
 $brand-primary: darken(#428bca, 20%);
+$fonts: 'Roboto', Sans-serif;
 
 // the ~ allows you to reference things in node_modules
-@import '~bootstrap-sass/assets/stylesheets/bootstrap';
+@import '~bootstrap/scss/bootstrap.scss';
+
+body {
+  font-family: $fonts;
+}
 
 h1 {
-  background-color: red;
-  font-family: "Cedarville Cursive";
+  font-family: $fonts;
 }
