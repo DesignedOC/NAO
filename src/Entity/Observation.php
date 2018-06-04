@@ -47,7 +47,7 @@ class Observation
     private $picture;
 
     /**
-     *  * @Assert\File(
+     *   @Assert\File(
      *     maxSize="2M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )

@@ -59,6 +59,7 @@ class User extends BaseUser
         parent::__construct();
         $this->observations = new ArrayCollection();
         $this->badges = new ArrayCollection();
+        $this->birth = new \DateTime();
     }
     /**
      * @return null|string
