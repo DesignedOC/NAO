@@ -117,7 +117,8 @@ class Badge
         if (null != $picture) {
             $this->updatedAt = new \DateTime();
         }
-    }
+
+
     /**
      * @return \DateTime
      */
