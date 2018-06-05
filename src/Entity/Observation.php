@@ -8,7 +8,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
- * @ORM\Table(name="nao_observ")
+ * @ORM\Table(name="observation")
  * @ORM\Entity(repositoryClass="App\Repository\ObservationRepository")
  * @Vich\Uploadable
  */
@@ -57,7 +57,7 @@ class Observation
     private $pictureFile;
 
     /**
-     * @ORM\Column(type="string", length=1)
+     * @ORM\Column(type="string", length=100)
      * @ORM\ManyToOne(targetEntity="App\Entity\Species", cascade={"persist"})
      * @Assert\NotBlank()
      */

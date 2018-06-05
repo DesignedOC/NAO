@@ -4,21 +4,20 @@
 {% block title %}Ajouter une observation{% endblock %}
 
 {% block body %}
-
+    <h2>Ajouter une observation :</h2>
 <section>
-
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
+<div class="form_observ">
+     {{ form_start(form) }}
+    <div class="form_label">  {{ form_widget(form) }}</div>
+ 
     {{ form_end(form) }}
-
+</div>
 </section>
 
 
 
 
-    {% block h1 %}
-        <h1>Hey !</h1>
-    {% endblock %}
+
 
 {% endblock %}
 

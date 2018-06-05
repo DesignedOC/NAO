@@ -9,7 +9,7 @@ easy_admin:
             - { entity: 'User', icon: 'user', label: 'Utilisateurs' }
             - { entity: 'Observation', icon: 'binoculars', label: 'Observation' }
             - { entity: 'Species', icon: 'themeisle', label: 'Especes' }
-            - { entity: 'Badge', icon: 'bookmark', label: 'Badge' }
+           # - { entity: 'Badge', icon: 'bookmark', label: 'Badge' }
     entities:
         User:
             class: App\Entity\User
@@ -169,31 +169,31 @@ easy_admin:
                     - { property: 'url'}
 
 
-        Badge:
-            class: App\Entity\Badge
-            list:
-                title: 'Badges'
-                actions:
-                    - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
-                    - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
-                    - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
-                fields:
-                    - { property: 'id'}
-                    - { property: 'user', label: 'Utilisateur'}
-                    - { property: 'name', label: 'Nom'}
-            new:
-                title: 'Créer un nouveau badge'
-                fields:
-                    - { property: 'user', label: 'Utilisateur'}
-                    - { property: 'name', label: 'Nom'}
-                    - { property: 'pictureFile', label: 'Image', type: 'vich_image'}
-            edit:
-                title: 'Editer un badge'
-                fields:
-                    - { property: 'user',label: 'Utilisateur'}
-                    - { property: 'name',label: 'Nom'}
-                    - { property: 'pictureFile',label: 'Image', type: 'vich_image'}
+#        Badge:
+ #           class: App\Entity\Badge
+  #          list:
+   #             title: 'Badges'
+    #            actions:
+      #              - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
+       #             - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
+       #             - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
+       #             - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+       #         fields:
+         #           - { property: 'id'}
+         #           - { property: 'user', label: 'Utilisateur'}
+          #          - { property: 'name', label: 'Nom'}
+         #   new:
+          #      title: 'Créer un nouveau badge'
+          #      fields:
+          #          - { property: 'user', label: 'Utilisateur'}
+           #         - { property: 'name', label: 'Nom'}
+           #         - { property: 'pictureFile', label: 'Image', type: 'vich_image'}
+          #  edit:
+          #      title: 'Editer un badge'
+          #      fields:
+           #         - { property: 'user',label: 'Utilisateur'}
+           #         - { property: 'name',label: 'Nom'}
+            #        - { property: 'pictureFile',label: 'Image', type: 'vich_image'}
 
 
 

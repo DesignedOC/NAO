@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="nao_user")
+ * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
 class User extends BaseUser
@@ -24,19 +24,19 @@ class User extends BaseUser
 
     /**
      * @var string $lastname
-     * @ORM\Column(name="usr_lastname", type="string", length=100, nullable=true)
+     * @ORM\Column(name="lastname", type="string", length=100, nullable=true)
      */
 
     private $lastname;
     /**
      * @var string $firstname
-     * @ORM\Column(name="usr_firstname", type="string", length=100, nullable=true)
+     * @ORM\Column(name="firstname", type="string", length=100, nullable=true)
      */
     private $firstname;
 
     /**
      * @var \DateTime $birth
-     * @ORM\Column(name="usr_birth", type="datetime", nullable=true)
+     * @ORM\Column(name="birth", type="datetime", nullable=true)
      */
     private $birth;
 
@@ -45,10 +45,7 @@ class User extends BaseUser
      */
     private $observations;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Badge", mappedBy="user")
-     */
-    private $badges;
+
 
     /**
      * User constructor.
@@ -58,7 +55,7 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->observations = new ArrayCollection();
-        $this->badges = new ArrayCollection();
+       
         $this->birth = new \DateTime();
     }
     /**
@@ -140,32 +137,7 @@ class User extends BaseUser
         $this->observations->removeElement($observation);
     }
 
-    /**
-     * @return Collection|Badge[]
-     */
-    public function getBadges(): Collection
-    {
-        return $this->badges;
-    }
-
-    /**
-     * @param Badge $badge
-     * @return User
-     */
-    public function addBadge(Badge $badge): self
-    {
-        $this->badges[] = $badge;
-        $badge->setUser($this);
-    }
-
-    /**
-     * @param Badge $badge
-     * @return User
-     */
-    public function removeBadge(Badge $badge): self
-    {
-        $this->badges->removeElement($badge);
-    }
+   
 
 
 }
