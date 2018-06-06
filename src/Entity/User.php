@@ -41,7 +41,7 @@ class User extends BaseUser
     private $birth;
 
     /**
-     * @ORM\OneToMany(targetEntity="Observation", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Observation", mappedBy="user")
      */
     private $observations;
 
@@ -49,6 +49,11 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="App\Entity\Badge", mappedBy="user")
      */
     private $badges;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Application", mappedBy="user")
+     */
+    private $applications;
 
     /**
      * User constructor.
@@ -165,6 +170,33 @@ class User extends BaseUser
     public function removeBadge(Badge $badge): self
     {
         $this->badges->removeElement($badge);
+    }
+
+    /**
+     * @return Collection|Application[]
+     */
+    public function getApplications(): Collection
+    {
+        return $this->applications;
+    }
+
+    /**
+     * @param Application $application
+     * @return User
+     */
+    public function addApplications(Application $application): self
+    {
+        $this->applications[] = $application;
+        $application->setUser($this);
+    }
+
+    /**
+     * @param Application $application
+     * @return User
+     */
+    public function removeApplication(Application $application): self
+    {
+        $this->applications->removeElement($application);
     }
 
 
