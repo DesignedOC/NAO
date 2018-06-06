@@ -4,14 +4,17 @@
 {% block title %}Ajouter une observation{% endblock %}
 
 {% block body %}
-    <h2>Ajouter une observation :</h2>
+
 <section>
-<div class="form_observ">
+    <div class="row">
+<div id="form_observ" class="col-md-12">
+    <h2>Ajouter une observation :</h2>
      {{ form_start(form) }}
-    <div class="form_label">  {{ form_widget(form) }}</div>
- 
+    <div id="form_label">  {{ form_widget(form) }}</div>
+
     {{ form_end(form) }}
 </div>
+    </div>
 </section>
 
 
