@@ -13,6 +13,8 @@ class ObservationController extends Controller
 {
     /**
      * @Route("/observation", name="observation")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(Request $request)
     {
@@ -25,7 +27,7 @@ class ObservationController extends Controller
             $em->flush();
         }
 
-        return $this->render('observation/index.html.twig', [
+        return $this->render('observation/observations.html.twig', [
            'form' => $form->createView(),
         ]);
     }
@@ -33,6 +35,8 @@ class ObservationController extends Controller
 
     /**
      * @Route("/carte", name="carte")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function carte(Request $request)
     {
