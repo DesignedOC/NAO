@@ -1,0 +1,29 @@
+<div id="sidebar-wrapper">
+    <div class="logo">
+        <a href=""><img src="#" alt=""></a>
+    </div>
+    <div class="top-obs">
+        <a href="/ajout/observation"><i class="material-icons" style="font-size:20px; vertical-align: middle; margin-right: 5px;">near_me</i>Observation</a>
+    </div>
+    <ul class="sidebar-nav">
+        <li><a href="{{ path('nao_interface_carte') }}"><i class="material-icons md-18" style="vertical-align: middle; margin-right: 5px;">map</i>La carte</a></li>
+        <li><a href="#"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;">style</i>Observations</a></li>
+        <li><a href="#"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;">timer</i>Classement</a></li>
+        <li><a href="#"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;">folder_open</i>Mes observations</a></li>
+        <li><a href="#"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;">videogame_asset</i>Memory Bird</a></li>
+    </ul>
+    <ul class="sidebar-small">
+        <li><a href="#">Conditions générales</a></li>
+        <li><a href="#">Mentions légales</a></li>
+        <li><a href="#">Foire aux questions</a></li>
+        <li><a href="#">Donation</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="donation">
+        <a href="#">Donation</a>
+    </div>
+    {% if is_granted('ROLE_NATURALIST') == false %}
+        <a href="{{ path('nao_interface_naturalist') }}" class="a-nat">Devenir Naturaliste</a>
+    {% endif %}
+
+</div>

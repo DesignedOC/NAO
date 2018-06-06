@@ -43,6 +43,7 @@ class FrontController extends Controller
     {
         $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $mailerManager->contactSend($form->getData());
             $this->addFlash('success', 'Votre message a bien été envoyé. Vous recevrez une réponse sous un délai de 24 heures.');

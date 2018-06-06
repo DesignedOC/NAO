@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
+    <a class="navbar-brand" href="#">Dashboard</a>
+    <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="search ml-5 mr-auto">
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Recherche" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+    <div class="account">
+        <div class="acc-avatar">
+            <i class="material-icons md-dark">face</i>
+        </div>
+        <div class="acc-user">
+            <a href="#" data-toggle="acc-user" id="menu1">{{ app.user.username|capitalize }}</a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
+                <li role="presentation" class="divider"></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>
+            </ul>
+        </div>
+        {#<div class="dropdown">#}
+            {#<button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">Dropdown Example#}
+                {#<span class="caret"></span></button>#}
+            {#<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">#}
+                {#<li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>#}
+                {#<li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>#}
+                {#<li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>#}
+                {#<li role="presentation" class="divider"></li>#}
+                {#<li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>#}
+            {#</ul>#}
+        {#</div>#}
+    </div>
+
+</nav>

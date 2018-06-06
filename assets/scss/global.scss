@@ -1,14 +1,149 @@
 // customize some Bootstrap variables
-$brand-primary: darken(#428bca, 20%);
+$primary-color: #42aed7;
+$primary-color-hov: #40bbe3;
+$background: #f7f7f7;
 $fonts: 'Roboto', Sans-serif;
 
 // the ~ allows you to reference things in node_modules
 @import '~bootstrap/scss/bootstrap.scss';
+@import '~material-design-icons/iconfont/material-icons.css';
 
 body {
+
   font-family: $fonts;
+  background: $background;
+
+  li {
+    list-style-type: none;
+  }
+
+  a {
+    color: #000;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
 }
 
-h1 {
-  font-family: $fonts;
+.container-left {
+    margin-left: 300px;
+}
+
+div#sidebar-wrapper {
+  width: 300px;
+  display: block;
+  left: 0;
+  top: 0;
+  height: 100%;
+  position: fixed!important;
+  z-index: 1;
+  overflow: auto;
+  background: #fff;
+  border-right: 1px solid #efefef;
+
+  .logo {
+    height: 56px;
+  }
+
+  a.a-nat{
+    margin-left: 50px;
+    margin-top: 10px;
+    font-size: 0.8em;
+    color: #18ab4e;
+  }
+
+}
+
+ul.sidebar-nav {
+  padding-top: 1em;
+  margin-top: 10px;
+
+  li {
+    padding: 10px;
+  }
+  a:hover {
+    color: $primary-color;
+  }
+}
+
+ul.sidebar-small  {
+  li {
+    padding-left: 10px;
+    padding-top: 5px;
+  }
+  a {
+    color: #808080;
+    font-size: 0.8em;
+  }
+  a:hover {
+    color: #a5a4a4;
+  }
+}
+
+div.top-obs {
+  border-top: 0.4em solid $primary-color;
+  padding-top: 35px;
+  a {
+    padding: 14px 25px;
+    background: $primary-color;
+    color: #fff;
+    margin-left: 50px;
+    border-radius: 2px;
+  }
+  a:hover {
+    background: $primary-color-hov;
+  }
+}
+
+div.donation {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  a {
+    padding: 14px 25px;
+    background: #ff3665;
+    color: #fff;
+    margin-left: 50px;
+    border-radius: 2px;
+  }
+  a:hover {
+    background: #ff5276;
+  }
+}
+
+div.search {
+  input.form-control {
+    min-width: 450px;
+  }
+}
+
+div.account {
+  .acc-user {
+    float: left;
+  }
+  .acc-avatar {
+    float: left;
+    margin-right: 5px;
+  }
+  .acc-user > a:after {
+    font-family: 'Material Icons';
+    font-weight: 500;
+    content: 'keyboard_arrow_down';
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 5px;
+  }
+}
+
+
+.fixed-top {
+  left: 300px;
+  border-bottom: 0.4em solid $primary-color;
+  background: #fff!important;
+}
+
+div.main-content {
+  padding-top: 120px;
+  //margin-left: 300px;
 }
