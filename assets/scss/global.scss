@@ -119,6 +119,7 @@ div.search {
 }
 
 div.account {
+  margin-right: 25px;
   .acc-user {
     float: left;
   }
@@ -134,6 +135,9 @@ div.account {
     font-size: 16px;
     margin-left: 5px;
   }
+  ul.dropdown-menu {
+    padding: 15px;
+  }
 }
 
 
@@ -145,5 +149,6 @@ div.account {
 
 div.main-content {
   padding-top: 120px;
-  //margin-left: 300px;
+  padding-left: 35px;
+  padding-right: 35px;
 }

@@ -13,27 +13,16 @@
         <div class="acc-avatar">
             <i class="material-icons md-dark">face</i>
         </div>
-        <div class="acc-user">
-            <a href="#" data-toggle="acc-user" id="menu1">{{ app.user.username|capitalize }}</a>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
-                <li role="presentation" class="divider"></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>
-            </ul>
+        <div class="acc-user dropdown">
+            <a href="#" data-toggle="dropdown" id="menu1">{{ app.user.username|capitalize }}</a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="#">Profil</a>
+                <a class="dropdown-item" href="#">Mon compte</a>
+                <a class="dropdown-item" href="#">Paramètres</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
+            </div>
         </div>
-        {#<div class="dropdown">#}
-            {#<button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">Dropdown Example#}
-                {#<span class="caret"></span></button>#}
-            {#<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">#}
-                {#<li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>#}
-                {#<li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>#}
-                {#<li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>#}
-                {#<li role="presentation" class="divider"></li>#}
-                {#<li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>#}
-            {#</ul>#}
-        {#</div>#}
     </div>
 
 </nav>
