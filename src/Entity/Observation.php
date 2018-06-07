@@ -20,29 +20,34 @@ class Observation
      * @ORM\Column(type="integer")
      */
     private $id;
+
     /**
      * @ORM\Column(type="datetime")
      * @Assert\NotBlank()
      */
     private $date;
+
     /**
      * @ORM\Column(type="float", nullable=false)
      * @Assert\NotBlank(message = "La lattitude est obligatoire")
      */
     private $latitude;
+
     /**
      * @ORM\Column(type="float", nullable=false)
      * @Assert\NotBlank(message = "La longitude est obligatoire")
      */
     private $longitude;
+
     /**
      * @ORM\Column(type="string", length=255)
      * @var string
      * @Assert\Valid
      */
     private $picture;
+
     /**
-     *  * @Assert\File(
+     *   @Assert\File(
      *     maxSize="2M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
@@ -50,6 +55,7 @@ class Observation
      * @var File
      */
     private $pictureFile;
+
     /**
      * @ORM\Column(type="string", length=100)
      * @ORM\ManyToOne(targetEntity="App\Entity\Bird", cascade={"persist"})
@@ -57,11 +63,13 @@ class Observation
      * @Assert\Valid()
      */
     private $bird;
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="observation")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
     /**
      * 0 = rejected, 1 = under validation, 2 = validated
      * @ORM\Column(type="integer")
@@ -71,6 +79,7 @@ class Observation
      * )
      */
     private $statut;
+
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
@@ -88,6 +97,7 @@ class Observation
         $this->setStatut(1);
         $this->updatedAt = new \DateTime();
     }
+
     /**
      * @return mixed
      */
@@ -95,6 +105,7 @@ class Observation
     {
         return $this->id;
     }
+
     /**
      * @return \DateTimeInterface|null
      */
@@ -102,6 +113,7 @@ class Observation
     {
         return $this->date;
     }
+
     /**
      * @param \DateTimeInterface $date
      * @return Observation
@@ -111,10 +123,15 @@ class Observation
         $this->date = $date;
         return $this;
     }
+
+    /**
+     * @return float|null
+     */
     public function getLatitude(): ?float
     {
         return $this->latitude;
     }
+
     /**
      * @param float $latitude
      * @return Observation
@@ -124,6 +141,7 @@ class Observation
         $this->latitude = $latitude;
         return $this;
     }
+
     /**
      * @return float|null
      */
@@ -131,6 +149,7 @@ class Observation
     {
         return $this->longitude;
     }
+
     /**
      * @param float $longitude
      * @return Observation
@@ -140,21 +159,35 @@ class Observation
         $this->longitude = $longitude;
         return $this;
     }
+
+    /**
+     * @return null|string
+     */
     public function getPicture(): ?string
     {
         return $this->picture;
     }
 
+    /**
+     * @param null|string $picture
+     */
     public function setPicture(?string $picture): void
     {
         $this->picture = $picture;
 
     }
+
+    /**
+     * @return null|File
+     */
     public function getPictureFile(): ?File
     {
         return $this->pictureFile;
     }
 
+    /**
+     * @param null|File $picture
+     */
     public function setPictureFile(?File $picture = null):void
     {
         $this->pictureFile = $picture;
@@ -164,6 +197,7 @@ class Observation
         }
 
     }
+
     /**
      * @return null|string
      */
@@ -171,6 +205,7 @@ class Observation
     {
         return $this->bird;
     }
+
     /**
      * @param string $bird
      * @return Observation
@@ -180,6 +215,7 @@ class Observation
         $this->bird = $bird;
         return $this;
     }
+
     /**
      * @param User $user
      */
@@ -187,6 +223,7 @@ class Observation
     {
         $this->user = $user;
     }
+
     /**
      * @return user
      */
@@ -194,6 +231,7 @@ class Observation
     {
         return $this->user;
     }
+
     /**
      * @return null|string
      */
@@ -201,6 +239,7 @@ class Observation
     {
         return $this->statut;
     }
+
     /**
      * @param string $statut
      * @return Observation
@@ -210,6 +249,7 @@ class Observation
         $this->statut = $statut;
         return $this;
     }
+
     /**
      * @return null|string
      */
@@ -217,6 +257,7 @@ class Observation
     {
         return $this->description;
     }
+
     /**
      * @param string $description
      * @return Observation
@@ -226,11 +267,19 @@ class Observation
         $this->description = $description;
         return $this;
     }
+
+    /**
+     * @return \DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
+    /**
+     * @param $updatedAt
+     * @return $this
+     */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
