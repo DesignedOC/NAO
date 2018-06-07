@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="nao_user")
+ * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
 class User extends BaseUser
@@ -23,17 +23,17 @@ class User extends BaseUser
     protected $id;
     /**
      * @var string $lastname
-     * @ORM\Column(name="usr_lastname", type="string", length=100, nullable=true)
+     * @ORM\Column(name="lastname", type="string", length=100, nullable=true)
      */
     private $lastname;
     /**
      * @var string $firstname
-     * @ORM\Column(name="usr_firstname", type="string", length=100, nullable=true)
+     * @ORM\Column(name="firstname", type="string", length=100, nullable=true)
      */
     private $firstname;
     /**
      * @var \DateTime $birth
-     * @ORM\Column(name="usr_birth", type="datetime", nullable=true)
+     * @ORM\Column(name="birth", type="datetime", nullable=true)
      */
     private $birth;
     /**

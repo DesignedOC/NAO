@@ -102,7 +102,7 @@ class Badge
         if (null != $picture) {
             $this->updatedAt = new \DateTime();
         }
-
+    }
 
     public function getUpdatedAt()
     {
@@ -115,5 +115,5 @@ class Badge
 
             return $this;
         }
-    }
+    
 }
