@@ -25,6 +25,6 @@ class InterfaceController extends Controller
      */
     public function memory(Request $request)
     {
-        return $this->render('interface/memoryBird.html.twig');
+        return $this->render('interface/memory.html.twig');
     }
 }
