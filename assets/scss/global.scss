@@ -157,7 +157,7 @@ div.account {
     padding: 15px;
   }
   .acc-avatar i.material-icons {
-    line-height: 1.4;
+    line-height: 1.5;
   }
 }
 
@@ -179,9 +179,17 @@ div.account {
 }
 
 div.main-content {
-  padding-top: 120px;
+  padding-top: 100px;
   padding-left: 35px;
   padding-right: 35px;
+}
+
+@media all and (max-width: 770px) {
+  div.main-content {
+    padding-top: 20px;
+    padding-left: 35px;
+    padding-right: 35px;
+  }
 }
 
 @media all and (max-width: 1162px) {

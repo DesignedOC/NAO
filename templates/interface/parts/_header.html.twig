@@ -8,7 +8,12 @@
     </div>
     <div class="account">
         <div class="acc-avatar">
-            <i class="material-icons" style="color: #15ab4d;">grade</i>
+            {% if is_granted('ROLE_USER') and is_granted('ROLE_NATURALIST') == false %}
+                <i class="material-icons" style="color: #c7c7c7;">grade</i>
+            {% endif %}
+            {% if is_granted('ROLE_NATURALIST') %}
+                <i class="material-icons" style="color: #15ab4d;">grade</i>
+            {% endif %}
         </div>
         <div class="acc-avatar-profile">
             <img src="/assets/img/grandpa.jpg" alt="{{ app.user.username }} - Image Profil">
