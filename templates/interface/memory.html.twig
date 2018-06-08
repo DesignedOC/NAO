@@ -12,7 +12,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <div id="grille">
+               <!-- <div id="grille">-->
+                <div class="grid">
                     <div class="case" id="case0"></div>
                     <div class="case" id="case1"></div>
                     <div class="case" id="case2"></div>
@@ -29,6 +30,7 @@
                     <div class="case" id="case11"></div>
                 </div>
             </div>
+           <!-- </div>-->
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
@@ -143,8 +145,8 @@
                                 nbClics=0;
                                 coups++;
                                 points = points - paireNonTrouvee;
-                                document.getElementById('score').innerHTML='<h3>Nombre de points en cours:</h3><strong>'+points+'</strong>';
-                                document.getElementById('coups').innerHTML='<h3>Nombre d\'essais en cours :</h3><strong>'+coups+'</strong>';
+                                document.getElementById('score').innerHTML='<p>Nombre de points en cours : <strong>'+points+'</strong></p>';
+                                document.getElementById('coups').innerHTML='<p>Nombre d\'essais en cours : <strong>'+coups+'</strong></p>';
 
                             },800);
                         }
@@ -154,52 +156,52 @@
                             nbClics=0;
                             coups++;
                             points= points + paireTrouvee;
-                            document.getElementById('score').innerHTML='<h2>Nombre de points en cours:</h2><strong>'+points+'</strong>';
-                            document.getElementById('coups').innerHTML='<h2>Nombre d\'essais en cours :</h2><strong>'+coups+'</strong>';
+                            document.getElementById('score').innerHTML='<p>Nombre de points en cours : <strong>'+points+'</strong></p>';
+                            document.getElementById('coups').innerHTML='<p>Nombre d\'essais en cours :<strong>'+coups+'</strong></p>';
                             imgOk +=2;
-                            document.getElementById('paireOk').innerHTML='<h2>Bravo vous avez trouvé</h2><strong>'+imgOk/2+'</strong> paire(s) !';
+                            document.getElementById('paireOk').innerHTML='<p>Bravo vous avez trouvé <strong>'+imgOk/2+'</strong> paire(s) ! </p>';
 
                             if(imgOk===12)
                             {
                                 dif_temps = Math.floor((new Date().getTime()- temps_debut)/1000);
 
-                                document.getElementById('temps').innerHTML='<h2>En : </h2><strong>'+dif_temps+'</strong> secondes';
-                                document.getElementById('coups').innerHTML='<h2>et </h2><strong>' +coups+' </strong> tentatives';
+                                document.getElementById('temps').innerHTML='<p>En : <strong>'+dif_temps+'</strong> secondes </p>';
+                                document.getElementById('coups').innerHTML='<p>et  <strong>' +coups+' </strong> tentatives </p>';
                             }
                             switch(imgOk===12)
                             {
 
                                 case dif_temps<15:
                                     points = points + 50;
-                                    document.getElementById('level').innerHTML ='<h2>Niveau très difficile remporté !</h2>';
-                                    document.getElementById('score').innerHTML='<h2>Vous gagnez :</h2><strong>'+points+'</strong> points';
+                                    document.getElementById('level').innerHTML ='<p><strong>Niveau très difficile remporté !</strong></p>';
+                                    document.getElementById('score').innerHTML='<p>Vous gagnez : <strong>'+points+'</strong> points </p>';
                                     depart=false;
                                     break;
                                 case dif_temps<30:
                                     points = points + 30;
-                                    document.getElementById('level').innerHTML ='<h2>Niveau difficile remporté !</h2>';
-                                    document.getElementById('score').innerHTML='<h2>Vous gagnez :</h2><strong>'+points+'</strong> points';
+                                    document.getElementById('level').innerHTML ='<p><strong>Niveau difficile remporté !</strong></p>';
+                                    document.getElementById('score').innerHTML='<p>Vous gagnez : <strong>'+points+'</strong> points </p>';
                                     depart=false;
                                     break;
                                 case dif_temps<60:
                                     points = points + 20;
-                                    document.getElementById('level').innerHTML ='<h2>Niveau moyen remporté !</h2>';
-                                    document.getElementById('score').innerHTML='<h2>Vous gagnez :</h2><strong>'+points+'</strong> points';
+                                    document.getElementById('level').innerHTML ='<p><strong>Niveau moyen remporté !</strong></p>';
+                                    document.getElementById('score').innerHTML='<p>Vous gagnez : <strong>'+points+'</strong> points </p>';
                                     depart=false;
                                     break;
                                 case dif_temps<90:
                                     points = points + 10;
-                                    document.getElementById('level').innerHTML ='<h2>Niveau facile remporté !</h2>';
-                                    document.getElementById('score').innerHTML='<h2>Vous gagnez :</h2><strong>'+points+'</strong> points';
+                                    document.getElementById('level').innerHTML ='<p><strong>Niveau facile remporté !</strong></p>';
+                                    document.getElementById('score').innerHTML='<p>Vous gagnez : <strong>'+points+'</strong> points </p>';
                                     depart=false;
                                     break;
                                 case dif_temps<120:
-                                    document.getElementById('level').innerHTML ='<h2>Niveau très facile remporté !</h2>';
-                                    document.getElementById('score').innerHTML='<h2>Vous gagnez :</h2><strong>'+points+'</strong> points';
+                                    document.getElementById('level').innerHTML ='<p><strong>Niveau très facile remporté !</strong></p>';
+                                    document.getElementById('score').innerHTML='<p>Vous gagnez : <strong>'+points+'</strong> points </p>';
                                     depart=false;
                                     break;
                                 case dif_temps>120:
-                                    document.getElementById('level').innerHTML ='<h2>Rejouez !</h2>';
+                                    document.getElementById('level').innerHTML ='<p>Rejouez !</p>';
                                     depart=false;
                                     break;
                             }
