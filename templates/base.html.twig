@@ -22,7 +22,9 @@
     <![endif]-->
 </head>
 <body>
-{% block body %}{% endblock %}
+<div class="overlay" style="display: none;"></div>
+{% block body %}
+{% endblock %}
 <script src="{{ asset('build/js/app.js') }}"></script>
 {% block javascripts %}
 {% endblock %}
