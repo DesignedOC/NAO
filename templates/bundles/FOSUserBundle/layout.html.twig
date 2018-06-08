@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8" />
-</head>
-<body>
-<ul>
-    <li><a href="/">Accueil</a></li>
-    <li><a href="/association">Association</a></li>
-    <li><a href="/inscription">Inscription</a></li>
-    <li><a href="/interface/">Interface</a></li>
-    <li><a href="/admin/">Admin</a></li>
-</ul>
+{% extends 'base.html.twig' %}
+
+{% block title %}Interface - Accueil{% endblock %}
+{% block description %}{% endblock %}
+{% block body %}
 <div>
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
@@ -36,5 +28,4 @@
     {% block fos_user_content %}
     {% endblock fos_user_content %}
 </div>
-</body>
-</html>
+{% endblock %}

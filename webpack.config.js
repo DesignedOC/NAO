@@ -5,7 +5,7 @@ Encore
     .setOutputPath('public/build/')
     .setPublicPath('/build')
     .cleanupOutputBeforeBuild()
-    .enableSourceMaps(!Encore.isProduction())
+    // .enableSourceMaps(!Encore.isProduction())
 
     // .enableVersioning(Encore.isProduction())
     // .addEntry('js/app', './assets/js/app.js')

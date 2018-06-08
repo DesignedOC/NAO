@@ -64,7 +64,7 @@ class Observation
     private $bird;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="observation")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="observations")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

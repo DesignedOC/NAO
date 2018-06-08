@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une observation{% endblock %}
+{% block description %}{% endblock %}
+
+{% block body %}
+{% include 'interface/parts/_sidebar.html.twig' %}
+<div class="container-left">
+    {% include 'interface/parts/_header.html.twig' %}
+    <div class="main-content">
+        <h1>Carte</h1>
+        <div id='map'></div>
+
+        <script>
+            mapboxgl.accessToken = 'pk.eyJ1IjoiYWdlbmNlcDUiLCJhIjoiY2podnQxdWFlMDBjcDNycWc5Ym4ydjdmZiJ9.oxPKaDLfDplgUT5Xlca--Q';
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v10',
+                center: [1083.359, 46.900],
+                zoom: 5
+            });
+            //Put everything in french
+            mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.1.0/mapbox-gl-rtl-text.js');
+            map.addControl(new MapboxLanguage({
+                defaultLanguage: 'fr'
+            }));
+            // Add zoom and rotation controls to the map.
+            map.addControl(new mapboxgl.NavigationControl());
+            //Search input
+            map.addControl(new MapboxGeocoder({
+                accessToken: mapboxgl.accessToken
+            }));
+
+        </script>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
