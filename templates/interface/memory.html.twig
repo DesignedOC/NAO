@@ -36,7 +36,7 @@
                     <div id="level"></div>
                     <div id="score"></div>
                     <div id="coups"></div>
-                    <input type="button" class="btn" value="Nouvelle partie" onclick="window.location.reload();"/>
+                    <input type="button" class="btn" value="Nouvelle partie" onclick="location.reload();"/>
                 </div>
             </div>
         </div>
@@ -45,19 +45,18 @@
 {% block javascripts %}
     <script type="text/javascript">
 
-        var nb_clics = 0;
-        var coups =0;
-        var carte1 = "";
-        var carte2="";
-        var case1 = "";
-        var case2 ="";
-        var imgOk =0;
-        //var nb_erreurs =0;
-        var points =0;
-        var paireTrouvee = 20;
-        var paireNonTrouvee = 10;
-        var depart= false;
-        var temps_debut = new Date().getTime();
+        var nbClics = 0,
+            coups =0,
+            carte1 = "",
+            carte2="",
+            case1 = "",
+            case2 ="",
+            imgOk =0,
+            points =0,
+            paireTrouvee = 20,
+            paireNonTrouvee = 10,
+            depart= false,
+            temps_debut = new Date().getTime();
 
         generation();
 
@@ -72,12 +71,14 @@
 
         function generation()
         {
-            var nb_alea; var nb_img="";
-            var test = true; var chaine = "";
+            var nb_alea,
+                nb_img="",
+                test = true,
+                chaine = "";
 
             for (var i=0;i<12;i++)
             {
-                while (test==true)
+                while (test===true)
                 {
                     nb_alea = Math.floor(Math.random()*12) + 1;
                     if(chaine.indexOf("-" + nb_alea + "-")>-1)
@@ -96,12 +97,12 @@
 
         function verifier(limg,source)
         {
-            if(depart==true)
+            if(depart===true)
             {
-                nb_clics++;
+                nbClics++;
                 document.getElementById(limg).src='../../assets/img_memory/'+source+'.jpg';
 
-                if(nb_clics ==1)
+                if(nbClics ===1)
                 {
                     carte1=source;
                     case1=limg;
@@ -110,19 +111,18 @@
                 {
                     carte2=source;
                     case2=limg;
-                    if(case1!=case2)
+                    if(case1!==case2)
                     {
                         depart=false;
-                        if(carte1!=carte2)
+                        if(carte1!==carte2)
                         {
-                            var attente =setTimeout(function()
+                             attente =setTimeout(function()
                             {
                                 document.getElementById(case1).src='../../assets/img_memory/Back.jpg';
                                 document.getElementById(case2).src='../../assets/img_memory/Back.jpg';
                                 depart=true;
-                                nb_clics=0;
+                                nbClics=0;
                                 coups++;
-                                // nb_erreurs++;
                                 points = points - paireNonTrouvee;
                                 document.getElementById('score').innerHTML='<h2>Nombre de points en cours:</h2><strong>'+points+'</strong>';
                                 document.getElementById('coups').innerHTML='<h2>Nombre d\'essais en cours :</h2><strong>'+coups+'</strong>';
@@ -132,55 +132,52 @@
                         else
                         {
                             depart=true;
-                            nb_clics=0;
+                            nbClics=0;
                             coups++;
                             points= points + paireTrouvee;
                             document.getElementById('score').innerHTML='<h2>Nombre de points en cours:</h2><strong>'+points+'</strong>';
                             document.getElementById('coups').innerHTML='<h2>Nombre d\'essais en cours :</h2><strong>'+coups+'</strong>';
                             imgOk +=2;
 
-                            if(imgOk==12)
+                            if(imgOk===12)
                             {
-                                var dif_temps = Math.floor((new Date().getTime()- temps_debut)/1000);
+                                dif_temps = Math.floor((new Date().getTime()- temps_debut)/1000);
                                 document.getElementById('score').innerHTML='<h2>Vous remportez :</h2><strong>'+points+'</strong> points';
                                 document.getElementById('temps').innerHTML='<h2>Vous avez mis : </h2><strong>'+dif_temps+'</strong> secondes';
                                 document.getElementById('coups').innerHTML='<h2>en ayant fait </h2><strong>' +coups+' </strong> clics';
                             }
-                            if(imgOk==12 &&dif_temps<15)
+                            switch(imgOk===12)
                             {
-                                document.getElementById('level').innerHTML ='<h2>Bravo vous êtes un expert!</h2>';
-                                depart=false;
-                            }
-                            else if(imgOk==12 &&dif_temps<30)
-                            {
-                                document.getElementById('level').innerHTML ='<h2>Bravo vous êtes très très fort!</h2>';
-                                depart=false;
-                            }
-                            else if(imgOk==12 &&dif_temps<60)
-                            {
-                                document.getElementById('level').innerHTML ='<h2>Bravo vous êtes fort!</h2>';
-                                depart=false;
-                            }
-                            else if(imgOk==12 &&dif_temps<90)
-                            {
-                                document.getElementById('level').innerHTML ='<h2>Bravo vous êtes très bon!</h2>';
-                                depart=false;
-                            }
-                            else if(imgOk==12 &&dif_temps<120)
-                            {
-                                document.getElementById('level').innerHTML ='<h2>Bravo vous êtes bon!</h2>';
-                                depart=false;
-                            }
-                            else if(imgOk==12 &&dif_temps>120)
-                            {
-                                document.getElementById('level').innerHTML ='<h2>Vous avez mis trop de temps !</h2>';
-                                depart=false;
+                                case dif_temps<15:
+                                    document.getElementById('level').innerHTML ='<h2>Bravo vous êtes un expert!</h2>';
+                                    depart=false;
+                                    break;
+                                case dif_temps<30:
+                                    document.getElementById('level').innerHTML ='<h2>Bravo vous êtes très très fort!</h2>';
+                                    depart=false;
+                                    break;
+                                case dif_temps<60:
+                                    document.getElementById('level').innerHTML ='<h2>Bravo vous êtes fort!</h2>';
+                                    depart=false;
+                                    break;
+                                case dif_temps<90:
+                                    document.getElementById('level').innerHTML ='<h2>Bravo vous êtes très bon!</h2>';
+                                    depart=false;
+                                    break;
+                                case dif_temps<120:
+                                    document.getElementById('level').innerHTML ='<h2>Bravo vous êtes bon!</h2>';
+                                    depart=false;
+                                    break;
+                                case dif_temps>120:
+                                    document.getElementById('level').innerHTML ='<h2>Vous avez mis trop de temps !</h2>';
+                                    depart=false;
+                                    break;
                             }
                         }
                     }
                     else
                     {
-                        if(nb_clics==2)nb_clics=1;
+                        if(nbClics===2)nbClics=1;
                     }
                 }
             }
