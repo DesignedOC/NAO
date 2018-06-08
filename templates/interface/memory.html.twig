@@ -11,7 +11,6 @@
 {% block body %}
     <div class="container">
         <div class="row">
-
             <div class="col-md-6">
                 <div id="grille">
                     <div class="case" id="case0"></div>
@@ -32,7 +31,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <p>Vos points : </p>
+                    <div class="card">
                     <p>En début de partie , votre score est fixé à 0 </p>
                     <p>Pour chaque paire trouvée , votre score augmente de 20 points </p>
                     <p>Pour chaque paire non trouvée , votre score diminue de 10 points </p>
@@ -45,7 +44,8 @@
                         <li>Niveau facile = Entre 60 et 90 secondes + 10 points ! </li>
                         <li>Niveau très facile = Entre 90 et 120 secondes + 0 points ! </li>
                     </ul>
-
+                    <input type="button" class="btn" value="Nouvelle partie" onclick="location.reload();"/>
+                </div>
                 </div>
             <div class="col-md-6">
                 <div class="infos">
@@ -54,7 +54,7 @@
                     <div id="coups"></div>
                     <div id="level"></div>
                     <div id="score"></div>
-                    <input type="button" class="btn" value="Nouvelle partie" onclick="location.reload();"/>
+                   <!-- <input type="button" class="btn" value="Nouvelle partie" onclick="location.reload();"/>-->
                 </div>
             </div>
             </div>
@@ -79,14 +79,14 @@
 
         generation();
 
-        var attente = setTimeout(function()
-        {
+       // var attente = setTimeout(function()
+       // {
             for(var i=0;i<12;i++)
             {
                 document.getElementById('img' +i).src='../../assets/img_memory/Back.jpg';
             }
             depart=true;
-        },0);
+        //},0);
 
         function generation()
         {

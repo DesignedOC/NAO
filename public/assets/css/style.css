@@ -25,6 +25,7 @@
     width: auto;
     height:auto;
     margin-left: 20px;
+    display: inline-block;
 }
 /*****BLOC CONTENANT LA GRILLE******/
 /*****CASES IMAGES ******/
@@ -36,7 +37,12 @@
     padding: 2px;
 }
 /*****CASES IMAGES ******/
-
+.card
+{
+    text-align: justify;
+    padding: 15px;
+    margin: 20px;
+}
 
 
 
