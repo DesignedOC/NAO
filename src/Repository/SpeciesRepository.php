@@ -19,6 +19,16 @@ class SpeciesRepository extends ServiceEntityRepository
         parent::__construct($registry, Species::class);
     }
 
+
+
+    public function findSpecies($dataObservation){
+        $qb= $this->createQueryBuilder('e');
+        $qb
+            ->where('CONCAT(e.lbNom, \' - \',e.nomVern)= :dataObservation')
+            ->setParameter('dataObservation', $dataObservation);
+        return $qb ->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Species[] Returns an array of Species objects
 //     */

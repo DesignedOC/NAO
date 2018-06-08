@@ -41,6 +41,6 @@ class ObservationController extends Controller
     public function carte(Request $request)
     {
         
-        return $this->render('carte.html.twig');
+        return $this->render('carte.html');
     }
 }
