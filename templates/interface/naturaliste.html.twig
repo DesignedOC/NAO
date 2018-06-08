@@ -8,7 +8,9 @@
 <div class="container-left">
     {% include 'interface/parts/_header.html.twig' %}
     <div class="main-content">
-        <div class="col-md-8 order-md-1">
+        <div class="row">
+        <div class="col-12">
+        <div class="col-lg-6 naturalist-box">
             <h1>Devenir Naturaliste</h1>
             {% for message in app.flashes('success') %}
                 <div class="alert alert-success" role="alert">
@@ -18,11 +20,11 @@
             <hr class="mb-4">
             {{ form_start(application, {'attr': {'novalidate': 'novalidate'}}) }}
             <div class="form-group row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     {{ form_label(application.experience) }}
                     {{ form_widget(application.experience) }}
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     {{ form_label(application.description) }}
                     {{ form_widget(application.description) }}
                 </div>
@@ -31,6 +33,8 @@
             <button class="btn btn-primary" name="submit" type="submit">Soumettre votre candidature</button>
             {{ form_end(application) }}
         </div>
+        </div>
+    </div>
     </div>
 </div>
 {% endblock %}
