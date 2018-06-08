@@ -1,8 +1,5 @@
 <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
     <a class="navbar-brand" href="#">Dashboard</a>
-    <button class="navbar-toggler p-0 border-0" type="button">
-        <span class="navbar-toggler-icon"></span>
-    </button>
     <div class="search ml-lg-5 mr-auto">
         <form class="form-inline my-0 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Recherche" aria-label="Search">
@@ -11,7 +8,10 @@
     </div>
     <div class="account">
         <div class="acc-avatar">
-            <i class="material-icons md-dark">face</i>
+            <i class="material-icons" style="color: #15ab4d;">grade</i>
+        </div>
+        <div class="acc-avatar-profile">
+            <img src="/assets/img/grandpa.jpg" alt="{{ app.user.username }} - Image Profil">
         </div>
         <div class="acc-user dropdown">
             <a href="#" data-toggle="dropdown" id="menu1">{{ app.user.username|capitalize }}</a>
@@ -25,3 +25,28 @@
         </div>
     </div>
 </nav>
+
+<div class="nav-mobile">
+    <div class="container-fluid">
+            <div class="row">
+                <div class="col-3">
+                    <a href="#"><i class="material-icons">add</i></a>
+                </div>
+                <div class="col">
+                    <a class="navbar-brand" href="{{ path('nao_interface') }}">NAO</a>
+                </div>
+                <div class="col-xs-4 mr-3">
+                    <a href="#" class="menu-icon float-right"><i class="material-icons">menu</i></a>
+                    <a data-toggle="collapse" href="#search-collapse" role="button" aria-expanded="false" aria-controls="search-collapse" class="menu-search float-right"><i class="material-icons">search</i></a>
+                </div>
+            </div>
+    </div>
+</div>
+<div class="collapse" id="search-collapse">
+    <div class="search-fix">
+            <form role="search" method="get" class="search-form" action="#">
+                <input type="search" class="search-field form-control" placeholder="Rechercher..." title="Search for:">
+                <button class="btn btn-primary-custom" name="submit" type="submit"><i class="material-icons">search</i></button>
+            </form>
+    </div>
+</div>

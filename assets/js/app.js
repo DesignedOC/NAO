@@ -10,7 +10,7 @@ $(function () {
         $('.overlay').fadeOut();
     });
 
-    $('.navbar-toggler').on('click', function () {
+    $('a.menu-icon').on('click', function () {
         $('#sidebar-wrapper').addClass('active');
         $('.overlay').fadeIn();
     });

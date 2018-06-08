@@ -1,6 +1,7 @@
 // customize some Bootstrap variables
 $primary-color: #42aed7;
 $primary-color-hov: #40bbe3;
+$primary-color-act: #3388a9;
 $background: #f7f7f7;
 $fonts: 'Roboto', Sans-serif;
 $fonts-secondary: 'Open Sans', Sans-serif;
@@ -135,10 +136,12 @@ div.search {
 
 div.account {
   margin-right: 25px;
+
   .acc-user {
     float: left;
+    line-height: 2;
   }
-  .acc-avatar {
+  .acc-avatar, .acc-avatar-profile {
     float: left;
     margin-right: 5px;
   }
@@ -152,6 +155,9 @@ div.account {
   }
   ul.dropdown-menu {
     padding: 15px;
+  }
+  .acc-avatar i.material-icons {
+    line-height: 1.4;
   }
 }
 
@@ -225,10 +231,11 @@ div.main-content {
     .fixed-top {
       left: 0;
       z-index: 800;
+      border-bottom: 0.2em solid #ececec;
     }
-    a.navbar-brand {
-      display: none;
-    }
+    //a.navbar-brand {
+    //  display: none;
+    //}
     .container-left {
       margin-left: 0;
     }
@@ -238,8 +245,11 @@ div.main-content {
     div.search, div.account, div.logo {
       display: none;
     }
-    button.navbar-toggler.p-0.border-0 {
-      margin-left: 250px;
+    //button.navbar-toggler.p-0.border-0 {
+    //  margin-left: 250px;
+    //}
+    nav.navbar {
+       display: none;
     }
     .overlay {
       position: fixed;
@@ -254,7 +264,12 @@ div.main-content {
     ul.sidebar-account, .sidebar-profile {
       display: none;
     }
-
+    div.nav-mobile {
+      display: none;
+    }
+    div#search-collapse {
+      display: none;
+  }
 }
 
 ul.sidebar-account {
@@ -298,6 +313,18 @@ div.avatar-profile img {
   box-shadow: 11px 10px 20px -6px rgba(176,176,176,0.38);
 }
 
+.acc-avatar-profile img {
+  width: 35px;
+  height: 35px;
+  border-radius: 100px;
+  display: block;
+  float: left;
+  border: 3px solid #fff;
+  -webkit-box-shadow: 11px 10px 20px -6px rgba(176,176,176,0.38);
+  -moz-box-shadow: 11px 10px 20px -6px rgba(176,176,176,0.38);
+  box-shadow: 11px 10px 20px -6px rgba(176,176,176,0.38);
+}
+
 div.info-profile {
   line-height: 1.2;
   padding-top: 20px;
@@ -319,3 +346,74 @@ div.info-profile {
 .nav-active {
   color: $primary-color;
 }
+
+div.nav-mobile {
+  i.material-icons {
+    font-size: 35px;
+    vertical-align: middle;
+    color: #fff;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    background: #42aed7;
+    background: -moz-linear-gradient(left, #42aed7 0%, #029dd6 100%);
+    background: -webkit-linear-gradient(left, #42aed7 0%,#029dd6 100%);
+    background: linear-gradient(to right, #42aed7 0%,#029dd6 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#42aed7', endColorstr='#029dd6',GradientType=1 );
+  }
+  i.material-icons:hover {
+    background: $primary-color-hov;
+  }
+  i.material-icons:active {
+    background: $primary-color-act;
+  }
+  a.navbar-brand {
+    text-align: center;
+    display: block;
+  }
+  a.menu-search i.material-icons {
+    background: #fff;
+    color: #d8d8d8;
+    font-size: 30px;
+    margin-right: 10px;
+    -webkit-box-shadow: 11px 10px 20px -6px rgba(176, 176, 176, 0.38);
+    -moz-box-shadow: 11px 10px 20px -6px rgba(176, 176, 176, 0.38);
+    box-shadow: 11px 10px 20px -6px rgba(176, 176, 176, 0.38);
+  }
+}
+
+div.nav-mobile {
+  background: #fff;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 0.2em solid #ececec;
+
+}
+div#search-collapse {
+  .search-fix {
+    padding: 15px;
+    background: #143644;
+  }
+  .search-form {
+    position: relative;
+  }
+  .search-form .btn {
+    width: 45px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    padding: 0;
+  }
+  .search-form .btn:active {
+    background: #ececec;
+  }
+  .search-form .btn i.material-icons{
+    vertical-align: middle;
+  }
+  input.search-field.form-control {
+    border: 0;
+  }
+}
+
