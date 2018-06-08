@@ -19,10 +19,13 @@ class ObservationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $observation = new Observation();
         $form = $this->createForm(ObservationType::class, $observation);
-
+        $user = $this->getUser();
+        
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $observation->setUser($user);
             $em->persist($observation);
             $em->flush();
+             
         }
 
         return $this->render('observation/index.html.twig', [
