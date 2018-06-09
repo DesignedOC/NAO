@@ -25,6 +25,7 @@ class ObservationController extends Controller
             $observation->setUser($user);
             $em->persist($observation);
             $em->flush();
+            return $this->redirectToRoute('carte');
              
         }
 
@@ -39,7 +40,8 @@ class ObservationController extends Controller
      */
     public function carte(Request $request)
     {
-        
+        //Appelle le repo, le repo appelle la table observation, prend un de ses objets , et qui va retourner
+        //la position lattitude et longitude de cet objet
         return $this->render('carte.html');
     }
 }

@@ -46,7 +46,23 @@
     accessToken: mapboxgl.accessToken
     }));
 
- 
+    //Add a layer
+    map.on('load', function() {
+        map.addLayer({
+            id: 'bird-data',
+            type: 'line',
+            source: {
+                type: 'json',
+                //mettre lien vers la BDD TAXREF
+                url: 'mapbox://mapbox.mapbox-terrain-v2'
+            },
+            'source-layer': 'contour'
+        });
+    });
+
+
+
+
 </script>
 
 </body>
