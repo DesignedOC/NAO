@@ -1,0 +1,60 @@
+/*****BOUTON NOUVELLE PARTIE ******/
+.btn
+{
+    width:165px;
+    height:55px;
+    text-align:center;
+    border-radius: 5px;
+    background: #0070B8;
+    font-size:20px;
+    color:white;
+}
+/*****BOUTON NOUVELLE PARTIE ******/
+/*****BOUTON NOUVELLE PARTIE SURVOL******/
+.btn:hover
+{
+    cursor:pointer;
+}
+/*****BOUTON NOUVELLE PARTIE SURVOL******/
+
+
+/*****BLOC CONTENANT LA GRILLE******/
+.grid {
+    display : grid;
+    grid-template-columns: repeat(4,0.2fr);
+    grid-template-rows: repeat(1, auto);
+}
+
+
+/*#grille
+{
+    float:left;
+    width: auto;
+    height:auto;
+    margin-left: 20px;
+    display: inline-block;
+}*/
+/*****BLOC CONTENANT LA GRILLE******/
+/*****CASES IMAGES ******/
+.case
+{
+    margin: 1px;
+    padding : 1px;
+}
+/*.case
+{
+    float:left;
+    width:auto;
+    height:auto;
+    padding: 2px;
+}*/
+/*****CASES IMAGES ******/
+.card
+{
+    text-align: justify;
+    padding: 15px;
+    margin: 20px;
+}
+
+
+

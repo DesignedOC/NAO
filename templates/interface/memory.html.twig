@@ -1,0 +1,220 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}memory Bird{% endblock %}
+{% block description %}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('assets/css/style.css') }}" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+               <!-- <div id="grille">-->
+                <div class="grid">
+                    <div class="case" id="case0"></div>
+                    <div class="case" id="case1"></div>
+                    <div class="case" id="case2"></div>
+                    <div class="case" id="case3"></div>
+
+                    <div class="case" id="case4"></div>
+                    <div class="case" id="case5"></div>
+                    <div class="case" id="case6"></div>
+                    <div class="case" id="case7"></div>
+
+                    <div class="case" id="case8"></div>
+                    <div class="case" id="case9"></div>
+                    <div class="case" id="case10"></div>
+                    <div class="case" id="case11"></div>
+                </div>
+            </div>
+           <!-- </div>-->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                    <p>En début de partie , votre score est fixé à 0 </p>
+                    <p>Pour chaque paire trouvée , votre score augmente de 20 points </p>
+                    <p>Pour chaque paire non trouvée , votre score diminue de 10 points </p>
+                    <p>En fin de partie, selon le temps que vous aurez mis pour trouver les 6 paires </p>
+                    <p>Vous augmenterez votre score avec un bonus de temps </p>
+                    <ul>
+                        <li>Niveau très difficile = Moins de 15 secondes + 50 points ! </li>
+                        <li>Niveau difficile = Entre 15 et 30 secondes + 30 points ! </li>
+                        <li>Niveau moyen = Entre 30 et 60 secondes + 20 points ! </li>
+                        <li>Niveau facile = Entre 60 et 90 secondes + 10 points ! </li>
+                        <li>Niveau très facile = Entre 90 et 120 secondes + 0 points ! </li>
+                    </ul>
+                    <input type="button" class="btn" value="Nouvelle partie" onclick="location.reload();"/>
+                </div>
+                </div>
+            <div class="col-md-6">
+                <div class="infos">
+                    <div id="paireOk"></div>
+                    <div id="temps"></div>
+                    <div id="coups"></div>
+                    <div id="level"></div>
+                    <div id="score"></div>
+                   <!-- <input type="button" class="btn" value="Nouvelle partie" onclick="location.reload();"/>-->
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+
+        var nbClics = 0,
+            coups =0,
+            carte1 = "",
+            carte2="",
+            case1 = "",
+            case2 ="",
+            imgOk =0,
+            points =0,
+            paireTrouvee = 20,
+            paireNonTrouvee = 10,
+            depart= false,
+            temps_debut = new Date().getTime();
+
+        generation();
+
+       // var attente = setTimeout(function()
+       // {
+            for(var i=0;i<12;i++)
+            {
+                document.getElementById('img' +i).src='../../assets/img_memory/Back.jpg';
+            }
+            depart=true;
+        //},0);
+
+        function generation()
+        {
+            var nb_alea,
+                nb_img="",
+                test = true,
+                chaine = "";
+
+            for (var i=0;i<12;i++)
+            {
+                while (test===true)
+                {
+                    nb_alea = Math.floor(Math.random()*12) + 1;
+                    if(chaine.indexOf("-" + nb_alea + "-")>-1)
+                        nb_alea = Math.floor(Math.random()*12) + 1;
+                    else
+                    {
+                        nb_img = Math.floor((nb_alea+1)/2);
+                        document.getElementById('case' + i).innerHTML = "<img style='cursor:pointer;' id='img" + i + "' src=" + nb_img + "'../../assets/img_memory/carte.jpg' onClick='verifier(\"img" + i + "\", \"carte" + nb_img + "\")' alt='' />";
+                        chaine += "-" + nb_alea + "-";
+                        test=false;
+                    }
+                }
+                test=true;
+            }
+        }
+
+        function verifier(limg,source)
+        {
+            if(depart===true)
+            {
+                nbClics++;
+                document.getElementById(limg).src='../../assets/img_memory/'+source+'.jpg';
+
+                if(nbClics ===1)
+                {
+                    carte1=source;
+                    case1=limg;
+                }
+                else
+                {
+                    carte2=source;
+                    case2=limg;
+                    if(case1!==case2)
+                    {
+                        depart=false;
+                        if(carte1!==carte2)
+                        {
+                             attente =setTimeout(function()
+                            {
+                                document.getElementById(case1).src='../../assets/img_memory/Back.jpg';
+                                document.getElementById(case2).src='../../assets/img_memory/Back.jpg';
+                                depart=true;
+                                nbClics=0;
+                                coups++;
+                                points = points - paireNonTrouvee;
+                                document.getElementById('score').innerHTML='<p>Nombre de points en cours : <strong>'+points+'</strong></p>';
+                                document.getElementById('coups').innerHTML='<p>Nombre d\'essais en cours : <strong>'+coups+'</strong></p>';
+
+                            },800);
+                        }
+                        else
+                        {
+                            depart=true;
+                            nbClics=0;
+                            coups++;
+                            points= points + paireTrouvee;
+                            document.getElementById('score').innerHTML='<p>Nombre de points en cours : <strong>'+points+'</strong></p>';
+                            document.getElementById('coups').innerHTML='<p>Nombre d\'essais en cours :<strong>'+coups+'</strong></p>';
+                            imgOk +=2;
+                            document.getElementById('paireOk').innerHTML='<p>Bravo vous avez trouvé <strong>'+imgOk/2+'</strong> paire(s) ! </p>';
+
+                            if(imgOk===12)
+                            {
+                                dif_temps = Math.floor((new Date().getTime()- temps_debut)/1000);
+
+                                document.getElementById('temps').innerHTML='<p>En : <strong>'+dif_temps+'</strong> secondes </p>';
+                                document.getElementById('coups').innerHTML='<p>et  <strong>' +coups+' </strong> tentatives </p>';
+                            }
+                            switch(imgOk===12)
+                            {
+
+                                case dif_temps<15:
+                                    points = points + 50;
+                                    document.getElementById('level').innerHTML ='<p><strong>Niveau très difficile remporté !</strong></p>';
+                                    document.getElementById('score').innerHTML='<p>Vous gagnez : <strong>'+points+'</strong> points </p>';
+                                    depart=false;
+                                    break;
+                                case dif_temps<30:
+                                    points = points + 30;
+                                    document.getElementById('level').innerHTML ='<p><strong>Niveau difficile remporté !</strong></p>';
+                                    document.getElementById('score').innerHTML='<p>Vous gagnez : <strong>'+points+'</strong> points </p>';
+                                    depart=false;
+                                    break;
+                                case dif_temps<60:
+                                    points = points + 20;
+                                    document.getElementById('level').innerHTML ='<p><strong>Niveau moyen remporté !</strong></p>';
+                                    document.getElementById('score').innerHTML='<p>Vous gagnez : <strong>'+points+'</strong> points </p>';
+                                    depart=false;
+                                    break;
+                                case dif_temps<90:
+                                    points = points + 10;
+                                    document.getElementById('level').innerHTML ='<p><strong>Niveau facile remporté !</strong></p>';
+                                    document.getElementById('score').innerHTML='<p>Vous gagnez : <strong>'+points+'</strong> points </p>';
+                                    depart=false;
+                                    break;
+                                case dif_temps<120:
+                                    document.getElementById('level').innerHTML ='<p><strong>Niveau très facile remporté !</strong></p>';
+                                    document.getElementById('score').innerHTML='<p>Vous gagnez : <strong>'+points+'</strong> points </p>';
+                                    depart=false;
+                                    break;
+                                case dif_temps>120:
+                                    document.getElementById('level').innerHTML ='<p>Rejouez !</p>';
+                                    depart=false;
+                                    break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(nbClics===2)nbClics=1;
+                    }
+                }
+            }
+        }
+    </script>
+
+{% endblock %}
+
