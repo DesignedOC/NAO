@@ -12,7 +12,7 @@ class Bird
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
-     * @ORM\Column(typevern_name="integer")
+     * @ORM\Column(name="id", type="integer")
      */
     private $id;
 

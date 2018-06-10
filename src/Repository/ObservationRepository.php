@@ -21,23 +21,21 @@ class ObservationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Observation::class);
     }
-
-//Requete pour avoir l'objet observation grâce à son nom
-    public function findObservationBy($str){
-        $qb = $this->createQueryBuilder('e');
-        $qb->select('e.vern_name as value')
-            ->where('e.vern_name LIKE :str')
-            ->setParameter('str', '%'.$str.'%');
-        return $qb ->getQuery()->getArrayResult();
+	
+	 /**
+     * @return User[] Returns an array of User objects
+     */
+    
+    public function findBylatitude($value)
+    {
+        return $this->createQueryBuilder('u')
+		     ->leftJoin('u.bird', 'u_bird')
+            ->andWhere('u_bird.vern_name = :val')
+            ->setParameter('val', $value)            
+            ->getQuery()
+            ->getResult()
+        ;
     }
-
-//Requete pour avoir la LATTITUDE et la LONGITUDE de cet objet
-    public function findPlace($dataObservation){
-        $qb= $this->createQueryBuilder('e');
-
-
-
-        return $qb ->getQuery()->getResult();
-    }
+    
 
 }

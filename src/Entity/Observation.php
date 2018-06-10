@@ -57,7 +57,7 @@ class Observation
     private $pictureFile;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\JoinColumn(name="bird", referencedColumnName="id")
      * @ORM\ManyToOne(targetEntity="App\Entity\Bird", cascade={"persist"})
      * @Assert\Type(type="App\Entity\Bird")
      * @Assert\Valid()
