@@ -12,39 +12,32 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Observation[]    findAll()
  * @method Observation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+
+
 class ObservationRepository extends ServiceEntityRepository
 {
+//Méthode de base
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Observation::class);
     }
 
-//    /**
-//     * @return Observation[] Returns an array of Observation objects
-//     */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+//Requete pour avoir l'objet observation grâce à son nom
+    public function findObservationBy($str){
+        $qb = $this->createQueryBuilder('e');
+        $qb->select('e.vern_name as value')
+            ->where('e.vern_name LIKE :str')
+            ->setParameter('str', '%'.$str.'%');
+        return $qb ->getQuery()->getArrayResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Observations
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+//Requete pour avoir la LATTITUDE et la LONGITUDE de cet objet
+    public function findPlace($dataObservation){
+        $qb= $this->createQueryBuilder('e');
+
+
+
+        return $qb ->getQuery()->getResult();
     }
-    */
+
 }

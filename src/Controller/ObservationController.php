@@ -34,6 +34,25 @@ class ObservationController extends Controller
         ]);
     }
 
+    // creer une methode qui recoit un nom d'oiseau et qui va chercher en bdd l'oiseau en question
+    // et le retourner au format json a l'appellant
+
+    /**
+     * @Route("/oiseau/{nom_oiseau}", name="observation")
+     */
+    public function findBirdAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = $request->request->all();
+        $finddata = $em->getRepository('App\Repository:Observation')->findPlace($data['nom_especes']);
+        $observation = new Observation();
+        $observation->setVernName($data['nom_especes']);
+        $observation->setLatitude($data['latitude']);
+        $observation->setLongitude($data['longitude']);
+    }
+
+
+
 
     /**
      * @Route("/carte", name="carte")
