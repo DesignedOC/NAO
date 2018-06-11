@@ -7,20 +7,49 @@
     border-radius: 5px;
     background: #42aed7;
     font-size:20px;
+    cursor:pointer;
+    border: none;
     color:white;
 }
-/*****BOUTON NOUVELLE PARTIE SURVOL******/
-.btn:hover
+/*****BOUTON TEXTE ******/
+.btn_texte
 {
+    width:165px;
+    height:55px;
+    text-align:center;
+    border-radius: 5px;
+    background: #42aed7;
+    font-size:20px;
     cursor:pointer;
+    border: none;
+    color:white;
 }
-
+.btn_texte:hover
+{
+    text-decoration:none;
+}
+.texte
+{
+    border:2px solid #42aed7;
+    padding:10px;
+    margin-top: 10px;
+}
+.infos
+{
+    margin-top: 40px;
+}
 /*****BLOC CONTENANT LA GRILLE******/
 .grid {
     display: grid;
     /* 4 nombre d'elements 0.2 espace entre les elements*/
     grid-template-columns: repeat(4, 0.2fr);
     /*grid-template-rows: repeat(1, auto);*/
+}
+
+.case
+{
+    width: 124px;
+    height: 186px;
 }
 @media (min-width: 576px) {
 
@@ -31,7 +60,13 @@
         grid-template-columns: repeat(4, 0.1fr);
         /*grid-template-rows: repeat(1, auto);*/
     }
+
 }
+
+@media (min-width: 768px) {
+
+}
+
 @media (min-width: 992px) {
     .container {
         width: 970px;
@@ -54,6 +89,7 @@
         /*grid-template-rows: repeat(1, auto);*/
     }
 }
+
 
 
 

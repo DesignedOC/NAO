@@ -15,7 +15,7 @@
     {% include 'interface/parts/_header.html.twig' %}
     <div class="main-content">
         <h1>Memory Bird</h1>
-    <div class="container">
+    <!--<div class="container">-->
         <div class="row">
             <div class="col-lg-6">
                 <div class="grid">
@@ -37,12 +37,25 @@
             </div>
 
                 <div class="col-lg-6">
+                    <input type="button" class="btn_texte" value="Comment jouer ?" onclick="afficher_cacher('texte');"/>
+                    <input type="button" class="btn_memory" value="Nouvelle partie" onclick="location.reload();"/>
 
+                    <div class="infos">
+                    <div id="paireOk"></div>
+                    <div id="temps"></div>
+                    <div id="coups"></div>
+                    <div id="level"></div>
+                    <div id="score"></div>
+                    </div>
+                    <!--<span class="bouton_texte" id="bouton_texte" onclick="afficher_cacher('texte');">Comment jouer?</span>-->
+                    <div id="texte" class="texte">
                         <p>En début de partie , votre score est fixé à 0 </p>
                         <p>Pour chaque paire trouvée , votre score augmente de 20 points </p>
                         <p>Pour chaque paire non trouvée , votre score diminue de 10 points </p>
                         <p>En fin de partie, selon le temps que vous aurez mis pour trouver les 6 paires </p>
                         <p>Vous augmenterez votre score avec un bonus de temps </p>
+
+
                         <ul>
                             <li>Niveau très difficile = Moins de 15 secondes + 50 points ! </li>
                             <li>Niveau difficile = Entre 15 et 30 secondes + 30 points ! </li>
@@ -50,18 +63,12 @@
                             <li>Niveau facile = Entre 60 et 90 secondes + 10 points ! </li>
                             <li>Niveau très facile = Entre 90 et 120 secondes + 0 points ! </li>
                         </ul>
-                        <input type="button" class="btn_memory" value="Nouvelle partie" onclick="location.reload();"/>
-                        <div id="paireOk"></div>
-                        <div id="temps"></div>
-                        <div id="coups"></div>
-                        <div id="level"></div>
-                        <div id="score"></div>
+                    </div>
                     </div>
                 </div>
-
             </div>
     </div>
-</div>
+
 {% endblock %}
 {% block javascripts %}
     <script type="text/javascript">
@@ -213,6 +220,23 @@
                     }
                 }
             }
+        }
+
+        afficher_cacher('texte');
+        function afficher_cacher(id)
+        {
+
+            if(document.getElementById(id).style.visibility=="hidden")
+            {
+                document.getElementById(id).style.visibility="visible";
+                document.getElementById('button_'+id).innerHTML='Fermer';
+            }
+            else
+            {
+                document.getElementById(id).style.visibility="hidden";
+                document.getElementById('button_'+id).innerHTML='Comment jouer ?';
+            }
+            return true;
         }
     </script>
 
