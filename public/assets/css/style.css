@@ -30,6 +30,7 @@
 }
 .texte
 {
+    display: inline-block;
     border:2px solid #42aed7;
     padding:10px;
     margin-top: 10px;
@@ -38,57 +39,29 @@
 {
     margin-top: 40px;
 }
-/*****BLOC CONTENANT LA GRILLE******/
-.grid {
-    display: grid;
-    /* 4 nombre d'elements 0.2 espace entre les elements*/
-    grid-template-columns: repeat(4, 0.2fr);
-    /*grid-template-rows: repeat(1, auto);*/
+.infos div{
+    display: inline-block;
 }
-
-.case
+.score div
 {
-    width: 124px;
-    height: 186px;
+    display: inline-block;
 }
-@media (min-width: 576px) {
-
-    .grid {
-        /*display: inline-block;*/
-        display: grid;
-        /* 4 nombre d'elements 0.2 espace entre les elements*/
-        grid-template-columns: repeat(4, 0.1fr);
-        /*grid-template-rows: repeat(1, auto);*/
-    }
-
+.game div
+{
+    display: inline-block;
+}
+.texte p{
+    font-size: 22px;
 }
 
-@media (min-width: 768px) {
 
-}
 
-@media (min-width: 992px) {
-    .container {
-        width: 970px;
-    }
-    .grid {
-        display: grid;
-        /* 4 nombre d'elements 0.2 espace entre les elements*/
-        grid-template-columns: repeat(4, 0.1fr);
-        /*grid-template-rows: repeat(1, auto);*/
-    }
-}
-@media (min-width: 1200px) {
-    .container {
-        width: 1170px;
-    }
-    .grid {
-        display: grid;
-        /* 4 nombre d'elements 0.2 espace entre les elements*/
-        grid-template-columns: repeat(4, 0.1fr);
-        /*grid-template-rows: repeat(1, auto);*/
-    }
-}
+
+
+
+
+
+
 
 
 
