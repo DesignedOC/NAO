@@ -27,8 +27,9 @@ class ObservationController extends Controller
             $observation->setUser($user);
             $em->persist($observation);
             $em->flush();
-            //return $this->redirectToRoute('carte');         
+            return $this->redirectToRoute('carte');         
         }
+		//mettre interface à la place
         return $this->render('observation/index.html.twig', [
            'form' => $form->createView(),
         ]);
@@ -43,26 +44,32 @@ class ObservationController extends Controller
      * @Route("/oiseau/{name}", name="oiseau")
      */	
 	 
-    public function findBirdAction(Request $request)
-     {
-        // - recuperer le nom de l'oiseau		
-		$nameBird = $request->get('name');	
-		// - verfier que cet oiseau existe en bdd
+	 
+	 // - recuperer le nom de l'oiseau ici $name
+    public function findBirdAction(Request $request, String $name)
+     {      
+		// - verifier que cet oiseau existe en bdd
 		$em = $this->getDoctrine()->getManager(); 
 		$observation = $this->getDoctrine()
         ->getRepository(Observation::class)
-        ->findBylatitude(22222);
+        ->findBylatitude($name);
 		
-		// - si l'oiseau n'existe pas on renvoit une reposonse not found
-		
+		// - si l'oiseau n'existe pas on renvoit une reposonse not found		
 		if (!$observation) {
         throw $this->createNotFoundException(
-            'rien trouvé pour '.$nameBird
+            'rien trouvé pour '.$name
         );
-    }
-		// - si l'oiseau existe 
-		      // on recuperer la lat et long 
-			  
+        // - si l'oiseau existe 
+    } else {
+		echo 'Votre oiseau est : ' . $name;
+			dump($observation);
+	}
+	
+
+	
+	
+
+		      // on recuperer la lat et long   
 			  
 			  // et on contacte mapbox avec la lat et long afin d'obtenir le tile
 			  
@@ -72,7 +79,7 @@ class ObservationController extends Controller
 		
 		
         //retourner en format JSON
-		 return new Response($nameBird);
+		 return new Response($name);
         
     }
 
@@ -82,7 +89,7 @@ class ObservationController extends Controller
     /**
      * @Route("/carte", name="carte")
      */
-    public function carte(Request $request)
+    public function carteAction(Request $request)
     {
         //Appelle le repo, le repo appelle la table observation, prend un de ses objets , et qui va retourner
         //la position lattitude et longitude de cet objet
