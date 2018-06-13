@@ -20,6 +20,19 @@ class BirdRepository extends  ServiceEntityRepository
         parent::__construct($registry, Bird::class);
     }
 
+    /**
+     * @return int|mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function countNb()
+    {
+        $nb = $this
+            ->createQueryBuilder('b')
+            ->select('count(b) as nb')
+            ->getQuery()
+            ->getSingleScalarResult();
+        return $nb;
+    }
 //
 //    /**
 //     * @return Bird[] Returns an array of Bird objects
