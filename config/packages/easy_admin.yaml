@@ -8,8 +8,8 @@ easy_admin:
         menu:
             - { entity: 'User', icon: 'user', label: 'Utilisateurs' }
             - { entity: 'Observation', icon: 'binoculars', label: 'Observation' }
-        #    - { entity: 'Species', icon: 'themeisle', label: 'Especes' }
             - { entity: 'Bird', icon: 'themeisle', label: 'Oiseaux' }
+            - { label: 'Import BDD', route: 'taxrefBaseImport' }
             - { entity: 'Badge', icon: 'bookmark', label: 'Badge' }
     entities:
         User:

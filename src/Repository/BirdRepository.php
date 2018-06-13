@@ -1,11 +1,8 @@
 <?php
-
 namespace App\Repository;
-
 use App\Entity\Bird;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-
 /**
  * @method Bird|null find($id, $lockMode = null, $lockVersion = null)
  * @method Bird|null findOneBy(array $criteria, array $orderBy = null)
@@ -14,12 +11,10 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class BirdRepository extends  ServiceEntityRepository
 {
-
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Bird::class);
     }
-
     /**
      * @return int|mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
@@ -50,7 +45,6 @@ class BirdRepository extends  ServiceEntityRepository
         ;
     }
     */
-
     /*
     public function findOneBySomeField($value): ?Bird
     {
