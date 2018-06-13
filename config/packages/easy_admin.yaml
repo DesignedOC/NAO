@@ -8,7 +8,8 @@ easy_admin:
         menu:
             - { entity: 'User', icon: 'user', label: 'Utilisateurs' }
             - { entity: 'Observation', icon: 'binoculars', label: 'Observation' }
-            - { entity: 'Species', icon: 'themeisle', label: 'Especes' }
+        #    - { entity: 'Species', icon: 'themeisle', label: 'Especes' }
+            - { entity: 'Bird', icon: 'themeisle', label: 'Oiseaux' }
             - { entity: 'Badge', icon: 'bookmark', label: 'Badge' }
     entities:
         User:
@@ -125,8 +126,8 @@ easy_admin:
                     - { property: 'pictureFile' ,type: 'vich_image'}
                     - description
 
-        Species:
-            class: App\Entity\Species
+        Bird:
+            class: App\Entity\Bird
             list:
                 title: 'Espèces'
                 actions:
@@ -136,37 +137,38 @@ easy_admin:
                     - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
 
                 fields:
+
                     - { property: 'id'}
-                    - { property: 'order'}
-                    - { property: 'family'}
+                    - { property: 'nomVern'}
+                    - { property: 'ordre'}
+                    - { property: 'famille'}
                     - { property: 'cdNom'}
                     - { property: 'lbNom'}
-                    - { property: 'nomVern'}
                     - { property: 'habitat'}
-                    - { property: 'statut'}
-                    - { property: 'url'}
+                    - { property: 'statutFR'}
+                 #   - { property: 'url'}
             new:
                 title: 'Ajouter un Oiseau'
                 fields:
-                    - { property: 'order'}
-                    - { property: 'family'}
+                    - { property: 'nomVern'}
+                    - { property: 'ordre'}
+                    - { property: 'famille'}
                     - { property: 'cdNom'}
                     - { property: 'lbNom'}
-                    - { property: 'nomVern'}
                     - { property: 'habitat'}
-                    - { property: 'statut'}
-                    - { property: 'url'}
+                    - { property: 'statutFR'}
+                 #   - { property: 'url'}
             edit:
                 title: "Editer l'oiseau"
                 fields:
-                    - { property: 'order'}
-                    - { property: 'family'}
+                    - { property: 'nomVern'}
+                    - { property: 'ordre'}
+                    - { property: 'famille'}
                     - { property: 'cdNom'}
                     - { property: 'lbNom'}
-                    - { property: 'nomVern'}
                     - { property: 'habitat'}
-                    - { property: 'statut'}
-                    - { property: 'url'}
+                    - { property: 'statutFR'}
+                #    - { property: 'url'}
 
 
         Badge:
