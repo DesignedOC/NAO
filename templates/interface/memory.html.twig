@@ -54,7 +54,8 @@
                         </div>
 
                         <div id="texte" class="texte">
-                            <p> Le but du jeu de Memory est de trouver les paires </p>
+                            <p> Le but du jeu est de retrouver toutes les paires tout en apprenant le nom
+                             des oiseaux </p>
                         </div>
                     </div>
                 </div>
@@ -154,7 +155,7 @@
                             points= points + paireTrouvee;
                             document.getElementById('coups').innerHTML='<p>Nombre de clics :<strong>'+coups+'</strong></p>';
                             imgOk +=2;
-                            document.getElementById('paireOk').innerHTML='<p>Bravo vous avez trouvé les <strong>'+imgOk/2+'</strong> paire(s) ! </p>';
+                            document.getElementById('paireOk').innerHTML='<p>Vous avez trouvé <strong>'+imgOk/2+'</strong> paire(s) ! </p>';
                             document.getElementById('noms').innerHTML='<p>Bravo ! L\'oiseau trouvé est :  <strong>'+cardsLabels[Number(carte1.replace(/[^\d]/g, ""))-1]+'</strong></p>';
 
                             if(imgOk===12)
