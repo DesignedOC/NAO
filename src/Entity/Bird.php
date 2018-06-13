@@ -18,17 +18,17 @@ class Bird
     private $id;
 
     /**
-     * @ORM\Column(name="regne", type="string", length=255)
+     * @ORM\Column(name="regne", type="string", length=255, nullable=true)
      */
     private $regne;
 
     /**
-     * @ORM\Column(name="phylum", type="string", length=255)
+     * @ORM\Column(name="phylum", type="string", length=255, nullable=true)
      */
     private $phylum;
 
     /**
-     * @ORM\Column(name="classe", type="string", length=255)
+     * @ORM\Column(name="classe", type="string", length=255, nullable=true)
      */
     private $classe;
 
@@ -48,17 +48,17 @@ class Bird
     private $cdNom;
 
     /**
-     * @ORM\Column(name="cd_taxsup", type="integer")
+     * @ORM\Column(name="cd_taxsup", type="integer", nullable=true)
      */
     private $cdTaxsup;
 
     /**
-     * @ORM\Column(name="cd_ref", type="integer")
+     * @ORM\Column(name="cd_ref", type="integer", nullable=true)
      */
     private $cdRef;
 
     /**
-     * @ORM\Column(name="rang", type="string", length=255)
+     * @ORM\Column(name="rang", type="string", length=255, nullable=true)
      */
     private $rang;
 
@@ -68,17 +68,17 @@ class Bird
     private $lbNom;
 
     /**
-     * @ORM\Column(name="lb_auteur", type="string", length=255)
+     * @ORM\Column(name="lb_auteur", type="string", length=255, nullable=true)
      */
     private $lbAuteur;
 
     /**
-     * @ORM\Column(name="nom_complet", type="string", length=255)
+     * @ORM\Column(name="nom_complet", type="string", length=255, nullable=true)
      */
     private $nomComplet;
 
     /**
-     * @ORM\Column(name="nom_valide", type="string", length=255)
+     * @ORM\Column(name="nom_valide", type="string", length=255, nullable=true)
      */
     private $nomValide;
 
@@ -88,7 +88,7 @@ class Bird
     private $nomVern;
 
     /**
-     * @ORM\Column(name="nom_vern_eng", type="string", length=255)
+     * @ORM\Column(name="nom_vern_eng", type="string", length=255, nullable=true)
      */
     private $nomVernEng;
 
@@ -103,77 +103,77 @@ class Bird
     private $statutFR;
 
     /**
-     * @ORM\Column(name="gf", type="string", length=1)
+     * @ORM\Column(name="gf", type="string", length=1, nullable=true)
      */
     private $statutGF;
 
     /**
-     * @ORM\Column(name="mar", type="string", length=1)
+     * @ORM\Column(name="mar", type="string", length=1, nullable=true)
      */
     private $statutMAR;
 
     /**
-     * @ORM\Column(name="gua", type="string", length=1)
+     * @ORM\Column(name="gua", type="string", length=1, nullable=true)
      */
     private $statutGUA;
 
     /**
-     * @ORM\Column(name="sm", type="string", length=1)
+     * @ORM\Column(name="sm", type="string", length=1, nullable=true)
      */
     private $statutSM;
 
     /**
-     * @ORM\Column(name="sb", type="string", length=1)
+     * @ORM\Column(name="sb", type="string", length=1, nullable=true)
      */
     private $statutSB;
 
     /**
-     * @ORM\Column(name="spm", type="string", length=1)
+     * @ORM\Column(name="spm", type="string", length=1, nullable=true)
      */
     private $statutSPM;
 
     /**
-     * @ORM\Column(name="may", type="string", length=1)
+     * @ORM\Column(name="may", type="string", length=1, nullable=true)
      */
     private $statutMAY;
 
     /**
-     * @ORM\Column(name="epa", type="string", length=1)
+     * @ORM\Column(name="epa", type="string", length=1, nullable=true)
      */
     private $statutEPA;
 
     /**
-     * @ORM\Column(name="reu", type="string", length=1)
+     * @ORM\Column(name="reu", type="string", length=1, nullable=true)
      */
     private $statutREU;
 
     /**
-     * @ORM\Column(name="sa", type="string", length=1)
+     * @ORM\Column(name="sa", type="string", length=1, nullable=true)
      */
     private $statutSA;
 
     /**
-     * @ORM\Column(name="ta", type="string", length=1)
+     * @ORM\Column(name="ta", type="string", length=1, nullable=true)
      */
     private $statutTA;
 
     /**
-     * @ORM\Column(name="nc", type="string", length=1)
+     * @ORM\Column(name="nc", type="string", length=1, nullable=true)
      */
     private $statutNC;
 
     /**
-     * @ORM\Column(name="wf", type="string", length=1)
+     * @ORM\Column(name="wf", type="string", length=1, nullable=true)
      */
     private $statutWF;
 
     /**
-     * @ORM\Column(name="pf", type="string", length=1)
+     * @ORM\Column(name="pf", type="string", length=1, nullable=true)
      */
     private $statutPF;
 
     /**
-     * @ORM\Column(name="cli", type="string", length=1)
+     * @ORM\Column(name="cli", type="string", length=1, nullable=true)
      */
     private $statutCLI;
 
