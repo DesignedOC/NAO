@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une observation{% endblock %}
+{% block description %}{% endblock %}
+
+{% block body %}
+{% include 'interface/parts/_sidebar.html.twig' %}
+<div class="container-left">
+    {% include 'interface/parts/_header.html.twig' %}
+    <div class="main-content">
+        <div class="row">
+        <div class="col-12">
+        <div class="col-lg-6">
+            {% for users in user %}
+                <div class="profile-box">
+                    <div class="profiletop"></div>
+                    {% if app.user.username == users.username %}
+                        <a href="{{ path('fos_user_profile_edit') }}" class="edit-lk">Editer votre profil</a>
+                    {% endif %}
+                    <div class="av-img">
+                        <img src="/assets/img/grandpa.jpg" alt="{{ app.user.username }} - Image Profil">
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="custom-box">
+                        <div class="user-info">
+                            <h1>{{ app.user.username|capitalize }}</h1>
+                            {% if is_granted('ROLE_USER') and is_granted('ROLE_NATURALIST') == false %}
+                                <h2>Passionné(e)</h2>
+                            {% endif %}
+                            {% if is_granted('ROLE_NATURALIST') %}
+                                <h2>Naturaliste</h2>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+
+            {% endfor %}
+            {#{% for message in app.flashes('success') %}#}
+                {#<div class="alert alert-success" role="alert">#}
+                    {#{{ message }}#}
+                {#</div>#}
+            {#{% endfor %}#}
+            {#<hr class="mb-4">#}
+            {#{{ form_start(application, {'attr': {'novalidate': 'novalidate'}}) }}#}
+            {#<div class="form-group row">#}
+                {#<div class="col-md-12">#}
+                    {#{{ form_label(application.experience) }}#}
+                    {#{{ form_widget(application.experience) }}#}
+                {#</div>#}
+                {#<div class="col-md-12">#}
+                    {#{{ form_label(application.description) }}#}
+                    {#{{ form_widget(application.description) }}#}
+                {#</div>#}
+            {#</div>#}
+            {#<hr class="mb-4">#}
+            {#<button class="btn btn-primary" name="submit" type="submit">Soumettre votre candidature</button>#}
+            {#{{ form_end(application) }}#}
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
