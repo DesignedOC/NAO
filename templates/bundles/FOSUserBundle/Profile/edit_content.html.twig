@@ -1,0 +1,52 @@
+{#{% trans_default_domain 'FOSUserBundle' %}#}
+
+{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+    <div class="form-group row">
+        <div class="col-xs-12 col-md-6">
+            {{ form_label(form.imageFile) }}
+            <div class="input-group">
+                {{ form_widget(form.imageFile, {'attr': {'class': 'custom-file-input'}}) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="fos_user_profile_form_email" class="form-control-label required">Adresse e-mail <span>*</span></label>
+            {{ form_widget(form.email) }}
+        </div>
+    </div>
+    <hr class="mt-4 mb-4">
+    <div class="form-group row">
+        <div class="col-md-6">
+            {{ form_label(form.lastname) }}
+            {{ form_widget(form.lastname) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_label(form.firstname) }}
+            {{ form_widget(form.firstname) }}
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-6">
+            {{ form_label(form.birth) }}
+            {{ form_widget(form.birth) }}
+        </div>
+    </div>
+    <hr class="mt-4 mb-4">
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label for="fos_user_profile_form_current_password" class="form-control-label required">Mot de passe actuel <span>*</span></label>
+            {{ form_widget(form.current_password) }}
+            <small class="text-muted"><span class="badge badge-pill badge-warning">Obligatoire</span> Vous devez saisir votre mot de passe actuel.</small>
+        </div>
+        <div class="col-md-6">
+            <div class="info-password">
+                <h3>Gestion de son mot de passe</h3>
+                <a href="{{ path('fos_user_change_password') }}"><button type="button" class="btn btn-dark">Changement</button></a>
+            </div>
+        </div>
+    </div>
+    <hr class="mt-4 mb-4">
+    <div>
+        <button type="submit" class="btn btn-custom">Valider les modifications</button>
+    </div>
+<div class="clearfix"></div>
+{{ form_end(form) }}
