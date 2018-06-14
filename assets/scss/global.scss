@@ -161,12 +161,12 @@ div.account {
   }
 }
 
-.naturalist-box {
+.custom-box {
   background: #ffffff;
   padding: 25px;
   border-radius: 3px;
   h1 {
-    font-size: 1.4em;
+    font-size: 1.3em;
     font-family: $fonts-secondary;
   }
 }
@@ -187,8 +187,12 @@ div.main-content {
 @media all and (max-width: 770px) {
   div.main-content {
     padding-top: 20px;
-    padding-left: 35px;
-    padding-right: 35px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  div.row {
+    margin-right: 0;
+    margin-left: 0;
   }
 }
 
@@ -423,5 +427,162 @@ div#search-collapse {
   input.search-field.form-control {
     border: 0;
   }
+}
+
+.profile-box {
+  position: relative;
+  width: 100%;
+  div.profiletop {
+    background: url("/assets/img/bird-profile.jpg") no-repeat center center;
+    background-size: cover;
+    height: 100px;
+  }
+  a.edit-lk {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background: #fff;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding: 6px;
+    text-transform: uppercase;
+    font-size: 0.7em;
+    color: #000;
+    font-weight: 500;
+  }
+  a.edit-lk:hover {
+    background: #f1f1f1;
+  }
+  a.edit-lk:active {
+    background: #d5d5d5;
+  }
+  div.av-img {
+    position: absolute;
+    //top: 28%;
+    top: 17%;
+    left: 42%;
+  }
+  div.av-img img {
+    width: 120px;
+    height: 120px;
+    border-radius: 100px;
+    display: block;
+    border: 4px solid #fff;
+    -webkit-box-shadow: 11px 10px 20px -6px rgba(176, 176, 176, 0.38);
+    -moz-box-shadow: 11px 10px 20px -6px rgba(176, 176, 176, 0.38);
+    box-shadow: 11px 10px 20px -6px rgba(176, 176, 176, 0.38);
+  }
+  h1 {
+    font-size: 1.2em;
+    color: #000000;
+    font-weight: 600;
+  }
+  h2 {
+    font-size: 1em;
+    font-weight: 400;
+    color: #18ab4e;
+  }
+  .user-info {
+    text-align: center;
+    margin-top: 55px;
+  }
+}
+
+.h1box {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 4px solid #f3f3f3;
+}
+
+.custom-box label {
+  color: #828181;
+}
+
+div.custom-box {
+  legend.col-form-label {
+    padding-top: 0;
+    color: #828181;
+  }
+  label span {
+    color: #e61313;
+  }
+}
+
+div.vich-image img {
+  height: 100px;
+  width: 100px;
+  display: block;
+  border: 3px solid #fff;
+  -webkit-box-shadow: 11px 10px 20px -6px rgba(176, 176, 176, 0.38);
+  -moz-box-shadow: 11px 10px 20px -6px rgba(176, 176, 176, 0.38);
+  box-shadow: 11px 10px 20px -6px rgba(176, 176, 176, 0.38);
+}
+
+.custom-file-label::after {
+  content: "Choisir";
+}
+
+div.info-password {
+  border: 2px solid #c1dce6;
+  padding: 10px;
+  background: #f4f5f7;
+  h3 {
+    text-align: center;
+    font-size: 1em;
+    color: #4d585d;
+    font-weight: 300;
+  }
+  button.btn.btn-dark {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    color: #fff;
+    background-color: #8ea3ab;
+    border-color: #758890;
+  }
+  button.btn.btn-dark:hover {
+    color: #fff;
+    background-color: #556b73;
+    border-color: #4e6169;
+  }
+}
+
+.btn-custom {
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  color: #fff;
+  background-color: $primary-color;
+  border-color: #449ec1;
+  &:hover {
+    background: $primary-color-hov;
+  }
+}
+
+@media all and (max-width: 770px) {
+  div.info-password {
+    margin-top: 20px;
+  }
+  label[for=fos_user_profile_form_email], label[for=fos_user_profile_form_firstname]
+  {
+    margin-top: 20px;
+  }
+  .custom-file {
+    position: initial;
+  }
+}
+
+.map-box {
+  position: relative;
 }
 

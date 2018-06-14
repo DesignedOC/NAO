@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
-    <a class="navbar-brand" href="#">Dashboard</a>
+    <a class="navbar-brand" href="{{ path('nao_interface') }}">Dashboard</a>
     <div class="search ml-lg-5 mr-auto">
         <form class="form-inline my-0 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Recherche" aria-label="Search">
@@ -16,13 +16,17 @@
             {% endif %}
         </div>
         <div class="acc-avatar-profile">
-            <img src="/assets/img/grandpa.jpg" alt="{{ app.user.username }} - Image Profil">
+            {% if app.user.image == false %}
+                <img src="{{ asset('assets/img/homme.jpg') }}" alt="{{ app.user.username }} - Image Profil">
+            {% else %}
+                <img src="{{ asset('uploads/avatar/'~app.user.image) }}" alt="{{ app.user.username }} - Image Profil">
+            {% endif %}
         </div>
         <div class="acc-user dropdown">
             <a href="#" data-toggle="dropdown" id="menu1">{{ app.user.username|capitalize }}</a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="#">Profil</a>
-                <a class="dropdown-item" href="#">Mon compte</a>
+                <a class="dropdown-item" href="{{ path('nao_interface_profile', { username: app.user }) }}">Profil</a>
+                <a class="dropdown-item" href="{{ path('fos_user_profile_edit') }}">Mon compte</a>
                 <a class="dropdown-item" href="#">Paramètres</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>

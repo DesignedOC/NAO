@@ -10,18 +10,22 @@
             <i class="material-icons">close</i>
         </div>
         <div class="avatar-profile">
-            <img src="{{ asset('assets/img/grandpa.jpg') }}" alt="{{ app.user.username }} - Image Profil">
+            {% if app.user.image == false %}
+            <img src="{{ asset('assets/img/homme.jpg') }}" alt="{{ app.user.username }} - Image Profil">
+            {% else %}
+            <img src="{{ asset('uploads/avatar/'~app.user.image) }}" alt="{{ app.user.username }} - Image Profil">
+            {% endif %}
         </div>
         <div class="info-profile">
-            <a href="#" class="user-profile">{{ app.user.username|capitalize }}</a>
+            <a href="{{ path('nao_interface_profile', { username: app.user }) }}" class="user-profile">{{ app.user.username|capitalize }}</a>
             {% if is_granted('ROLE_USER') and is_granted('ROLE_NATURALIST') == false %}
-                <a href="#" class="role-profile">Passionné(e)</a>
+                <a href="{{ path('nao_interface_profile', { username: app.user }) }}" class="role-profile">Passionné(e)</a>
             {% endif %}
             {% if is_granted('ROLE_NATURALIST') %}
-                <a href="#" class="role-profile">Naturaliste</a>
+                <a href="{{ path('nao_interface_profile', { username: app.user }) }}" class="role-profile">Naturaliste</a>
             {% endif %}
             {% if is_granted('ROLE_ADMIN') %}
-                <a href="#" class="role-profile">Administrateur</a>
+                <a href="{{ path('nao_interface_profile', { username: app.user }) }}" class="role-profile">Administrateur</a>
             {% endif %}
         </div>
         <div class="clearfix"></div>
@@ -41,7 +45,7 @@
         <li><a href="{{ path('nao_contact') }}">Contact</a></li>
     </ul>
     <ul class="sidebar-account">
-        <li><a href="#"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;font-size: 18px">account_box</i>Mon compte</a></li>
+        <li><a href="{{ path('fos_user_profile_edit') }}"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;font-size: 18px">account_box</i>Mon compte</a></li>
         <li><a href="#"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;font-size: 18px">settings</i>Paramètres</a></li>
         <li><a href="{{ path('fos_user_security_logout') }}"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;font-size: 18px">input</i>Se déconnecter</a></li>
     </ul>
