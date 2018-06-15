@@ -15,11 +15,10 @@ class BirdController extends Controller
      * @param Request $request
      * @param TaxrefBaseImport $taxref
      * @return Response
-     * @throws \Exception
      */
     public function taxrefBaseImport(Request $request, TaxrefBaseImport $taxref)
     {
-        $datas = $taxref->taxrefImport();
-        return new Response($datas);
+            $datas = $taxref->taxrefImport();
+            return new Response($datas);
     }
 }
