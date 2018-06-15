@@ -12,7 +12,7 @@ easy_admin:
             - { entity: 'Badge', icon: 'bookmark', label: 'Badge' }
             - label: 'Base de données'
               children:
-            - { label: 'Supprimer la BDD', route: 'taxrefBaseImport' }
+            - { label: 'Supprimer la BDD', route: 'taxrefBaseDelete' }
             - { label: 'Importer la BDD', route: 'taxrefBaseImport' }
 
     entities:

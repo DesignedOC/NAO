@@ -20,11 +20,6 @@ class TaxrefBaseImport
         $csvEncodage = mb_convert_encoding($csvContents, "UTF-8","Windows-1252");
         $datas = $serializer->decode($csvEncodage, 'csv');
 
-        $birdRepository = $this->em->getRepository('App:Bird');
-        $nb = $birdRepository->countNb();
-
-        if(empty($nb))
-        {
             foreach($datas as $data)
             {
                 $bird = new Bird();
@@ -63,26 +58,15 @@ class TaxrefBaseImport
                 $this->em->persist($bird);
             }
             $this->em->flush();
-            return " Le fichier a été correctement importé en Base de données";
         }
 
-        elseif(!empty($nb))
+        public function taxrefDelete()
         {
-            $birds = $this->em->getRepository('App:Bird')->findAll();
+        $birds = $this->em->getRepository('App:Bird')->findAll();
             foreach($birds as $bird)
             {
                 $this->em->remove($bird);
             }
             $this->em->flush();
-
-
-            }
-        return " Le fichier a été correctement supprimé de la base de données";
-
-
         }
-
-
-
-
 }

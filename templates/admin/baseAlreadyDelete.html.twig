@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - Base Already delete{% endblock %}
+{% block description %}{% endblock %}
+
+{% block body %}
+    {# {% include 'front/parts/_header.html.twig' %}#}
+    <h1>La base de données à déjà été supprimée !</h1>
+    <h2>Vous pouvez maintenant importer la nouvelle base </h2>
+    <a href="/admin/"><button type="submit" name="submit" value="Retour à l'administration"  >Retour à l'administration</button></a>
+{% endblock %}
