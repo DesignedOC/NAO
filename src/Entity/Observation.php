@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 class Observation
 {
-        /**
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -47,7 +47,7 @@ class Observation
     private $picture;
 
     /**
-     *   @Assert\File(
+     * @Assert\File(
      *     maxSize="2M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
@@ -56,7 +56,7 @@ class Observation
      */
     private $pictureFile;
 
-  /**
+    /**
      * @ORM\JoinColumn(name="bird", referencedColumnName="id")
      * @ORM\ManyToOne(targetEntity="App\Entity\Bird", cascade={"persist"})
      * @Assert\Type(type="App\Entity\Bird")
@@ -94,7 +94,7 @@ class Observation
     public function __construct()
     {
         $this->date = new \Datetime();
-        $this->setStatut(1);
+        $this->statut = 1;
         $this->updatedAt = new \DateTime();
     }
 
@@ -191,8 +191,7 @@ class Observation
     public function setPictureFile(?File $picture = null):void
     {
         $this->pictureFile = $picture;
-        if(null != $picture)
-        {
+        if (null != $picture) {
             $this->updatedAt = new \DateTime();
         }
 
@@ -285,5 +284,20 @@ class Observation
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    public function getLibelleStatut()
+    {
+        switch ($this->statut) {
+            case 0:
+                return 'rejeté';
+                break;
+            case 1:
+                return 'en attente de validation';
+                break;
+            case 2;
+                return 'validé';
+                break;
+        }
     }
 }

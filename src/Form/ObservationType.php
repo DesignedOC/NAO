@@ -17,7 +17,7 @@ class ObservationType extends AbstractType
         $builder
             ->add('latitude',NumberType::class, array('label' => 'Ajouter la latitude : '))
             ->add('longitude',NumberType::class, array('label' => 'Ajouter la longitude : '))
-            ->add('picture',FileType::class, array('label' => 'Ajouter une photo de l\'oiseau : '))
+            ->add('picture',FileType::class, array('label' => 'Ajouter une photo de l\'oiseau : ', 'required' => false))
             ->add('bird',BirdType::class)
             ->add('description', TextareaType::class, array('label' => 'Ajouter une courte description : '))
             ->add('save', SubmitType::class, array('label' => 'Valider', 'attr' => array('class' => 'btn btn-primary mt-3')))
