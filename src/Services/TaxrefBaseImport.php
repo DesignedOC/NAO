@@ -15,10 +15,11 @@ class TaxrefBaseImport
     public function taxrefImport()
     {
         $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder($delimiter = ';')]);
-        $csvFile = __DIR__ .'/../../public/' . 'TAXREF.csv';
-        $csvContents = file_get_contents($csvFile);
-        $csvConverted = mb_convert_encoding($csvContents, "UTF-8", "Windows-1252");
-        $datas = $serializer->decode($csvConverted, 'csv');
+        $csvContents = file_get_contents('TAXREF.csv');
+        // Je demande l'encodage en utf-8 et windows-1252  permet d'éviter les caractères spéciaux dans les espaces
+        $csvEncodage = mb_convert_encoding($csvContents, "UTF-8","Windows-1252");
+        $datas = $serializer->decode($csvEncodage, 'csv');
+
             foreach($datas as $data)
             {
                 $Bird = new Bird();
