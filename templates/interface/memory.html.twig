@@ -40,19 +40,13 @@
                         <input type="button" class="btn_memory" value="Nouvelle partie" onclick="location.reload();"/>
                         <input type="button" class="btn_texte" value="Comment jouer ?" onclick="afficher_cacher('texte');"/>
 
-                        <div class="infos">
-                            <div id="paireOk"></div>
-                        </div>
+                        <div id="paireOk"></div>
                         <div id="noms"></div>
-                        <div class="score">
-                            <div id="level"></div>
-                            <div id="score"></div>
-                        </div>
+                        <div id="level"></div>
                         <div class="game">
                             <div id="temps"></div>
                             <div id="coups"></div>
                         </div>
-
                         <div id="texte" class="texte">
                             <p> Le but du jeu est de retrouver toutes les paires tout en apprenant le nom
                              des oiseaux </p>
@@ -84,7 +78,7 @@
 
             for(var i=0;i<12;i++)
             {
-                document.getElementById('img' +i).src='../../assets/img_memory/Back.jpg';
+                document.getElementById('img' +i).src='/assets/img_memory/Back.jpg';
             }
             depart=true;
 
@@ -105,7 +99,7 @@
                     else
                     {
                         nb_img = Math.floor((nb_alea+1)/2);
-                        document.getElementById('case' + i).innerHTML = "<img class='img-thumbnail img-fluid' style='cursor:pointer;' id='img" + i + "' src=" + nb_img + "'../../assets/img_memory/carte.jpg' onClick='verifier(\"img" + i + "\", \"carte" + nb_img + "\")' alt='' />";
+                        document.getElementById('case' + i).innerHTML = "<img class='img-thumbnail img-fluid' style='cursor:pointer;' id='img" + i + "' src=" + nb_img + "'/assets/img_memory/carte.jpg' onClick='verifier(\"img" + i + "\", \"carte" + nb_img + "\")' alt='' />";
                         chaine += "-" + nb_alea + "-";
                         test=false;
                     }
@@ -119,7 +113,7 @@
             if(depart===true)
             {
                 nbClics++;
-                document.getElementById(limg).src='../../assets/img_memory/'+source+'.jpg';
+                document.getElementById(limg).src='/assets/img_memory/'+source+'.jpg';
 
                 if(nbClics ===1)
                 {
@@ -137,8 +131,8 @@
                         {
                              attente =setTimeout(function()
                             {
-                                document.getElementById(case1).src='../../assets/img_memory/Back.jpg';
-                                document.getElementById(case2).src='../../assets/img_memory/Back.jpg';
+                                document.getElementById(case1).src='/assets/img_memory/Back.jpg';
+                                document.getElementById(case2).src='/assets/img_memory/Back.jpg';
                                 depart=true;
                                 nbClics=0;
                                 coups++;
