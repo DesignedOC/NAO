@@ -9,8 +9,12 @@ easy_admin:
             - { entity: 'User', icon: 'user', label: 'Utilisateurs' }
             - { entity: 'Observation', icon: 'binoculars', label: 'Observation' }
             - { entity: 'Bird', icon: 'themeisle', label: 'Oiseaux' }
-            - { label: 'Import BDD', route: 'taxrefBaseImport' }
             - { entity: 'Badge', icon: 'bookmark', label: 'Badge' }
+            - label: 'Base de données'
+              children:
+            - { label: 'Supprimer la BDD', route: 'taxrefBaseImport' }
+            - { label: 'Importer la BDD', route: 'taxrefBaseImport' }
+
     entities:
         User:
             class: App\Entity\User
@@ -20,7 +24,7 @@ easy_admin:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                    - { name: 'show', icon: 'eye', label: 'Voir', title: 'Voir' }
+                 #   - { name: 'show', icon: 'eye', label: 'Voir', title: 'Voir' }
 
                 fields:
                     - { property: 'id' }
@@ -82,7 +86,7 @@ easy_admin:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+                   # - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
                 fields:
                     - { property: 'id'}
                     - { property: 'date', type: 'date'}
@@ -134,7 +138,7 @@ easy_admin:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+                   # - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
 
                 fields:
 
@@ -179,7 +183,7 @@ easy_admin:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+                   # - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
                 fields:
                     - { property: 'id'}
                     - { property: 'user', label: 'Utilisateur'}
