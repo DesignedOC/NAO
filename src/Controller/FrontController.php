@@ -64,4 +64,17 @@ class FrontController extends Controller
         //la position lattitude et longitude de cet objet
         return $this->render('carte.html');
     }
+	
+	
+		    /**
+     * @Route("/google", name="google")
+     */
+
+	 
+	    public function googleAction(Request $request)
+    {
+        //Appelle le repo, le repo appelle la table observation, prend un de ses objets , et qui va retourner
+        //la position lattitude et longitude de cet objet
+        return $this->render('googlemaps.html');
+    }
 }
