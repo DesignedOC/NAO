@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Bird;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Observation;
 use App\Form\ObservationType;
+
 
 /**
  * Class ObservationController
@@ -86,46 +88,44 @@ class ObservationController extends Controller
     // et le retourner au format json a l'appellant
     /**
      * @Route("/oiseau/{name}", name="oiseau")
-     */ 
-     
-     
-     // - recuperer le nom de l'oiseau ici $name
-    public function findBirdAction(Request $request, String $name)
-     {      
-        // - verifier que cet oiseau existe en bdd
-        $em = $this->getDoctrine()->getManager(); 
-        $observation = $this->getDoctrine()
-        ->getRepository(Observation::class)
-        ->findBylatitude($name);
-        
-        // - si l'oiseau n'existe pas on renvoit une reposonse not found        
-        if (!$observation) {
-        throw $this->createNotFoundException(
-            'rien trouvé pour '.$name
-        );
-        // - si l'oiseau existe 
-    } else {
-        echo 'Votre oiseau est : ' . $name;
-            dump($observation);
-    }
-    
-    
-    
-              // on recuperer la lat et long   
-              
-              // et on contacte mapbox avec la lat et long afin d'obtenir le tile
-              
-              // si on recoit le tile on renvoit le tile dans la reponse
-        
-        
-        
-        
-        //retourner en format JSON
-         return new Response($name);
-        
-    }
+     */
 
-	 
+
+    // - recuperer le nom de l'oiseau ici $name
+    public function findBirdAction(Request $request, String $name)
+    {
+        // - verifier que cet oiseau existe en bdd
+        $em = $this->getDoctrine()->getManager();
+        $observation = $this->getDoctrine()
+            ->getRepository(Observation::class)
+            ->findBylatitude($name);
+
+        // - si l'oiseau n'existe pas on renvoit une reposonse not found
+        if (!$observation) {
+            throw $this->createNotFoundException(
+                'rien trouvé pour '.$name
+            );
+            // - si l'oiseau existe
+        } else {
+            echo 'Votre oiseau est : ' . $name;
+            dump($observation);
+        }
+
+
+
+        // on recuperer la lat et long
+
+        // et on contacte mapbox avec la lat et long afin d'obtenir le tile
+
+        // si on recoit le tile on renvoit le tile dans la reponse
+
+
+
+
+        //retourner en format JSON
+        return new Response($name);
+
+    }
     /**
      * @Route("/carte", name="carte")
      */

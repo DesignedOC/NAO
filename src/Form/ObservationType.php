@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use App\Form\BirdType;
+
 class ObservationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -17,7 +18,7 @@ class ObservationType extends AbstractType
         $builder
             ->add('latitude',NumberType::class, array('label' => 'Ajouter la latitude : '))
             ->add('longitude',NumberType::class, array('label' => 'Ajouter la longitude : '))
-            ->add('picture',FileType::class, array('label' => 'Ajouter une photo de l\'oiseau : ', 'required' => false))
+            ->add('picture',FileType::class, array('label' => 'Ajouter une photo de l\'oiseau : '))
             ->add('bird',BirdType::class)
             ->add('description', TextareaType::class, array('label' => 'Ajouter une courte description : '))
             ->add('save', SubmitType::class, array('label' => 'Valider', 'attr' => array('class' => 'btn btn-primary mt-3')))
