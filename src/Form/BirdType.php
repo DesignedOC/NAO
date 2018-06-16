@@ -10,8 +10,8 @@ class BirdType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('scientific_name', TextType::class, array('label' => 'Nom scientifique : '))
-            ->add('vern_name', TextType::class, array('label' => 'Nom commun : '))
+            ->add('lbNom', TextType::class, array('label' => 'Nom scientifique :', 'required' => false))
+            ->add('nomVern', TextType::class, array('label' => 'Nom commun : '))
         ;
     }
     public function configureOptions(OptionsResolver $resolver)
