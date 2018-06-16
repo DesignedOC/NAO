@@ -52,4 +52,16 @@ class FrontController extends Controller
             'contact' => $form->createView(),
         ]);
     }
+	
+	    /**
+     * @Route("/carte", name="carte")
+     */
+
+	 
+	    public function carteAction(Request $request)
+    {
+        //Appelle le repo, le repo appelle la table observation, prend un de ses objets , et qui va retourner
+        //la position lattitude et longitude de cet objet
+        return $this->render('carte.html');
+    }
 }

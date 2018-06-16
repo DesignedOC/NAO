@@ -1,0 +1,20 @@
+{% block body %}
+    <table>
+        <tr>
+            <th>id</th>
+            <th>Oiseau</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Statut</th>
+        </tr>
+        {% for observation in observations %}
+            <tr>
+                <td>#{{ observation.id }}</td>
+                <td>{{ observation.bird }}</td>
+                <td>{{ observation.latitude }}</td>
+                <td>{{ observation.longitude }}</td>
+                <td>{{ observation.libelleStatut }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
