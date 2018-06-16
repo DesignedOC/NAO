@@ -1,8 +1,10 @@
+{% extends 'base.html.twig' %}
 {% block body %}
-    <table>
+    <table class="table table-bordered">
         <tr>
             <th>id</th>
-            <th>Oiseau</th>
+            <th>LbNom</th>
+            <th>Nom Vern</th>
             <th>Latitude</th>
             <th>Longitude</th>
             <th>Statut</th>
@@ -10,7 +12,8 @@
         {% for observation in observations %}
             <tr>
                 <td>#{{ observation.id }}</td>
-                <td>{{ observation.bird }}</td>
+                <td>{{ observation.bird.lbNom }}</td>
+                <td>{{ observation.bird.nomVern }}</td>
                 <td>{{ observation.latitude }}</td>
                 <td>{{ observation.longitude }}</td>
                 <td>{{ observation.libelleStatut }}</td>
