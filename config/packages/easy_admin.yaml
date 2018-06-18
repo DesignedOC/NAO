@@ -145,7 +145,7 @@ easy_admin:
 
                 fields:
 
-                  #  - { property: 'id'}
+                    - { property: 'id'}
                     - { property: 'cdNom'}
                     - { property: 'nomVern'}
                     - { property: 'ordre'}

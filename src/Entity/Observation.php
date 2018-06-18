@@ -49,7 +49,7 @@ class Observation
     private $pictureFile;
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Bird", cascade={"persist"}, inversedBy="observations")
-     * @ORM\JoinColumn(referencedColumnName="cd_nom", name="bird_cd_nom")
+     * @ORM\JoinColumn(referencedColumnName="id", name="bird_id")
      */
     private $bird;
     /**

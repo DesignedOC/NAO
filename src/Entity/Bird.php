@@ -10,6 +10,12 @@ use Doctrine\Common\Collections\Collection;
 class Bird
 {
     /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(name="id", type="integer")
+     */
+    private $id;
+    /**
      * @ORM\Column(name="regne", type="string", length=255, nullable=true)
      */
     private $regne;
@@ -30,9 +36,7 @@ class Bird
      */
     private $famille;
     /**
-     * @ORM\Id
      * @ORM\Column(name="cd_nom", type="integer")
-     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $cdNom;
     /**
@@ -148,6 +152,17 @@ class Bird
     public function __construct()
     {
         $this->observations = new ArrayCollection();
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id) :self
+    {
+        $this->id = $id;
+        return $this;
     }
     public function getRegne(): ?string
     {
