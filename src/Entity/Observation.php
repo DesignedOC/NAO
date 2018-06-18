@@ -1,12 +1,9 @@
 <?php
-
 namespace App\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
-
 /**
  * @ORM\Table(name="nao_observ")
  * @ORM\Entity(repositoryClass="App\Repository\ObservationRepository")
@@ -14,38 +11,33 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 class Observation
 {
-        /**
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
-
     /**
      * @ORM\Column(type="datetime")
      * @Assert\NotBlank()
      */
     private $date;
-
     /**
      * @ORM\Column(type="float", nullable=false)
      * @Assert\NotBlank(message = "La lattitude est obligatoire")
      */
     private $latitude;
-
     /**
      * @ORM\Column(type="float", nullable=false)
      * @Assert\NotBlank(message = "La longitude est obligatoire")
      */
     private $longitude;
-
     /**
      * @ORM\Column(type="string", length=255)
      * @var string
      * @Assert\Valid
      */
     private $picture;
-
     /**
      *   @Assert\File(
      *     maxSize="2M",
@@ -55,20 +47,16 @@ class Observation
      * @var File
      */
     private $pictureFile;
-
     /**
-     * @ORM\Column(type="string", length=1)
-     * @ORM\ManyToOne(targetEntity="App\Entity\Species", cascade={"persist"})
-     * @Assert\NotBlank()
+     * @ORM\ManyToOne(targetEntity="App\Entity\Bird", cascade={"persist"}, inversedBy="observations")
+     * @ORM\JoinColumn(referencedColumnName="cd_nom", name="bird_cd_nom")
      */
     private $bird;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="observations")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
-
     /**
      * 0 = rejected, 1 = under validation, 2 = validated
      * @ORM\Column(type="integer")
@@ -78,25 +66,21 @@ class Observation
      * )
      */
     private $statut;
-
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
      */
     private $description;
-
     /**
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
-
     public function __construct()
     {
         $this->date = new \Datetime();
         $this->setStatut(1);
         $this->updatedAt = new \DateTime();
     }
-
     /**
      * @return mixed
      */
@@ -104,7 +88,6 @@ class Observation
     {
         return $this->id;
     }
-
     /**
      * @return \DateTimeInterface|null
      */
@@ -112,7 +95,6 @@ class Observation
     {
         return $this->date;
     }
-
     /**
      * @param \DateTimeInterface $date
      * @return Observation
@@ -122,7 +104,6 @@ class Observation
         $this->date = $date;
         return $this;
     }
-
     /**
      * @return float|null
      */
@@ -130,7 +111,6 @@ class Observation
     {
         return $this->latitude;
     }
-
     /**
      * @param float $latitude
      * @return Observation
@@ -140,7 +120,6 @@ class Observation
         $this->latitude = $latitude;
         return $this;
     }
-
     /**
      * @return float|null
      */
@@ -148,7 +127,6 @@ class Observation
     {
         return $this->longitude;
     }
-
     /**
      * @param float $longitude
      * @return Observation
@@ -158,7 +136,6 @@ class Observation
         $this->longitude = $longitude;
         return $this;
     }
-
     /**
      * @return null|string
      */
@@ -166,16 +143,13 @@ class Observation
     {
         return $this->picture;
     }
-
     /**
      * @param null|string $picture
      */
     public function setPicture(?string $picture): void
     {
         $this->picture = $picture;
-
     }
-
     /**
      * @return null|File
      */
@@ -183,7 +157,6 @@ class Observation
     {
         return $this->pictureFile;
     }
-
     /**
      * @param null|File $picture
      */
@@ -194,27 +167,23 @@ class Observation
         {
             $this->updatedAt = new \DateTime();
         }
-
     }
 
     /**
-     * @return null|string
+     * @return Bird
      */
-    public function getBird(): ?string
+    public function getBird()
     {
         return $this->bird;
     }
 
     /**
-     * @param string $bird
-     * @return Observation
+     * @param Bird $bird
      */
-    public function setBird(string $bird): self
+    public function setBird(Bird $bird)
     {
         $this->bird = $bird;
-        return $this;
     }
-
     /**
      * @param User $user
      */
@@ -222,7 +191,6 @@ class Observation
     {
         $this->user = $user;
     }
-
     /**
      * @return user
      */
@@ -230,7 +198,6 @@ class Observation
     {
         return $this->user;
     }
-
     /**
      * @return null|string
      */
@@ -238,7 +205,6 @@ class Observation
     {
         return $this->statut;
     }
-
     /**
      * @param string $statut
      * @return Observation
@@ -248,7 +214,6 @@ class Observation
         $this->statut = $statut;
         return $this;
     }
-
     /**
      * @return null|string
      */
@@ -256,7 +221,6 @@ class Observation
     {
         return $this->description;
     }
-
     /**
      * @param string $description
      * @return Observation
@@ -266,7 +230,6 @@ class Observation
         $this->description = $description;
         return $this;
     }
-
     /**
      * @return \DateTime
      */
@@ -274,7 +237,6 @@ class Observation
     {
         return $this->updatedAt;
     }
-
     /**
      * @param $updatedAt
      * @return $this
@@ -282,7 +244,6 @@ class Observation
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
-
         return $this;
     }
 }

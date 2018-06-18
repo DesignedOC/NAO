@@ -1,18 +1,14 @@
 <?php
 namespace App\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 /**
  * @ORM\Table(name="nao_bird")
  * @ORM\Entity(repositoryClass="App\Repository\BirdRepository")
  */
 class Bird
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(name="id", type="integer")
-     */
-    private $id;
     /**
      * @ORM\Column(name="regne", type="string", length=255, nullable=true)
      */
@@ -34,7 +30,9 @@ class Bird
      */
     private $famille;
     /**
+     * @ORM\Id
      * @ORM\Column(name="cd_nom", type="integer")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $cdNom;
     /**
@@ -141,14 +139,15 @@ class Bird
      * @ORM\Column(name="cli", type="string", length=1, nullable=true)
      */
     private $statutCLI;
-    public function getId()
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Observation", mappedBy="Bird")
+     */
+    private $observations;
+
+    public function __construct()
     {
-        return $this->id;
-    }
-    public function setId(int $id) :self
-    {
-        $this->id =$id;
-        return $this;
+        $this->observations = new ArrayCollection();
     }
     public function getRegne(): ?string
     {
@@ -204,6 +203,12 @@ class Bird
         $this->cdNom = $cdNom;
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getNomVern();
+    }
+
     public function getCdTaxsup(): ?int
     {
         return $this->cdTaxsup;
@@ -438,4 +443,30 @@ class Bird
         $this->statutCLI = $statutCLI;
         return $this;
     }
+
+    /**
+     * @return Collection|Observation[]
+     */
+    public function getObservation() : Collection
+    {
+        return $this->observations;
+    }
+
+    /**
+     * @param Observation $observation
+     */
+    public function addObservation(Observation $observation)
+    {
+        $this->observations[] = $observation;
+        $observation->setBird($this);
+    }
+
+    /**
+     * @param Observation $observation
+     */
+    public function removeObservation(Observation $observation)
+    {
+        $this->observations->removeElement($observation);
+    }
+
 }

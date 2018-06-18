@@ -3,7 +3,7 @@ easy_admin:
     formats:
         date: 'd/m/Y'
     design:
-        brand-color: green
+        brand-color: #42aed7;
         form_theme: 'vertical'
         menu:
             - { entity: 'User', icon: 'user', label: 'Utilisateurs' }
@@ -24,60 +24,63 @@ easy_admin:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                 #   - { name: 'show', icon: 'eye', label: 'Voir', title: 'Voir' }
+                    - { name: 'show', icon: 'eye', label: 'Voir', title: 'Voir' }
 
                 fields:
                     - { property: 'id' }
+                    - { property: 'enabled', label: 'Actif' }
+                    - { property: 'roles', label: 'Rôle' }
+                    - { property: 'username', label: 'Pseudo' }
                     - { property: 'lastname', label: 'Nom' }
                     - { property: 'firstname', label: 'Prénom' }
-                    - { property: 'birth', label: 'Date de naissance',type: 'date' }
-                    - email
-                    - enabled
-                    - lastLogin
+                    - { property: 'birth', label: 'Date de naissance',format: 'd/m/Y' }
+                    - { property: 'email', label: 'Email', type: 'email' }
+                    - { property: 'lastLogin', label: 'Dernière connexion',format: 'd/m/Y' }
                     #- { property: 'plainPassword', type: 'text', type_options: { required: false } }
-                    - { property: 'roles' }
+
 
             new:
                 title: "Créer un nouvel utilisateur"
                 fields:
-                    - { type: 'group',css_class: 'col-sm-6', label: 'Informations : compte',icon: 'user'}
+                    - { type: 'tab',css_class: 'col-sm-6', label: 'Informations : Identité',icon: 'user'}
                     - { property: 'lastname', label: 'Nom' }
                     - { property: 'firstname', label: 'Prénom' }
-                    - { property: 'birth', label: ' Date de naissance', type: 'date' }
-                    - { type: 'group', css_class: 'col-sm-6',label: 'Informations : détails', icon: 'plus-circle'}
-                    - username
-                    - email
-                    - enabled
-                    - lastLogin
-                    - { property: 'plainPassword', type: 'text', type_options: { required: false } }
-                    - { property: 'roles' ,type: 'choice', type_options: { multiple: true, choices : { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN', 'ROLE_NATURALIST': 'ROLE_NATURALIST' } }}
+                    - { property: 'birth', label: ' Date de naissance', type: 'birthday' }
+                    - { type: 'tab', css_class: 'col-sm-6',label: 'Informations : Compte', icon: 'user'}
+                    - { property: 'username', label: 'Pseudo' }
+                    - { property: 'email', label: 'Email', type: 'email' }
+                   # - { property: 'enabled', label: 'Actif' }
+                   # - { property: 'lastLogin', label: 'Dernière connexion',format: 'd/m/Y' }
+                    - { property: 'plainPassword', type: 'text',label: 'Mot de passe', type_options: { required: true } }
+                    - { type: 'tab',css_class: 'col-sm-6', label: 'Informations : Rôle ',icon: 'user'}
+                    - { property: 'roles' ,type: 'choice',label: 'Rôle', type_options: { multiple: true, required: true, choices : { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN', 'ROLE_NATURALIST': 'ROLE_NATURALIST' } }}
             edit:
                 title: "Edition du profil utilisateur"
                 fields:
-                    - { type: 'tab', css_class: 'col-sm-6', label: 'Informations : compte', icon: 'user'}
+                    - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Identité', icon: 'user'}
                     - { property: 'lastname',label: 'Nom' }
                     - { property: 'firstname', label: 'Prénom' }
-                    - { property: 'birth', label: 'Date de naissance', type: 'date' }
-                    - { type: 'tab', css_class: 'col-sm-6', label: 'Informations : détails', icon: 'plus-circle'}
-                    - username
-                    - email
-                    - enabled
-                    - lastLogin
+                    - { property: 'birth', label: 'Date de naissance', type: 'birthday' }
+                    - { property: 'roles', type: 'choice',label: 'Rôle', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN', 'ROLE_NATURALIST': 'ROLE_NATURALIST' } } }
+                    - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Compte', icon: 'user'}
+                    - { property: 'username', label: 'Pseudo' }
+                    - { property: 'email', label: 'Email', type: 'email' }
+                    - { property: 'enabled', label: 'Actif' }
+                    - { property: 'lastLogin', label: 'Dernière connexion',format: 'd/m/Y' }
                     - { property: 'plainPassword', type: 'text', type_options: { required: false } }
-                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN', 'ROLE_NATURALIST': 'ROLE_NATURALIST' } } }
+
             show:
                 title: "Voir du profil utilisateur"
                 fields:
-                    - lastname
-                    - firstname
-                    - birth
-                    - username
-                    - email
-                    - enabled
-                    - lastLogin
-                    - plainPassword
-                    - roles
-
+                    - { property: 'lastname',label: 'Nom' }
+                    - { property: 'firstname', label: 'Prénom' }
+                    - { property: 'birth', label: 'Date de naissance', format: 'd/m/Y' }
+                    - { property: 'username', label: 'Pseudo' }
+                    - { property: 'email', label: 'Email', type: 'email' }
+                    - { property: 'enabled', label: 'Actif' }
+                    - { property: 'lastLogin', label: 'Dernière connexion',format: 'd/m/Y' }
+                  #  - { property: 'plainPassword', type: 'text', type_options: { required: false } }
+                    - { property: 'roles', label: 'Rôle' }
         Observation:
             class: App\Entity\Observation
             list:
@@ -86,7 +89,7 @@ easy_admin:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                   # - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
                 fields:
                     - { property: 'id'}
                     - { property: 'date', type: 'date'}
@@ -104,7 +107,7 @@ easy_admin:
                     - { property: 'statut', label: 'statut'}
                     - { property: 'latitude'}
                     - { property: 'longitude'}
-                    - { property: 'bird', label: 'Oiseau'}
+                    - { property: 'bird', label: 'Oiseau' }
                     - { property: 'pictureFile',type: 'vich_image'}
                     - { property: 'description'}
             edit:
@@ -116,19 +119,19 @@ easy_admin:
                     - { property: 'latitude'}
                     - { property: 'longitude'}
                     - { property: 'bird', label: 'Oiseau'}
-                    - { property: 'pictureFile' ,type: 'vich_image'}
+                    - { property: 'pictureFile',type: 'vich_image' }
                     - { property: 'description'}
             show:
                 title: "voir l'observation"
                 fields:
                     - { property: 'date', type: 'date'}
-                    - user
-                    - statut
-                    - latitude
-                    - longitude
-                    - bird
+                    - { property: 'user', label: 'Utilisateur'}
+                    - { property: 'statut', label: 'statut'}
+                    - { property: 'latitude'}
+                    - { property: 'longitude'}
+                    - { property: 'bird', label: 'Oiseau'}
                     - { property: 'pictureFile' ,type: 'vich_image'}
-                    - description
+                    - { property: 'description'}
 
         Bird:
             class: App\Entity\Bird
@@ -138,19 +141,18 @@ easy_admin:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                   # - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
 
                 fields:
 
-                    - { property: 'id'}
+                  #  - { property: 'id'}
+                    - { property: 'cdNom'}
                     - { property: 'nomVern'}
                     - { property: 'ordre'}
                     - { property: 'famille'}
-                    - { property: 'cdNom'}
                     - { property: 'lbNom'}
                     - { property: 'habitat'}
                     - { property: 'statutFR'}
-                 #   - { property: 'url'}
             new:
                 title: 'Ajouter un Oiseau'
                 fields:
@@ -161,7 +163,6 @@ easy_admin:
                     - { property: 'lbNom'}
                     - { property: 'habitat'}
                     - { property: 'statutFR'}
-                 #   - { property: 'url'}
             edit:
                 title: "Editer l'oiseau"
                 fields:
@@ -172,7 +173,16 @@ easy_admin:
                     - { property: 'lbNom'}
                     - { property: 'habitat'}
                     - { property: 'statutFR'}
-                #    - { property: 'url'}
+            show:
+                title: "Voir l'oiseau"
+                fields:
+                    - { property: 'nomVern'}
+                    - { property: 'ordre'}
+                    - { property: 'famille'}
+                    - { property: 'cdNom'}
+                    - { property: 'lbNom'}
+                    - { property: 'habitat'}
+                    - { property: 'statutFR'}
 
 
         Badge:
@@ -183,7 +193,7 @@ easy_admin:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                   # - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
                 fields:
                     - { property: 'id'}
                     - { property: 'user', label: 'Utilisateur'}
