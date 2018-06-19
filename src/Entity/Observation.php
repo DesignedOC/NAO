@@ -56,10 +56,11 @@ class Observation
      */
     private $pictureFile;
 
-    /**
-     * @ORM\Column(type="string", length=1)
-     * @ORM\ManyToOne(targetEntity="App\Entity\Species", cascade={"persist"})
-     * @Assert\NotBlank()
+  /**
+     * @ORM\JoinColumn(name="bird", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Bird", cascade={"persist"})
+     * @Assert\Type(type="App\Entity\Bird")
+     * @Assert\Valid()
      */
     private $bird;
 
@@ -209,7 +210,7 @@ class Observation
      * @param string $bird
      * @return Observation
      */
-    public function setBird(string $bird): self
+    public function setBird(Bird $bird = null)
     {
         $this->bird = $bird;
         return $this;
