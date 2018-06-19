@@ -6,19 +6,19 @@
 {% endblock %}
 {% block body %}
     {% include 'front/parts/_header.html.twig' %}
-    <div class="headline mb-4">
-        <div class="container">
-            <h1 class="pt-4 mb-1 text-center">Se connecter</h1>
-            <p class="text-center">Les autres membres vous attendents.</p>
-        </div>
+<div class="headline mb-4">
+    <div class="container">
+        <h1 class="pt-4 mb-1 text-center">S'inscrire</h1>
+        <p class="text-center">Rejoignez une communauté grandissante</p>
     </div>
-    <div class="container mt-5 mb-5">
-        <div class="d-flex justify-content-md-center">
-            {% block fos_user_content %}
-                {{ include('@FOSUser/Security/login_content.html.twig') }}
-            {% endblock fos_user_content %}
-        </div>
+</div>
+<div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-md-center">
+        {% block fos_user_content %}
+        {% include "@FOSUser/Registration/register_content.html.twig" %}
+        {% endblock fos_user_content %}
     </div>
+</div>
 
     <div class="footer-black">
         {% include 'front/parts/_footer.html.twig' %}
