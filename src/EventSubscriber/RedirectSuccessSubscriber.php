@@ -42,6 +42,16 @@ class RedirectSuccessSubscriber implements EventSubscriberInterface
     }
 
     /**
+     * @param FormEvent $event
+     */
+    public function onResetPasswordSuccess(FormEvent $event)
+    {
+        $url = $this->router->generate('nao_interface');
+
+        $event->setResponse(new RedirectResponse($url));
+    }
+
+    /**
      * @return array
      */
     public static function getSubscribedEvents()
@@ -49,6 +59,7 @@ class RedirectSuccessSubscriber implements EventSubscriberInterface
         return [
             'fos_user.profile.edit.success' => 'onFosUserProfileEditSuccess',
             'fos_user.change_password.edit.success' => 'onChangePasswordSuccess',
+            'fos_user.resetting.reset.success' => 'onResetPasswordSuccess',
         ];
     }
 }
