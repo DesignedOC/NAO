@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Amis les Oiseaux - Foire aux questions{% endblock %}
+{% block description %}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/front.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+{% endblock %}
+
+{% block body %}
+    {% include 'front/parts/_header.html.twig' %}
+    <div class="headline mb-4">
+        <div class="container">
+            <h1 class="pt-4 mb-1">Foire aux questions</h1>
+            <p>Trouver les réponses à vos questions</p>
+        </div>
+    </div>
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-md-12 order-md-1">
+                <h2 class="h4">FAQ</h2>
+                <hr class="mb-4">
+                <p class="h6">Comment s’inscrit-on ?</p>
+                <p>Il vous suffit de cliquer sur « Inscription » en haut et à droite de cette page et de remplir le formulaire qui s'y trouve.</p>
+
+                <p class="h6 mt-4">Comment proposer une observation ?</p>
+                <p>Pour pouvoir proposer une observation vous devez être inscrit au site. Une fois inscrit il suffit de se rendre à la page "Ajouter une observation". Après cette étape, un professionnel devra vérifier la justesse des données que vous proposez et l'accepter ou non en fonction.</p>
+
+                <p class="h6 mt-4">Ajouter un observation a t-il un coût ?</p>
+                <p>Non, proposer une observation est gratuit.</p>
+
+                <p class="h6 mt-4">Est-t-il possible d’annuler sa contribution ?</p>
+                <p>Si vous avez envoyé votre observation et que celle-ci a été validée par un naturaliste, aucune demande d’annulation ne peut être prise en compte.</p>
+
+                <p class="h6 mt-4">Si mon observation a été refusée, puis-je la récupérer ?</p>
+                <p>Oui, l'observation figurera toujours sur votre compte avec le statut "refusée".</p>
+
+                <p class="h6 mt-4">Qu'est-ce que la cagnotte NAO?</p>
+                <p>La cagnotte NAO est un nouveau mode de financement permettant aux membres du site et autres passionnés d'ornithologie de soutenir financièrement et collectivement notre travail.</p>
+
+                <p class="h6 mt-4">Pourquoi faire un don ?</p>
+                <p>Notre plateforme entièrement gratuite a un modèle participatif : nous ne prenons pas de commission et nous rémunérons grâce aux pourboires volontaires laissés par les contributeurs.
+                Ainsi, vous pourrez choisir de laisser quelques euros pour continuer à faire vivre Nos Amis les Oiseaux.</p>
+
+                <p class="h6 mt-4">Au-delà d’un soutien financier, comment peut-t-on aider l'association ?</p>
+                <p>Il vous suffit de promouvoir le site si vous l'apprécier. Pour ce faire, plusieurs outils sont à votre disposition : partager le projet sur Facebook, Twitter et Instagram, l’envoyer par email à vos contacts ou encore l’intégrer sur votre blog ou site Internet.</p>
+
+            </div>
+        </div>
+    </div>
+<div class="footer-black">
+    {% include 'front/parts/_footer.html.twig' %}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/front.js') }}"></script>
+{% endblock %}
+

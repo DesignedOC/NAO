@@ -47,6 +47,22 @@ div#sidebar-wrapper {
 
   .logo {
     height: 56px;
+    a.nao-logo {
+      display: block;
+      margin-left: 60px;
+      width: 40px;
+      padding-top: 13px;
+      float: left;
+    }
+    a {
+      display: block;
+      margin-left: 15px;
+      padding-top: 20px;
+      float: left;
+      font-weight: 600;
+      color: #434d52;
+      font-size: 1.3em;
+    }
   }
 
   a.a-nat{
@@ -99,7 +115,7 @@ ul.sidebar-small  {
 }
 
 div.top-obs {
-  border-top: 0.4em solid $primary-color;
+  //border-top: 0.4em solid $primary-color;
   padding-top: 35px;
   a {
     padding: 14px 25px;
@@ -245,9 +261,11 @@ div.main-content {
       z-index: 800;
       border-bottom: 0.2em solid #ececec;
     }
-    //a.navbar-brand {
-    //  display: none;
-    //}
+    a.navbar-brand {
+      font-weight: 600;
+      color: #434d52;
+      font-size: 1.3em;
+    }
     .container-left {
       margin-left: 0;
     }
