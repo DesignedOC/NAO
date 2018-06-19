@@ -2,6 +2,10 @@
 
 {% form_theme form 'bundles/VichUploaderBundle/views/Form/fields.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+{% endblock %}
+
 {% block fos_user_content %}
     {% include 'interface/parts/_sidebar.html.twig' %}
 <div class="container-left">
@@ -30,3 +34,7 @@
     </div>
 </div>
 {% endblock fos_user_content %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/app.js') }}"></script>
+{% endblock %}
