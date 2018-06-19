@@ -14,8 +14,10 @@ Encore
     // uncomment for legacy applications that require $/jQuery as a global variable
     .autoProvidejQuery()
     .addEntry('js/app', './assets/js/app.js')
-    .addStyleEntry('css/app', ['./assets/scss/global.scss'])
-    
+    .addEntry('js/front', './assets/js/front.js')
+    .addStyleEntry('css/app', ['./assets/scss/app.scss'])
+    .addStyleEntry('css/front', ['./assets/scss/front.scss'])
+
 ;
 
 module.exports = Encore.getWebpackConfig();
