@@ -3,6 +3,10 @@
 {% block title %}Ajouter une observation{% endblock %}
 {% block description %}{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+{% endblock %}
+
 {% block body %}
 {% include 'interface/parts/_sidebar.html.twig' %}
 <div class="container-left">
@@ -18,7 +22,11 @@
                         <a href="{{ path('fos_user_profile_edit') }}" class="edit-lk">Editer votre profil</a>
                     {% endif %}
                     <div class="av-img">
-                        <img src="/assets/img/grandpa.jpg" alt="{{ app.user.username }} - Image Profil">
+                        {% if app.user.image == false %}
+                            <img src="{{ asset('assets/img/homme.jpg') }}" alt="{{ app.user.username }} - Image Profil">
+                        {% else %}
+                            <img src="{{ asset('uploads/avatar/'~app.user.image) }}" alt="{{ app.user.username }} - Image Profil">
+                        {% endif %}
                     </div>
                     <div class="clearfix"></div>
                     <div class="custom-box">
@@ -36,26 +44,6 @@
                 </div>
 
             {% endfor %}
-            {#{% for message in app.flashes('success') %}#}
-                {#<div class="alert alert-success" role="alert">#}
-                    {#{{ message }}#}
-                {#</div>#}
-            {#{% endfor %}#}
-            {#<hr class="mb-4">#}
-            {#{{ form_start(application, {'attr': {'novalidate': 'novalidate'}}) }}#}
-            {#<div class="form-group row">#}
-                {#<div class="col-md-12">#}
-                    {#{{ form_label(application.experience) }}#}
-                    {#{{ form_widget(application.experience) }}#}
-                {#</div>#}
-                {#<div class="col-md-12">#}
-                    {#{{ form_label(application.description) }}#}
-                    {#{{ form_widget(application.description) }}#}
-                {#</div>#}
-            {#</div>#}
-            {#<hr class="mb-4">#}
-            {#<button class="btn btn-primary" name="submit" type="submit">Soumettre votre candidature</button>#}
-            {#{{ form_end(application) }}#}
         </div>
         </div>
     </div>
@@ -64,5 +52,6 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{ asset('build/js/app.js') }}"></script>
 {% endblock %}
 
