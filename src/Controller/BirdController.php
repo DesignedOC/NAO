@@ -41,24 +41,22 @@ class BirdController extends Controller
     }
 
     /**
-     * @Route ("/taxrefBaseDelete", name="taxrefBaseDelete")
+     * @Route ("/taxrefBaseUpdate", name="taxrefBaseUpdate")
      * @param Request $request
      * @param TaxrefBaseImport $taxref
      * @return Response
      */
-    public function taxrefBaseDelete(Request $request, TaxrefBaseImport $taxref)
+    public function taxrefBaseUpdate(Request $request, TaxrefBaseImport $taxref)
     {
         $birdRepository = $this->em->getRepository('App:Bird');
         $nb = $birdRepository->countNb();
 
          if(!empty($nb))
            {
-              $taxref->taxrefDelete();
+              $taxref->taxrefUpdate();
           }
-          else{
-             return $this->render('admin/baseAlreadyDelete.html.twig');
-          }
-          return $this->render('admin/baseDelete.html.twig');
+
+          return $this->render('admin/baseUpdate.html.twig');
 
     }
 }
