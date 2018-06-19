@@ -36,6 +36,7 @@ easy_admin:
                     - { property: 'birth', label: 'Date de naissance',format: 'd/m/Y' }
                     - { property: 'email', label: 'Email', type: 'email' }
                     - { property: 'lastLogin', label: 'Dernière connexion',format: 'd/m/Y' }
+                    - { property: 'imageFile' ,type: 'vich_image'}
                     #- { property: 'plainPassword', type: 'text', type_options: { required: false } }
 
 
@@ -49,6 +50,7 @@ easy_admin:
                     - { type: 'tab', css_class: 'col-sm-6',label: 'Informations : Compte', icon: 'user'}
                     - { property: 'username', label: 'Pseudo' }
                     - { property: 'email', label: 'Email', type: 'email' }
+                    - { property: 'imageFile' ,type: 'vich_image'}
                    # - { property: 'enabled', label: 'Actif' }
                    # - { property: 'lastLogin', label: 'Dernière connexion',format: 'd/m/Y' }
                     - { property: 'plainPassword', type: 'text',label: 'Mot de passe', type_options: { required: true } }
@@ -65,6 +67,7 @@ easy_admin:
                     - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Compte', icon: 'user'}
                     - { property: 'username', label: 'Pseudo' }
                     - { property: 'email', label: 'Email', type: 'email' }
+                    - { property: 'imageFile' ,type: 'vich_image'}
                     - { property: 'enabled', label: 'Actif' }
                     - { property: 'lastLogin', label: 'Dernière connexion',format: 'd/m/Y' }
                     - { property: 'plainPassword', type: 'text', type_options: { required: false } }
@@ -77,6 +80,7 @@ easy_admin:
                     - { property: 'birth', label: 'Date de naissance', format: 'd/m/Y' }
                     - { property: 'username', label: 'Pseudo' }
                     - { property: 'email', label: 'Email', type: 'email' }
+                    - { property: 'imageFile' ,type: 'vich_image'}
                     - { property: 'enabled', label: 'Actif' }
                     - { property: 'lastLogin', label: 'Dernière connexion',format: 'd/m/Y' }
                   #  - { property: 'plainPassword', type: 'text', type_options: { required: false } }

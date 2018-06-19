@@ -1,17 +1,17 @@
 <?php
-
 namespace App\Entity;
-
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="nao_user")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @Vich\Uploadable
  */
 class User extends BaseUser
 {
@@ -21,50 +21,62 @@ class User extends BaseUser
      * @ORM\Column(type="integer")
      */
     protected $id;
-
     /**
      * @var string $lastname
      * @ORM\Column(name="usr_lastname", type="string", length=100, nullable=true)
      */
-
     private $lastname;
     /**
      * @var string $firstname
      * @ORM\Column(name="usr_firstname", type="string", length=100, nullable=true)
      */
     private $firstname;
-
     /**
      * @var \DateTime $birth
      * @ORM\Column(name="usr_birth", type="datetime", nullable=true)
      */
     private $birth;
-
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
+     */
+    private $image;
+    /**
+     * @Assert\File(
+     *     maxSize="2M",
+     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
+     * )
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Observation", mappedBy="user")
      */
     private $observations;
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Badge", mappedBy="user")
      */
     private $badges;
-
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Application", mappedBy="user")
      */
     private $applications;
-
     /**
      * User constructor.
      */
-
     public function __construct()
     {
         parent::__construct();
         $this->observations = new ArrayCollection();
         $this->badges = new ArrayCollection();
         $this->birth = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
     /**
      * @return null|string
@@ -73,17 +85,15 @@ class User extends BaseUser
     {
         return $this->lastname;
     }
-
     /**
      * @param string $lastname
      * @return User
      */
-    public function setLastname(string $lastname): self
+    public function setLastname(?string $lastname): self
     {
         $this->lastname = $lastname;
         return $this;
     }
-
     /**
      * @return null|string
      */
@@ -91,7 +101,6 @@ class User extends BaseUser
     {
         return $this->firstname;
     }
-
     /**
      * @param string $firstname
      * @return User
@@ -101,7 +110,6 @@ class User extends BaseUser
         $this->firstname = $firstname;
         return $this;
     }
-
     /**
      * @return \DateTimeInterface|null
      */
@@ -109,7 +117,6 @@ class User extends BaseUser
     {
         return $this->birth;
     }
-
     /**
      * @param \DateTimeInterface $birth
      * @return User
@@ -119,7 +126,37 @@ class User extends BaseUser
         $this->birth = $birth;
         return $this;
     }
-
+    /**
+     * @param File|null $image
+     */
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+    /**
+     * @return File
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+    /**
+     * @param $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
     /**
      * @return Collection|Observation[]
      */
@@ -127,7 +164,6 @@ class User extends BaseUser
     {
         return $this->observations;
     }
-
     /**
      * @param Observation $observation
      */
@@ -136,7 +172,6 @@ class User extends BaseUser
         $this->observations[] = $observation;
         $observation->setUser($this);
     }
-
     /**
      * @param Observation $observation
      */
@@ -144,7 +179,6 @@ class User extends BaseUser
     {
         $this->observations->removeElement($observation);
     }
-
     /**
      * @return Collection|Badge[]
      */
@@ -152,7 +186,6 @@ class User extends BaseUser
     {
         return $this->badges;
     }
-
     /**
      * @param Badge $badge
      * @return User
@@ -162,7 +195,6 @@ class User extends BaseUser
         $this->badges[] = $badge;
         $badge->setUser($this);
     }
-
     /**
      * @param Badge $badge
      * @return User
@@ -171,7 +203,6 @@ class User extends BaseUser
     {
         $this->badges->removeElement($badge);
     }
-
     /**
      * @return Collection|Application[]
      */
@@ -179,7 +210,6 @@ class User extends BaseUser
     {
         return $this->applications;
     }
-
     /**
      * @param Application $application
      * @return User
@@ -189,7 +219,6 @@ class User extends BaseUser
         $this->applications[] = $application;
         $application->setUser($this);
     }
-
     /**
      * @param Application $application
      * @return User
@@ -198,6 +227,4 @@ class User extends BaseUser
     {
         $this->applications->removeElement($application);
     }
-
-
 }
