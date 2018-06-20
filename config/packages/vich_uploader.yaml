@@ -1,5 +1,6 @@
 parameters:
     app.path.obs_images:  /assets/img
+    app.path.avatar_images:  /assets/img
 vich_uploader:
     db_driver: orm
 
@@ -7,6 +8,12 @@ vich_uploader:
         obs_images:
             uri_prefix: '%app.path.obs_images%'
             upload_destination: '%kernel.root_dir%/../public%app.path.obs_images%'
+            namer: vich_uploader.namer_uniqid
+            delete_on_update: true
+            delete_on_remove: true
+        avatar_images:
+            uri_prefix: '%app.path.avatar_images%'
+            upload_destination: '%kernel.root_dir%/../public%app.path.avatar_images%'
             namer: vich_uploader.namer_uniqid
             delete_on_update: true
             delete_on_remove: true

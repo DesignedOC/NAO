@@ -80,7 +80,7 @@ easy_admin:
                     - { property: 'birth', label: 'Date de naissance', format: 'd/m/Y' }
                     - { property: 'username', label: 'Pseudo' }
                     - { property: 'email', label: 'Email', type: 'email' }
-                    - { property: 'imageFile' ,type: 'vich_image'}
+                    - { property: 'image' ,type: 'image', base_path: '%app.path.avatar_images%'}
                     - { property: 'enabled', label: 'Actif' }
                     - { property: 'lastLogin', label: 'Dernière connexion',format: 'd/m/Y' }
                   #  - { property: 'plainPassword', type: 'text', type_options: { required: false } }
