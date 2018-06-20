@@ -114,20 +114,20 @@ class Observation
         return $this->date;
     }
 
-    /**
-     * @param \DateTimeInterface $date
-     * @return Observation
-     */
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
-        return $this;
-    }
+/**
+ * @param \DateTimeInterface $date
+ * @return Observation
+ */
+public function setDate(\DateTimeInterface $date): self
+{
+    $this->date = $date;
+    return $this;
+}
 
-    /**
-     * @return float|null
-     */
-    public function getLatitude(): ?float
+/**
+ * @return float|null
+ */
+public function getLatitude(): ?float
     {
         return $this->latitude;
     }
@@ -137,10 +137,10 @@ class Observation
      * @return Observation
      */
     public function setLatitude(float $latitude): self
-    {
-        $this->latitude = $latitude;
-        return $this;
-    }
+{
+    $this->latitude = $latitude;
+    return $this;
+}
 
     /**
      * @return float|null
@@ -155,10 +155,10 @@ class Observation
      * @return Observation
      */
     public function setLongitude(float $longitude): self
-    {
-        $this->longitude = $longitude;
-        return $this;
-    }
+{
+    $this->longitude = $longitude;
+    return $this;
+}
 
     /**
      * @return null|string
@@ -198,9 +198,9 @@ class Observation
     }
 
     /**
-     * @return null|string
+     * @return Bird
      */
-    public function getBird(): ?string
+    public function getBird()
     {
         return $this->bird;
     }
@@ -210,26 +210,26 @@ class Observation
      * @return Observation
      */
     public function setBird(Bird $bird = null)
-    {
-        $this->bird = $bird;
-        return $this;
-    }
+{
+    $this->bird = $bird;
+    return $this;
+}
 
     /**
      * @param User $user
      */
     public function setUser(User $user)
-    {
-        $this->user = $user;
-    }
+{
+    $this->user = $user;
+}
 
     /**
      * @return user
      */
     public function getUser()
-    {
-        return $this->user;
-    }
+{
+    return $this->user;
+}
 
     /**
      * @return null|string
@@ -244,10 +244,10 @@ class Observation
      * @return Observation
      */
     public function setStatut(string $statut): self
-    {
-        $this->statut = $statut;
-        return $this;
-    }
+{
+    $this->statut = $statut;
+    return $this;
+}
 
     /**
      * @return null|string
@@ -262,42 +262,42 @@ class Observation
      * @return Observation
      */
     public function setDescription(string $description): self
-    {
-        $this->description = $description;
-        return $this;
-    }
+{
+    $this->description = $description;
+    return $this;
+}
 
     /**
      * @return \DateTime
      */
     public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
+{
+    return $this->updatedAt;
+}
 
     /**
      * @param $updatedAt
      * @return $this
      */
     public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
+{
+    $this->updatedAt = $updatedAt;
 
-        return $this;
-    }
+    return $this;
+}
 
     public function getLibelleStatut()
-    {
-        switch ($this->statut) {
-            case 0:
-                return 'rejeté';
-                break;
-            case 1:
-                return 'en attente de validation';
-                break;
-            case 2;
-                return 'validé';
-                break;
-        }
+{
+    switch ($this->statut) {
+        case 0:
+            return 'rejeté';
+            break;
+        case 1:
+            return 'en attente de validation';
+            break;
+        case 2;
+            return 'validé';
+            break;
     }
+}
 }
