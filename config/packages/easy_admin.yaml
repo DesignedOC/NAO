@@ -21,24 +21,21 @@ easy_admin:
             list:
                 title: 'Utilisateurs'
                 actions:
+                    - { name: 'show', icon: 'eye', label: 'Voir', title: 'Voir' }
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                    - { name: 'show', icon: 'eye', label: 'Voir', title: 'Voir' }
+
 
                 fields:
                     - { property: 'id' }
                     - { property: 'enabled', label: 'Actif' }
-                    - { property: 'roles', label: 'Rôle' }
+                    - { property: 'image' ,type: 'image', base_path: '%app.path.avatar_images%'}
                     - { property: 'username', label: 'Pseudo' }
-                    - { property: 'lastname', label: 'Nom' }
-                    - { property: 'firstname', label: 'Prénom' }
+                    - { property: 'roles', label: 'Rôle' }
                     - { property: 'birth', label: 'Date de naissance',format: 'd/m/Y' }
                     - { property: 'email', label: 'Email', type: 'email' }
                     - { property: 'lastLogin', label: 'Dernière connexion',format: 'd/m/Y' }
-                    - { property: 'imageFile' ,type: 'vich_image'}
-                    #- { property: 'plainPassword', type: 'text', type_options: { required: false } }
-
 
             new:
                 title: "Créer un nouvel utilisateur"
@@ -48,14 +45,13 @@ easy_admin:
                     - { property: 'firstname', label: 'Prénom' }
                     - { property: 'birth', label: ' Date de naissance', type: 'birthday' }
                     - { type: 'tab', css_class: 'col-sm-6',label: 'Informations : Compte', icon: 'user'}
-                    - { property: 'username', label: 'Pseudo' }
                     - { property: 'email', label: 'Email', type: 'email' }
-                    - { property: 'imageFile' ,type: 'vich_image'}
-                   # - { property: 'enabled', label: 'Actif' }
-                   # - { property: 'lastLogin', label: 'Dernière connexion',format: 'd/m/Y' }
+                    - { property: 'username', label: 'Pseudo' }
                     - { property: 'plainPassword', type: 'text',label: 'Mot de passe', type_options: { required: true } }
+                    - { property: 'imageFile' ,type: 'vich_image'}
                     - { type: 'tab',css_class: 'col-sm-6', label: 'Informations : Rôle ',icon: 'user'}
                     - { property: 'roles' ,type: 'choice',label: 'Rôle', type_options: { multiple: true, required: true, choices : { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN', 'ROLE_NATURALIST': 'ROLE_NATURALIST' } }}
+                    - { property: 'enabled', label: 'Actif' }
             edit:
                 title: "Edition du profil utilisateur"
                 fields:
@@ -63,14 +59,15 @@ easy_admin:
                     - { property: 'lastname',label: 'Nom' }
                     - { property: 'firstname', label: 'Prénom' }
                     - { property: 'birth', label: 'Date de naissance', type: 'birthday' }
+                    - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Rôle', icon: 'user'}
                     - { property: 'roles', type: 'choice',label: 'Rôle', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN', 'ROLE_NATURALIST': 'ROLE_NATURALIST' } } }
-                    - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Compte', icon: 'user'}
-                    - { property: 'username', label: 'Pseudo' }
-                    - { property: 'email', label: 'Email', type: 'email' }
-                    - { property: 'imageFile' ,type: 'vich_image'}
-                    - { property: 'enabled', label: 'Actif' }
                     - { property: 'lastLogin', label: 'Dernière connexion',format: 'd/m/Y' }
+                    - { property: 'enabled', label: 'Actif' }
+                    - { type: 'group', css_class: 'col-sm-12', label: 'Informations : Compte', icon: 'user'}
+                    - { property: 'email', label: 'Email', type: 'email' }
+                    - { property: 'username', label: 'Pseudo' }
                     - { property: 'plainPassword', type: 'text', type_options: { required: false } }
+                    - { property: 'imageFile' ,type: 'vich_image'}
 
             show:
                 title: "Voir du profil utilisateur"
@@ -82,9 +79,8 @@ easy_admin:
                     - { property: 'email', label: 'Email', type: 'email' }
                     - { property: 'image' ,type: 'image', base_path: '%app.path.avatar_images%'}
                     - { property: 'enabled', label: 'Actif' }
-                    - { property: 'lastLogin', label: 'Dernière connexion',format: 'd/m/Y' }
-                  #  - { property: 'plainPassword', type: 'text', type_options: { required: false } }
                     - { property: 'roles', label: 'Rôle' }
+                    - { property: 'lastLogin', label: 'Dernière connexion',format: 'd/m/Y' }
         Observation:
             class: App\Entity\Observation
             list:
@@ -101,27 +97,32 @@ easy_admin:
                     - { property: 'statut'}
                     - { property: 'latitude'}
                     - { property: 'longitude'}
+                    - { property: 'picture' ,label: 'Image' ,type: 'image', base_path: '%app.path.obs_images%'}
                     - { property: 'bird', label: 'Oiseau' }
                     - { property: 'description'}
             new:
                 title: 'Créer une nouvelle observation'
                 fields:
+                    - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Observations', icon: 'binoculars'}
                     - { property: 'date', type: 'date'}
                     - { property: 'user', label: 'Utilisateur'}
                     - { property: 'statut', label: 'statut'}
                     - { property: 'latitude'}
                     - { property: 'longitude'}
+                    - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Oiseaux', icon: 'themeisle'}
                     - { property: 'bird', label: 'Oiseau' }
                     - { property: 'pictureFile',type: 'vich_image'}
                     - { property: 'description'}
             edit:
                 title: "Editer l'observation"
                 fields:
+                    - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Observations', icon: 'binoculars'}
                     - { property: 'date', type: 'date'}
                     - { property: 'user', label: 'Utilisateur'}
                     - { property: 'statut', label: 'statut'}
                     - { property: 'latitude'}
                     - { property: 'longitude'}
+                    - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Oiseaux', icon: 'themeisle'}
                     - { property: 'bird', label: 'Oiseau'}
                     - { property: 'pictureFile',type: 'vich_image' }
                     - { property: 'description'}
@@ -160,20 +161,24 @@ easy_admin:
             new:
                 title: 'Ajouter un Oiseau'
                 fields:
+                    - { type: 'group', css_class: 'col-sm-6'}
                     - { property: 'nomVern'}
                     - { property: 'ordre'}
                     - { property: 'famille'}
                     - { property: 'cdNom'}
+                    - { type: 'group', css_class: 'col-sm-6'}
                     - { property: 'lbNom'}
                     - { property: 'habitat'}
                     - { property: 'statutFR'}
             edit:
                 title: "Editer l'oiseau"
                 fields:
+                    - { type: 'group', css_class: 'col-sm-6'}
                     - { property: 'nomVern'}
                     - { property: 'ordre'}
                     - { property: 'famille'}
                     - { property: 'cdNom'}
+                    - { type: 'group', css_class: 'col-sm-6'}
                     - { property: 'lbNom'}
                     - { property: 'habitat'}
                     - { property: 'statutFR'}
