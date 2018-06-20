@@ -31,5 +31,16 @@ class ObservationRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    
+
+    public function findBirdWithObservation($birdNomVern)
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->select('o.id, o.date, o.latitude, o.longitude, o.picture, o.description, b.nomVern, b.lbNom, u.username')
+            ->leftJoin('o.bird', 'b')
+            ->leftJoin('o.user', 'u');
+        $qb->where($qb->expr()->like('b.nomVern', ':nomVern '))
+            ->setParameter("nomVern", $birdNomVern);
+
+        return $qb->getQuery()->getScalarResult();
+    }
 }
