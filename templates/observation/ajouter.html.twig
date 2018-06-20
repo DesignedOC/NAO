@@ -1,1 +1,36 @@
-{{ form(form) }}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function() {
+            $( "#observation_bird_lbNom").autocomplete({
+                source: "{{ path('bird_lbnom_autocomplete') }}",
+                minLength: 2,
+                select: function( event, ui ) {
+                    $("#observation_bird_lbNom").val(ui.item.value);
+                    return false;
+                },
+                change: function (event, ui) {
+                    $( "#observation_bird_lbNom" ).val( ui.item ? ui.item.value : $(this).val() );
+                }
+            });
+
+            $( "#observation_bird_nomVern").autocomplete({
+                source: "{{ path('bird_nomvern_autocomplete') }}",
+                minLength: 2,
+                select: function( event, ui ) {
+                    $("#observation_bird_nomVern").val(ui.item.value);
+                    return false;
+                },
+                change: function (event, ui) {
+                    $( "#observation_bird_nomVern" ).val( ui.item? ui.item.value : $(this).val() );
+                }
+            });
+        });
+    </script>
+{% endblock %}
