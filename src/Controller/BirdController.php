@@ -25,38 +25,8 @@ class BirdController extends Controller
      */
     public function taxrefBaseImport(Request $request, TaxrefBaseImport $taxref)
     {
-        $birdRepository = $this->em->getRepository('App:Bird');
-        $nb = $birdRepository->countNb();
-
-        if (empty($nb)) {
-            $taxref->taxrefImport();
-            $nb = $birdRepository->countNb();
-        }
-        else{
-            return $this->render('admin/baseAlreadyImport.html.twig');
-        }
-        return $this->render('admin/baseImport.html.twig',array(
-            'nb' => $nb
-        ));
+        $taxref->reloadTaxref();
+        return new Response('ok');
     }
 
-    /**
-     * @Route ("/taxrefBaseUpdate", name="taxrefBaseUpdate")
-     * @param Request $request
-     * @param TaxrefBaseImport $taxref
-     * @return Response
-     */
-    public function taxrefBaseUpdate(Request $request, TaxrefBaseImport $taxref)
-    {
-        $birdRepository = $this->em->getRepository('App:Bird');
-        $nb = $birdRepository->countNb();
-
-         if(!empty($nb))
-           {
-              $taxref->taxrefUpdate();
-          }
-
-          return $this->render('admin/baseUpdate.html.twig');
-
-    }
 }

@@ -13,15 +13,32 @@ class TaxrefBaseImport extends Controller
     {
         $this->em= $em;
     }
-    public function taxrefImport()
+
+
+    public function reloadTaxref()
     {
         $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder($delimiter = ';')]);
-        $csvContents = file_get_contents('base/TAXREF.csv');
+        $csvContents = file_get_contents('uploads/taxref/TAXREF.csv');
         // Je demande l'encodage en utf-8 et windows-1252  permet d'éviter les caractères spéciaux dans les espaces
         $csvEncodage = mb_convert_encoding($csvContents, "UTF-8","Windows-1252");
         $datas = $serializer->decode($csvEncodage, 'csv');
 
-        foreach($datas as $data)
+        $birdRepository = $this->em->getRepository('App:Bird');
+        $nb = $birdRepository->countNb();
+        if(empty($nb))
+        {
+            $this->taxrefImport($datas);
+        }else{
+            $this->taxrefUpdate($datas);
+        }
+
+    }
+
+
+    public function taxrefImport($datas)
+    {
+
+        foreach ($datas as $data)
         {
             $bird = new Bird();
             $bird->setRegne($data['REGNE']);
@@ -58,29 +75,25 @@ class TaxrefBaseImport extends Controller
             $bird->setStatutCLI($data['CLI']);
             $this->em->persist($bird);
         }
-        $this->em->flush();
-    }
+            $this->em->flush();
+        }
 
 
-
-    public function taxrefUpdate()
+    public function taxrefUpdate($datas)
     {
-
-        $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder($delimiter = ';')]);
-        $csvContents = file_get_contents('TAXREF.csv');
-        // Je demande l'encodage en utf-8 et windows-1252  permet d'éviter les caractères spéciaux dans les espaces
-        $csvEncodage = mb_convert_encoding($csvContents, "UTF-8","Windows-1252");
-        $datas = $serializer->decode($csvEncodage, 'csv');
-
-            foreach($datas as $data)
+        foreach($datas as $data)
+        {
+            $bird = $this->em->getRepository('App:Bird')->find('cd_nom');
+            if($bird != $data['CD_NOM'])
             {
-
+                $this->em->clear( $bird);
+                $bird = new Bird();
                 $bird->setRegne($data['REGNE']);
                 $bird->setPhylum($data['PHYLUM']);
                 $bird->setClasse($data['CLASSE']);
                 $bird->setOrdre($data['ORDRE']);
                 $bird->setFamille($data['FAMILLE']);
-             //   $bird->setCdNom($data['CD_NOM']);
+                $bird->setCdNom($data['CD_NOM']);
                 $bird->setCdTaxsup($data['CD_TAXSUP']);
                 $bird->setCdRef($data['CD_REF']);
                 $bird->setRang($data['RANG']);
@@ -108,11 +121,12 @@ class TaxrefBaseImport extends Controller
                 $bird->setStatutPF($data['PF']);
                 $bird->setStatutCLI($data['CLI']);
                 $this->em->persist($bird);
+
             }
 
+        }
+        $this->em->flush();
 
+    }
 
-
-            $this->em->flush();
-            }
 }

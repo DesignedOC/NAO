@@ -1,28 +1,31 @@
 parameters:
-    app.path.obs_images:  /assets/img
-    app.path.avatar_images:  /assets/img
-    app.path.taxref: /base
+    app.path.observations:  /uploads/observations
+    app.path.taxref:  /uploads/base
+    app.path.avatar:  /uploads/avatar
 vich_uploader:
     db_driver: orm
 
     mappings:
-        obs_images:
-            uri_prefix: '%app.path.obs_images%'
-            upload_destination: '%kernel.root_dir%/../public%app.path.obs_images%'
+        observations_images:
+            uri_prefix: '%app.path.observations%'
+            upload_destination: '%kernel.project_dir%/public/uploads/observations'
             namer: vich_uploader.namer_uniqid
             delete_on_update: true
             delete_on_remove: true
-        avatar_images:
-            uri_prefix: '%app.path.avatar_images%'
-            upload_destination: '%kernel.root_dir%/../public%app.path.avatar_images%'
-            namer: vich_uploader.namer_uniqid
-            delete_on_update: true
-            delete_on_remove: true
+
         taxref:
             uri_prefix: '%app.path.taxref%'
-            upload_destination: '%kernel.root_dir%/../public%app.path.taxref%'
+            upload_destination: '%kernel.project_dir%/public/uploads/taxref'
             delete_on_update: true
             delete_on_remove: true
+
+        avatar_images:
+            uri_prefix: '%app.path.avatar%'
+            upload_destination: '%kernel.project_dir%/public/uploads/avatar'
+            namer: vich_uploader.namer_uniqid
+            delete_on_update: true
+            delete_on_remove: true
+
 
 
 

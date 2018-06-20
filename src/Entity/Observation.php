@@ -43,13 +43,13 @@ class Observation
      *     maxSize="2M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
-     * @Vich\UploadableField(mapping="obs_images", fileNameProperty="picture")
+     * @Vich\UploadableField(mapping="observations_images", fileNameProperty="picture")
      * @var File
      */
     private $pictureFile;
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Bird", cascade={"persist"}, inversedBy="observations")
-     * @ORM\JoinColumn(referencedColumnName="id", name="bird_id")
+     * @ORM\JoinColumn(referencedColumnName="cd_nom", name="bird_cd_nom")
      */
     private $bird;
     /**

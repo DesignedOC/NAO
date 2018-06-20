@@ -23,7 +23,6 @@ class Taxref
     /**
      * @Vich\UploadableField(mapping="taxref", fileNameProperty="taxref")
      * @var File
-     * @ORM\Column(type="string", length=255)
      */
     private $taxrefFile;
 

@@ -12,35 +12,25 @@ easy_admin:
             - { entity: 'Badge', icon: 'bookmark', label: 'Badge' }
             - label: 'Base de données'
             - { entity: 'Taxref', label: 'Importer le fichier' }
-          #  - label: 'Base de données'
-              children:
-            - { label: 'Mettre à jour la BDD', route: 'taxrefBaseImport' }
-          #  - { label: 'Importer la BDD', route: 'taxrefBaseImport' }
+            - { label: 'Importer la BDD', route: 'taxrefBaseImport' }
 
     entities:
         Taxref:
+            disabled_actions: ['new','delete']
             class: App\Entity\Taxref
             list:
                 title: 'Base de données'
                 actions:
-                  #  - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
-                    - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
-                    - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
+                    - { name: 'edit', icon: 'pencil', label: 'Importer le nouveaux fichier', title: 'Editer' }
 
                 fields:
-                    - { property: 'TaxrefFile', type: 'file' }
-                    - { property: 'Taxref', type: 'file' , base_path: '%app.path.taxref%'}
-                   # - { property: 'image' ,type: 'image', base_path: '%app.path.avatar_images%'}
-            new:
-                title: 'Importer la base de données'
+                   # - { property: 'TaxrefFile', type: 'file' }
+                    - { property: 'Taxref', type: 'file'}
+
+            edit:
+                title: 'Importer le nouveau fichier Taxref'
                 fields:
-                    - { property: 'TaxrefFile', type: 'file' }
-                   # - { property: 'Taxref' }
-
-
-
-
-
+                    - { property: 'TaxrefFile', type: 'file', base_path: '%app.path.taxref%'}
 
 
         User:
@@ -57,7 +47,7 @@ easy_admin:
                 fields:
                     - { property: 'id' }
                     - { property: 'enabled', label: 'Actif' }
-                    - { property: 'image' ,type: 'image', base_path: '%app.path.avatar_images%'}
+                    - { property: 'image' ,type: 'image', base_path: '%app.path.avatar%'}
                     - { property: 'username', label: 'Pseudo' }
                     - { property: 'roles', label: 'Rôle' }
                     - { property: 'birth', label: 'Date de naissance',format: 'd/m/Y' }
@@ -104,7 +94,7 @@ easy_admin:
                     - { property: 'birth', label: 'Date de naissance', format: 'd/m/Y' }
                     - { property: 'username', label: 'Pseudo' }
                     - { property: 'email', label: 'Email', type: 'email' }
-                    - { property: 'image' ,type: 'image', base_path: '%app.path.avatar_images%'}
+                    - { property: 'image' ,type: 'image', base_path: '%app.path.avatar%'}
                     - { property: 'enabled', label: 'Actif' }
                     - { property: 'roles', label: 'Rôle' }
                     - { property: 'lastLogin', label: 'Dernière connexion',format: 'd/m/Y' }
@@ -124,7 +114,7 @@ easy_admin:
                     - { property: 'statut'}
                     - { property: 'latitude'}
                     - { property: 'longitude'}
-                    - { property: 'picture' ,label: 'Image' ,type: 'image', base_path: '%app.path.obs_images%'}
+                    - { property: 'picture' ,label: 'Image' ,type: 'image', base_path: '%app.path.observations%'}
                     - { property: 'bird', label: 'Oiseau' }
                     - { property: 'description'}
             new:
@@ -162,7 +152,7 @@ easy_admin:
                     - { property: 'latitude'}
                     - { property: 'longitude'}
                     - { property: 'bird', label: 'Oiseau'}
-                    - { property: 'picture' ,type: 'image', base_path: '%app.path.obs_images%'}
+                    - { property: 'picture' ,type: 'image', base_path: '%app.path.observations%'}
                     - { property: 'description'}
 
         Bird:
@@ -177,7 +167,7 @@ easy_admin:
 
                 fields:
 
-                    - { property: 'id'}
+                #    - { property: 'id'}
                     - { property: 'cdNom'}
                     - { property: 'nomVern'}
                     - { property: 'ordre'}
