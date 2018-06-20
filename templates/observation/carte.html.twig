@@ -42,9 +42,8 @@
 
 {% block javascripts %}
     {{ parent() }}
-
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoD5ARijin8SsWWM-rLdPAXNQizGVyZGw" async defer></script>
-    {#<script src="{{ asset('assets/js/gmaps.js') }}"></script>#}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoD5ARijin8SsWWM-rLdPAXNQizGVyZGw"></script>
+    <script src="{{ asset('assets/js/gmaps.js') }}"></script>
     <script>
         var map, marker, infoWindow;
         var locations = [];
@@ -101,7 +100,7 @@
             });
         });
 
-        
+       
 
         function initMap() {
             var center = {lat: 43.12025, lng: 2.123654};
