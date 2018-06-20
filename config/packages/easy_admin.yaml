@@ -11,11 +11,38 @@ easy_admin:
             - { entity: 'Bird', icon: 'themeisle', label: 'Oiseaux' }
             - { entity: 'Badge', icon: 'bookmark', label: 'Badge' }
             - label: 'Base de données'
+            - { entity: 'Taxref', label: 'Importer le fichier' }
+          #  - label: 'Base de données'
               children:
-            - { label: 'Mettre à jour la BDD', route: 'taxrefBaseUpdate' }
-            - { label: 'Importer la BDD', route: 'taxrefBaseImport' }
+            - { label: 'Mettre à jour la BDD', route: 'taxrefBaseImport' }
+          #  - { label: 'Importer la BDD', route: 'taxrefBaseImport' }
 
     entities:
+        Taxref:
+            class: App\Entity\Taxref
+            list:
+                title: 'Base de données'
+                actions:
+                  #  - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
+                    - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
+                    - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
+
+                fields:
+                    - { property: 'TaxrefFile', type: 'file' }
+                    - { property: 'Taxref', type: 'file' , base_path: '%app.path.taxref%'}
+                   # - { property: 'image' ,type: 'image', base_path: '%app.path.avatar_images%'}
+            new:
+                title: 'Importer la base de données'
+                fields:
+                    - { property: 'TaxrefFile', type: 'file' }
+                   # - { property: 'Taxref' }
+
+
+
+
+
+
+
         User:
             class: App\Entity\User
             list:
