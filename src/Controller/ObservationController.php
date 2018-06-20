@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Bird;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,6 +60,21 @@ class ObservationController extends Controller
 
         return array(
             'form' => $form->createView(),
+        );
+    }
+
+    /**
+     * @Route("/{id}/afficher", name="afficher")
+     * @Template("observation/ajouter.html.twig")
+     * @param Request $request
+     * @param Observation $observation
+     * @return array
+     */
+    public function afficherAction(Request $request,$id)
+    {
+        dump($id);die;
+        return array(
+            'observation' => $observation
         );
     }
 
@@ -126,13 +142,28 @@ class ObservationController extends Controller
         return new Response($name);
 
     }
+
     /**
      * @Route("/carte", name="carte")
+     * @Template("observation/carte.html.twig")
+     * @param Request $request
      */
     public function carteAction(Request $request)
     {
-        //Appelle le repo, le repo appelle la table observation, prend un de ses objets , et qui va retourner
-        //la position lattitude et longitude de cet objet
-        return $this->render('carte.html');
+    }
+
+    /**
+     * @Route("/map-search", name="map_search")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function searchBirdMap(Request $request)
+    {
+        $birdNomVern = $request->get('nomVern');
+//        $birdNomVern = 'blablabla';
+        $em = $this->getDoctrine()->getManager();
+        $observations = $em->getRepository(Observation::class)->findBirdWithObservation($birdNomVern);
+
+        return new JsonResponse($observations);
     }
 }
