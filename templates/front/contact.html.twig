@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Interface - Accueil{% endblock %}
+{% block description %}{% endblock %}
+
+{% block body %}
+    {#{% include 'interface/parts/_header.html.twig' %}#}
+    <div class="container">
+        <div class="row">
+            {#{% include 'parts/column.html.twig' %}#}
+            <div class="col-md-8 order-md-1">
+                <h4>Formulaire de contact</h4>
+                <hr class="mb-4">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {#{{ form_start(contact) }}#}
+                {# debug form error #}
+                {{ form_start(contact, {'attr': {'novalidate': 'novalidate'}}) }}
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        {{ form_label(contact.firstname) }}
+                        {{ form_widget(contact.firstname) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_label(contact.lastname) }}
+                        {{ form_widget(contact.lastname) }}
+                    </div>
+                </div>
+                {{ form_rest(contact) }}
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-md col-5 col-sm-5 float-right" type="submit">Envoyer le message</button>
+                <button class="btn btn-secondary mr-2 btn-md col-5 col-sm-5 col-md-3 float-right" type="reset">Annuler</button>
+                {{ form_end(contact) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
