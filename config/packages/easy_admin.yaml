@@ -134,7 +134,7 @@ easy_admin:
                     - { property: 'latitude'}
                     - { property: 'longitude'}
                     - { property: 'bird', label: 'Oiseau'}
-                    - { property: 'pictureFile' ,type: 'vich_image'}
+                    - { property: 'picture' ,type: 'image', base_path: '%app.path.obs_images%'}
                     - { property: 'description'}
 
         Bird:

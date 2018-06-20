@@ -46,7 +46,7 @@ class User extends BaseUser
      *     maxSize="2M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
+     * @Vich\UploadableField(mapping="avatar_images", fileNameProperty="image")
      * @var File
      */
     private $imageFile;
