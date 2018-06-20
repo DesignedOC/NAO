@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Carte des espèces</title>
+    <!-- The scale -->
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <!-- Basic 2 links to display the map -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>  
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-language/v0.9.2/mapbox-gl-language.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
+    <!-- Basic style of the map -->
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+
+<body>
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.css' type='text/css' />
+
+    <div id='map' style='width: 1000px; height: 600px;'></div>
+
+    <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYWdlbmNlcDUiLCJhIjoiY2podnQxdWFlMDBjcDNycWc5Ym4ydjdmZiJ9.oxPKaDLfDplgUT5Xlca--Q';
+    var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v10',
+      center: [1083.359, 46.900],
+    zoom: 5
+    });
+
+    //Put everything in french
+    mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.1.0/mapbox-gl-rtl-text.js');
+    map.addControl(new MapboxLanguage({
+    defaultLanguage: 'fr'
+    }));
+
+    // Add zoom and rotation controls to the map.
+    map.addControl(new mapboxgl.NavigationControl());
+
+    //Search input
+    map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+    }));
+
+ 
+</script>
+
+</body>
+</html>
