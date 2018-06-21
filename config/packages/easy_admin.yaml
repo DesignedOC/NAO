@@ -6,13 +6,20 @@ easy_admin:
         brand-color: #42aed7;
         form_theme: 'vertical'
         menu:
-            - { entity: 'User', icon: 'user', label: 'Utilisateurs' }
+            - { label: 'Retour Interface',icon: 'home', route: 'nao_interface' }
+            - { label: 'le blog' ,icon: 'book', url: 'http://naonews.pw/', target: '_blank' }
+            - { label: 'Gestion des utilisateurs' }
+            - { entity: 'User', icon: 'user', label: 'Utilisateurs', default: true }
+            - { label: 'Gestion des observations' }
             - { entity: 'Observation', icon: 'binoculars', label: 'Observation' }
+            - { label: 'Gestion des espèces' }
             - { entity: 'Bird', icon: 'themeisle', label: 'Oiseaux' }
+            - { label: 'Gestion des badges' }
             - { entity: 'Badge', icon: 'bookmark', label: 'Badge' }
             - label: 'Base de données'
-            - { entity: 'Taxref', label: 'Importer le fichier' }
-            - { label: 'Importer la BDD', route: 'taxrefBaseImport' }
+              children:
+                - { entity: 'Taxref', label: 'Importer le fichier' }
+                - { label: 'Importer la BDD', route: 'taxrefBaseImport' }
 
     entities:
         Taxref:
@@ -20,6 +27,7 @@ easy_admin:
             class: App\Entity\Taxref
             list:
                 title: 'Base de données'
+                help: 'Attention, votre fichier doit respecter le format TAXREF.csv. Pour importer la nouvelle base, veuillez poursuivre en cliquant sur Importer la BDD'
                 actions:
                     - { name: 'edit', icon: 'pencil', label: 'Importer le nouveaux fichier', title: 'Editer' }
 
