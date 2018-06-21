@@ -9,6 +9,7 @@ $fonts-secondary: 'Open Sans', Sans-serif;
 // the ~ allows you to reference things in node_modules
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~material-design-icons/iconfont/material-icons.css';
+@import '~bootstrap-datepicker/dist/css/bootstrap-datepicker.css';
 
 body {
 

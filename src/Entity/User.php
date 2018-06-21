@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -38,7 +39,7 @@ class User extends BaseUser
     private $firstname;
 
     /**
-     * @var \DateTime $birth
+     * @var DateTime $birth
      * @ORM\Column(name="usr_birth", type="datetime", nullable=true)
      */
     private $birth;
@@ -61,7 +62,7 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="datetime")
-     * @var \DateTime
+     * @var DateTime
      */
     private $updatedAt;
 
@@ -89,8 +90,7 @@ class User extends BaseUser
         parent::__construct();
         $this->observations = new ArrayCollection();
         $this->badges = new ArrayCollection();
-        $this->birth = new \DateTime();
-        $this->updatedAt = new \DateTime();
+        $this->updatedAt = new DateTime();
     }
     /**
      * @return null|string
@@ -129,7 +129,7 @@ class User extends BaseUser
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return DateTime|null
      */
     public function getBirth(): ?\DateTimeInterface
     {
@@ -137,10 +137,10 @@ class User extends BaseUser
     }
 
     /**
-     * @param \DateTimeInterface $birth
+     * @param DateTime $birth
      * @return User
      */
-    public function setBirth(\DateTimeInterface $birth): self
+    public function setBirth(DateTime $birth): self
     {
         $this->birth = $birth;
         return $this;
@@ -154,7 +154,7 @@ class User extends BaseUser
         $this->imageFile = $image;
 
         if ($image) {
-            $this->updatedAt = new \DateTime('now');
+            $this->updatedAt = new DateTime('now');
         }
     }
 
