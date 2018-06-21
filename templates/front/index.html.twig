@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Nos Amis les Oiseaux - Association d'ornithologie{% endblock %}
-{% block description %}{% endblock %}
+{% block description %}Nos amis les oiseaux est une association loi 1901 qui regroupe les passionnés d'ornithologies sur cette plateforme de partage amusante...{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/css/front.css') }}">
@@ -16,7 +16,11 @@
                 <div class="col-12 text-center">
                     <h1><strong>Se lancer</strong> à la découverte de <span style = "display: block;">l'ornithologie avec <strong>Nos Amis les Oiseaux</strong></span></h1>
                     <p>Partager vos observations et vos découvertes avec <span style = "display: block;">la communauté à travers notre application</span></p>
-                    <a class="btn btn-primary btn-lg" href="#" role="button">Nous Rejoindre</a>
+                    {% if app.user %}
+                        <a class="btn btn-primary btn-lg" href="{{ path('nao_interface') }}" role="button">Nous Rejoindre</a>
+                    {% else %}
+                        <a class="btn btn-primary btn-lg" href="{{ path('fos_user_registration_register') }}" role="button">Nous Rejoindre</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -69,7 +73,11 @@
             <div class="col-md-4">
                 <p>Nous vous invitons à découvrir notre carte qui vous permettra de parcourir la France depuis chez vous ! Elle permet aux membres du site de rechercher une espèce et de visualiser les lieux fréquenter par cette dernière.
                 </p>
-                <a class="btn btn-md" href="/inscription" role="button">Nous rejoindre</a>
+                {% if app.user %}
+                    <a class="btn btn-md" href="{{ path('nao_interface') }}" role="button">Nous rejoindre</a>
+                {% else %}
+                    <a class="btn btn-md" href="{{ path('fos_user_registration_register') }}" role="button">Nous rejoindre</a>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -105,7 +113,11 @@
             <p>Ouvert à tous et sans avoir de connaissances. Rejoignez une communauté grandissante avec des amateurs et des experts. Poster votre première observation et monter en grade.</p>
             <p>
                 <a class="btn btn-asso btn-md" href="{{ path('nao_association') }}" role="button">L'association</a>
-                <a class="btn btn-join btn-md" href="{{ path('fos_user_registration_register') }}" role="button">Nous rejoindre</a>
+                {% if app.user %}
+                    <a class="btn btn-join btn-md" href="{{ path('nao_interface') }}" role="button">Nous rejoindre</a>
+                {% else %}
+                    <a class="btn btn-join btn-md" href="{{ path('fos_user_registration_register') }}" role="button">Nous rejoindre</a>
+                {% endif %}
             </p>
         </div>
     </section>

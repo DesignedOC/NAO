@@ -4,7 +4,8 @@
 {{ 'resetting.email.subject'|trans({'%username%': user.username}) }}
 {%- endautoescape -%}
 {% endblock %}
-
+user.username
+confirmationUrl
 {% block body_text %}
 {% autoescape false %}
 {{ 'resetting.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
