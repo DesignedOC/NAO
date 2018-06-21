@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use App\Entity\Application;
@@ -20,6 +19,15 @@ class InterfaceController extends Controller
             'controller_name' => 'InterfaceController',
         ]);
     }
+    /**
+     * @Route("/interface/memory", name="nao_interface_memory")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function memory(Request $request)
+    {
+        return $this->render('interface/memory.html.twig');
+    }
 
     /**
      * @Route("/interface/devenir-naturaliste", name="nao_interface_naturalist")
@@ -31,15 +39,10 @@ class InterfaceController extends Controller
         if($this->isGranted('ROLE_NATURALIST')){
             return $this->redirectToRoute('nao_interface');
         }
-
-
         $user = $this->getUser();
-
         $application = new Application();
-
         $form = $this->createForm(NaturalistType::class, $application);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid())
         {
             $application->setUser($user);
@@ -47,22 +50,20 @@ class InterfaceController extends Controller
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Votre candidature est bien prise en compte. Veuillez patienter pour obtenir une réponse.');
         }
-
         return $this->render('interface/naturaliste.html.twig', [
             'application' => $form->createView(),
         ]);
     }
-
     /**
      * @Route("/interface/carte", name="nao_interface_carte")
      */
     public function carte()
     {
-
         return $this->render('interface/carte.html.twig', [
             'controller_name' => 'InterfaceController',
         ]);
     }
+
 
     /**
      * @Route("/interface/user/{username}", name="nao_interface_profile")

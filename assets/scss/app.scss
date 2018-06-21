@@ -587,6 +587,24 @@ div.info-password {
   }
 }
 
+.btn-custom-prim {
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  color: #fff;
+  background-color: $primary-color;
+  border-color: #449ec1;
+  &:hover {
+    background: $primary-color-hov;
+  }
+}
+
 @media all and (max-width: 770px) {
   div.info-password {
     margin-top: 20px;
@@ -597,6 +615,14 @@ div.info-password {
   }
   .custom-file {
     position: initial;
+  }
+  .btn-custom-prim {
+    width: 100%;
+  }
+  .memory-bird {
+    .custom-box {
+      padding: 0;
+    }
   }
 }
 
