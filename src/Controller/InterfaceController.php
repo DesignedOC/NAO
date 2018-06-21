@@ -1,8 +1,13 @@
 <?php
 namespace App\Controller;
+
+use App\Entity\Application;
+use App\Entity\User;
+use App\Form\NaturalistType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+
 class InterfaceController extends Controller
 {
     /**
@@ -15,7 +20,7 @@ class InterfaceController extends Controller
         ]);
     }
     /**
-     * @Route("/interface/memory_bird", name="nao_interface_memory")
+     * @Route("/interface/memory", name="nao_interface_memory")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -58,4 +63,24 @@ class InterfaceController extends Controller
             'controller_name' => 'InterfaceController',
         ]);
     }
+
+
+    /**
+     * @Route("/interface/user/{username}", name="nao_interface_profile")
+     * @param string $username
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function profile(string $username)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->findBy(['username' => $username]);
+
+        if(!$user) {
+            throw $this->createNotFoundException('Aucun utilisateur trouvé avec le nom '. $username);
+        }
+
+        return $this->render('interface/profile.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
 }

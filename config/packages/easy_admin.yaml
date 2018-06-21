@@ -8,7 +8,7 @@ easy_admin:
         menu:
             - { entity: 'User', icon: 'user', label: 'Utilisateurs' }
             - { entity: 'Observation', icon: 'binoculars', label: 'Observation' }
-            - { entity: 'Species', icon: 'themeisle', label: 'Especes' }
+#            - { entity: 'Species', icon: 'themeisle', label: 'Especes' }
             - { entity: 'Badge', icon: 'bookmark', label: 'Badge' }
     entities:
         User:
@@ -125,48 +125,48 @@ easy_admin:
                     - { property: 'pictureFile' ,type: 'vich_image'}
                     - description
 
-        Species:
-            class: App\Entity\Species
-            list:
-                title: 'Espèces'
-                actions:
-                    - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
-                    - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
-                    - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
-
-                fields:
-                    - { property: 'id'}
-                    - { property: 'order'}
-                    - { property: 'family'}
-                    - { property: 'cdNom'}
-                    - { property: 'lbNom'}
-                    - { property: 'nomVern'}
-                    - { property: 'habitat'}
-                    - { property: 'statut'}
-                    - { property: 'url'}
-            new:
-                title: 'Ajouter un Oiseau'
-                fields:
-                    - { property: 'order'}
-                    - { property: 'family'}
-                    - { property: 'cdNom'}
-                    - { property: 'lbNom'}
-                    - { property: 'nomVern'}
-                    - { property: 'habitat'}
-                    - { property: 'statut'}
-                    - { property: 'url'}
-            edit:
-                title: "Editer l'oiseau"
-                fields:
-                    - { property: 'order'}
-                    - { property: 'family'}
-                    - { property: 'cdNom'}
-                    - { property: 'lbNom'}
-                    - { property: 'nomVern'}
-                    - { property: 'habitat'}
-                    - { property: 'statut'}
-                    - { property: 'url'}
+#        Species:
+#            class: App\Entity\Species
+#            list:
+#                title: 'Espèces'
+#                actions:
+#                    - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
+#                    - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
+#                    - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
+#                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+#
+#                fields:
+#                    - { property: 'id'}
+#                    - { property: 'order'}
+#                    - { property: 'family'}
+#                    - { property: 'cdNom'}
+#                    - { property: 'lbNom'}
+#                    - { property: 'nomVern'}
+#                    - { property: 'habitat'}
+#                    - { property: 'statut'}
+#                    - { property: 'url'}
+#            new:
+#                title: 'Ajouter un Oiseau'
+#                fields:
+#                    - { property: 'order'}
+#                    - { property: 'family'}
+#                    - { property: 'cdNom'}
+#                    - { property: 'lbNom'}
+#                    - { property: 'nomVern'}
+#                    - { property: 'habitat'}
+#                    - { property: 'statut'}
+#                    - { property: 'url'}
+#            edit:
+#                title: "Editer l'oiseau"
+#                fields:
+#                    - { property: 'order'}
+#                    - { property: 'family'}
+#                    - { property: 'cdNom'}
+#                    - { property: 'lbNom'}
+#                    - { property: 'nomVern'}
+#                    - { property: 'habitat'}
+#                    - { property: 'statut'}
+#                    - { property: 'url'}
 
 
         Badge:

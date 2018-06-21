@@ -51,7 +51,7 @@ class Observation
      *     maxSize="2M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="picture")
+     * @Vich\UploadableField(mapping="observations_images", fileNameProperty="picture")
      * @var File
      */
     private $pictureFile;

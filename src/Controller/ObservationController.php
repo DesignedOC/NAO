@@ -27,7 +27,7 @@ class ObservationController extends Controller
             $em->flush();
         }
 
-        return $this->render('observation/observations.html.twig', [
+        return $this->render('interface/observations.html.twig', [
            'form' => $form->createView(),
         ]);
     }

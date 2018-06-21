@@ -1,15 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Interface - Accueil{% endblock %}
+{% block title %}Nos Amis les Oiseaux - Contactez nous{% endblock %}
 {% block description %}{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/front.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+{% endblock %}
+
 {% block body %}
-    {#{% include 'interface/parts/_header.html.twig' %}#}
+    {% include 'front/parts/_header.html.twig' %}
+    <div class="headline mb-4">
+        <div class="container">
+            <h1 class="pt-4 mb-1">Contact</h1>
+            <p>Vous avez des questions ? C'est ici même !</p>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             {#{% include 'parts/column.html.twig' %}#}
-            <div class="col-md-8 order-md-1">
-                <h4>Formulaire de contact</h4>
+            <div class="col-md-8 contact">
+                <h2 class="h4">Formulaire de contact</h2>
                 <hr class="mb-4">
                 {% for message in app.flashes('success') %}
                     <div class="alert alert-success" role="alert">
@@ -31,11 +42,35 @@
                 </div>
                 {{ form_rest(contact) }}
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-md col-5 col-sm-5 float-right" type="submit">Envoyer le message</button>
-                <button class="btn btn-secondary mr-2 btn-md col-5 col-sm-5 col-md-3 float-right" type="reset">Annuler</button>
+                <button class="btn btn-r-reg mb-2 btn-md col-xs-12 col-sm-5 float-sm-right" type="submit">Envoyer le message</button>
+                <button class="btn btn-l-log mr-sm-2 btn-md col-xs-12 col-sm-5 col-md-3 float-sm-right" type="reset">Annuler</button>
                 {{ form_end(contact) }}
+            </div>
+            <div class="col-md-3 offset-md-1 order-md-1 contact">
+                    <h2 class="h4">Informations</h2>
+                    <hr class="mb-4">
+                    <p class="text-muted">Vous avez la possibilité de nous contacter directement par téléphone ou par email.</p>
+                    <h3 class="h6 bl mb-4">Contact</h3>
+                    <address>
+                        <p class="text-muted"><i class="material-icons" style="vertical-align: middle; margin-right: 10px;font-size: medium;">email</i><a href="mailto:webmaster@somedomain.com" class="text-muted">contact@nao.com</a><br>
+                        <i class="material-icons" style="vertical-align: middle; margin-right: 10px;font-size: medium;">phone</i><span class="text-muted">+33.3213249203</span><br><br>
+                        Nos Amis les Oiseaux<br>
+                        Michel Dujardin<br>
+                        18 rue Jeanne d'arc<br>
+                        Paris, France</p>
+                    </address>
+                    <h3 class="h6 bl mb-4">Réseaux sociaux</h3>
+                    <a href="https://www.facebook.com/Nos-Amis-les-Oiseaux-201982923929583/" target="_blank"><i class="fab fa-facebook"></i><span class="ml-1"> Facebook</span></a><br>
+                    <a href="https://www.instagram.com/nao.association/" target="_blank"><i class="fab fa-instagram"></i><span class="ml-1"> Instagram</span></a>
             </div>
         </div>
     </div>
+<div class="footer-black">
+    {% include 'front/parts/_footer.html.twig' %}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/front.js') }}"></script>
 {% endblock %}
 
