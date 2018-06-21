@@ -38,13 +38,25 @@
 {% block javascripts %}
     <script src="{{ asset('build/js/app.js') }}"></script>
     <script>
-        mapboxgl.accessToken = 'pk.eyJ1IjoicG9uaWF2IiwiYSI6ImNqaWN0Zm9tbDA0azUzcXRkMzJzc3lkbXMifQ.Tu9yGAx2_1UteKVgwPswCg';
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYWdlbmNlcDUiLCJhIjoiY2podnQxdWFlMDBjcDNycWc5Ym4ydjdmZiJ9.oxPKaDLfDplgUT5Xlca--Q';
         var map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v10'
+            style: 'mapbox://styles/mapbox/streets-v10',
+            center: [1083.359, 46.900],
+            zoom: 5
         });
+        //Put everything in french
+        mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.1.0/mapbox-gl-rtl-text.js');
+        map.addControl(new MapboxLanguage({
+            defaultLanguage: 'fr'
+        }));
+        // Add zoom and rotation controls to the map.
         map.addControl(new mapboxgl.NavigationControl());
-        map.addControl(new mapboxgl.FullscreenControl());
+        //Search input
+        map.addControl(new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken
+        }));
+
     </script>
 {% endblock %}
 

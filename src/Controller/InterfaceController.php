@@ -64,7 +64,6 @@ class InterfaceController extends Controller
         ]);
     }
 
-
     /**
      * @Route("/interface/user/{username}", name="nao_interface_profile")
      * @param string $username
