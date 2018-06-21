@@ -1,9 +1,11 @@
 <?php
 namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Table(name="nao_bird")
  * @ORM\Entity(repositoryClass="App\Repository\BirdRepository")
+ * @UniqueEntity("cdNom")
  */
 class Bird
 {
@@ -34,7 +36,7 @@ class Bird
      */
     private $famille;
     /**
-     * @ORM\Column(name="cd_nom", type="integer", nullable=true)
+     * @ORM\Column(name="cd_nom", type="integer", nullable=true, unique=true)
      */
     private $cdNom;
     /**

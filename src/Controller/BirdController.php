@@ -18,15 +18,16 @@ class BirdController extends Controller
     }
 
     /**
-     * @Route ("/taxrefBaseImport", name="taxrefBaseImport")
+     * @Route ("admin/taxrefBaseImport", name="taxrefBaseImport")
      * @param Request $request
      * @param TaxrefBaseImport $taxref
      * @return Response
      */
     public function taxrefBaseImport(Request $request, TaxrefBaseImport $taxref)
     {
-        $datas = $taxref->reloadTaxref();
-        return new Response($datas);
+        $taxref->reloadTaxref();
+        $this->addFlash('success','import ok');
+        return $this->redirectToRoute('admin',['entity'=>'Bird', 'action'=> 'list']);
     }
 
 }
