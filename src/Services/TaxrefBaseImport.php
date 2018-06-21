@@ -13,8 +13,6 @@ class TaxrefBaseImport extends Controller
     {
         $this->em= $em;
     }
-
-
     public function reloadTaxref()
     {
         $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder($delimiter = ';')]);
@@ -22,7 +20,6 @@ class TaxrefBaseImport extends Controller
         // Je demande l'encodage en utf-8 et windows-1252  permet d'éviter les caractères spéciaux dans les espaces
         $csvEncodage = mb_convert_encoding($csvContents, "UTF-8","Windows-1252");
         $datas = $serializer->decode($csvEncodage, 'csv');
-
         $birdRepository = $this->em->getRepository('App:Bird');
         $nb = $birdRepository->countNb();
         if(empty($nb))
@@ -31,13 +28,9 @@ class TaxrefBaseImport extends Controller
         }else{
             $this->taxrefUpdate($datas);
         }
-
     }
-
-
     public function taxrefImport($datas)
     {
-
         foreach ($datas as $data)
         {
             $bird = new Bird();
@@ -77,8 +70,6 @@ class TaxrefBaseImport extends Controller
         }
             $this->em->flush();
         }
-
-
     public function taxrefUpdate($datas)
     {
         foreach($datas as $data)
@@ -121,12 +112,8 @@ class TaxrefBaseImport extends Controller
                 $bird->setStatutPF($data['PF']);
                 $bird->setStatutCLI($data['CLI']);
                 $this->em->persist($bird);
-
             }
-
         }
         $this->em->flush();
-
     }
-
 }

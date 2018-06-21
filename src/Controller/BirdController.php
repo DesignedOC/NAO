@@ -25,8 +25,8 @@ class BirdController extends Controller
      */
     public function taxrefBaseImport(Request $request, TaxrefBaseImport $taxref)
     {
-        $taxref->reloadTaxref();
-        return new Response('ok');
+        $datas = $taxref->reloadTaxref();
+        return new Response($datas);
     }
 
 }

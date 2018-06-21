@@ -1,14 +1,18 @@
 <?php
 namespace App\Entity;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection;
 /**
  * @ORM\Table(name="nao_bird")
  * @ORM\Entity(repositoryClass="App\Repository\BirdRepository")
  */
 class Bird
 {
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(name="id", type="integer")
+     */
+    private $id;
     /**
      * @ORM\Column(name="regne", type="string", length=255, nullable=true)
      */
@@ -22,17 +26,15 @@ class Bird
      */
     private $classe;
     /**
-     * @ORM\Column(name="ordre", type="string", length=255)
+     * @ORM\Column(name="ordre", type="string", length=255, nullable=true)
      */
     private $ordre;
     /**
-     * @ORM\Column(name="famille", type="string", length=255)
+     * @ORM\Column(name="famille", type="string", length=255, nullable=true)
      */
     private $famille;
     /**
-     * @ORM\Id
-     * @ORM\Column(name="cd_nom", type="integer", unique=true)
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\Column(name="cd_nom", type="integer", nullable=true)
      */
     private $cdNom;
     /**
@@ -48,7 +50,7 @@ class Bird
      */
     private $rang;
     /**
-     * @ORM\Column(name="lb_nom", type="string", length=255)
+     * @ORM\Column(name="lb_nom", type="string", length=255, nullable=true)
      */
     private $lbNom;
     /**
@@ -72,11 +74,11 @@ class Bird
      */
     private $nomVernEng;
     /**
-     * @ORM\Column(name="habitat", type="smallint")
+     * @ORM\Column(name="habitat", type="smallint", nullable=true)
      */
     private $habitat;
     /**
-     * @ORM\Column(name="fr", type="string", length=1)
+     * @ORM\Column(name="fr", type="string", length=1, nullable=true)
      */
     private $statutFR;
     /**
@@ -140,16 +142,20 @@ class Bird
      */
     private $statutCLI;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Observation", mappedBy="Bird")
-     */
-    private $observations;
-
-    public function __construct()
+    public function __toString()
     {
-        $this->observations = new ArrayCollection();
+        return $this->getNomVern();
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+    public function setId(int $id) :self
+    {
+        $this->id =$id;
+        return $this;
+    }
     public function getRegne(): ?string
     {
         return $this->regne;
@@ -195,21 +201,15 @@ class Bird
         $this->famille = $famille;
         return $this;
     }
-    public function getCdNom()
+    public function getCdNom(): ?int
     {
         return $this->cdNom;
     }
-    public function setCdNom($cdNom)
+    public function setCdNom(int $cdNom): self
     {
         $this->cdNom = $cdNom;
         return $this;
     }
-
-    public function __toString()
-    {
-        return $this->getNomVern();
-    }
-
     public function getCdTaxsup(): ?int
     {
         return $this->cdTaxsup;
@@ -444,30 +444,4 @@ class Bird
         $this->statutCLI = $statutCLI;
         return $this;
     }
-
-    /**
-     * @return Collection|Observation[]
-     */
-    public function getObservation() : Collection
-    {
-        return $this->observations;
-    }
-
-    /**
-     * @param Observation $observation
-     */
-    public function addObservation(Observation $observation)
-    {
-        $this->observations[] = $observation;
-        $observation->setBird($this);
-    }
-
-    /**
-     * @param Observation $observation
-     */
-    public function removeObservation(Observation $observation)
-    {
-        $this->observations->removeElement($observation);
-    }
-
 }

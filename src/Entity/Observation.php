@@ -39,7 +39,7 @@ class Observation
      */
     private $picture;
     /**
-     *   @Assert\File(
+     * @Assert\File(
      *     maxSize="2M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
@@ -48,8 +48,10 @@ class Observation
      */
     private $pictureFile;
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Bird", cascade={"persist"}, inversedBy="observations")
-     * @ORM\JoinColumn(referencedColumnName="cd_nom", name="bird_cd_nom")
+     * @ORM\JoinColumn(name="bird", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Bird", cascade={"persist"})
+     * @Assert\Type(type="App\Entity\Bird")
+     * @Assert\Valid()
      */
     private $bird;
     /**
@@ -78,7 +80,7 @@ class Observation
     public function __construct()
     {
         $this->date = new \Datetime();
-        $this->setStatut(1);
+        $this->statut = 1;
         $this->updatedAt = new \DateTime();
     }
     /**
@@ -163,12 +165,10 @@ class Observation
     public function setPictureFile(?File $picture = null):void
     {
         $this->pictureFile = $picture;
-        if(null != $picture)
-        {
+        if (null != $picture) {
             $this->updatedAt = new \DateTime();
         }
     }
-
     /**
      * @return Bird
      */
@@ -176,13 +176,14 @@ class Observation
     {
         return $this->bird;
     }
-
     /**
-     * @param Bird $bird
+     * @param string $bird
+     * @return Observation
      */
-    public function setBird(Bird $bird)
+    public function setBird(Bird $bird = null)
     {
         $this->bird = $bird;
+        return $this;
     }
     /**
      * @param User $user
@@ -245,5 +246,19 @@ class Observation
     {
         $this->updatedAt = $updatedAt;
         return $this;
+    }
+    public function getLibelleStatut()
+    {
+        switch ($this->statut) {
+            case 0:
+                return 'rejeté';
+                break;
+            case 1:
+                return 'en attente de validation';
+                break;
+            case 2;
+                return 'validé';
+                break;
+        }
     }
 }
