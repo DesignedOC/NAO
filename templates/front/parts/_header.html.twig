@@ -24,8 +24,8 @@
                     {% if app.user %}
                         <a class="btn btn-l-log" href="{{ path('nao_interface') }}">Accéder à l'interface</a>
                     {% else %}
-                    <a class="btn btn-l-log" href="{{ path('fos_user_security_login') }}">Se connecter</a>
-                    <a class="btn btn-r-reg" href="{{ path('fos_user_registration_register') }}">S'inscrire</a>
+                    <a class="btn btn-log-h" href="{{ path('fos_user_security_login') }}">Se connecter</a>
+                    <a class="btn btn-reg-h" href="{{ path('fos_user_registration_register') }}">S'inscrire</a>
                     {% endif %}
                 </div>
             </div>

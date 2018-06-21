@@ -75,6 +75,58 @@ body {
   }
 }
 
+// Button uppercase new version
+
+.btn-log-h {
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin: .1rem .1rem !important;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  padding: 0.7rem 1rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  background: #b1b1b1;
+  color: #ffffff;
+  border: 0;
+  &:hover {
+    color: #e4e4e4;
+    background: #939da2;
+  }
+  &:active {
+    color: #e8e8e8;
+    background: #535d62;
+  }
+}
+
+.btn-reg-h {
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin: .2rem .2rem !important;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  padding: 0.7rem 1rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  background: #2298d5;
+  color: #ffffff;
+  border: 0;
+  &:hover {
+    color: #e7e7e7;
+    background: #067bb4;
+  }
+  &:active {
+    color: #e8e8e8;
+    background: #04426c;
+  }
+}
+
+
+
 // Jumbotron
 
 div.jumbotron {
