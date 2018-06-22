@@ -42,9 +42,23 @@ class Application
      */
     private $description;
 
+    /**
+     * 0 = rejected, 1 = under validation, 2 = validated
+     * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 2
+     * )
+     */
+    private $statut;
+
+    /**
+     * Application constructor.
+     */
     public function __construct()
     {
         $this->date = new \DateTime();
+        $this->setStatut(1);
     }
 
     /**
@@ -117,6 +131,24 @@ class Application
     public function setDescription($description): void
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    /**
+     * @param string $statut
+     * @return Application
+     */
+    public function setStatut(string $statut): self
+    {
+        $this->statut = $statut;
+        return $this;
     }
 
 

@@ -38,11 +38,17 @@
         <li><a href="#"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;">folder_open</i>Mes observations</a></li>
         <li><a href="{{ path('nao_interface_memory') }}"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;">videogame_asset</i>Memory Bird</a></li>
     </ul>
+    {% if is_granted('ROLE_NATURALIST') %}
+    <ul class="sidebar-nav pt-0">
+        <li><a href="#"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;">verified_user</i>Validations</a></li>
+        <li><a href="{{ path('nao_interface_candidatures') }}"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;">gavel</i>Candidatures</a></li>
+    </ul>
+    {% endif %}
     <ul class="sidebar-small">
         <li><a href="{{ path('nao_conditions') }}">Conditions générales</a></li>
         <li><a href="{{ path('nao_mentions') }}">Mentions légales</a></li>
         <li><a href="{{ path('nao_faq') }}">Foire aux questions</a></li>
-        <li><a href="#">Donation</a></li>
+        <li><a href="https://www.paypal.com/pools/c/848Pyu38OO" target="_blank">Donation</a></li>
         <li><a href="{{ path('nao_contact') }}">Contact</a></li>
     </ul>
     <ul class="sidebar-account">
@@ -51,7 +57,7 @@
         <li><a href="{{ path('fos_user_security_logout') }}"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;font-size: 18px">input</i>Se déconnecter</a></li>
     </ul>
     <div class="donation">
-        <a href="#">Donation</a>
+        <a href="https://www.paypal.com/pools/c/848Pyu38OO" target="_blank">Donation</a>
     </div>
     {% if is_granted('ROLE_NATURALIST') == false %}
         <a href="{{ path('nao_interface_naturalist') }}" class="a-nat">Devenir Naturaliste</a>
