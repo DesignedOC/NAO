@@ -1,6 +1,7 @@
 parameters:
-    app.path.observations: /uploads/observations
-    app.path.avatar: /uploads/avatar
+    app.path.observations:  /uploads/observations
+    app.path.taxref:  /uploads/base
+    app.path.avatar:  /uploads/avatar
 vich_uploader:
     db_driver: orm
 
@@ -12,9 +13,19 @@ vich_uploader:
             delete_on_update: true
             delete_on_remove: true
 
+        taxref:
+            uri_prefix: '%app.path.taxref%'
+            upload_destination: '%kernel.project_dir%/public/uploads/taxref'
+            delete_on_update: true
+            delete_on_remove: true
+
         avatar_images:
             uri_prefix: '%app.path.avatar%'
             upload_destination: '%kernel.project_dir%/public/uploads/avatar'
             namer: vich_uploader.namer_uniqid
             delete_on_update: true
             delete_on_remove: true
+
+
+
+
