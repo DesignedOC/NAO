@@ -207,7 +207,7 @@ class Observation
     }
 
     /**
-     * @param string $bird
+     * @param Bird $bird
      * @return Observation
      */
     public function setBird(Bird $bird = null)

@@ -45,6 +45,12 @@ class User extends BaseUser
     private $birth;
 
     /**
+     * @var DateTime $dateFrom
+     * @ORM\Column(name="usr_datefrom", type="datetime", nullable=true)
+     */
+    private $dateFrom;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @var string
      */
@@ -72,11 +78,6 @@ class User extends BaseUser
     private $observations;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Badge", mappedBy="user")
-     */
-    private $badges;
-
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Application", mappedBy="user")
      */
     private $applications;
@@ -91,7 +92,25 @@ class User extends BaseUser
         $this->observations = new ArrayCollection();
         $this->badges = new ArrayCollection();
         $this->updatedAt = new DateTime();
+        $this->dateFrom = new DateTime();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
     /**
      * @return null|string
      */
@@ -131,7 +150,7 @@ class User extends BaseUser
     /**
      * @return DateTime|null
      */
-    public function getBirth(): ?\DateTimeInterface
+    public function getBirth(): ?\DateTime
     {
         return $this->birth;
     }
@@ -140,9 +159,41 @@ class User extends BaseUser
      * @param DateTime $birth
      * @return User
      */
-    public function setBirth(DateTime $birth): self
+    public function setBirth(?DateTime $birth): self
     {
         $this->birth = $birth;
+        return $this;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getDateFrom(): ?\DateTime
+    {
+        return $this->dateFrom;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getMonthsFromDate(): ?Int
+    {
+//        $date = new DateTime('2017-06-22');  Date Test 12 months
+        $date = new DateTime('NOW');
+        $monthsYear = $this->getDateFrom()->diff($date)->y*12;
+        $months = $this->getDateFrom()->diff($date)->m;
+
+        $total = $monthsYear + $months;
+        return $total;
+    }
+
+    /**
+     * @param DateTime $dateFrom
+     * @return User
+     */
+    public function setDateFrom(?DateTime $dateFrom): self
+    {
+        $this->dateFrom = $dateFrom;
         return $this;
     }
 
@@ -205,33 +256,6 @@ class User extends BaseUser
     public function removeObservation(Observation $observation)
     {
         $this->observations->removeElement($observation);
-    }
-
-    /**
-     * @return Collection|Badge[]
-     */
-    public function getBadges(): Collection
-    {
-        return $this->badges;
-    }
-
-    /**
-     * @param Badge $badge
-     * @return User
-     */
-    public function addBadge(Badge $badge): self
-    {
-        $this->badges[] = $badge;
-        $badge->setUser($this);
-    }
-
-    /**
-     * @param Badge $badge
-     * @return User
-     */
-    public function removeBadge(Badge $badge): self
-    {
-        $this->badges->removeElement($badge);
     }
 
     /**

@@ -2,6 +2,9 @@ const bootstrap = require('bootstrap');
 
 const $ = require('jquery');
 
+window.$ = $;
+window.jQuery = $;
+
 const datepicker = require('bootstrap-datepicker');
 
 

@@ -631,3 +631,54 @@ div.info-password {
   position: relative;
 }
 
+div.badges {
+  h1.h1box a {
+    font-size: small;
+    font-weight: 600;
+    color: #42afd7;
+    line-height: 2;
+    &:hover {
+      color: #267ed7;
+    }
+  }
+  .badges-info {
+    color: #21637b;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    border-radius: 3px;
+    padding: 15px;
+    text-align: center;
+    p {
+      font-size: 0.9em;
+    }
+  }
+
+}
+
+div.badge-box {
+  h3 i.far.fa-check-square {
+    font-weight: 800;
+    color: #33ab5e;
+  }
+  h3 span {
+    font-weight: 300;
+  }
+  span.ico-h {
+    display: block;
+    width: 70px;
+    height: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid #d2d2d2;
+    border-radius: 100%;
+    vertical-align: middle;
+    line-height: 2.2;
+    font-size: 2em;
+    background: white;
+    color: #45535a;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+}
+

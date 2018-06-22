@@ -5,6 +5,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 {% endblock %}
 
 {% block body %}
@@ -13,25 +14,23 @@
     {% include 'interface/parts/_header.html.twig' %}
     <div class="main-content">
         <div class="row">
-        <div class="col-12">
         <div class="col-lg-6">
-            {% for users in user %}
                 <div class="profile-box">
                     <div class="profiletop"></div>
-                    {% if app.user.username == users.username %}
+                    {% if app.user.username == user.username %}
                         <a href="{{ path('fos_user_profile_edit') }}" class="edit-lk">Editer votre profil</a>
                     {% endif %}
                     <div class="av-img">
-                        {% if app.user.image == false %}
-                            <img src="{{ asset('assets/img/homme.jpg') }}" alt="{{ app.user.username }} - Image Profil">
+                        {% if user.image == false %}
+                            <img src="{{ asset('assets/img/homme.jpg') }}" alt="{{ user.username }} - Image Profil">
                         {% else %}
-                            <img src="{{ asset('uploads/avatar/'~app.user.image) }}" alt="{{ app.user.username }} - Image Profil">
+                            <img src="{{ asset('uploads/avatar/'~user.image) }}" alt="{{ user.username }} - Image Profil">
                         {% endif %}
                     </div>
                     <div class="clearfix"></div>
                     <div class="custom-box">
                         <div class="user-info">
-                            <h1>{{ app.user.username|capitalize }}</h1>
+                            <h1>{{ user.username|capitalize }}</h1>
                             {% if is_granted('ROLE_USER') and is_granted('ROLE_NATURALIST') == false %}
                                 <h2>Passionné(e)</h2>
                             {% endif %}
@@ -42,16 +41,22 @@
 
                     </div>
                 </div>
-
-            {% endfor %}
         </div>
+            {% include 'interface/parts/_badges.html.twig' %}
         </div>
-    </div>
     </div>
 </div>
 {% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('build/js/app.js') }}"></script>
+    <script type="application/javascript">
+
+        $(".badges-info").hide();
+
+        $("a.dropinfo").click(function(){
+            $(".badges-info").toggle(300);
+        });
+    </script>
 {% endblock %}
 
