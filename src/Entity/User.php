@@ -157,7 +157,7 @@ class User extends BaseUser
     {
         return $this->image;
     }
-    /**
+   /**
      * @return Collection|Observation[]
      */
     public function getObservation() : Collection

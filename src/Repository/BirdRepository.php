@@ -30,7 +30,6 @@ class BirdRepository extends  ServiceEntityRepository
        return $nb;
     }
 
-//
 //    /**
 //     * @return Bird[] Returns an array of Bird objects
 //     */
@@ -58,4 +57,25 @@ class BirdRepository extends  ServiceEntityRepository
         ;
     }
     */
+
+    public function findBirdByLbNom($term)
+    {
+        $qb = $this->createQueryBuilder('b');
+        $qb->where($qb->expr()->like('b.lbNom', ':lbnom'))
+            ->setParameter("lbnom", "%$term%")
+            ->setMaxResults(20);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findBirdByNomVern($term)
+    {
+        $qb = $this->createQueryBuilder('b');
+        $qb->where($qb->expr()->like('b.nomVern', ':nomVern'))
+            ->setParameter("nomVern", "%$term%")
+            ->setMaxResults(20);
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

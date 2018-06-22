@@ -26,8 +26,7 @@ security:
 
     access_control:
          - { path: ^/connexion$, allow_if: "not has_role('ROLE_USER')" }
-         - { path: ^[/inscription]+$, allow_if: "not has_role('ROLE_USER')" }
-         - { path: ^/inscription/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/inscription$, allow_if: "not has_role('ROLE_USER')" }
          - { path: ^/manage, allow_if: "not has_role('ROLE_USER')" }
          - { path: ^/interface/*, roles: ROLE_USER }
          - { path: ^/admin/*, roles: ROLE_ADMIN }
@@ -50,3 +49,6 @@ fos_user:
         resetting:
                 email:
                     template: FOSUserBundle:Resetting:email.txt.twig
+        profile:
+                form:
+                    type: App\Form\ProfileFormType

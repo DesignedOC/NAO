@@ -1,0 +1,159 @@
+/*****BOUTON NOUVELLE PARTIE ******/
+.btn_memory
+{
+    width:165px;
+    height:55px;
+    text-align:center;
+    border-radius: 5px;
+    background: #42aed7;
+    font-size:20px;
+    cursor:pointer;
+    border: none;
+    color:white;
+}
+/*****BOUTON TEXTE ******/
+.btn_texte
+{
+    width:165px;
+    height:55px;
+    text-align:center;
+    border-radius: 5px;
+    background: #42aed7;
+    font-size:20px;
+    cursor:pointer;
+    border: none;
+    color:white;
+}
+.btn_texte:hover
+{
+    text-decoration:none;
+}
+.texte
+{
+    display: inline-block;
+    border:2px solid #42aed7;
+    padding:10px;
+    margin-top: 10px;
+}
+.infos
+{
+    margin-top: 40px;
+}
+.infos div{
+    display: inline-block;
+}
+.score div
+{
+    display: inline-block;
+}
+.game div
+{
+    display: inline-block;
+}
+.texte p{
+    font-size: 22px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.map-container {
+    width: 100%;
+    min-height: 700px;
+    background: #b67379;
+}
+
+#map {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    max-width: none;
+}
+#map img {
+    max-width: none !important;
+}
+.gm-style-iw {
+    width: 350px !important;
+    top: 15px !important;
+    left: 0 !important;
+    background-color: #fff;
+    box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+    border: 1px solid rgba(148, 148, 148, 0.6);
+    /*border-radius: 2px 2px 0 0;0px;*/
+}
+#iw-container {
+    margin-bottom: 10px;
+}
+#iw-container .iw-title {
+    font-size: 22px;
+    font-weight: 700;
+    padding: 10px;
+    margin: 0;
+}
+#iw-container .iw-content {
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 400;
+    margin-right: 1px;
+    padding: 15px 5px 20px 15px;
+    max-height: 140px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.iw-content img {
+    float: right;
+    margin: 0 5px 5px 10px;
+}
+.iw-subTitle {
+    font-size: 16px;
+    font-weight: 700;
+    padding: 5px 0;
+}
+.iw-bottom-gradient {
+    position: absolute;
+    width: 326px;
+    height: 25px;
+    bottom: 10px;
+    right: 18px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+    background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+}
+
+.card-footer {
+    background-color: transparent;
+    border: none;
+}
+
+.card {
+    border: none;
+}
+
+p.title {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+p.author {
+    color: #17a2b8;
+    font-size: 1rem;
+}
+p.author b {
+    font-weight: bold;
+}
+p.author .date-pub {
+    color: #949494;
+}
+

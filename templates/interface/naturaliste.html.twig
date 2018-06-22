@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter une observation{% endblock %}
+{% block title %}NAO - Devenir naturaliste{% endblock %}
 {% block description %}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+{% endblock %}
 
 {% block body %}
 {% include 'interface/parts/_sidebar.html.twig' %}
@@ -9,28 +13,27 @@
     {% include 'interface/parts/_header.html.twig' %}
     <div class="main-content">
         <div class="row">
-        <div class="col-12">
-        <div class="col-lg-6 naturalist-box">
-            <h1>Devenir Naturaliste</h1>
+            <div class="col-12">
+                <div class="col-md-12 col-lg-6 custom-box">
+                    <h1 class="h1box"><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">get_app</i>Devenir naturaliste</h1>
             {% for message in app.flashes('success') %}
                 <div class="alert alert-success" role="alert">
                     {{ message }}
                 </div>
             {% endfor %}
-            <hr class="mb-4">
             {{ form_start(application, {'attr': {'novalidate': 'novalidate'}}) }}
             <div class="form-group row">
                 <div class="col-md-12">
                     {{ form_label(application.experience) }}
                     {{ form_widget(application.experience) }}
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12 mt-4">
                     {{ form_label(application.description) }}
                     {{ form_widget(application.description) }}
                 </div>
             </div>
             <hr class="mb-4">
-            <button class="btn btn-primary" name="submit" type="submit">Soumettre votre candidature</button>
+            <button class="btn btn-custom" name="submit" type="submit">Soumettre votre candidature</button>
             {{ form_end(application) }}
         </div>
         </div>
@@ -40,5 +43,6 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{ asset('build/js/app.js') }}"></script>
 {% endblock %}
 
