@@ -31,5 +31,37 @@ class ObservationRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    /**
+     * Get the number of Observation from User with statut published
+     * @param $userId
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getCountOfObserv($userId)
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('COUNT(u)')
+            ->where('u.user = :userId')
+            ->andWhere('u.statut = 1')
+            ->setParameter('userId', $userId)
+            ;
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Get the number of observations
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findAllObservationsCount()
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('COUNT(u)')
+        ;
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
     
 }

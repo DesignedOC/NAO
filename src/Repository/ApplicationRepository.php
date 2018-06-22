@@ -36,15 +36,23 @@ class ApplicationRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Application
+    /**
+     * @param $userId
+     * @param $statut
+     * @return Application|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneByStatut($userId, $statut): ?Application
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
+        return $this->createQueryBuilder('u')
+            ->select('u')
+            ->where('u.user = :userId')
+            ->andWhere('u.statut = :statut')
+            ->setParameter('userId', $userId)
+            ->setParameter('statut', $statut)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+
 }

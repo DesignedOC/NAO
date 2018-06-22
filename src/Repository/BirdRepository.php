@@ -31,15 +31,18 @@ class BirdRepository extends ServiceEntityRepository
         ;
     }
     */
-    /*
-    public function findOneBySomeField($value): ?Bird
+
+    /**
+     * Get the number of Birds
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findAllBirdsCount()
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
+        $qb = $this->createQueryBuilder('u')
+            ->select('COUNT(u)')
         ;
+
+        return $qb->getQuery()->getSingleScalarResult();
     }
-    */
 }

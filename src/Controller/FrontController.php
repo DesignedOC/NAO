@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\ContactType;
 use App\Services\MailerManager;
+use App\Services\MainManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,10 +23,18 @@ class FrontController extends Controller
 
     /**
      * @Route("/association", name="nao_association")
+     * @param MainManager $mainManager
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function association()
+    public function association(MainManager $mainManager)
     {
-        return $this->render('front/association.html.twig');
+        $observations = $mainManager->getAllCountObservations();
+        $birds = $mainManager->getAllCountBirds();
+
+        return $this->render('front/association.html.twig',[
+               'observations' => $observations,
+                'birds' => $birds
+        ]);
     }
 
     /**
