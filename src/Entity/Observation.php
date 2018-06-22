@@ -14,7 +14,8 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 class Observation
 {
-        /**
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -56,7 +57,7 @@ class Observation
      */
     private $pictureFile;
 
-  /**
+    /**
      * @ORM\JoinColumn(name="bird", referencedColumnName="id")
      * @ORM\ManyToOne(targetEntity="App\Entity\Bird", cascade={"persist"})
      * @Assert\Type(type="App\Entity\Bird")
@@ -94,7 +95,7 @@ class Observation
     public function __construct()
     {
         $this->date = new \Datetime();
-        $this->setStatut(1);
+        $this->statut = 1;
         $this->updatedAt = new \DateTime();
     }
 
@@ -199,9 +200,9 @@ class Observation
     }
 
     /**
-     * @return null|string
+     * @return Bird
      */
-    public function getBird(): ?string
+    public function getBird()
     {
         return $this->bird;
     }
@@ -249,7 +250,6 @@ class Observation
         $this->statut = $statut;
         return $this;
     }
-
     /**
      * @return null|string
      */
@@ -267,7 +267,6 @@ class Observation
         $this->description = $description;
         return $this;
     }
-
     /**
      * @return \DateTime
      */
@@ -281,9 +280,23 @@ class Observation
      * @return $this
      */
     public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
+{
+    $this->updatedAt = $updatedAt;
 
-        return $this;
+    return $this;
+}
+    public function getLibelleStatut()
+{
+    switch ($this->statut) {
+        case 0:
+            return 'rejeté';
+            break;
+        case 1:
+            return 'en attente de validation';
+            break;
+        case 2;
+            return 'validé';
+            break;
     }
+}
 }
