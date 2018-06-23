@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use App\Form\BirdType;
-
 class ObservationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

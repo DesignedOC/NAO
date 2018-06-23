@@ -62,4 +62,5 @@ class BirdRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
 }

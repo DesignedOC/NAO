@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controller;
+
 use App\Entity\Bird;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -8,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Observation;
 use App\Form\ObservationType;
+
 /**
  * Class ObservationController
  * @package App\Controller
@@ -87,6 +90,7 @@ class ObservationController extends Controller
 //           'form' => $form->createView(),
 //        ]);
 //    }
+
     // creer une methode qui recoit un nom d'oiseau et qui va chercher en bdd l'oiseau en question
     // et le retourner au format json a l'appellant
     /**

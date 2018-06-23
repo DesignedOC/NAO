@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Amis les Oiseaux - Erreur {{ status_code }}{% endblock %}
+{% block description %}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/front.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+{% endblock %}
+{% block body %}
+
+    {% include 'front/parts/_header.html.twig' %}
+    <div class="headline mb-4">
+        <div class="container">
+            <h1 class="pt-4 mb-1 text-center">Erreur {{ status_code }}</h1>
+            {% if status_code == 404 %}
+                <p class="text-center">Impossible de trouver la page que vous cherchez</p>
+            {% elseif status_code == 403 %}
+                <p class="text-center">Vous ne pouvez pas accéder à cette page</p>
+            {% else %}
+                <p class="text-center">Une erreur interne s'est produite</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container mt-5 mb-5">
+         <div class="d-flex justify-content-md-center">
+            <section class="col-md-6">
+                {% if status_code == 404 %}
+                <h2 class="h4 text-center">Page introuvable</h2>
+                <p class="text-center">Vous essayez d'accéder à une page qui n'existe pas ou n'existe plus. Veuillez vérifier que vous avez bien saisi la bonne adresse.</p>
+                <div class="text-center">
+                    <a class="btn btn-join" href="{{ path('nao_home') }}" role="button">Accueil</a>
+                </div>
+                {% endif %}
+                {% if status_code == 403 %}
+                    <h2 class="h4 text-center">Accès interdit</h2>
+                    <p class="text-center">Vous n'avez pas la permission d'accèder à cette page. Veuillez vérifier vos permissions. </p>
+                    <div class="text-center">
+                        <a class="btn btn-join" href="{{ path('nao_home') }}" role="button">Accueil</a>
+                    </div>
+                {% endif %}
+                {% if status_code == 500 %}
+                    <h2 class="h4 text-center">Erreur interne</h2>
+                    <p class="text-center">Une erreur du site s'est produite. N'hésitez pas à contacter les administrateurs pour faire part de votre problème.</p>
+                    <div class="text-center">
+                        <a class="btn btn-join" href="{{ path('nao_contact') }}" role="button">Contactez-nous</a>
+                    </div>
+                {% endif %}
+
+            </section>
+         </div>
+    </div>
+
+    <div class="footer-black">
+        {% include 'front/parts/_footer.html.twig' %}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('build/js/front.js') }}"></script>
+{% endblock %}

@@ -31,6 +31,7 @@ class ObservationRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
     public function findBirdWithObservation($birdNomVern)
     {
         $qb = $this->createQueryBuilder('o')
@@ -41,4 +42,5 @@ class ObservationRepository extends ServiceEntityRepository
             ->setParameter("nomVern", $birdNomVern);
         return $qb->getQuery()->getScalarResult();
     }
+
 }
