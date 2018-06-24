@@ -1,12 +1,32 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}NAO - Devenir naturaliste{% endblock %}
+{% block description %}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+{% endblock %}
+
 {% block body %}
-    {{ form(form) }}
+    {% include 'interface/parts/_sidebar.html.twig' %}
+<div class="container-left">
+    {% include 'interface/parts/_header.html.twig' %}
+    <div class="main-content">
+        <div class="row">
+            <div class="col-12">
+                <div class="col-md-12 col-lg-6 custom-box">
+                    <h1 class="h1box"><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">add_circle</i>Ajouter une observation</h1>
+                    {{ form(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }}
-    <script>
+    <script src="{{ asset('build/js/app.js') }}"></script>
+    <script type="application/javascript">
         $(function() {
             $( "#observation_bird_lbNom").autocomplete({
                 source: "{{ path('bird_lbnom_autocomplete') }}",
