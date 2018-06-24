@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity;
 
 use DateTime;
@@ -30,8 +29,8 @@ class User extends BaseUser
      * @var string $lastname
      * @ORM\Column(name="usr_lastname", type="string", length=100, nullable=true)
      */
-
     private $lastname;
+
     /**
      * @var string $firstname
      * @ORM\Column(name="usr_firstname", type="string", length=100, nullable=true)
@@ -90,7 +89,6 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->observations = new ArrayCollection();
-        $this->badges = new ArrayCollection();
         $this->updatedAt = new DateTime();
         $this->dateFrom = new DateTime();
     }
@@ -203,7 +201,6 @@ class User extends BaseUser
     public function setImageFile(File $image = null)
     {
         $this->imageFile = $image;
-
         if ($image) {
             $this->updatedAt = new DateTime('now');
         }
@@ -233,7 +230,7 @@ class User extends BaseUser
         return $this->image;
     }
 
-    /**
+   /**
      * @return Collection|Observation[]
      */
     public function getObservation() : Collection
@@ -284,6 +281,4 @@ class User extends BaseUser
     {
         $this->applications->removeElement($application);
     }
-
-
 }
