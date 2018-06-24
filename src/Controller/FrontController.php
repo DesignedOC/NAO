@@ -16,9 +16,7 @@ class FrontController extends Controller
      */
     public function index()
     {
-        return $this->render('front/index.html.twig', [
-            'controller_name' => 'FrontController',
-        ]);
+        return $this->render('front/index.html.twig');
     }
 
     /**
@@ -30,6 +28,7 @@ class FrontController extends Controller
     {
         $observations = $mainManager->getAllCountObservations();
         $birds = $mainManager->getAllCountBirds();
+        dump($birds);
 
         return $this->render('front/association.html.twig',[
                'observations' => $observations,

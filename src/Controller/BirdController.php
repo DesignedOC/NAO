@@ -15,6 +15,10 @@ class BirdController extends Controller
 {
     protected $em;
 
+    /**
+     * BirdController constructor.
+     * @param EntityManagerInterface $em
+     */
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
@@ -34,15 +38,15 @@ class BirdController extends Controller
     }
 
 
-    /**
-     * @Route("/bird", name="bird")
-     */
-    public function index()
-    {
-        return $this->render('bird/index.html.twig', [
-            'controller_name' => 'BirdController',
-        ]);
-    }
+//    /**
+//     * @Route("/bird", name="bird")
+//     */
+//    public function index()
+//    {
+//        return $this->render('bird/observations.html.twig', [
+//            'controller_name' => 'BirdController',
+//        ]);
+//    }
 
     /**
      * Autocomplete pour le lbnom

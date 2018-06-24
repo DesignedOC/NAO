@@ -1,5 +1,17 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    {#<style>#}
+    {#.map-container {#}
+    {#width: 100%;#}
+    {#min-height: 700px;#}
+    {#background: #b67379;#}
+    {#}#}
+    {##map {#}
+    {#height: 100%;#}
+    {#}#}
+    {#</style>#}
+{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-md-6">
@@ -26,28 +38,17 @@
     </div>
 {% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    {#<style>#}
-        {#.map-container {#}
-            {#width: 100%;#}
-            {#min-height: 700px;#}
-            {#background: #b67379;#}
-        {#}#}
-        {##map {#}
-            {#height: 100%;#}
-        {#}#}
-    {#</style>#}
-{% endblock %}
-
 {% block javascripts %}
     <script src="{{ asset('build/js/app.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB1pM1lEVpFhq3Fne8yzNchvi0FNheYoY"></script>
-    {#<script src="{{ asset('assets/js/gmaps.js') }}"></script>#}
-    <script>
+    {#<script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>#}
+    <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVcDBuY0h8E62_wANWbsPAzBkyHZKvAB8"></script>
+    <script src="{{ asset('assets/js/gmaps.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
+    <script type="application/javascript">
         var map, marker, infoWindow;
         var locations = [];
-        var searchUrl = "{{ path('observation_map_search') }}";
+        var searchUrl = "{{ path('nao_interface_map_search') }}";
         $(function () {
             $(document).on('click', '#btn-valider', function () {
                 var nomVern = $('#input-nom-vern').val();
@@ -79,7 +80,7 @@
                                             '<span class="date-pub">- Validé le'+locations[count].date+'</span></p><hr>'+
                                             '<img src="" alt="">'+
                                             '<p>'+locations[count].description+'</p>'+
-                                            '<div class="card-footer text-center"><a href="{{ path('observation_afficher', {'id':1}) }}" class="btn btn-primary text-center">Fiche observation</a></div>'+
+                                            '<div class="card-footer text-center"><a href="{{ path('nao_interface_obs_afficher', {'id':1}) }}" class="btn btn-primary text-center">Fiche observation</a></div>'+
                                             '</div>'+
                                             '</div>';
                                     infowindow.setContent(contentString);

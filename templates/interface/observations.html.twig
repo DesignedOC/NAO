@@ -1,23 +1,44 @@
 {% extends 'base.html.twig' %}
+
+{% block title %}NAO - Devenir naturaliste{% endblock %}
+{% block description %}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+{% endblock %}
+
 {% block body %}
-    <table class="table table-bordered">
-        <tr>
-            <th>id</th>
-            <th>LbNom</th>
-            <th>Nom Vern</th>
-            <th>Latitude</th>
-            <th>Longitude</th>
-            <th>Statut</th>
-        </tr>
-        {% for observation in observations %}
-            <tr>
-                <td>#{{ observation.id }}</td>
-                <td>{{ observation.bird.lbNom }}</td>
-                <td>{{ observation.bird.nomVern }}</td>
-                <td>{{ observation.latitude }}</td>
-                <td>{{ observation.longitude }}</td>
-                <td>{{ observation.libelleStatut }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    {% include 'interface/parts/_sidebar.html.twig' %}
+        <div class="container-left">
+             {% include 'interface/parts/_header.html.twig' %}
+                <div class="main-content">
+                <div class="row">
+                  <div class="col-12">
+                  <div class="col-md-12 col-6 custom-box">
+                     <h1 class="h1box"><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">turned_in</i>Liste des observations</h1>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>id</th>
+                                <th>LbNom</th>
+                                <th>Nom Vern</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Statut</th>
+                            </tr>
+                            {% for observation in observations %}
+                                <tr>
+                                    <td>#{{ observation.id }}</td>
+                                    <td>{{ observation.bird.lbNom }}</td>
+                                    <td>{{ observation.bird.nomVern }}</td>
+                                    <td>{{ observation.latitude }}</td>
+                                    <td>{{ observation.longitude }}</td>
+                                    <td>{{ observation.libelleStatut }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                      {% include 'interface/parts/_pagination.html.twig' %}
+                  </div>
+                  </div>
+                </div>
+                </div>
 {% endblock %}
