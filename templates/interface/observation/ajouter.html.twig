@@ -31,6 +31,7 @@
 
 {% block javascripts %}
 {{ parent() }}
+ <script src="{{ asset('assets/js/geolocation.js') }}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB1pM1lEVpFhq3Fne8yzNchvi0FNheYoY"></script>
     <script src="{{ asset('build/js/app.js') }}"></script>
     <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
