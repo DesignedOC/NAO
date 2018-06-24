@@ -5,7 +5,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
-	 <style>
+   <style>
         .map-container {
             width: 100%;
             height: 400px;
@@ -13,6 +13,7 @@
         #map {
             height: 100%;
         }
+
         #pac-input {
             background-color: #fff;
             font-size: 15px;
@@ -29,12 +30,13 @@
 
 
 {% block body %}
-    <div class="row">
+   <div class="row">
         <div class="map-container mt-3">
             <input id="pac-input" class="controls form-control" type="text" placeholder="Rechercher une adresse">
             <div id="map"></div>
         </div>
     </div>
+
 {% include 'interface/parts/_sidebar.html.twig' %}
 <div class="container-left">
     {% include 'interface/parts/_header.html.twig' %}
