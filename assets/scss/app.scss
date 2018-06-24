@@ -9,6 +9,7 @@ $fonts-secondary: 'Open Sans', Sans-serif;
 // the ~ allows you to reference things in node_modules
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~material-design-icons/iconfont/material-icons.css';
+@import '~bootstrap-datepicker/dist/css/bootstrap-datepicker.css';
 
 body {
 
@@ -628,5 +629,99 @@ div.info-password {
 
 .map-box {
   position: relative;
+}
+
+div.badges {
+  h1.h1box a {
+    font-size: small;
+    font-weight: 600;
+    color: #42afd7;
+    line-height: 2;
+    &:hover {
+      color: #267ed7;
+    }
+  }
+  .badges-info {
+    color: #21637b;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    border-radius: 3px;
+    padding: 15px;
+    text-align: center;
+    p {
+      font-size: 0.9em;
+    }
+  }
+
+}
+
+div.badge-box {
+  h3 i.far.fa-check-square {
+    font-weight: 800;
+    color: #33ab5e;
+  }
+  h3 span {
+    font-weight: 300;
+  }
+  span.ico-h {
+    display: block;
+    width: 70px;
+    height: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid #d2d2d2;
+    border-radius: 100%;
+    vertical-align: middle;
+    line-height: 2.2;
+    font-size: 2em;
+    background: white;
+    color: #45535a;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+div.app-show {
+  a i.fas.fa-check-circle {
+    border: 2px solid #1bbb1b59;
+    padding: 3px;
+    &:hover {
+      border: 2px solid #11b111;
+    }
+  }
+  a i.fas.fa-times-circle {
+    border: 2px solid #bb1b1b29;
+    padding: 3px;
+    &:hover {
+      border: 2px solid #cc1313;
+    }
+  }
+}
+
+.page-item.active .page-link {
+  background-color: #42afd7!important;
+  border-color: #3488a7!important;
+  color: #fff!important;
+}
+
+li.page-item.disabled a.page-link {
+  color: #42afd7!important;
+  background: #f3f3f3!important;
+}
+.page-link {
+  color: #00417d !important;
+}
+
+
+.d-link {
+  border-radius: 3px;
+  background: #eaeaea;
+  border: 1px solid gray;
+  padding: 2px;
+  &:hover {
+    background: #e6e5e5;
+    color: #6d6d6d;
+  }
 }
 

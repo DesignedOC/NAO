@@ -1,5 +1,6 @@
 <?php
 namespace App\Repository;
+
 use App\Entity\Bird;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -46,18 +47,26 @@ class BirdRepository extends  ServiceEntityRepository
         ;
     }
     */
-    /*
-    public function findOneBySomeField($value): ?Bird
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 
+    /**
+     * Get the number of Birds
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findAllBirdsCount()
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('COUNT(u)')
+        ;
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+
+    /**
+     * @param $term
+     * @return mixed
+     */
     public function findBirdByLbNom($term)
     {
         $qb = $this->createQueryBuilder('b');
@@ -68,6 +77,10 @@ class BirdRepository extends  ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    /**
+     * @param $term
+     * @return mixed
+     */
     public function findBirdByNomVern($term)
     {
         $qb = $this->createQueryBuilder('b');
@@ -77,5 +90,4 @@ class BirdRepository extends  ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
-
 }

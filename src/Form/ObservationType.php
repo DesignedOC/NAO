@@ -20,7 +20,7 @@ class ObservationType extends AbstractType
             ->add('picture',FileType::class, array('label' => 'Ajouter une photo de l\'oiseau : '))
             ->add('bird',BirdType::class)
             ->add('description', TextareaType::class, array('label' => 'Ajouter une courte description : '))
-            ->add('save', SubmitType::class, array('label' => 'Valider', 'attr' => array('class' => 'btn btn-primary mt-3')))
+            ->add('save', SubmitType::class, array('label' => 'Valider votre saisie', 'attr' => array('class' => 'btn btn-custom mt-4')))
         ;
     }
     public function configureOptions(OptionsResolver $resolver)
