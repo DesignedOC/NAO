@@ -46,7 +46,7 @@ class ObservationRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('u')
             ->select('COUNT(u)')
             ->where('u.user = :userId')
-            ->andWhere('u.statut = 1')
+            ->andWhere('u.statut = 2')
             ->setParameter('userId', $userId)
             ;
 

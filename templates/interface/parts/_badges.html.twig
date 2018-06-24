@@ -1,16 +1,16 @@
-<div class="col-lg-6 mt-3 mt-md-0">
+<div class="col-lg-6 mt-3 mt-md-3 mt-lg-0">
     <div class="custom-box badges">
         <h1 class="h1box mb-1"><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">bubble_chart</i>Badges<a href="#" class="float-right dropinfo">Comment obtenir un badge ?</a></h1>
         <div class="badges-info">
-            <p><strong>Homme de l'ombre</strong> : Vous devez ajouter une photo de profil sur mon compte</p>
-            <p><strong>Découverte</strong> : Vous devez ajouter votre première observation</p>
-            <p><strong>Passionné</strong> : Vous devez ajouter une 10éne d'observations</p>
-            <p><strong>Fidèle</strong> : Vous devez ajouter une 50éne d'observations</p>
-            <p><strong>Expert</strong> : Vous devez ajouter une 100éne d'observations</p>
-            <p><strong>Rookie</strong> : Vous devez être inscrit depuis 1 mois</p>
-            <p><strong>Expert</strong> : Vous devez être inscrit depuis 6 mois</p>
-            <p><strong>Top Fidélité</strong> : Vous devez être inscrit depuis 12 mois</p>
-            <p><strong>Grand fidèle</strong> : Vous devez être inscrit depuis 24 mois</p>
+            <p><strong>Timide</strong> : Vous devez ajouter une photo de profil sur mon compte</p>
+            <p><strong>Apprenti</strong> : Vous devez ajouter votre première observation</p>
+            <p><strong>Dynamique</strong> : Vous devez ajouter une 10éne d'observations</p>
+            <p><strong>Certifié</strong> : Vous devez ajouter une 50éne d'observations</p>
+            <p><strong>Respectable</strong> : Vous devez ajouter une 100éne d'observations</p>
+            <p><strong>Padawan</strong> : Vous devez être inscrit depuis 1 mois</p>
+            <p><strong>Disciple</strong> : Vous devez être inscrit depuis 6 mois</p>
+            <p><strong>Acharné</strong> : Vous devez être inscrit depuis 12 mois</p>
+            <p><strong>Champion</strong> : Vous devez être inscrit depuis 24 mois</p>
         </div>
         {% if badges is empty %}
             {% if app.user.username == user.username %}
@@ -22,45 +22,51 @@
         <div class="row">
             {% for badge in badges %}
                 <div class="col-md-6 col-lg-6 text-center mt-3 badge-box">
-                    {% if badge == "Homme de l'ombre" %}
+                    {% if badge == "Timide" %}
                         <span class="ico-h mt-3 mb-3"><i class="fas fa-camera-retro"></i></span>
-                    {% elseif badge == "Découverte" %}
-                        <span class="ico-h mt-3 mb-3"><i class="fab fa-angellist"></i></span>
-                    {% elseif badge == "Passionné" %}
-                        <span class="ico-h mt-3 mb-3"><i class="fas fa-trophy"></i></span>
-                    {% elseif badge == "Fidèle" %}
-                        <span class="ico-h mt-3 mb-3"><i class="fas fa-trophy"></i></span>
-                    {% elseif badge == "Expert" %}
-                        <span class="ico-h mt-3 mb-3"><i class="fas fa-trophy"></i></span>
-                    {% elseif badge == "Rookie" %}
-                        <span class="ico-h mt-3 mb-3"><i class="fas fa-trophy"></i></span>
-                    {% elseif badge == "Rookie" %}
-                        <span class="ico-h mt-3 mb-3"><i class="fas fa-trophy"></i></span>
-                    {% elseif badge == "Spécialiste" %}
-                        <span class="ico-h mt-3 mb-3"><i class="fas fa-trophy"></i></span>
-                    {% elseif badge == "Top fidélité" %}
-                        <span class="ico-h mt-3 mb-3"><i class="fas fa-trophy"></i></span>
-                    {% elseif badge == "Grand fidèle" %}
+                    {% endif %}
+                    {% if badge == "Apprenti" %}
+                        <span class="ico-h mt-3 mb-3"><i class="fas fa-leaf"></i></span>
+                    {% endif %}
+                    {% if badge == "Dynamique" %}
+                        <span class="ico-h mt-3 mb-3"><i class="fab fa-pagelines"></i></span>
+                    {% endif %}
+                    {% if badge == "Certifié" %}
+                        <span class="ico-h mt-3 mb-3"><i class="fas fa-low-vision"></i></span>
+                    {% endif %}
+                    {% if badge == "Respectable" %}
+                        <span class="ico-h mt-3 mb-3"><i class="fas fa-chess-queen"></i></span>
+                    {% endif %}
+                    {% if badge == "Padawan" %}
+                        <span class="ico-h mt-3 mb-3"><i class="fas fa-dove"></i></span>
+                    {% endif %}
+                    {% if badge == "Disciple" %}
+                        <span class="ico-h mt-3 mb-3"><i class="fas fa-bolt"></i></span>
+                    {% endif %}
+                    {% if badge == "Acharné" %}
+                        <span class="ico-h mt-3 mb-3"><i class="fas fa-gem"></i></span>
+                    {% endif %}
+                    {% if badge == "Champion" %}
                         <span class="ico-h mt-3 mb-3"><i class="fas fa-trophy"></i></span>
                     {% endif %}
                     <h3 class="h5"><i class="far fa-check-square"></i><span class="pl-1">{{ badge }}</span></h3>
-                    {% if badge == "Homme de l'ombre" %}
+                    {% if badge == "Timide" %}
                         <p>Vous avez ajouté une image à votre <strong>profil</strong></p>
-                    {% elseif badge == "Découverte" %}
+                    {% elseif badge == "Apprenti" %}
                         <p>Vous avez publié une <strong>Observation</strong></p>
-                    {% elseif badge == "Passionné" %}
+                    {% elseif badge == "Dynamique" %}
                         <p>Vous avez publié 10 <strong>Observations</strong></p>
-                    {% elseif badge == "Fidèle" %}
+                    {% elseif badge == "Certifié" %}
                         <p>Vous avez publié 50 <strong>Observations</strong></p>
-                    {% elseif badge == "Expert" %}
+                    {% elseif badge == "Respectable" %}
                         <p>Vous avez publié 100 <strong>Observations</strong></p>
-                    {% elseif badge == "Rookie" %}
+                    {% elseif badge == "Padawan" %}
                         <p>Vous êtes sur le site depuis 1 <strong>mois</strong></p>
-                    {% elseif badge == "Spécialiste" %}
+                    {% elseif badge == "Disciple" %}
                         <p>Vous êtes sur le site depuis 6 <strong>mois</strong></p>
-                    {% elseif badge == "Top fidélité" %}
+                    {% elseif badge == "Acharné" %}
                         <p>Vous êtes sur le site depuis 12 <strong>mois</strong></p>
-                    {% elseif badge == "Grand fidèle" %}
+                    {% elseif badge == "Champion" %}
                         <p>Vous êtes sur le site depuis 24 <strong>mois</strong></p>
                     {% endif %}
                 </div>

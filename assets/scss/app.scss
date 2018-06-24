@@ -477,10 +477,15 @@ div#search-collapse {
     background: #d5d5d5;
   }
   div.av-img {
+    //position: absolute;
+    ////top: 28%;
+    //top: 17%;
+    //left: 42%;
+    display: flex;
+    justify-content: center;
     position: absolute;
-    //top: 28%;
-    top: 17%;
-    left: 42%;
+    width: 100%;
+    top: 45px;
   }
   div.av-img img {
     width: 120px;

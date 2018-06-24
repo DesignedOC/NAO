@@ -36,7 +36,7 @@ class ObservationController extends Controller
 
         $nbPages = ceil($nbObservations / 10);
 
-        if($page > $nbPages)
+        if($page != 1 && $page > $nbPages)
         {
             throw new NotFoundHttpException("La page que vous essayez d'atteindre n'existe pas");
         }

@@ -42,7 +42,7 @@ class BadgeManager {
 
         if($user->getImage())
         {
-            array_push($badges, "Homme de l'ombre");
+            array_push($badges, "Timide");
         }
 
         return $badges;
@@ -56,14 +56,14 @@ class BadgeManager {
     private function getBadgesList()
     {
         return [
-            'Découverte' => ['observations' => 1, 'months' => null],
-            'Passionné' => ['observations' => 10, 'months' => null],
-            'Fidèle' => ['observations' => 50, 'months' => null],
-            'Expert' => ['observations' => 100, 'months' => null],
-            'Rookie' => ['observations' => null, 'months' => 1],
-            'Spécialiste' => ['observations' => null, 'months' => 6],
-            'Top fidélité' => ['observations' => null, 'months' => 12],
-            'Grand fidèle' => ['observations' => null, 'months' => 24],
+            'Apprenti' => ['observations' => 1, 'months' => null],
+            'Dynamique' => ['observations' => 10, 'months' => null],
+            'Certifié' => ['observations' => 50, 'months' => null],
+            'Respectable' => ['observations' => 100, 'months' => null],
+            'Padawan' => ['observations' => null, 'months' => 1],
+            'Disciple' => ['observations' => null, 'months' => 6],
+            'Acharné' => ['observations' => null, 'months' => 12],
+            'Champion' => ['observations' => null, 'months' => 24],
         ];
     }
 
