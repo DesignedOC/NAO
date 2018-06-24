@@ -4,7 +4,10 @@ namespace App\Repository;
 
 use App\Entity\Application;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use http\Exception\InvalidArgumentException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @method Application|null find($id, $lockMode = null, $lockVersion = null)
@@ -53,6 +56,62 @@ class ApplicationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
         ;
+    }
+
+    /**
+     * Get the number of all Applications
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findAppByCount()
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('COUNT(u)')
+        ;
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Get the number of all Applications
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findAppCountByStatut()
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('COUNT(u)')
+            ->where('u.statut = 1')
+        ;
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Get all applications by statut and date
+     * @param $page
+     * @return mixed
+     */
+    public function findToPublishByStatut($page)
+    {
+
+        if (!is_numeric($page)) {
+            throw new InvalidArgumentException("La page que vous souhaitez atteindre ne semble pas valide");
+        }
+
+        if($page < 1)
+        {
+            throw new NotFoundHttpException("Désolé la page souhaitée n'existe pas");
+        }
+
+        $qb = $this->createQueryBuilder('u')
+            ->select('u')
+            ->where('u.statut = 1')
+            ->orderBy('u.date', 'DESC')
+            ->setMaxResults(10)
+            ->setFirstResult($page * 10 - 10);
+
+        return $qb->getQuery()->getResult();
     }
 
 }

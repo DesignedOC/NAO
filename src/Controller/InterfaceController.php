@@ -5,8 +5,10 @@ use App\Entity\Application;
 use App\Entity\User;
 use App\Form\NaturalistType;
 use App\Services\BadgeManager;
+use App\Services\MailerManager;
 use App\Services\MainManager;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -17,16 +19,13 @@ class InterfaceController extends Controller
      */
     public function index()
     {
-        return $this->render('interface/index.html.twig', [
-            'controller_name' => 'InterfaceController',
-        ]);
+        return $this->render('interface/index.html.twig');
     }
     /**
      * @Route("/interface/memory", name="nao_interface_memory")
-     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function memory(Request $request)
+    public function memory()
     {
         return $this->render('interface/memory.html.twig');
     }
@@ -64,42 +63,84 @@ class InterfaceController extends Controller
     }
 
     /**
-     * @Route("/interface/candidatures", name="nao_interface_candidatures")
-     * @param MainManager $mainManager
+     * @Route("/interface/candidatures/{page}", requirements={"page" = "\d+"}, name="nao_interface_candidatures")
+     * @param $page
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function candidatures(MainManager $mainManager)
+    public function candidatures($page)
     {
-        $candidatures = $mainManager->getAllApplications();
+        $em = $this->getDoctrine()->getManager();
+        $applications = $em->getRepository(Application::class)->findToPublishByStatut($page);
+        $nbApplications = $em->getRepository(Application::class)->findAppCountByStatut();
+
+        $nbPages = ceil($nbApplications / 10);
+        
+        if($page != 1 && $page > $nbPages)
+        {
+            throw new NotFoundHttpException("La page que vous essayez d'atteindre n'existe pas");
+        }
+
+        $pagination = [
+            'page' => $page,
+            'nbPages' => $nbPages
+        ];
 
         return $this->render('interface/candidatures.html.twig', [
-            'controller_name' => 'InterfaceController',
+            'applications' => $applications,
+            'pagination' => $pagination
         ]); 
     }
 
-//    /**
-//     * @Route("/interface/candidatures/", name="nao_interface_candidatures")
-//     * @param MainManager $mainManager
-//     * @return \Symfony\Component\HttpFoundation\Response
-//     */
-//    public function candidatures(MainManager $mainManager)
-//    {
-//        $candidatures = $mainManager->getAllApplications();
-//
-//        return $this->render('interface/candidatures.html.twig', [
-//            'controller_name' => 'InterfaceController',
-//        ]);
-//    }
-
-
     /**
-     * @Route("/interface/carte", name="nao_interface_carte")
+     * Change statut role of users by application
+     * @Route("/interface/candidature/edit/{username}/{id}/{statut}", requirements={"id" = "\d+", "statut" = "\d+"}, name="nao_interface_app_edit")
+     * @param $username
+     * @param $id
+     * @param $statut
+     * @param MailerManager $mailerManger
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function carte()
+    public function candidateStatut($username, $id, $statut, MailerManager $mailerManger)
     {
-        return $this->render('interface/carte.html.twig', [
-            'controller_name' => 'InterfaceController',
-        ]);
+        /** @var User $user */
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->findOneBy(['username' => $username]);
+        $application = $em->getRepository(Application::class)->find($id);
+
+        if(!$application || !$user)
+        {
+            throw new NotFoundHttpException("Impossible de trouver la candidature ou l'utilisateur");
+        }
+
+        if($statut != 1 AND $statut != 2) {
+            throw new NotFoundHttpException("La page que vous essayez d'atteindre n'existe pas");
+        }
+
+        if($statut == 1)
+        {
+            $application->setStatut(0);
+            $em->persist($application);
+            $em->flush();
+            $this->addFlash('info', 'Vous avez refusé la candidature pour cet utilisateur');
+            $mailerManger->declinedAppSend($application, $user);
+        }
+
+        if($statut == 2)
+        {
+            $application->setStatut(2);
+            $user->addRole('ROLE_NATURALIST');
+            $em->persist($application);
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('success', 'Vous avez accepté la candidature pour cet utilisateur');
+            $mailerManger->acceptedAppSend($application, $user);
+        }
+
+        return $this->redirectToRoute('nao_interface_candidatures', ['page' => 1]);
+
     }
 
     /**

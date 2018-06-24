@@ -35,26 +35,38 @@ class MainManager {
     }
 
     /**
-     * Get the number of applications
-     * @return Observation|null
+     * Get the number of observations
+     * @return int|null
      */
     public function getAllCountObservations()
     {
-        /** @var Observation $nbObservations */
+        /** @var Int $nbObservations */
         $nbObservations = $this->em->getRepository(Observation::class)->findAllObservationsCount();
 
         return $nbObservations;
     }
 
     /**
-     * Get the number of applications
-     * @return Observation|null
+     * Get the number of birds
+     * @return Int|null
      */
     public function getAllCountBirds()
     {
-        /** @var Bird $bird */
-        $nbBirds = $this->em->getRepository(Bird::class)->findAllBirdsCount();
+        /** @var Int $bird */
+        $nbBirds = $this->em->getRepository(Bird::class)->countNb();
 
         return $nbBirds;
+    }
+
+    /**
+     * Get the number of applications
+     * @return Application|null
+     */
+    public function getAllCountApplications()
+    {
+        /** @var Bird $bird */
+        $nbApplication = $this->em->getRepository(Application::class)->findAllApplicationCount();
+
+        return $nbApplication;
     }
 }
