@@ -15,15 +15,15 @@
 {% block body %}
     <div class="row">
         <div class="col-md-6">
-            <input id="input-nom-vern" type="text" class="form-control" placeholder="Rechercher une espÃ¨ce">
+            <input id="input-nom-vern" type="text" class="form-control" placeholder="Rechercher une espèce">
         </div>
         <div class="col-md-3">
             <div class="dropdown">
-                <button class="btn btn-default" data-toggle="dropdown" id="menu1">Tous les dÃ©partements <i class="fa fa-caret-down"></i></button>
+                <button class="btn btn-default" data-toggle="dropdown" id="menu1">Tous les départements <i class="fa fa-caret-down"></i></button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">DÃ©partement #1</a>
-                    <a class="dropdown-item" href="#">DÃ©partement #2</a>
-                    <a class="dropdown-item" href="#">DÃ©partement #3</a>
+                    <a class="dropdown-item" href="#">Département #1</a>
+                    <a class="dropdown-item" href="#">Département #2</a>
+                    <a class="dropdown-item" href="#">Département #3</a>
                 </div>
             </div>
         </div>
@@ -76,8 +76,8 @@
                                     var contentString = '<div id="content" class="card">'+
                                             '<div id="bodyContent" class="card-body">'+
                                             '<p id="title" class="card-title title">'+locations[count].nomVern+'</p>'+
-                                            '<p id="author" class="card-title author">PostÃ© par <b>'+locations[count].username+'</b>'+
-                                            '<span class="date-pub">- ValidÃ© le'+locations[count].date+'</span></p><hr>'+
+                                            '<p id="author" class="card-title author">Posté par <b>'+locations[count].username+'</b>'+
+                                            '<span class="date-pub">- Validé le'+locations[count].date+'</span></p><hr>'+
                                             '<img src="" alt="">'+
                                             '<p>'+locations[count].description+'</p>'+
                                             '<div class="card-footer text-center"><a href="{{ path('nao_interface_obs_afficher', {'id':1}) }}" class="btn btn-primary text-center">Fiche observation</a></div>'+
@@ -115,7 +115,7 @@
 //            var contentString = '<div id="content" class="card">'+
 //                    '<div id="bodyContent" class="card-body">'+
 //                    '<p id="title" class="card-title title">Titre</p>'+
-//                    '<p id="author" class="card-title author">PostÃ© par <b>Auteur</b><span class="date-pub">- ValidÃ© le 08/10/1991</span></p><hr>'+
+//                    '<p id="author" class="card-title author">Posté par <b>Auteur</b><span class="date-pub">- Validé le 08/10/1991</span></p><hr>'+
 //                    '<img src="" alt="">'+
 //                    '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, provident. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, sint!</p>'+
 //                    '<div class="card-footer text-center"><a href="#" class="btn btn-primary text-center">Fiche observation</a></div>'+
