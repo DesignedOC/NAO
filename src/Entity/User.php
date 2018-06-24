@@ -1,5 +1,7 @@
 <?php
 namespace App\Entity;
+
+use DateTime;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -7,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="nao_user")
@@ -21,26 +24,37 @@ class User extends BaseUser
      * @ORM\Column(type="integer")
      */
     protected $id;
+
     /**
      * @var string $lastname
      * @ORM\Column(name="usr_lastname", type="string", length=100, nullable=true)
      */
     private $lastname;
+
     /**
      * @var string $firstname
      * @ORM\Column(name="usr_firstname", type="string", length=100, nullable=true)
      */
     private $firstname;
+
     /**
-     * @var \DateTime $birth
+     * @var DateTime $birth
      * @ORM\Column(name="usr_birth", type="datetime", nullable=true)
      */
     private $birth;
+
+    /**
+     * @var DateTime $dateFrom
+     * @ORM\Column(name="usr_datefrom", type="datetime", nullable=true)
+     */
+    private $dateFrom;
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @var string
      */
     private $image;
+
     /**
      * @Assert\File(
      *     maxSize="2M",
@@ -50,34 +64,51 @@ class User extends BaseUser
      * @var File
      */
     private $imageFile;
+
     /**
      * @ORM\Column(type="datetime")
-     * @var \DateTime
+     * @var DateTime
      */
     private $updatedAt;
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Observation", mappedBy="user")
      */
     private $observations;
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Badge", mappedBy="user")
-     */
-    private $badges;
+
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Application", mappedBy="user")
      */
     private $applications;
+
     /**
      * User constructor.
      */
+
     public function __construct()
     {
         parent::__construct();
         $this->observations = new ArrayCollection();
-        $this->badges = new ArrayCollection();
-        $this->birth = new \DateTime();
-        $this->updatedAt = new \DateTime();
+        $this->updatedAt = new DateTime();
+        $this->dateFrom = new DateTime();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
     /**
      * @return null|string
      */
@@ -85,6 +116,7 @@ class User extends BaseUser
     {
         return $this->lastname;
     }
+
     /**
      * @param string $lastname
      * @return User
@@ -94,6 +126,7 @@ class User extends BaseUser
         $this->lastname = $lastname;
         return $this;
     }
+
     /**
      * @return null|string
      */
@@ -101,6 +134,7 @@ class User extends BaseUser
     {
         return $this->firstname;
     }
+
     /**
      * @param string $firstname
      * @return User
@@ -110,22 +144,57 @@ class User extends BaseUser
         $this->firstname = $firstname;
         return $this;
     }
+
     /**
-     * @return \DateTimeInterface|null
+     * @return DateTime|null
      */
-    public function getBirth(): ?\DateTimeInterface
+    public function getBirth(): ?\DateTime
     {
         return $this->birth;
     }
+
     /**
-     * @param \DateTimeInterface $birth
+     * @param DateTime $birth
      * @return User
      */
-    public function setBirth(\DateTimeInterface $birth): self
+    public function setBirth(?DateTime $birth): self
     {
         $this->birth = $birth;
         return $this;
     }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getDateFrom(): ?\DateTime
+    {
+        return $this->dateFrom;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getMonthsFromDate(): ?Int
+    {
+//        $date = new DateTime('2017-06-22');  Date Test 12 months
+        $date = new DateTime('NOW');
+        $monthsYear = $this->getDateFrom()->diff($date)->y*12;
+        $months = $this->getDateFrom()->diff($date)->m;
+
+        $total = $monthsYear + $months;
+        return $total;
+    }
+
+    /**
+     * @param DateTime $dateFrom
+     * @return User
+     */
+    public function setDateFrom(?DateTime $dateFrom): self
+    {
+        $this->dateFrom = $dateFrom;
+        return $this;
+    }
+
     /**
      * @param File|null $image
      */
@@ -133,9 +202,10 @@ class User extends BaseUser
     {
         $this->imageFile = $image;
         if ($image) {
-            $this->updatedAt = new \DateTime('now');
+            $this->updatedAt = new DateTime('now');
         }
     }
+
     /**
      * @return File
      */
@@ -143,6 +213,7 @@ class User extends BaseUser
     {
         return $this->imageFile;
     }
+
     /**
      * @param $image
      */
@@ -150,6 +221,7 @@ class User extends BaseUser
     {
         $this->image = $image;
     }
+
     /**
      * @return string
      */
@@ -157,6 +229,7 @@ class User extends BaseUser
     {
         return $this->image;
     }
+
    /**
      * @return Collection|Observation[]
      */
@@ -164,6 +237,7 @@ class User extends BaseUser
     {
         return $this->observations;
     }
+
     /**
      * @param Observation $observation
      */
@@ -172,6 +246,7 @@ class User extends BaseUser
         $this->observations[] = $observation;
         $observation->setUser($this);
     }
+
     /**
      * @param Observation $observation
      */
@@ -179,30 +254,7 @@ class User extends BaseUser
     {
         $this->observations->removeElement($observation);
     }
-    /**
-     * @return Collection|Badge[]
-     */
-    public function getBadges(): Collection
-    {
-        return $this->badges;
-    }
-    /**
-     * @param Badge $badge
-     * @return User
-     */
-    public function addBadge(Badge $badge): self
-    {
-        $this->badges[] = $badge;
-        $badge->setUser($this);
-    }
-    /**
-     * @param Badge $badge
-     * @return User
-     */
-    public function removeBadge(Badge $badge): self
-    {
-        $this->badges->removeElement($badge);
-    }
+
     /**
      * @return Collection|Application[]
      */
@@ -210,6 +262,7 @@ class User extends BaseUser
     {
         return $this->applications;
     }
+
     /**
      * @param Application $application
      * @return User
@@ -219,6 +272,7 @@ class User extends BaseUser
         $this->applications[] = $application;
         $application->setUser($this);
     }
+
     /**
      * @param Application $application
      * @return User

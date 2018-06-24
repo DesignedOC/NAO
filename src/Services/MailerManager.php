@@ -1,6 +1,8 @@
 <?php
 namespace App\Services;
 
+use App\Entity\User;
+
 class MailerManager {
     /**
      * @var \Swift_Mailer
@@ -40,6 +42,41 @@ class MailerManager {
         $body = $this->templating->render('mails/contact.html.twig', ['data' => $data]);
         $this->send($subject, $from, $to, $body);
     }
+
+    /**
+     * Send mail for [accepted] application to become naturalist
+     * @param $application
+     * @param User $user
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function acceptedAppSend($application, User $user)
+    {
+        $subject = 'NAO - Candidature acceptée';
+        $from = MailerManager::mail;
+        $to = $user->getEmail();
+        $body = $this->templating->render('mails/application/accepted.html.twig', ['application' => $application, 'user' => $user]);
+        $this->send($subject, $from, $to, $body);
+    }
+
+    /**
+     * Send mail for [declined] application to become naturalist
+     * @param $application
+     * @param User $user
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function declinedAppSend($application, User $user)
+    {
+        $subject = 'NAO - Candidature refusée';
+        $from = MailerManager::mail;
+        $to = $user->getEmail();
+        $body = $this->templating->render('mails/application/declined.html.twig', ['application' => $application, 'user' => $user]);
+        $this->send($subject, $from, $to, $body);
+    }
+
     /**
      * Function Send Mail
      * @param string $subject

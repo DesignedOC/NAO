@@ -1,62 +1,145 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}NAO - La carte des observations{% endblock %}
-{% block description %}{% endblock %}
-
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    {#<style>#}
+    {#.map-container {#}
+    {#width: 100%;#}
+    {#min-height: 700px;#}
+    {#background: #b67379;#}
+    {#}#}
+    {##map {#}
+    {#height: 100%;#}
+    {#}#}
+    {#</style>#}
 {% endblock %}
-
 {% block body %}
-{% include 'interface/parts/_sidebar.html.twig' %}
-<div class="container-left">
-    {% include 'interface/parts/_header.html.twig' %}
-    <div class="main-content">
-        <div class="row">
-            <div class="col-12 custom-box">
-                <nav class="navbar navbar-light bg-light">
-                    <form class="form-inline">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">@</span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                        </div>
-                    </form>
-                </nav>
-            </div>
-            <div class="col-lg-12">
-                <div class="map-box">
-                    <div id="map" style="position: absolute;top:0; bottom:0; width:100%;"></div>
+    <div class="row">
+        <div class="col-md-6">
+            <input id="input-nom-vern" type="text" class="form-control" placeholder="Rechercher une espèce">
+        </div>
+        <div class="col-md-3">
+            <div class="dropdown">
+                <button class="btn btn-default" data-toggle="dropdown" id="menu1">Tous les départements <i class="fa fa-caret-down"></i></button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Département #1</a>
+                    <a class="dropdown-item" href="#">Département #2</a>
+                    <a class="dropdown-item" href="#">Département #3</a>
                 </div>
             </div>
         </div>
+        <div class="col-md-3">
+            <button id="btn-valider" class="btn btn-primary btn-block">Valider</button>
+        </div>
     </div>
-</div>
+    <div class="row">
+        <div class="map-container mt-5">
+            <div id="map"></div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('build/js/app.js') }}"></script>
-    <script>
-        mapboxgl.accessToken = 'pk.eyJ1IjoiYWdlbmNlcDUiLCJhIjoiY2podnQxdWFlMDBjcDNycWc5Ym4ydjdmZiJ9.oxPKaDLfDplgUT5Xlca--Q';
-        var map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v10',
-            center: [1083.359, 46.900],
-            zoom: 5
+    {#<script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>#}
+    <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVcDBuY0h8E62_wANWbsPAzBkyHZKvAB8"></script>
+    <script src="{{ asset('assets/js/gmaps.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
+    <script type="application/javascript">
+        var map, marker, infoWindow;
+        var locations = [];
+        var searchUrl = "{{ path('nao_interface_map_search') }}";
+        $(function () {
+            $(document).on('click', '#btn-valider', function () {
+                var nomVern = $('#input-nom-vern').val();
+                console.log(nomVern);
+                $.ajax({
+                    url: searchUrl,
+                    type: "POST",
+                    dataType: "json",
+                    data: {"nomVern": nomVern},
+                    async: true,
+                    success: function (data) {
+//                        initMap();
+                        console.log(data);
+                        locations = data;
+                        for (var count = 0; count < data.length; count++) {
+                            {#var showPath = "{{ path('observation_afficher', {'id':locations[count].id\"}) }}";#}
+//                            console.log(showPath);
+                            marker = new google.maps.Marker({
+                                position: new google.maps.LatLng(locations[count].latitude, locations[count].longitude),
+                                map: map,
+                                title: locations[count].nomVern
+                            });
+                            google.maps.event.addListener(marker, 'click', (function (marker, count) {
+                                return function () {
+                                    var contentString = '<div id="content" class="card">'+
+                                            '<div id="bodyContent" class="card-body">'+
+                                            '<p id="title" class="card-title title">'+locations[count].nomVern+'</p>'+
+                                            '<p id="author" class="card-title author">Posté par <b>'+locations[count].username+'</b>'+
+                                            '<span class="date-pub">- Validé le'+locations[count].date+'</span></p><hr>'+
+                                            '<img src="" alt="">'+
+                                            '<p>'+locations[count].description+'</p>'+
+                                            '<div class="card-footer text-center"><a href="{{ path('nao_interface_obs_afficher', {'id':1}) }}" class="btn btn-primary text-center">Fiche observation</a></div>'+
+                                            '</div>'+
+                                            '</div>';
+                                    infowindow.setContent(contentString);
+                                    infowindow.open(map, marker);
+                                }
+                            })(marker, count));
+                            google.maps.event.addListener(map, 'click', function() {
+                                infowindow.close();
+                            });
+                        }
+                    },
+                    error: function () {
+                        console.log('error');
+                    }
+                });
+            });
         });
-        //Put everything in french
-        mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.1.0/mapbox-gl-rtl-text.js');
-        map.addControl(new MapboxLanguage({
-            defaultLanguage: 'fr'
-        }));
-        // Add zoom and rotation controls to the map.
-        map.addControl(new mapboxgl.NavigationControl());
-        //Search input
-        map.addControl(new MapboxGeocoder({
-            accessToken: mapboxgl.accessToken
-        }));
-
+        google.maps.event.addDomListener(window, 'load', initMap);
+        function initMap() {
+            var center = {lat: 43.12025, lng: 2.123654};
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: center,
+                zoom: 8,
+                mapTypeId:google.maps.MapTypeId.ROADMAP
+            });
+//            marker = new google.maps.Marker({
+//                position: center,
+//                map: map,
+//                title: 'Lima'
+//            });
+            infowindow =  new google.maps.InfoWindow({});
+//            var contentString = '<div id="content" class="card">'+
+//                    '<div id="bodyContent" class="card-body">'+
+//                    '<p id="title" class="card-title title">Titre</p>'+
+//                    '<p id="author" class="card-title author">Posté par <b>Auteur</b><span class="date-pub">- Validé le 08/10/1991</span></p><hr>'+
+//                    '<img src="" alt="">'+
+//                    '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, provident. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, sint!</p>'+
+//                    '<div class="card-footer text-center"><a href="#" class="btn btn-primary text-center">Fiche observation</a></div>'+
+//                    '</div>'+
+//                    '</div>';
+//            infowindow.setContent(contentString);
+//            infowindow.open(map, marker);
+            google.maps.event.addListener(infowindow, 'domready', function() {
+                var iwOuter = $('.gm-style-iw');
+                var iwBackground = iwOuter.prev();
+                iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+                iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+                var iwCloseBtn = iwOuter.next();
+                iwCloseBtn.css({
+                    opacity: '1',
+                    right: '38px', top: '3px',
+                    border: '7px solid #48b5e9',
+                    'border-radius': '50%',
+                    'box-shadow': '0 0 5px #3990B9'
+                });
+                iwCloseBtn.mouseout(function(){
+                     $(this).css({opacity: '1'});
+                });
+            });
+        }
     </script>
 {% endblock %}
-

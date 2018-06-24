@@ -95,6 +95,10 @@ class ProfileFormType extends AbstractType
             ))
             ->add('birth', DateType::class, array(
                                         'label' => 'Date de naissance',
+                                        'format' => 'dd/MM/yyyy',
+                                        'attr' => ['class' => 'datepicker'],
+                                        'html5' => 'false',
+                                        'widget' => 'single_text',
                                         'required' => false
             ))
         ;

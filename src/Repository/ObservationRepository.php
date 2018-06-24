@@ -2,7 +2,10 @@
 namespace App\Repository;
 use App\Entity\Observation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use http\Exception\InvalidArgumentException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 /**
  * @method Observation|null find($id, $lockMode = null, $lockVersion = null)
  * @method Observation|null findOneBy(array $criteria, array $orderBy = null)
@@ -32,6 +35,84 @@ class ObservationRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * Get the number of Observation from User with statut unpublished
+     * @param $userId
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getCountOfObserv($userId)
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('COUNT(u)')
+            ->where('u.user = :userId')
+            ->andWhere('u.statut = 1')
+            ->setParameter('userId', $userId)
+            ;
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Get the number of observations
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findAllObservationsCount()
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('COUNT(u)')
+        ;
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Count all validate observations by statut
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findAllObservationsCountByStatut()
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('COUNT(u)')
+            ->where('u.statut = 2')
+        ;
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Get all validate observations by statut and date
+     * @param $page
+     * @return mixed
+     */
+    public function findObservationsPublished($page)
+    {
+
+        if (!is_numeric($page)) {
+            throw new InvalidArgumentException("La page que vous souhaitez atteindre ne semble pas valide");
+        }
+
+        if($page < 1)
+        {
+            throw new NotFoundHttpException("Désolé la page souhaitée n'existe pas");
+        }
+
+        $qb = $this->createQueryBuilder('u')
+            ->select('u')
+            ->where('u.statut = 2')
+            ->orderBy('u.date', 'DESC')
+            ->setMaxResults(10)
+            ->setFirstResult($page * 10 - 10);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param $birdNomVern
+     * @return array
+     */
     public function findBirdWithObservation($birdNomVern)
     {
         $qb = $this->createQueryBuilder('o')
