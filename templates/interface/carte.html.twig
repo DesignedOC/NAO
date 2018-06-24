@@ -39,10 +39,10 @@
 {% endblock %}
 
 {% block javascripts %}
+{{ parent() }}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB1pM1lEVpFhq3Fne8yzNchvi0FNheYoY"></script>
     <script src="{{ asset('build/js/app.js') }}"></script>
-    {#<script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>#}
     <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVcDBuY0h8E62_wANWbsPAzBkyHZKvAB8"></script>
     <script src="{{ asset('assets/js/gmaps.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
     <script type="application/javascript">
