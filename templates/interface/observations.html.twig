@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter une observation{% endblock %}
+{% block title %}NAO - Ajout d'une observation{% endblock %}
 {% block description %}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+{% endblock %}
 
 {% block body %}
 
@@ -14,5 +18,7 @@
 </section>
 
 {% endblock %}
-
+{% block javascripts %}
+    <script src="{{ asset('build/js/app.js') }}"></script>
+{% endblock %}
 

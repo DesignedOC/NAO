@@ -25,9 +25,31 @@ class FrontController extends Controller
      */
     public function association()
     {
-        return $this->render('front/association.html.twig', [
-            'controller_name' => 'FrontController',
-        ]);
+        return $this->render('front/association.html.twig');
+    }
+
+    /**
+     * @Route("/mentions-legales", name="nao_mentions")
+     */
+    public function mentions()
+    {
+        return $this->render('front/mentions.html.twig');
+    }
+
+    /**
+     * @Route("/conditions-generales", name="nao_conditions")
+     */
+    public function conditions()
+    {
+        return $this->render('front/conditions.html.twig');
+    }
+
+    /**
+     * @Route("/foire-aux-questions", name="nao_faq")
+     */
+    public function faq()
+    {
+        return $this->render('front/faq.html.twig');
     }
 
     /**

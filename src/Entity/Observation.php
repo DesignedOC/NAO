@@ -1,12 +1,9 @@
 <?php
-
 namespace App\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
-
 /**
  * @ORM\Table(name="nao_observ")
  * @ORM\Entity(repositoryClass="App\Repository\ObservationRepository")
@@ -20,42 +17,36 @@ class Observation
      * @ORM\Column(type="integer")
      */
     private $id;
-
     /**
      * @ORM\Column(type="datetime")
      * @Assert\NotBlank()
      */
     private $date;
-
     /**
      * @ORM\Column(type="float", nullable=false)
      * @Assert\NotBlank(message = "La lattitude est obligatoire")
      */
     private $latitude;
-
     /**
      * @ORM\Column(type="float", nullable=false)
      * @Assert\NotBlank(message = "La longitude est obligatoire")
      */
     private $longitude;
-
     /**
      * @ORM\Column(type="string", length=255)
      * @var string
      * @Assert\Valid
      */
     private $picture;
-
     /**
      * @Assert\File(
      *     maxSize="2M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="picture")
+     * @Vich\UploadableField(mapping="observations_images", fileNameProperty="picture")
      * @var File
      */
     private $pictureFile;
-
     /**
      * @ORM\JoinColumn(name="bird", referencedColumnName="id")
      * @ORM\ManyToOne(targetEntity="App\Entity\Bird", cascade={"persist"})
@@ -63,13 +54,11 @@ class Observation
      * @Assert\Valid()
      */
     private $bird;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="observations")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
-
     /**
      * 0 = rejected, 1 = under validation, 2 = validated
      * @ORM\Column(type="integer")
@@ -79,25 +68,21 @@ class Observation
      * )
      */
     private $statut;
-
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
      */
     private $description;
-
     /**
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
-
     public function __construct()
     {
         $this->date = new \Datetime();
         $this->statut = 1;
         $this->updatedAt = new \DateTime();
     }
-
     /**
      * @return mixed
      */
@@ -105,7 +90,6 @@ class Observation
     {
         return $this->id;
     }
-
     /**
      * @return \DateTimeInterface|null
      */
@@ -113,35 +97,31 @@ class Observation
     {
         return $this->date;
     }
-
-/**
- * @param \DateTimeInterface $date
- * @return Observation
- */
-public function setDate(\DateTimeInterface $date): self
-{
-    $this->date = $date;
-    return $this;
-}
-
-/**
- * @return float|null
- */
-public function getLatitude(): ?float
+    /**
+     * @param \DateTimeInterface $date
+     * @return Observation
+     */
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+        return $this;
+    }
+    /**
+     * @return float|null
+     */
+    public function getLatitude(): ?float
     {
         return $this->latitude;
     }
-
     /**
      * @param float $latitude
      * @return Observation
      */
     public function setLatitude(float $latitude): self
-{
-    $this->latitude = $latitude;
-    return $this;
-}
-
+    {
+        $this->latitude = $latitude;
+        return $this;
+    }
     /**
      * @return float|null
      */
@@ -149,17 +129,15 @@ public function getLatitude(): ?float
     {
         return $this->longitude;
     }
-
     /**
      * @param float $longitude
      * @return Observation
      */
     public function setLongitude(float $longitude): self
-{
-    $this->longitude = $longitude;
-    return $this;
-}
-
+    {
+        $this->longitude = $longitude;
+        return $this;
+    }
     /**
      * @return null|string
      */
@@ -167,16 +145,13 @@ public function getLatitude(): ?float
     {
         return $this->picture;
     }
-
     /**
      * @param null|string $picture
      */
     public function setPicture(?string $picture): void
     {
         $this->picture = $picture;
-
     }
-
     /**
      * @return null|File
      */
@@ -184,7 +159,6 @@ public function getLatitude(): ?float
     {
         return $this->pictureFile;
     }
-
     /**
      * @param null|File $picture
      */
@@ -194,9 +168,7 @@ public function getLatitude(): ?float
         if (null != $picture) {
             $this->updatedAt = new \DateTime();
         }
-
     }
-
     /**
      * @return Bird
      */
@@ -204,33 +176,29 @@ public function getLatitude(): ?float
     {
         return $this->bird;
     }
-
     /**
      * @param string $bird
      * @return Observation
      */
     public function setBird(Bird $bird = null)
-{
-    $this->bird = $bird;
-    return $this;
-}
-
+    {
+        $this->bird = $bird;
+        return $this;
+    }
     /**
      * @param User $user
      */
     public function setUser(User $user)
-{
-    $this->user = $user;
-}
-
+    {
+        $this->user = $user;
+    }
     /**
      * @return user
      */
     public function getUser()
-{
-    return $this->user;
-}
-
+    {
+        return $this->user;
+    }
     /**
      * @return null|string
      */
@@ -238,17 +206,15 @@ public function getLatitude(): ?float
     {
         return $this->statut;
     }
-
     /**
      * @param string $statut
      * @return Observation
      */
     public function setStatut(string $statut): self
-{
-    $this->statut = $statut;
-    return $this;
-}
-
+    {
+        $this->statut = $statut;
+        return $this;
+    }
     /**
      * @return null|string
      */
@@ -256,48 +222,44 @@ public function getLatitude(): ?float
     {
         return $this->description;
     }
-
     /**
      * @param string $description
      * @return Observation
      */
     public function setDescription(string $description): self
-{
-    $this->description = $description;
-    return $this;
-}
-
+    {
+        $this->description = $description;
+        return $this;
+    }
     /**
      * @return \DateTime
      */
     public function getUpdatedAt()
-{
-    return $this->updatedAt;
-}
-
+    {
+        return $this->updatedAt;
+    }
     /**
      * @param $updatedAt
      * @return $this
      */
     public function setUpdatedAt($updatedAt)
-{
-    $this->updatedAt = $updatedAt;
-
-    return $this;
-}
-
-    public function getLibelleStatut()
-{
-    switch ($this->statut) {
-        case 0:
-            return 'rejeté';
-            break;
-        case 1:
-            return 'en attente de validation';
-            break;
-        case 2;
-            return 'validé';
-            break;
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
     }
-}
+    public function getLibelleStatut()
+    {
+        switch ($this->statut) {
+            case 0:
+                return 'rejeté';
+                break;
+            case 1:
+                return 'en attente de validation';
+                break;
+            case 2;
+                return 'validé';
+                break;
+        }
+    }
+
 }

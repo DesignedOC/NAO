@@ -9,12 +9,27 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Bird[]    findAll()
  * @method Bird[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class BirdRepository extends ServiceEntityRepository
+class BirdRepository extends  ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Bird::class);
     }
+
+    /**
+     * @return int|mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function countNb()
+    {
+        $nb = $this
+            ->createQueryBuilder('b')
+            ->select('count(b) as nb')
+            ->getQuery()
+            ->getSingleScalarResult();
+       return $nb;
+    }
+
 //    /**
 //     * @return Bird[] Returns an array of Bird objects
 //     */
@@ -62,4 +77,5 @@ class BirdRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
 }
