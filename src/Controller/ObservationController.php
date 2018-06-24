@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controller;
-
 use App\Entity\Bird;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Observation;
 use App\Form\ObservationType;
-
 /**
  * Class ObservationController
  * @package App\Controller
@@ -33,25 +30,20 @@ class ObservationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $observations = $em->getRepository(Observation::class)->findObservationsPublished($page);
         $nbObservations = $em->getRepository(Observation::class)->findAllObservationsCountByStatut();
-
         $nbPages = ceil($nbObservations / 10);
-
         if($page > $nbPages)
         {
             throw new NotFoundHttpException("La page que vous essayez d'atteindre n'existe pas");
         }
-
         $pagination = [
               'page' => $page,
               'nbPages' => $nbPages
         ];
-
         return array(
             'observations' => $observations,
             'pagination' => $pagination,
         );
     }
-
     /**
      * @Route("observation/ajouter", name="obs_ajouter")
      * @Template("interface/observation/ajouter.html.twig")
@@ -78,7 +70,6 @@ class ObservationController extends Controller
             'form' => $form->createView(),
         );
     }
-
     /**
      * @Route("observation/{id}/afficher", name="obs_afficher")
      * @Template("interface/observation/ajouter.html.twig")
@@ -113,7 +104,6 @@ class ObservationController extends Controller
 //           'form' => $form->createView(),
 //        ]);
 //    }
-
     // creer une methode qui recoit un nom d'oiseau et qui va chercher en bdd l'oiseau en question
     // et le retourner au format json a l'appellant
     /**
