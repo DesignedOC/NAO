@@ -3,20 +3,14 @@
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    {#<style>#}
-    {#.map-container {#}
-    {#width: 100%;#}
-    {#min-height: 700px;#}
-    {#background: #b67379;#}
-    {#}#}
-    {##map {#}
-    {#height: 100%;#}
-    {#}#}
-    {#</style>#}
+    
 {% endblock %}
 {% block body %}
 {% include 'interface/parts/_sidebar.html.twig' %}
-  {% include 'interface/parts/_header.html.twig' %}
+ <div class="container-left">
+    {% include 'interface/parts/_header.html.twig' %}
+ <div class="main-content">
+
     <div class="row">
         <div class="col-md-6">
             <input id="input-nom-vern" type="text" class="form-control" placeholder="Rechercher un oiseau">
@@ -39,7 +33,7 @@
         <div class="map-container mt-5">
             <div id="map"></div>
         </div>
-    </div>
+    </div></div></div>
 {% endblock %}
 
 {% block javascripts %}

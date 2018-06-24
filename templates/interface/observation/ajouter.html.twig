@@ -5,27 +5,29 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
 {% endblock %}
-{% block text %}
-<p>hey</p>
-{% endblock %}
-{% block body %}
 
- {% include 'interface/parts/_sidebar.html.twig' %}
+{% block body %}
+{% include 'interface/parts/_sidebar.html.twig' %}
  <div class="container-left">
     {% include 'interface/parts/_header.html.twig' %}
  <div class="main-content">
- <div class="row">
- <div class="col-md-6">
- <input id="input-nom-vern" type="text" class="form-control" placeholder="Rechercher une adresse">
- </div> </div>
+
     <div class="row">
-        <div class="map-container">
+        <div class="col-md-6">
+            <input id="input-nom-vern" type="text" class="form-control" placeholder="Entrer l'adresse où vous avez apperçu l'oiseau">
+        </div>
+       
+        <div class="col-md-3">
+            <button id="btn-valider" class="btn btn-primary btn-block">Valider</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="map-container mt-5">
             <div id="map"></div>
-            </div>
-    </div>   
-    </div>  
-   </div>
+        </div>
+    </div></div></div>
 {% endblock %}
+
 
 {% block javascripts %}
 {{ parent() }}
