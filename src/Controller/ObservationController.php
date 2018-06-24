@@ -139,7 +139,7 @@ class ObservationController extends Controller
         return new Response($name);
     }
     /**
-     * @Route("carte", name="carte")
+     * @Route("observation/carte", name="carte")
      * @Template("interface/observation/carte.html.twig")
      * @param Request $request
      */

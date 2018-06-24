@@ -55,15 +55,18 @@
 }
 
 .map-container {
-    width: 100%;
-    min-height: 700px;
-    background: #b67379;
+
+    min-height: 1000px;
+
+    width: 70%;
+    
 }
 
 #map {
+       height: 50%;
     margin: 0;
     padding: 0;
-    height: 100%;
+    
     max-width: none;
 }
 #map img {

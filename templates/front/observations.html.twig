@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+{% block description %}{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    {% endblock %}
+
+
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6">
+            <input id="input-nom-vern" type="text" class="form-control" placeholder="Rechercher une espèce">
+        </div>
+        <div class="col-md-3">
+            <div class="dropdown">
+                <button class="btn btn-default" data-toggle="dropdown" id="menu1">Tous les départements <i class="fa fa-caret-down"></i></button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Département #1</a>
+                    <a class="dropdown-item" href="#">Département #2</a>
+                    <a class="dropdown-item" href="#">Département #3</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <button id="btn-valider" class="btn btn-primary btn-block">Valider</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="map-container mt-5">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    {# Modal #}
+    <div id="infoModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Pour voir plus, veuillez vous inscrire</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-primary">S'inscrire</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var isGranted = false;
+        {% if app.user %}
+            isGranted = true;
+        {% endif %}
+
+        var searchUrl = "{{ path('nao_interface_map_search') }}";
+
+        var showObservationPath = "{{ path('nao_interface_obs_afficher', {'id':0}) }}";
+    </script>
+    <script src="{{ asset('assets/js/birdmap.js') }}"></script>
+{% endblock %}
