@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "bootstrap": "4.1.1",
+        "bootstrap-datepicker": "^1.8.0",
         "material-design-icons": "^3.0.1",
         "popper.js": "^1.14.3"
     }

@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Bird;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,27 +16,47 @@ use App\Form\ObservationType;
 /**
  * Class ObservationController
  * @package App\Controller
- * @Route("/observation", name="observation_")
+ * @Route("interface/", name="nao_interface_")
  */
 class ObservationController extends Controller
 {
     /**
-     * Liste des observations
-     * @Route("s", name="index")
-     * @Template("observation/index.html.twig")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * List of observations by pages
+     * @Route("observations/{page}", requirements={"page" = "\d+"}, name="observations")
+     * @Template("interface/observations.html.twig")
+     * @param Request $request
+     * @param $page
+     * @return array
      */
-    public function indexAction()
+    public function indexAction(Request $request, $page)
     {
         $em = $this->getDoctrine()->getManager();
-        $observations = $em->getRepository(Observation::class)->findAll();
+        $observations = $em->getRepository(Observation::class)->findObservationsPublished($page);
+        $nbObservations = $em->getRepository(Observation::class)->findAllObservationsCountByStatut();
+
+        $nbPages = ceil($nbObservations / 10);
+
+        if($page > $nbPages)
+        {
+            throw new NotFoundHttpException("La page que vous essayez d'atteindre n'existe pas");
+        }
+
+        $pagination = [
+              'page' => $page,
+              'nbPages' => $nbPages
+        ];
+
         return array(
-            'observations' => $observations
+            'observations' => $observations,
+            'pagination' => $pagination,
         );
     }
+
     /**
-     * @Route("/ajouter", name="ajouter")
-     * @Template("observation/ajouter.html.twig")
+     * @Route("observation/ajouter", name="obs_ajouter")
+     * @Template("interface/observation/ajouter.html.twig")
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function newAction(Request $request)
     {
@@ -50,28 +72,29 @@ class ObservationController extends Controller
             $observation->setUser($currentUser);
             $em->persist($observation);
             $em->flush();
-            return $this->redirectToRoute("observation_index");
+            return $this->redirectToRoute("nao_interface_observations", ['page' => 1]);
         }
         return array(
             'form' => $form->createView(),
         );
     }
+
     /**
-     * @Route("/{id}/afficher", name="afficher")
-     * @Template("observation/ajouter.html.twig")
+     * @Route("observation/{id}/afficher", name="obs_afficher")
+     * @Template("interface/observation/ajouter.html.twig")
      * @param Request $request
-     * @param Observation $observation
+     * @param $id
      * @return array
      */
     public function afficherAction(Request $request,$id)
     {
-        dump($id);die;
-        return array(
-            'observation' => $observation
-        );
+//        dump($id);die;
+//        return array(
+//            'observation' => $observation
+//        );
     }
 //    /**
-//     * @Route("/observation", name="observation")
+//     * @Route("observation", name="observation")
 //     * @param Request $request
 //     * @return \Symfony\Component\HttpFoundation\Response
 //     */
@@ -97,6 +120,11 @@ class ObservationController extends Controller
      * @Route("/oiseau/{name}", name="oiseau")
      */
     // - recuperer le nom de l'oiseau ici $name
+    /**
+     * @param Request $request
+     * @param String $name
+     * @return Response
+     */
     public function findBirdAction(Request $request, String $name)
     {
         // - verifier que cet oiseau existe en bdd
@@ -121,15 +149,15 @@ class ObservationController extends Controller
         return new Response($name);
     }
     /**
-     * @Route("/carte", name="carte")
-     * @Template("observation/carte.html.twig")
+     * @Route("carte", name="carte")
+     * @Template("interface/carte.html.twig")
      * @param Request $request
      */
     public function carteAction(Request $request)
     {
     }
     /**
-     * @Route("/map-search", name="map_search")
+     * @Route("map-search", name="map_search")
      * @param Request $request
      * @return JsonResponse
      */
