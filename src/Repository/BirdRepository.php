@@ -15,33 +15,20 @@ class BirdRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Bird::class);
     }
-//    /**
-//     * @return Bird[] Returns an array of Bird objects
-//     */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+ /**    
+     * @return int|mixed   
+     * @throws \Doctrine\ORM\NonUniqueResultException  
+     */    
+    public function countNb()  
+    {  
+        $nb = $this    
+            ->createQueryBuilder('b')  
+            ->select('count(b) as nb') 
+            ->getQuery()   
+            ->getSingleScalarResult(); 
+       return $nb; 
     }
-    */
-    /*
-    public function findOneBySomeField($value): ?Bird
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+
 
     public function findBirdByLbNom($term)
     {
@@ -62,4 +49,19 @@ class BirdRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+/**
+    * Get the number of Birds
+    * @return mixed
+    * @throws \Doctrine\ORM\NonUniqueResultException
+    */
+public function findAllBirdsCount() 
+     {
+        $qb = $this->createQueryBuilder('u')
+        ->select('COUNT(u)')
+        ;
+         return $qb->getQuery()->getSingleScalarResult();
+         }
+
+         
 }

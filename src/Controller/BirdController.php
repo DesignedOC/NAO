@@ -3,14 +3,31 @@
 namespace App\Controller;
 
 use App\Entity\Bird;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Services\TaxrefBaseImport;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 
 class BirdController extends Controller
 {
+    protected $em;
+
     /**
+     * BirdController constructor.
+     * @param EntityManagerInterface $em
+     */
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
+
+ 
+/**
      * @Route("/bird", name="bird")
      */
     public function index()
@@ -59,4 +76,21 @@ class BirdController extends Controller
         }
         return new JsonResponse($nomVerns);
     }
+
+        /**
+     * @Route ("admin/taxrefBaseImport", name="taxrefBaseImport")
+     * @param Request $request
+     * @param TaxrefBaseImport $taxref
+     * @return Response
+    */
+     public function taxrefBaseImport(Request $request, TaxrefBaseImport $taxref)
+    
+     {
+        $taxref->reloadTaxref();
+        $this->addFlash('success','import ok');
+        return $this->redirectToRoute('admin',['entity'=>'Bird', 'action'=> 'list']);
+        return $this->render('bird/index.html.twig', [
+            'controller_name' => 'BirdController',
+        ]);
+     }
 }

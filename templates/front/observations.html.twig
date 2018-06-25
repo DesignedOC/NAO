@@ -41,12 +41,28 @@
         </div>
     </div>
 
-  
+    {# Modal #}
+    <div id="infoModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Pour voir plus, veuillez vous inscrire</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-primary">S'inscrire</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="footer-black">
     {% include 'front/parts/_footer.html.twig' %}
 </div>
 {% endblock %}
-
 
 
 {% block javascripts %}
@@ -86,7 +102,7 @@
     <script type="application/javascript">
         var map, marker, infoWindow;
         var locations = [];
-        var searchUrl = "{{ path('nao_interface_map_search')  }}";
+        var searchUrl = "{{path('nao_interface_map_search')  }}";
         $(function () {
             $(document).on('click', '#btn-valider', function () {
                 var nomVern = $('#input-nom-vern').val();
@@ -180,5 +196,16 @@
             });
         }
     </script>
+
+     <script>
+        var isGranted = false;
+        {% if app.user %}
+            isGranted = true;
+        {% endif %}
+
+        var searchUrl = "{{path('nao_interface_map_search')  }}";
+   
+    </script>
+    <script src="{{ asset('assets/js/birdmap.js') }}"></script>
 
 {% endblock %}
