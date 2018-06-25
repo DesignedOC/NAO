@@ -19,6 +19,18 @@ class FrontController extends Controller
         return $this->render('front/index.html.twig');
     }
 
+
+    /**
+     * @Route("/observations", name="observations")
+     */
+    public function observations()
+    {
+        return $this->render('front/observations.html.twig');
+    }
+
+
+
+
     /**
      * @Route("/association", name="nao_association")
      * @param MainManager $mainManager

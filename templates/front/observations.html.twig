@@ -1,43 +1,52 @@
+
 {% extends 'base.html.twig' %}
 {% block description %}{% endblock %}
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
 {% endblock %}
 
 {% block body %}
-{% include 'interface/parts/_sidebar.html.twig' %}
- <div class="container-left">
-    {% include 'interface/parts/_header.html.twig' %}
- <div class="main-content">
-
+ {% include 'front/parts/_header.html.twig' %}
+  <div class="headline mb-4">
+        <div class="container">
+            <h1 class="pt-4 mb-1">Carte des observations</h1>
+            <p>Vous pouvez rechercher les espèces de vtre choix!</p>
+        </div>
+    </div>
+    
     <div class="row">
         <div class="col-md-6">
-            <input id="input-nom-vern" type="text" class="form-control" placeholder="Entrer l'adresse où vous avez apperçu l'oiseau">
+            <input id="input-nom-vern" type="text" class="form-control" placeholder="Rechercher une espèce">
         </div>
-       
+        <div class="col-md-3">
+            <div class="dropdown">
+                <button class="btn btn-default" data-toggle="dropdown" id="menu1">Tous les départements <i class="fa fa-caret-down"></i></button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Département #1</a>
+                    <a class="dropdown-item" href="#">Département #2</a>
+                    <a class="dropdown-item" href="#">Département #3</a>
+                </div>
+            </div>
+        </div>
         <div class="col-md-3">
             <button id="btn-valider" class="btn btn-primary btn-block">Valider</button>
         </div>
     </div>
-    <div class="row">
+      <div class="row">
         <div class="map-container mt-5">
             <div id="map"></div>
         </div>
     </div>
 
-
-
-<div class="col-12">
-                <div class="col-md-12 col-lg-6 custom-box">
-                    <h1 class="h1box"><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">add_circle</i>Ajouter une observation</h1>
-                    {{ form(form) }}
-                </div>
-            </div>
-
-    </div></div>
+  
+    <div class="footer-black">
+    {% include 'front/parts/_footer.html.twig' %}
+</div>
 {% endblock %}
+
 
 
 {% block javascripts %}
