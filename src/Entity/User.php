@@ -72,7 +72,7 @@ class User extends BaseUser
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Observation", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Observation", mappedBy="user", cascade = {"remove"})
      */
     private $observations;
 
