@@ -12,7 +12,6 @@ class BirdType extends AbstractType
         $builder
             ->add('lbNom', TextType::class, array('label' => 'Nom scientifique :', 'required' => false))
             ->add('nomVern', TextType::class, array('label' => 'Nom commun : '))
-
         ;
     }
     public function configureOptions(OptionsResolver $resolver)
