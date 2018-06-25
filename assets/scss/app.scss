@@ -476,6 +476,7 @@ div#search-collapse {
   a.edit-lk:active {
     background: #d5d5d5;
   }
+
   div.av-img {
     //position: absolute;
     ////top: 28%;
@@ -511,6 +512,12 @@ div#search-collapse {
     text-align: center;
     margin-top: 55px;
   }
+}
+
+.home-imgtop {
+  background: url("/assets/img/eagle.jpg") no-repeat center 30%;
+  background-size: cover;
+  height: 100px;
 }
 
 .h1box {
