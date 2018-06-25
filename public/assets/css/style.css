@@ -55,23 +55,21 @@
 }
 
 .map-container {
-
-    min-height: 1000px;
-
-    width: 100%;
-    
+    min-height: 700px;
+    width: 100%;  
 }
 
 #map {
-       height: 50%;
+    height: 50%;
     margin: 0;
-    padding: 0;
-    
+    padding: 0;    
     max-width: none;
 }
+
 #map img {
     max-width: none !important;
 }
+
 .gm-style-iw {
     width: 350px !important;
     top: 15px !important;

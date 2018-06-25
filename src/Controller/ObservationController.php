@@ -146,6 +146,23 @@ class ObservationController extends Controller
     public function carteAction(Request $request)
     {
     }
+
+        /**
+     * @Route("observation/ajouterr", name="ajouterr")
+     * @Template("interface/observation/ajouterr.html.twig")
+     * @param Request $request
+     */
+    public function ajouterrAction(Request $request)
+    {
+    }
+        /**
+     * @Route("observation/test", name="test")
+     * @Template("interface/observation/test.html.twig")
+     * @param Request $request
+     */
+    public function testAction(Request $request)
+    {
+    }
     /**
      * @Route("map-search", name="map_search")
      * @param Request $request
