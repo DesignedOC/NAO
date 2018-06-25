@@ -21,7 +21,7 @@ class FrontController extends Controller
 
 
     /**
-     * @Route("/observations", name="observations")
+     * @Route("/observations", name="nao_observations")
      */
     public function observations()
     {
