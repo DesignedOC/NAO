@@ -10,6 +10,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use App\Form\BirdType;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+
+/**
+ * Class ObservationType
+ * @package App\Form
+ * @Vich\Uploadable
+ */
 class ObservationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -17,7 +25,7 @@ class ObservationType extends AbstractType
         $builder
             ->add('latitude',NumberType::class, array('label' => 'Ajouter la latitude : '))
             ->add('longitude',NumberType::class, array('label' => 'Ajouter la longitude : '))
-            ->add('picture',FileType::class, array('label' => 'Ajouter une photo de l\'oiseau : '))
+            ->add('pictureFile',FileType::class, array('label' => 'Ajouter une photo de l\'oiseau : '))
             ->add('bird',BirdType::class)
             ->add('description', TextareaType::class, array('label' => 'Ajouter une courte description : '))
             ->add('save', SubmitType::class, array('label' => 'Valider votre saisie', 'attr' => array('class' => 'btn btn-custom mt-4')))
