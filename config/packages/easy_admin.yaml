@@ -14,8 +14,7 @@ easy_admin:
             - { entity: 'Observation', icon: 'binoculars', label: 'Observation' }
             - { label: 'Gestion des espèces' }
             - { entity: 'Bird', icon: 'themeisle', label: 'Oiseaux' }
-            - { label: 'Gestion des badges' }
-            - { entity: 'Badge', icon: 'bookmark', label: 'Badge' }
+            - { label: 'Base de données' }
             - label: 'Base de données'
               children:
                 - { entity: 'Taxref', label: 'Importer le fichier' }
@@ -24,6 +23,7 @@ easy_admin:
     entities:
         Taxref:
             disabled_actions: ['new','delete']
+         #   disabled_actions: ['delete']
             class: App\Entity\Taxref
             list:
                 title: 'Base de données'
@@ -32,13 +32,16 @@ easy_admin:
                     - { name: 'edit', icon: 'pencil', label: 'Importer le nouveaux fichier', title: 'Editer' }
 
                 fields:
-                   # - { property: 'TaxrefFile', type: 'file' }
                     - { property: 'Taxref', type: 'file'}
 
             edit:
                 title: 'Importer le nouveau fichier Taxref'
                 fields:
                     - { property: 'TaxrefFile', type: 'file', base_path: '%app.path.taxref%'}
+      #      new:
+      #          title: 'Créer le nouveau fichier'
+      #          fields:
+      #              - { property: 'TaxrefFile', type: 'file', base_path: '%app.path.taxref%'}
 
 
         User:
@@ -109,7 +112,7 @@ easy_admin:
         Observation:
             class: App\Entity\Observation
             list:
-                title: 'Observation'
+                title: 'Observations'
                 actions:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
                     - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
@@ -119,7 +122,7 @@ easy_admin:
                     - { property: 'id'}
                     - { property: 'date', type: 'date'}
                     - { property: 'user', label: 'Utilisateur'}
-                    - { property: 'statut'}
+                    - { property: 'libelleStatut'}
                     - { property: 'latitude'}
                     - { property: 'longitude'}
                     - { property: 'picture' ,label: 'Image' ,type: 'image', base_path: '%app.path.observations%'}
@@ -131,7 +134,7 @@ easy_admin:
                     - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Observations', icon: 'binoculars'}
                     - { property: 'date', type: 'date'}
                     - { property: 'user', label: 'Utilisateur'}
-                    - { property: 'statut', label: 'statut'}
+                    - { property: 'statut', type: 'choice', type_options: { choices: { 'rejeté': '0', 'en attente de validation': '1', 'validé': '2'}}}
                     - { property: 'latitude'}
                     - { property: 'longitude'}
                     - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Oiseaux', icon: 'themeisle'}
@@ -144,7 +147,7 @@ easy_admin:
                     - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Observations', icon: 'binoculars'}
                     - { property: 'date', type: 'date'}
                     - { property: 'user', label: 'Utilisateur'}
-                    - { property: 'statut', label: 'statut'}
+                    - { property: 'statut',  type: 'choice', type_options: { choices: { 'rejeté': '0', 'en attente de validation': '1', 'validé': '2'}}}
                     - { property: 'latitude'}
                     - { property: 'longitude'}
                     - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Oiseaux', icon: 'themeisle'}
@@ -156,7 +159,7 @@ easy_admin:
                 fields:
                     - { property: 'date', type: 'date'}
                     - { property: 'user', label: 'Utilisateur'}
-                    - { property: 'statut', label: 'statut'}
+                    - { property: 'libelleStatut', label: 'statut'}
                     - { property: 'latitude'}
                     - { property: 'longitude'}
                     - { property: 'bird', label: 'Oiseau'}
@@ -164,12 +167,13 @@ easy_admin:
                     - { property: 'description'}
 
         Bird:
+            disabled_actions: ['delete']
             class: App\Entity\Bird
             list:
                 title: 'Espèces'
                 actions:
                     - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
-                    - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
+                 #   - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
                     - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
                     - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
 
@@ -217,33 +221,6 @@ easy_admin:
                     - { property: 'lbNom'}
                     - { property: 'habitat'}
                     - { property: 'statutFR'}
-
-
-        Badge:
-            class: App\Entity\Badge
-            list:
-                title: 'Badges'
-                actions:
-                    - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
-                    - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
-                    - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
-                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
-                fields:
-                    - { property: 'id'}
-                    - { property: 'user', label: 'Utilisateur'}
-                    - { property: 'name', label: 'Nom'}
-            new:
-                title: 'Créer un nouveau badge'
-                fields:
-                    - { property: 'user', label: 'Utilisateur'}
-                    - { property: 'name', label: 'Nom'}
-                    - { property: 'pictureFile', label: 'Image', type: 'vich_image'}
-            edit:
-                title: 'Editer un badge'
-                fields:
-                    - { property: 'user',label: 'Utilisateur'}
-                    - { property: 'name',label: 'Nom'}
-                    - { property: 'pictureFile',label: 'Image', type: 'vich_image'}
 
 
 

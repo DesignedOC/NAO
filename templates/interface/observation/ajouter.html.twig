@@ -1,56 +1,152 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}NAO - Devenir naturaliste{% endblock %}
 {% block description %}{% endblock %}
-
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
-{% endblock %}
+<link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
+<style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+      }
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      #title {
+        color: #fff;
+        background-color: #4d90fe;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+      }
+      #target {
+        width: 345px;
+      }
+    </style>
+
+{% endblock %}
 {% block body %}
-    {% include 'interface/parts/_sidebar.html.twig' %}
+{% include 'interface/parts/_sidebar.html.twig' %}
 <div class="container-left">
-    {% include 'interface/parts/_header.html.twig' %}
-    <div class="main-content">
-        <div class="row">
-            <div class="col-12">
+{% include 'interface/parts/_header.html.twig' %}
+<div class="main-content">
+  
+    <div class="col-12 row">
                 <div class="col-md-12 col-lg-6 custom-box">
                     <h1 class="h1box"><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">add_circle</i>Ajouter une observation</h1>
                     {{ form(form) }}
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock %}
-
-{% block javascripts %}
-    <script src="{{ asset('build/js/app.js') }}"></script>
-    <script type="application/javascript">
-        $(function() {
-            $( "#observation_bird_lbNom").autocomplete({
-                source: "{{ path('bird_lbnom_autocomplete') }}",
-                minLength: 2,
-                select: function( event, ui ) {
-                    $("#observation_bird_lbNom").val(ui.item.value);
-                    return false;
-                },
-                change: function (event, ui) {
-                    $( "#observation_bird_lbNom" ).val( ui.item ? ui.item.value : $(this).val() );
-                }
-            });
-
-            $( "#observation_bird_nomVern").autocomplete({
-                source: "{{ path('bird_nomvern_autocomplete') }}",
-                minLength: 2,
-                select: function( event, ui ) {
-                    $("#observation_bird_nomVern").val(ui.item.value);
-                    return false;
-                },
-                change: function (event, ui) {
-                    $( "#observation_bird_nomVern" ).val( ui.item? ui.item.value : $(this).val() );
-                }
-            });
+                <div class="col-lg-6">
+                
+                    <h5>La carte vous géolocalise automatiquement. Voici votre position actuelle :</h1>
+                    <div id="map"></div>
+                </div>
+         
+    <script>
+      var map, infoWindow;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 6
         });
+          
+        infoWindow = new google.maps.InfoWindow;
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
     </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB1pM1lEVpFhq3Fne8yzNchvi0FNheYoY&callback=initMap">
+    </script>
+        </div>
+    </div></div>
+
 {% endblock %}
