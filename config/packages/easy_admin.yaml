@@ -12,6 +12,8 @@ easy_admin:
             - { entity: 'User', icon: 'user', label: 'Utilisateurs', default: true }
             - { label: 'Gestion des observations' }
             - { entity: 'Observation', icon: 'binoculars', label: 'Observation' }
+            - { label: 'Gestion de la newsletter' }
+            - { entity: 'Newsletter', icon: 'envelope', label: 'Newsletter'}
             - { label: 'Gestion des espèces' }
             - { entity: 'Bird', icon: 'themeisle', label: 'Oiseaux' }
             - { label: 'Base de données' }
@@ -21,6 +23,13 @@ easy_admin:
                 - { label: 'Importer la BDD', route: 'taxrefBaseImport' }
 
     entities:
+
+        Newsletter:
+            class: App\Entity\Newsletter
+            list:
+                title: 'Emails inscrits à la Newsletter'
+                fields:
+                    - { property: 'Email', label: 'Email', type: 'email' }
         Taxref:
             disabled_actions: ['new','delete']
          #   disabled_actions: ['delete']
