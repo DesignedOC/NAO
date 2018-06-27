@@ -121,7 +121,8 @@ var map, infoWindow, marker;
           zoom: 6
         });
           //CREATION INFOWINDOW
-        infoWindow = new google.maps.InfoWindow;
+       
+         infoWindow = new google.maps.InfoWindow({pixelOffset: new google.maps.Size(0, -35)});
           //CREATION MARKER
          marker = new google.maps.Marker({
                     position: myLatLng,
@@ -137,9 +138,12 @@ var map, infoWindow, marker;
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
+              
+              
             marker.setPosition(pos);
+                   var contentString = pos.lat;
             infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
+            infoWindow.setContent(contentString);
             infoWindow.open(map);
             map.setCenter(pos);
           }, function() {
