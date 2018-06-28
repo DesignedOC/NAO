@@ -147,6 +147,8 @@ var map, infoWindow, marker;
               lng: position.coords.longitude
             };
               
+              document.getElementById('observation_latitude').value = pos.lat;
+              document.getElementById('observation_longitude').value = pos.lng;
               
             marker.setPosition(pos);
                 var contentString = "Vous êtes ici.";
