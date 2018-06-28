@@ -2,6 +2,10 @@
 {% block description %}{% endblock %}
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+ <link rel="stylesheet" href="{{ asset('build/css/observAutocomplete.css') }}">
+
+
+
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
 <style>
@@ -170,3 +174,5 @@ var map, infoWindow, marker;
     </div></div>
 
 {% endblock %}
+ {% block javascripts %} <script src="{{ asset('build/js/observAutocomplete.js') }}"></script>
+ {% endblock %}
