@@ -19,6 +19,15 @@ class NewsletterRepository extends ServiceEntityRepository
         parent::__construct($registry, Newsletter::class);
     }
 
+    public function getAllEmails()
+    {
+
+        return $this->createQueryBuilder('n')
+            ->select('n.email')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
 
 //    /**
 //     * @return Newsletter[] Returns an array of Newsletter objects

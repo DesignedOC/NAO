@@ -18,7 +18,7 @@
         <div class="col-md-4">
             <h5>Newsletter</h5>
             <p class="newsletter">Inscrivez-vous à notre Newsletter pour recevoir toutes les actualités et nouveautés de notre site internet</p>
-            {{ render(controller( 'App\\Controller\\NewsletterController::index')) }}
+            {{ render(controller( 'App\\Controller\\NewsletterController::index', {request: app.request})) }}
             </div>
         </div>
 </footer>

@@ -12,7 +12,9 @@ easy_admin:
             - { entity: 'User', icon: 'user', label: 'Utilisateurs', default: true }
             - { label: 'Gestion des observations' }
             - { entity: 'Observation', icon: 'binoculars', label: 'Observation' }
-            - { label: 'Gestion de la newsletter' }
+            - label: 'Gestion de la newsletter'
+              children:
+                - { label: 'Exporter les emails', route: 'exportEmail' }
             - { entity: 'Newsletter', icon: 'envelope', label: 'Newsletter'}
             - { label: 'Gestion des espèces' }
             - { entity: 'Bird', icon: 'themeisle', label: 'Oiseaux' }
@@ -23,7 +25,6 @@ easy_admin:
                 - { label: 'Importer la BDD', route: 'taxrefBaseImport' }
 
     entities:
-
         Newsletter:
             class: App\Entity\Newsletter
             list:

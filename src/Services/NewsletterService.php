@@ -4,7 +4,6 @@ namespace App\Services;
 use App\Entity\Newsletter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-//use Twig\Environment;
 
 class NewsletterService
 {
@@ -20,32 +19,6 @@ class NewsletterService
             $this->twig = $twig;
     }
 
-
-    /**
-     * @param string $email
-     * @return int
-     */
-        public function alreadySubscribe( string $email) : int
-        {
-            $resultEmail = count($this->findByEmail($email));
-            return $resultEmail;
-        }
-
-    /**
-     * @param string $email
-     * @return array
-     */
-        public function findByEmail(string $email) : array
-        {
-            return $this->em->getRepository(Newsletter::class)->findBy(['email'=> $email]);
-        }
-
-
-        public function persist($newsletter) : void
-        {
-            $this->em->persist($newsletter);
-            $this->em->flush();
-        }
 
     /**
      * @param Newsletter $newsletter
