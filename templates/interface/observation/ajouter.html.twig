@@ -131,7 +131,7 @@ var map, infoWindow, marker;
                     draggable:true
                 });
 
-        // Try HTML5 geolocation.
+        // GEOLOCALISATIOB
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
@@ -141,7 +141,7 @@ var map, infoWindow, marker;
               
               
             marker.setPosition(pos);
-                   var contentString = pos.lat;
+                var contentString = "Vous êtes ici.";
             infoWindow.setPosition(pos);
             infoWindow.setContent(contentString);
             infoWindow.open(map);
