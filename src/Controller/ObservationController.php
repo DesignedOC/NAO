@@ -73,18 +73,30 @@ class ObservationController extends Controller
         );
     }
     /**
-     * @Route("observation/{id}/afficher", name="obs_afficher")
-     * @Template("interface/observation/ajouter.html.twig")
-     * @param Request $request
+     * @Route("observation/{id}", name="obs_show")
+     * @Template("interface/observation/afficher.html.twig")
      * @param $id
      * @return array
      */
-    public function afficherAction(Request $request,$id)
+    public function showAction($id)
     {
-//        dump($id);die;
-//        return array(
-//            'observation' => $observation
-//        );
+        $id = intval($id);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $observation = $em->getRepository(Observation::class)->findOneBy(['id' => $id]);
+
+        if(!$observation)
+        {
+            throw new NotFoundHttpException("L'observation que vous voulez voir n'existe pas");
+        }
+
+        $user = $observation->getUser();
+
+        return array(
+            'observation' => $observation,
+            'user' => $user
+        );
     }
 //    /**
 //     * @Route("observation", name="observation")

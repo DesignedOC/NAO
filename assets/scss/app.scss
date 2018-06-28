@@ -737,3 +737,67 @@ li.page-item.disabled a.page-link {
   }
 }
 
+.nb {
+  //color: #42afd7;
+  color: #5f747b;
+  font-size: 0.91em;
+  strong {
+    color: #42afd7;
+    font-size: 0.98em;
+  }
+  a {
+    color: #42afd7;
+    font-weight: bolder;
+    font-size: 0.98em;
+    &:hover {
+      color: #266c86;
+    }
+  }
+}
+
+.marker-alt {
+  font-size: 24px;
+  margin-right: 8px;
+  background: #2a3540;
+  color: #fff8f7;
+  padding: 3px 5px;
+  border-radius: 3px;
+}
+
+.bg-b {
+  background: #f0f8ff;
+  padding: 5px;
+}
+
+.obs-h3 {
+  font-weight: 300;
+  font-size: initial;
+  padding-left: 1px;
+}
+
+.obs-loc {
+  border-top: 2px dotted #ececec;
+  font-weight: 300;
+  color: #134354;
+}
+
+.ico-obs {
+  i {
+    color: #28a745;
+  }
+}
+
+ul.foot-obs {
+  margin: 0;
+  background: #2a3540;
+  width: 100%;
+  height: max-content;
+  color: #fff;
+  display: flex;
+  li {
+    float: left;
+    font-size: 0.9em;
+  }
+}
+
+
