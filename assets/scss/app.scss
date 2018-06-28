@@ -711,6 +711,27 @@ div.app-show {
   }
 }
 
+div.valid-show {
+  a i.far.fa-edit {
+    border: 2px solid #1bbb1b59;
+    padding: 3px;
+    &:hover {
+      border: 2px solid #11b111;
+    }
+  }
+  .table th, .table td {
+    vertical-align: middle;
+  }
+}
+
+div.map-editform {
+    width: 100%;
+    height: 200px;
+  div#map {
+    height: 100%;
+  }
+}
+
 .page-item.active .page-link {
   background-color: #42afd7!important;
   border-color: #3488a7!important;
@@ -765,8 +786,15 @@ li.page-item.disabled a.page-link {
 }
 
 .bg-b {
-  background: #f0f8ff;
+  //background: #f0f8ff;
+  background: #f3f3f3;
   padding: 5px;
+}
+
+a.popup img {
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 .obs-h3 {
@@ -781,9 +809,26 @@ li.page-item.disabled a.page-link {
   color: #134354;
 }
 
-.ico-obs {
+.obs-ed-loc {
+  font-weight: 300;
+  color: #134354;
+}
+
+.ico-obs-g {
   i {
     color: #28a745;
+  }
+}
+
+.ico-obs-r {
+  i {
+    color: #a70d12;
+  }
+}
+
+.ico-obs-b {
+  i {
+    color: #707d83;
   }
 }
 

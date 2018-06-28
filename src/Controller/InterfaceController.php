@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Entity\Application;
+use App\Entity\Observation;
 use App\Entity\User;
 use App\Form\NaturalistType;
 use App\Services\BadgeManager;
@@ -69,6 +70,8 @@ class InterfaceController extends Controller
      */
     public function candidatures($page)
     {
+        $this->denyAccessUnlessGranted('ROLE_NATURALIST', null, 'Vous ne pouvez pas accéder à cette page');
+
         $em = $this->getDoctrine()->getManager();
         $applications = $em->getRepository(Application::class)->findToPublishByStatut($page);
         $nbApplications = $em->getRepository(Application::class)->findAppCountByStatut();
@@ -89,6 +92,39 @@ class InterfaceController extends Controller
             'applications' => $applications,
             'pagination' => $pagination
         ]); 
+    }
+
+
+    /**
+     * @Route("/interface/validations/{page}", requirements={"page" = "\d+"}, name="nao_interface_validations")
+     * @param $page
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function validations($page)
+    {
+
+        $this->denyAccessUnlessGranted('ROLE_NATURALIST', null, 'Vous ne pouvez pas accéder à cette page');
+
+        $em = $this->getDoctrine()->getManager();
+        $observations = $em->getRepository(Observation::class)->findObservByStatut($page);
+        $nbObs = $em->getRepository(Observation::class)->findObservCountByStatut();
+
+        $nbPages = ceil($nbObs / 10);
+
+        if($page != 1 && $page > $nbPages)
+        {
+            throw new NotFoundHttpException("La page que vous essayez d'atteindre n'existe pas");
+        }
+
+        $pagination = [
+            'page' => $page,
+            'nbPages' => $nbPages
+        ];
+
+        return $this->render('interface/validations.html.twig', [
+            'observations' => $observations,
+            'pagination' => $pagination
+        ]);
     }
 
     /**

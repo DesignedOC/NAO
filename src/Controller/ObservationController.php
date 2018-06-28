@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 use App\Entity\Bird;
+use App\Form\ObservationEditType;
+use App\Services\MailerManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,11 +23,10 @@ class ObservationController extends Controller
      * List of observations by pages
      * @Route("observations/{page}", requirements={"page" = "\d+"}, name="observations")
      * @Template("interface/observations.html.twig")
-     * @param Request $request
      * @param $page
      * @return array
      */
-    public function indexAction(Request $request, $page)
+    public function indexAction($page)
     {
         $em = $this->getDoctrine()->getManager();
         $observations = $em->getRepository(Observation::class)->findObservationsPublished($page);
@@ -55,8 +56,11 @@ class ObservationController extends Controller
     public function newAction(Request $request)
     {
         $observation = new Observation();
+
         $form = $this->createForm(ObservationType::class, $observation);
+
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $currentUser = $this->getUser();
@@ -71,6 +75,86 @@ class ObservationController extends Controller
         return array(
             'form' => $form->createView(),
         );
+    }
+
+    /**
+     * @Route("observation/edit/{id}", requirements={"id" = "\d+"}, name="obs_edit")
+     * @Template("interface/observation/editer.html.twig")
+     * @param Request $request
+     * @param $id
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function editAction(Request $request, $id)
+    {
+        $this->denyAccessUnlessGranted('ROLE_NATURALIST', null, 'Vous ne pouvez pas accéder à cette page');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $observation = $em->getRepository(Observation::class)->findOneBy(['id' => $id]);
+
+        if(!$observation)
+        {
+            throw new NotFoundHttpException("L'observation que vous voulez éditer n'existe pas");
+        }
+
+        $form = $this->createForm(ObservationEditType::class, $observation);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $observation->setStatut(2);
+            $em->persist($observation);
+            $em->flush();
+            $this->addFlash('success', 'Vous avez correctement modifié et validé une observation');
+            return $this->redirectToRoute("nao_interface_validations", ['page' => 1]);
+        }
+        return array(
+            'form' => $form->createView(),
+            'observation' => $observation
+        );
+    }
+
+    /**
+     * @Route("observation/statut/{id}/{statut}", requirements={"id" = "\d+", "statut" = "\d+"}, name="obs_statut")
+     * @param MailerManager $mailerManager
+     * @param $id
+     * @param $statut
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function statutAction($id, $statut, MailerManager $mailerManager)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $observation = $em->getRepository(Observation::class)->findOneBy(['id' => $id]);
+
+        if(!$observation)
+        {
+            throw new NotFoundHttpException("L'observation que vous voulez éditer n'existe pas");
+        }
+
+        if($statut != 0 AND $statut != 2) {
+            throw new NotFoundHttpException("La page que vous essayez d'atteindre n'existe pas");
+        }
+
+        if($statut == 2)
+        {
+            $observation->setStatut(2);
+            $em->persist($observation);
+            $em->flush();
+            $this->addFlash('success', 'Vous avez correctement validé une observation');
+            return $this->redirectToRoute("nao_interface_validations", ['page' => 1]);
+        }
+
+        if($statut == 0)
+        {
+            $observation->setStatut(0);
+            $em->persist($observation);
+            $em->flush();
+            $this->addFlash('info', 'Vous avez correctement rejeté cette observation');
+            return $this->redirectToRoute("nao_interface_validations", ['page' => 1]);
+        }
+
     }
     /**
      * @Route("observation/{id}", name="obs_show")

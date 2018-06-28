@@ -29,10 +29,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="col-12 col-md-8 custom-box">
-                                <h1 class="h1box"><i class="fas fa-map-marker-alt marker-alt" ></i>Observation #{{ observation.id }} {% if observation.statut == 2 %}<span class="ico-obs float-right"><i class="fas fa-leaf"></i></span>{% endif %}</h1>
+                                <h1 class="h1box"><i class="fas fa-map-marker-alt marker-alt" ></i>Observation #{{ observation.id }} <span class="{% if observation.statut == 2 %}ico-obs-g{% elseif observation.statut == 1 %}ico-obs-b{% elseif observation.statut == 0 %}ico-obs-r{% endif %} float-right"><i class="fas fa-leaf"></i></span></h1>
                             <div class="row">
                             <div class="col-md-4">
-                                <img src="{{ asset('uploads/observations/'~observation.picture) }}"  class="img-fluid" alt="Observation {{ observation.id }} - Image">
+                                <a href="#" class="popup">
+                                    <img src="{{ asset('uploads/observations/'~observation.picture) }}"  class="img-fluid" alt="Observation {{ observation.id }} - Image">
+                                </a>
                             </div>
                             <div class="col-md-8">
                                 <h2 class="h4 mb-1 mt-3 mt-md-0">{{ observation.bird.nomVern }}</h2>
@@ -54,6 +56,16 @@
                     </div>
             </div>
      </div>
+     <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <img src="" class="imagepreview" style="width: 100%;height: 100%;" >
+              </div>
+            </div>
+          </div>
+     </div>
 {% endblock %}
 
 {% block javascripts %}
@@ -65,6 +77,12 @@
                         document.getElementById('map'), {zoom: 12, center: pos});
                     var marker = new google.maps.Marker({position: pos, map: map});
                 }
+
+                $('.popup').on('click', function() {
+                    $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+                    $('#imagemodal').modal('show');
+                });
+
             </script>
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB1pM1lEVpFhq3Fne8yzNchvi0FNheYoY&callback=initMapShow"></script>
 {% endblock %}

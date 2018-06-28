@@ -22,7 +22,7 @@
             {% if is_granted('ROLE_USER') and is_granted('ROLE_NATURALIST') == false %}
                 <a href="{{ path('nao_interface_profile', { username: app.user }) }}" class="role-profile">Passionné(e)</a>
             {% endif %}
-            {% if is_granted('ROLE_NATURALIST') %}
+            {% if is_granted('ROLE_NATURALIST') and is_granted('ROLE_ADMIN') == false %}
                 <a href="{{ path('nao_interface_profile', { username: app.user }) }}" class="role-profile">Naturaliste</a>
             {% endif %}
             {% if is_granted('ROLE_ADMIN') %}
@@ -40,7 +40,7 @@
     </ul>
     {% if is_granted('ROLE_NATURALIST') %}
     <ul class="sidebar-nav pt-0">
-        <li><a href="#"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;">verified_user</i>Validations</a></li>
+        <li><a href="{{ path('nao_interface_validations', { 'page' : 1}) }}"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;">verified_user</i>Validations</a></li>
         <li><a href="{{ path('nao_interface_candidatures', { 'page' : 1}) }}"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;">gavel</i>Candidatures</a></li>
     </ul>
     {% endif %}
