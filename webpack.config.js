@@ -17,6 +17,8 @@ Encore
     .addEntry('js/front', './assets/js/front.js')
     .addStyleEntry('css/app', ['./assets/scss/app.scss'])
     .addStyleEntry('css/front', ['./assets/scss/front.scss'])
+    .addEntry('js/observAutocomplete', './assets/js/observAutocomplete.js')
+    .addStyleEntry('css/observAutocomplete', ['./assets/scss/observAutocomplete.scss'])
 
 ;
 
