@@ -106,14 +106,13 @@
             });
         });
     </script>
- <script src="{{ asset('assets/js/geolocation.js') }}"></script>
+ 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB1pM1lEVpFhq3Fne8yzNchvi0FNheYoY"></script>
     <script src="{{ asset('build/js/app.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('assets/js/gmaps.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
+  
+
     <script type="application/javascript">
-        var map, marker, infoWindow;
+        var map, marker, infowindow;
         var locations = [];
         var searchUrl = "{{path('nao_interface_map_search')  }}";
         $(function () {
@@ -139,6 +138,7 @@
                                 title: locations[count].nomVern
                             });
                             google.maps.event.addListener(marker, 'click', (function (marker, count) {
+                                console.log("test 1");
                                 return function () {
                                     var contentString = '<div id="content" class="card">'+
                                             '<div id="bodyContent" class="card-body">'+
@@ -178,7 +178,7 @@
 //                map: map,
 //                title: 'Lima'
 //            });
-            infowindow =  new google.maps.InfoWindow({});
+            infowindow =  new google.maps.InfoWindow();
 //            var contentString = '<div id="content" class="card">'+
 //                    '<div id="bodyContent" class="card-body">'+
 //                    '<p id="title" class="card-title title">Titre</p>'+
@@ -219,7 +219,7 @@
         var searchUrl = "{{path('nao_interface_map_search')  }}";
    
     </script>
-    <script src="{{ asset('assets/js/birdmap.js') }}"></script>
+
 <script src="{{ asset('build/js/front.js') }}"></script>
        
 <script>
