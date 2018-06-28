@@ -174,5 +174,10 @@ var map, infoWindow, marker;
     </div></div>
 
 {% endblock %}
- {% block javascripts %} <script src="{{ asset('build/js/observAutocomplete.js') }}"></script>
+ {% block javascripts %} 
+<script>
+var lbNomUrl = "{{ path('bird_lbnom_autocomplete') }}";
+var vernNomUrl = "{{ path('bird_nomvern_autocomplete') }}";
+    </script>
+ <script src="{{ asset('build/js/observAutocomplete.js') }}"></script>
  {% endblock %}
