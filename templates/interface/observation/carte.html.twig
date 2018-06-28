@@ -3,7 +3,11 @@
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    
+ 
+     <link rel="stylesheet" href="{{ asset('build/js/observAutocomplete.css') }}">
+
+
+
 {% endblock %}
 {% block body %}
 {% include 'interface/parts/_sidebar.html.twig' %}
@@ -157,4 +161,11 @@
             });
         }
     </script>
+
+    <script>
+var lbNomUrl = "{{ path('bird_lbnom_autocomplete') }}";
+var vernNomUrl = "{{ path('bird_nomvern_autocomplete') }}";
+    </script>
+ <script src="{{ asset('build/js/observAutocomplete.js') }}"></script>
+
 {% endblock %}

@@ -14,14 +14,14 @@ $("#observation_bird_lbNom").autocomplete({
     }
 });
 
-$("#observation_bird_nomVern").autocomplete({
+$("#observation_bird_nomVern, #input-nom-vern").autocomplete({
     source: vernNomUrl,
     minLength: 2,
     select: function (event, ui) {
-        $("#observation_bird_nomVern").val(ui.item.value);
+        $("#observation_bird_nomVern, #input-nom-vern").val(ui.item.value);
         return false;
     },
     change: function (event, ui) {
-        $("#observation_bird_nomVern").val(ui.item ? ui.item.value : $(this).val());
+        $("#observation_bird_nomVern, #input-nom-vern").val(ui.item ? ui.item.value : $(this).val());
     }
 });
