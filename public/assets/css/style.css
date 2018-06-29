@@ -1,13 +1,72 @@
+/*****BOUTON NOUVELLE PARTIE ******/
+.btn_memory
+{
+    width:165px;
+    height:55px;
+    text-align:center;
+    border-radius: 5px;
+    background: #42aed7;
+    font-size:20px;
+    cursor:pointer;
+    border: none;
+    color:white;
+}
+/*****BOUTON TEXTE ******/
+.btn_texte
+{
+    width:165px;
+    height:55px;
+    text-align:center;
+    border-radius: 5px;
+    background: #42aed7;
+    font-size:20px;
+    cursor:pointer;
+    border: none;
+    color:white;
+}
+.btn_texte:hover
+{
+    text-decoration:none;
+}
+.texte
+{
+    display: inline-block;
+    border:2px solid #42aed7;
+    padding:10px;
+    margin-top: 10px;
+}
+.infos
+{
+    margin-top: 40px;
+}
+.infos div{
+    display: inline-block;
+}
+.score div
+{
+    display: inline-block;
+}
+.game div
+{
+    display: inline-block;
+}
+.texte p{
+    font-size: 22px;
+}
+
 .map-container {
+
+    min-height: 1000px;
+
     width: 100%;
-    min-height: 700px;
-    background: #b67379;
+    
 }
 
 #map {
+       height: 50%;
     margin: 0;
     padding: 0;
-    height: 100%;
+    
     max-width: none;
 }
 #map img {
@@ -85,3 +144,4 @@ p.author b {
 p.author .date-pub {
     color: #949494;
 }
+

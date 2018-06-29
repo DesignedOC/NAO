@@ -1,24 +1,25 @@
 var Encore = require('@symfony/webpack-encore');
 
 Encore
-    // the project directory where compiled assets will be stored
+
     .setOutputPath('public/build/')
-    // the public path used by the web server to access the previous directory
     .setPublicPath('/build')
     .cleanupOutputBeforeBuild()
-    .enableSourceMaps(!Encore.isProduction())
-    // uncomment to create hashed filenames (e.g. app.abc123.css)
-    // .enableVersioning(Encore.isProduction())
+    // .enableSourceMaps(!Encore.isProduction())
 
-    // uncomment to define the assets of the project
+    // .enableVersioning(Encore.isProduction())
     // .addEntry('js/app', './assets/js/app.js')
     // .addStyleEntry('css/app', './assets/css/app.scss')
-
-    // uncomment if you use Sass/SCSS files
-    // .enableSassLoader()
-
+    .enableSassLoader()
     // uncomment for legacy applications that require $/jQuery as a global variable
-    // .autoProvidejQuery()
+    .autoProvidejQuery()
+    .addEntry('js/app', './assets/js/app.js')
+    .addEntry('js/front', './assets/js/front.js')
+    .addStyleEntry('css/app', ['./assets/scss/app.scss'])
+    .addStyleEntry('css/front', ['./assets/scss/front.scss'])
+    .addEntry('js/observAutocomplete', './assets/js/observAutocomplete.js')
+    .addStyleEntry('css/observAutocomplete', ['./assets/scss/observAutocomplete.scss'])
+
 ;
 
 module.exports = Encore.getWebpackConfig();

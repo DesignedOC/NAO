@@ -1,20 +1,25 @@
 {% extends 'base.html.twig' %}
+{% block description %}{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+ 
+     <link rel="stylesheet" href="{{ asset('build/js/observAutocomplete.css') }}">
 
+
+
+{% endblock %}
 {% block body %}
+{% include 'interface/parts/_sidebar.html.twig' %}
+ <div class="container-left">
+    {% include 'interface/parts/_header.html.twig' %}
+ <div class="main-content">
+
     <div class="row">
         <div class="col-md-6">
-            <input id="input-nom-vern" type="text" class="form-control" placeholder="Rechercher une espèce">
+            <input id="input-nom-vern" type="text" class="form-control" placeholder="Rechercher un oiseau">
         </div>
-        <div class="col-md-3">
-            <div class="dropdown">
-                <button class="btn btn-default" data-toggle="dropdown" id="menu1">Tous les départements <i class="fa fa-caret-down"></i></button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Département #1</a>
-                    <a class="dropdown-item" href="#">Département #2</a>
-                    <a class="dropdown-item" href="#">Département #3</a>
-                </div>
-            </div>
-        </div>
+        
         <div class="col-md-3">
             <button id="btn-valider" class="btn btn-primary btn-block">Valider</button>
         </div>
@@ -23,31 +28,46 @@
         <div class="map-container mt-5">
             <div id="map"></div>
         </div>
-    </div>
-{% endblock %}
-
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    {#<style>#}
-        {#.map-container {#}
-            {#width: 100%;#}
-            {#min-height: 700px;#}
-            {#background: #b67379;#}
-        {#}#}
-        {##map {#}
-            {#height: 100%;#}
-        {#}#}
-    {#</style>#}
+    </div></div></div>
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }}
+{{ parent() }}
+<script>
+        $(function() {
+            $( "#observation_bird_lbNom").autocomplete({
+                source: "{{ path('bird_lbnom_autocomplete') }}",
+                minLength: 2,
+                select: function( event, ui ) {
+                    $("#observation_bird_lbNom").val(ui.item.value);
+                    return false;
+                },
+                change: function (event, ui) {
+                    $( "#observation_bird_lbNom" ).val( ui.item ? ui.item.value : $(this).val() );
+                }
+            });
+            $( "#observation_bird_nomVern").autocomplete({
+                source: "{{ path('bird_nomvern_autocomplete') }}",
+                minLength: 2,
+                select: function( event, ui ) {
+                    $("#observation_bird_nomVern").val(ui.item.value);
+                    return false;
+                },
+                change: function (event, ui) {
+                    $( "#observation_bird_nomVern" ).val( ui.item? ui.item.value : $(this).val() );
+                }
+            });
+        });
+    </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB1pM1lEVpFhq3Fne8yzNchvi0FNheYoY"></script>
-    {#<script src="{{ asset('assets/js/gmaps.js') }}"></script>#}
-    <script>
+    <script src="{{ asset('build/js/app.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('assets/js/gmaps.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
+    <script type="application/javascript">
         var map, marker, infoWindow;
         var locations = [];
-        var searchUrl = "{{ path('observation_map_search') }}";
+        var searchUrl = "{{ path('nao_interface_map_search')  }}";
         $(function () {
             $(document).on('click', '#btn-valider', function () {
                 var nomVern = $('#input-nom-vern').val();
@@ -75,11 +95,11 @@
                                     var contentString = '<div id="content" class="card">'+
                                             '<div id="bodyContent" class="card-body">'+
                                             '<p id="title" class="card-title title">'+locations[count].nomVern+'</p>'+
-                                            '<p id="author" class="card-title author">Posté par <b>'+locations[count].username+'</b>'+
-                                            '<span class="date-pub">- Validé le'+locations[count].date+'</span></p><hr>'+
+                                            '<p id="author" class="card-title author">Post� par <b>'+locations[count].username+'</b>'+
+                                            '<span class="date-pub">- Valid� le'+locations[count].date+'</span></p><hr>'+
                                             '<img src="" alt="">'+
                                             '<p>'+locations[count].description+'</p>'+
-                                            '<div class="card-footer text-center"><a href="{{ path('observation_afficher', {'id':1}) }}" class="btn btn-primary text-center">Fiche observation</a></div>'+
+                                            '<div class="card-footer text-center"><a href="{{ path('nao_interface_obs_afficher', {'id':1}) }}" class="btn btn-primary text-center">Fiche observation</a></div>'+
                                             '</div>'+
                                             '</div>';
                                     infowindow.setContent(contentString);
@@ -99,10 +119,10 @@
         });
         google.maps.event.addDomListener(window, 'load', initMap);
         function initMap() {
-            var center = {lat: 43.12025, lng: 2.123654};
+            var center = {lat: 47.12025, lng: 2.123654};
             map = new google.maps.Map(document.getElementById('map'), {
                 center: center,
-                zoom: 8,
+                zoom: 6,
                 mapTypeId:google.maps.MapTypeId.ROADMAP
             });
 //            marker = new google.maps.Marker({
@@ -114,7 +134,7 @@
 //            var contentString = '<div id="content" class="card">'+
 //                    '<div id="bodyContent" class="card-body">'+
 //                    '<p id="title" class="card-title title">Titre</p>'+
-//                    '<p id="author" class="card-title author">Posté par <b>Auteur</b><span class="date-pub">- Validé le 08/10/1991</span></p><hr>'+
+//                    '<p id="author" class="card-title author">Post� par <b>Auteur</b><span class="date-pub">- Valid� le 08/10/1991</span></p><hr>'+
 //                    '<img src="" alt="">'+
 //                    '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, provident. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, sint!</p>'+
 //                    '<div class="card-footer text-center"><a href="#" class="btn btn-primary text-center">Fiche observation</a></div>'+
@@ -141,4 +161,11 @@
             });
         }
     </script>
+
+    <script>
+var lbNomUrl = "{{ path('bird_lbnom_autocomplete') }}";
+var vernNomUrl = "{{ path('bird_nomvern_autocomplete') }}";
+    </script>
+ <script src="{{ asset('build/js/observAutocomplete.js') }}"></script>
+
 {% endblock %}

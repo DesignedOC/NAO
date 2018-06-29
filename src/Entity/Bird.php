@@ -1,10 +1,11 @@
 <?php
 namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Table(name="nao_bird")
  * @ORM\Entity(repositoryClass="App\Repository\BirdRepository")
+ * @UniqueEntity("cdNom")
  */
 class Bird
 {
@@ -35,7 +36,7 @@ class Bird
      */
     private $famille;
     /**
-     * @ORM\Column(name="cd_nom", type="integer", nullable=true)
+     * @ORM\Column(name="cd_nom", type="integer", nullable=true, unique=true)
      */
     private $cdNom;
     /**
@@ -142,6 +143,12 @@ class Bird
      * @ORM\Column(name="cli", type="string", length=1, nullable=true)
      */
     private $statutCLI;
+
+    public function __toString()
+    {
+        return $this->getNomVern();
+    }
+
     public function getId()
     {
         return $this->id;
@@ -155,288 +162,288 @@ class Bird
     {
         return $this->regne;
     }
-public function setRegne(string $regne): self
-{
-    $this->regne = $regne;
-    return $this;
-}
-public function getPhylum(): ?string
+    public function setRegne(string $regne): self
+    {
+        $this->regne = $regne;
+        return $this;
+    }
+    public function getPhylum(): ?string
     {
         return $this->phylum;
     }
     public function setPhylum(string $phylum): self
-{
-    $this->phylum = $phylum;
-    return $this;
-}
+    {
+        $this->phylum = $phylum;
+        return $this;
+    }
     public function getClasse(): ?string
     {
         return $this->classe;
     }
     public function setClasse(string $classe): self
-{
-    $this->classe = $classe;
-    return $this;
-}
+    {
+        $this->classe = $classe;
+        return $this;
+    }
     public function getOrdre(): ?string
     {
         return $this->ordre;
     }
     public function setOrdre(string $ordre): self
-{
-    $this->ordre = $ordre;
-    return $this;
-}
+    {
+        $this->ordre = $ordre;
+        return $this;
+    }
     public function getFamille(): ?string
     {
         return $this->famille;
     }
     public function setFamille(string $famille): self
-{
-    $this->famille = $famille;
-    return $this;
-}
+    {
+        $this->famille = $famille;
+        return $this;
+    }
     public function getCdNom(): ?int
     {
         return $this->cdNom;
     }
     public function setCdNom(int $cdNom): self
-{
-    $this->cdNom = $cdNom;
-    return $this;
-}
+    {
+        $this->cdNom = $cdNom;
+        return $this;
+    }
     public function getCdTaxsup(): ?int
     {
         return $this->cdTaxsup;
     }
     public function setCdTaxsup(int $cdTaxsup): self
-{
-    $this->cdTaxsup = $cdTaxsup;
-    return $this;
-}
+    {
+        $this->cdTaxsup = $cdTaxsup;
+        return $this;
+    }
     public function getCdRef(): ?int
     {
         return $this->cdRef;
     }
     public function setCdRef(int $cdRef): self
-{
-    $this->cdRef = $cdRef;
-    return $this;
-}
+    {
+        $this->cdRef = $cdRef;
+        return $this;
+    }
     public function getRang(): ?string
     {
         return $this->rang;
     }
     public function setRang(string $rang): self
-{
-    $this->rang = $rang;
-    return $this;
-}
+    {
+        $this->rang = $rang;
+        return $this;
+    }
     public function getLbNom(): ?string
     {
         return $this->lbNom;
     }
     public function setLbNom(string $lbNom): self
-{
-    $this->lbNom = $lbNom;
-    return $this;
-}
+    {
+        $this->lbNom = $lbNom;
+        return $this;
+    }
     public function getLbAuteur(): ?string
     {
         return $this->lbAuteur;
     }
     public function setLbAuteur(string $lbAuteur): self
-{
-    $this->lbAuteur = $lbAuteur;
-    return $this;
-}
+    {
+        $this->lbAuteur = $lbAuteur;
+        return $this;
+    }
     public function getNomComplet(): ?string
     {
         return $this->nomComplet;
     }
     public function setNomComplet(string $nomComplet): self
-{
-    $this->nomComplet = $nomComplet;
-    return $this;
-}
+    {
+        $this->nomComplet = $nomComplet;
+        return $this;
+    }
     public function getNomValide(): ?string
     {
         return $this->nomValide;
     }
     public function setNomValide(string $nomValide): self
-{
-    $this->nomValide = $nomValide;
-    return $this;
-}
+    {
+        $this->nomValide = $nomValide;
+        return $this;
+    }
     public function getNomVern(): ?string
     {
         return $this->nomVern;
     }
     public function setNomVern(string $nomVern): self
-{
-    $this->nomVern = $nomVern;
-    return $this;
-}
+    {
+        $this->nomVern = $nomVern;
+        return $this;
+    }
     public function getNomVernEng(): ?string
     {
         return $this->nomVernEng;
     }
     public function setNomVernEng(string $nomVernEng): self
-{
-    $this->nomVernEng = $nomVernEng;
-    return $this;
-}
+    {
+        $this->nomVernEng = $nomVernEng;
+        return $this;
+    }
     public function getHabitat(): ?int
     {
         return $this->habitat;
     }
     public function setHabitat(int $habitat): self
-{
-    $this->habitat = $habitat;
-    return $this;
-}
+    {
+        $this->habitat = $habitat;
+        return $this;
+    }
     public function getStatutFR(): ?string
     {
         return $this->statutFR;
     }
     public function setStatutFR(string $statutFR): self
-{
-    $this->statutFR = $statutFR;
-    return $this;
-}
+    {
+        $this->statutFR = $statutFR;
+        return $this;
+    }
     public function getStatutGF(): ?string
     {
         return $this->statutGF;
     }
     public function setStatutGF(string $statutGF): self
-{
-    $this->statutGF = $statutGF;
-    return $this;
-}
+    {
+        $this->statutGF = $statutGF;
+        return $this;
+    }
     public function getStatutMAR(): ?string
     {
         return $this->statutMAR;
     }
     public function setStatutMAR(string $statutMAR): self
-{
-    $this->statutMAR = $statutMAR;
-    return $this;
-}
+    {
+        $this->statutMAR = $statutMAR;
+        return $this;
+    }
     public function getStatutGUA(): ?string
     {
         return $this->statutGUA;
     }
     public function setStatutGUA(string $statutGUA): self
-{
-    $this->statutGUA = $statutGUA;
-    return $this;
-}
+    {
+        $this->statutGUA = $statutGUA;
+        return $this;
+    }
     public function getStatutSM(): ?string
     {
         return $this->statutSM;
     }
     public function setStatutSM(string $statutSM): self
-{
-    $this->statutSM = $statutSM;
-    return $this;
-}
+    {
+        $this->statutSM = $statutSM;
+        return $this;
+    }
     public function getStatutSB(): ?string
     {
         return $this->statutSB;
     }
     public function setStatutSB(string $statutSB): self
-{
-    $this->statutSB = $statutSB;
-    return $this;
-}
+    {
+        $this->statutSB = $statutSB;
+        return $this;
+    }
     public function getStatutSPM(): ?string
     {
         return $this->statutSPM;
     }
     public function setStatutSPM(string $statutSPM): self
-{
-    $this->statutSPM = $statutSPM;
-    return $this;
-}
+    {
+        $this->statutSPM = $statutSPM;
+        return $this;
+    }
     public function getStatutMAY(): ?string
     {
         return $this->statutMAY;
     }
     public function setStatutMAY(string $statutMAY): self
-{
-    $this->statutMAY = $statutMAY;
-    return $this;
-}
+    {
+        $this->statutMAY = $statutMAY;
+        return $this;
+    }
     public function getStatutEPA(): ?string
     {
         return $this->statutEPA;
     }
     public function setStatutEPA(string $statutEPA): self
-{
-    $this->statutEPA = $statutEPA;
-    return $this;
-}
+    {
+        $this->statutEPA = $statutEPA;
+        return $this;
+    }
     public function getStatutREU(): ?string
     {
         return $this->statutREU;
     }
     public function setStatutREU(string $statutREU): self
-{
-    $this->statutREU = $statutREU;
-    return $this;
-}
+    {
+        $this->statutREU = $statutREU;
+        return $this;
+    }
     public function getStatutSA(): ?string
     {
         return $this->statutSA;
     }
     public function setStatutSA(string $statutSA): self
-{
-    $this->statutSA = $statutSA;
-    return $this;
-}
+    {
+        $this->statutSA = $statutSA;
+        return $this;
+    }
     public function getStatutTA(): ?string
     {
         return $this->statutTA;
     }
     public function setStatutTA(string $statutTA): self
-{
-    $this->statutTA = $statutTA;
-    return $this;
-}
+    {
+        $this->statutTA = $statutTA;
+        return $this;
+    }
     public function getStatutNC(): ?string
     {
         return $this->statutNC;
     }
     public function setStatutNC(string $statutNC): self
-{
-    $this->statutNC = $statutNC;
-    return $this;
-}
+    {
+        $this->statutNC = $statutNC;
+        return $this;
+    }
     public function getStatutWF(): ?string
     {
         return $this->statutWF;
     }
     public function setStatutWF(string $statutWF): self
-{
-    $this->statutWF = $statutWF;
-    return $this;
-}
+    {
+        $this->statutWF = $statutWF;
+        return $this;
+    }
     public function getStatutPF(): ?string
     {
         return $this->statutPF;
     }
     public function setStatutPF(string $statutPF): self
-{
-    $this->statutPF = $statutPF;
-    return $this;
-}
+    {
+        $this->statutPF = $statutPF;
+        return $this;
+    }
     public function getStatutCLI(): ?string
     {
         return $this->statutCLI;
     }
     public function setStatutCLI(string $statutCLI): self
-{
-    $this->statutCLI = $statutCLI;
-    return $this;
-}
+    {
+        $this->statutCLI = $statutCLI;
+        return $this;
+    }
 }

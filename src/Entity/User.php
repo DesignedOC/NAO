@@ -1,17 +1,20 @@
 <?php
-
 namespace App\Entity;
 
+use DateTime;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="nao_user")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @Vich\Uploadable
  */
 class User extends BaseUser
 {
@@ -26,8 +29,8 @@ class User extends BaseUser
      * @var string $lastname
      * @ORM\Column(name="usr_lastname", type="string", length=100, nullable=true)
      */
-
     private $lastname;
+
     /**
      * @var string $firstname
      * @ORM\Column(name="usr_firstname", type="string", length=100, nullable=true)
@@ -35,20 +38,43 @@ class User extends BaseUser
     private $firstname;
 
     /**
-     * @var \DateTime $birth
+     * @var DateTime $birth
      * @ORM\Column(name="usr_birth", type="datetime", nullable=true)
      */
     private $birth;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Observation", mappedBy="user")
+     * @var DateTime $dateFrom
+     * @ORM\Column(name="usr_datefrom", type="datetime", nullable=true)
      */
-    private $observations;
+    private $dateFrom;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Badge", mappedBy="user")
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
      */
-    private $badges;
+    private $image;
+
+    /**
+     * @Assert\File(
+     *     maxSize="2M",
+     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
+     * )
+     * @Vich\UploadableField(mapping="avatar_images", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var DateTime
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Observation", mappedBy="user", cascade = {"remove"})
+     */
+    private $observations;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Application", mappedBy="user")
@@ -63,9 +89,26 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->observations = new ArrayCollection();
-        $this->badges = new ArrayCollection();
-        $this->birth = new \DateTime();
+        $this->updatedAt = new DateTime();
+        $this->dateFrom = new DateTime();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
     /**
      * @return null|string
      */
@@ -78,7 +121,7 @@ class User extends BaseUser
      * @param string $lastname
      * @return User
      */
-    public function setLastname(string $lastname): self
+    public function setLastname(?string $lastname): self
     {
         $this->lastname = $lastname;
         return $this;
@@ -103,24 +146,91 @@ class User extends BaseUser
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return DateTime|null
      */
-    public function getBirth(): ?\DateTimeInterface
+    public function getBirth(): ?\DateTime
     {
         return $this->birth;
     }
 
     /**
-     * @param \DateTimeInterface $birth
+     * @param DateTime $birth
      * @return User
      */
-    public function setBirth(\DateTimeInterface $birth): self
+    public function setBirth(?DateTime $birth): self
     {
         $this->birth = $birth;
         return $this;
     }
 
     /**
+     * @return DateTime|null
+     */
+    public function getDateFrom(): ?\DateTime
+    {
+        return $this->dateFrom;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getMonthsFromDate(): ?Int
+    {
+//        $date = new DateTime('2017-06-22');  Date Test 12 months
+        $date = new DateTime('NOW');
+        $monthsYear = $this->getDateFrom()->diff($date)->y*12;
+        $months = $this->getDateFrom()->diff($date)->m;
+
+        $total = $monthsYear + $months;
+        return $total;
+    }
+
+    /**
+     * @param DateTime $dateFrom
+     * @return User
+     */
+    public function setDateFrom(?DateTime $dateFrom): self
+    {
+        $this->dateFrom = $dateFrom;
+        return $this;
+    }
+
+    /**
+     * @param File|null $image
+     */
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+        if ($image) {
+            $this->updatedAt = new DateTime('now');
+        }
+    }
+
+    /**
+     * @return File
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+   /**
      * @return Collection|Observation[]
      */
     public function getObservation() : Collection
@@ -143,33 +253,6 @@ class User extends BaseUser
     public function removeObservation(Observation $observation)
     {
         $this->observations->removeElement($observation);
-    }
-
-    /**
-     * @return Collection|Badge[]
-     */
-    public function getBadges(): Collection
-    {
-        return $this->badges;
-    }
-
-    /**
-     * @param Badge $badge
-     * @return User
-     */
-    public function addBadge(Badge $badge): self
-    {
-        $this->badges[] = $badge;
-        $badge->setUser($this);
-    }
-
-    /**
-     * @param Badge $badge
-     * @return User
-     */
-    public function removeBadge(Badge $badge): self
-    {
-        $this->badges->removeElement($badge);
     }
 
     /**
@@ -198,6 +281,4 @@ class User extends BaseUser
     {
         $this->applications->removeElement($application);
     }
-
-
 }

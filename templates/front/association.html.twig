@@ -1,20 +1,95 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}Nos Amis les Oiseaux - Notre association{% endblock %}
+{% block description %}Découvrez le rôle de l'association d'ornithologie Nos Amis les Oiseaux. En savoir plus sur nos actions, nos objectifs, notre création et nos études pour protéger les oiseaux...{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/front.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <ul>
-        <li><a href="/">Accueil</a></li>
-        <li><a href="/association">Association</a></li>
-        <li><a href="/connexion">Connexion</a></li>
-        <li><a href="/inscription">Inscription</a></li>
-    </ul>
-    <h1>Hello Association page ✅</h1>
-</div>
+    {% include 'front/parts/_header.html.twig' %}
+    <div class="headline mb-4">
+        <div class="container">
+            <h1 class="pt-4 mb-1">Notre association</h1>
+            <p>Découvrir le rôle de l'Association</p>
+        </div>
+    </div>
+    <div class="container association mb-5 mt-5">
+        <div class="row">
+                <div class="col-md-8">
+                    <h2 class="h4 mb-4">Qui sommes-nous ? </h2>
+                    <p>Fondé par Michel Dujardin en 2010, Nos Amis les oiseaux est une association à but non lucratif. Son fondateur a pour objectif d'aider à la conservation des oiseaux et de leur habitat en étudiant les effets néfastes qu'ont le climat et l'urbanisation sur eux. Basé à Avallon, Nos Amis les Oiseaux doivent redoubler d'efforts pour trouver de nouveaux moyens de sensibilisation du public. Aujourd'hui, plus de 8 ans après, Michel Dujardin a eu l'idée d'un regroupement de professionnels et de passionnés sur une même plateforme. C'est pourquoi, Afin d'avertir la population sur le danger qui menacent les oiseaux, , il a créé (nom du site ici).  </p>
+                </div>
+                <div class="col-md-4">
+                    <img src="{{ asset('assets/img/bird-profile.jpg') }}"  class="img-fluid" alt="">
+                </div>
+        </div>
+    </div>
+    <section class="stats mb-4 mt-4 pt-4 pb-4">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-3 mb-3 mb-md-0">
+                        {% if birds < 7000 %}
+                            <h3>{{ birds }}</h3>
+                        {% else %}
+                            <h3>7000+</h3>
+                        {% endif %}
+                    <h4 class="text-uppercase h5">Espèces</h4>
+                </div>
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <h3>500</h3>
+                    <h4 class="text-uppercase h5">Adhérents</h4>
+                </div>
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <h3>110</h3>
+                    <h4 class="text-uppercase h5">Donations</h4>
+                </div>
+                <div class="col-md-3 mb-3 mb-md-0">
+                    {% if observations < 5000 %}
+                        <h3>{{ observations }}</h3>
+                    {% else %}
+                        <h3>5000+</h3>
+                    {% endif %}
+                    <h4 class="text-uppercase h5">Observations</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container mt-5 mb-5 association">
+        <div class="row">
+                <div class="col-md-4 mb-4">
+                    <img src="{{ asset('assets/img/birds-town.jpg') }}"  class="img-fluid" alt="">
+                </div>
+                <div class="col-md-8">
+                    <h2 class="h4 mb-4">Que faisons-nous ?</h2>
+                    <p>Sur son site, Il apporte des services aux membres afin de leur permettre de participer directement à la vie de l'association (ajout d'observation sur les oiseaux, études, don...) D'autres activités sont également disponibles sur le site tel que le jeu 'Memory bird'  afin d'attirer un plus large possible et d'y faire participer même les plus jeunes.
+                        Soyons une Association faisant du Lobbying positif en faveur du Bien Etre des Oiseaux!  Nous voulons agir afin  que l’opinion publique change et évolue. Nous nous engageons à lutter contre toutes formes de maltraitance envers toutes ces espèces qui sont trop souvent laissées pour compte.
+                    </p>
+                </div>
+        </div>
+    </div>
+    <div class="container association mt-4 mb-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="h4 mb-4">Notre programme de recherche consiste à :</h2>
+                <ul>
+                    <li>Découvrir et étudier le plus d'espèces possibles</li>
+                    <li>Rassembler et fédérer tous les acteurs œuvrant dans ce même but</li>
+                    <li>Promouvoir et favoriser les échanges entre les acteurs de la protection animale en France</li>
+                    <li>Veiller à ce que les animaux soient respectés et protégés, en participant en ce sens à la sensibilisation de l’opinion publique et des pouvoirs publiques à la compassion envers eux et à notre responsabilité en tant qu’être humains envers les autres êtres vivants</li>
+                    <li>Entreprendre toute action permettant d’améliorer les relations entre les hommes et les oiseaux, de progresser dans les connaissances et recherches ornithologiques</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-black">
+        {% include 'front/parts/_footer.html.twig' %}
+    </div>
 {% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/front.js') }}"></script>
+{% endblock %}
+
