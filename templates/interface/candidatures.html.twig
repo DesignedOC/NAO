@@ -30,11 +30,12 @@
                         {% endif %}
                     {% endfor %}
                     <p class="text-muted">En tant que naturaliste, vous allez l'opportunité de décider quels seront les prochains membres à devenir naturaliste.</p>
-                    <table class="table">
+                    <div class="">
+                    <table class="table table-hover table-responsive-sm">
                         <thead class="thead-dark">
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Utilisateur</th>
+                            <th scope="col" data-title="Id">#</th>
+                            <th scope="col" data-title="Utilisateur">Utilisateur</th>
                             <th scope="col">Date</th>
                             <th scope="col">Détails</th>
                             <th scope="col">Actions</th>
@@ -43,7 +44,7 @@
                         <tbody>
                         {% for application in applications %}
                         <tr>
-                            <th scope="row">{{ application.id }}</th>
+                            <th scope="row" data-title="Id">{{ application.id }}</th>
                             <td><a href="{{ path('nao_interface_profile', {'username' : application.user.username }) }}">{{ application.user.username|capitalize }}</a></td>
                             <td>{{ application.date|date("d/m/Y") }}</td>
                             <td><a href="#" data-username="{{ application.user.username }}" data-description="{{ application.description }}" data-experience="{{ application.experience }}" data-toggle="modal" class="d-link" data-target="#myModal" onclick="getData(this);">Candidature</a></td>
@@ -58,6 +59,7 @@
                     {% if applications is empty %}
                         <p class="text-muted text-center">Aucune candidature n'a été déposée</p>
                     {% endif %}
+                    </div>
                     {% include 'interface/parts/_pagination.html.twig' %}
                 </div>
             </div>
