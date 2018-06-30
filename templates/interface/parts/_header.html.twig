@@ -2,8 +2,8 @@
     <a class="navbar-brand" href="{{ path('nao_interface') }}">Dashboard</a>
     <div class="search ml-lg-5 mr-auto">
         <form class="form-inline my-0 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Recherche" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control mr-sm-2" type="text" placeholder="Trouver des utilisateurs et des observations" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Recherche</button>
         </form>
     </div>
     <div class="account">
@@ -41,8 +41,8 @@
 <div class="nav-mobile">
     <div class="container-fluid">
             <div class="row">
-                <div class="col-3">
-                    <a href="#"><i class="material-icons">add</i></a>
+                <div class="col-2">
+                    <a href="{{ path('nao_interface_obs_ajouter') }}"><i class="material-icons">add</i></a>
                 </div>
                 <div class="col">
                     <div class="d-flex justify-content-center">

@@ -40,7 +40,8 @@ class ObservationController extends Controller
         }
         $pagination = [
               'page' => $page,
-              'nbPages' => $nbPages
+              'nbPages' => $nbPages,
+              'nbObservations' => $nbObservations
         ];
         return array(
             'observations' => $observations,

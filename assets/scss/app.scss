@@ -213,13 +213,13 @@ div.main-content {
   }
 }
 
-@media all and (max-width: 1162px) {
+@media all and (max-width: 1238px) {
   div.search input.form-control {
     min-width: 0;
   }
 }
 
-@media all and (max-width: 880px) {
+@media all and (max-width: 937px) {
   div#sidebar-wrapper {
     width: 235px;
 
@@ -239,6 +239,19 @@ div.main-content {
   }
   div.account {
     margin-right: 0;
+  }
+}
+
+@media all and (max-width: 840px) {
+  a.navbar-brand {
+    display: none;
+  }
+}
+
+@media screen and (max-height: 728px)
+{
+  ul.sidebar-nav li {
+    padding: 5px 10px;
   }
 }
 
@@ -844,5 +857,41 @@ ul.foot-obs {
     font-size: 0.9em;
   }
 }
+
+.obs-list {
+  background: #fff;
+  h2 {
+    font-size: 1.2em;
+    font-family: $fonts-secondary;
+    border-bottom: 2px dotted #ececec;
+  }
+  img {
+    border-radius: 3px;
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  .row-none {
+    padding: 0;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .row-none {
+    padding: 0;
+  }
+}
+
+@media all and (min-width: 992px) and (max-width: 1304px) {
+  .bs-rm {
+    display: none;
+  }
+}
+
+span.pag-obs {
+  font-size: 0.8em;
+  line-height: 1.7;
+}
+
 
 
