@@ -16,6 +16,22 @@
 <div class="container-left">
 {% include 'interface/parts/_header.html.twig' %}
 <div class="main-content">
+    <div class="row">
+                {% if app.request.headers.get('referer') %}
+                    <div class="col-12">
+                        <nav aria-label="breadcrumb">
+                          <ol class="breadcrumb">
+                          {% if 'validations' in app.request.headers.get('referer') %}
+                            <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Validations</a></li>
+                            {% elseif 'mes-observations' in app.request.headers.get('referer') %}
+                            <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Mes Observations</a></li>
+                          {% endif %}
+                            <li class="breadcrumb-item active" aria-current="page">Editer</li>
+                          </ol>
+                        </nav>
+                    </div>
+                {% endif %}
+    </div>
     <div class="col-12 row">
                 <div class="col-md-12 col-lg-6 custom-box">
                     <h1 class="h1box">Editer l'observation #{{ observation.id }} <span class="{% if observation.statut == 2 %}ico-obs-g{% elseif observation.statut == 1 %}ico-obs-b{% elseif observation.statut == 0 %}ico-obs-r{% endif %} float-right"><i class="fas fa-leaf"></i></span></h1>
