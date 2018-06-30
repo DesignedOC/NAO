@@ -5,6 +5,7 @@ use App\Entity\Application;
 use App\Entity\Observation;
 use App\Entity\User;
 use App\Form\NaturalistType;
+use App\Form\SettingsFormType;
 use App\Services\BadgeManager;
 use App\Services\MailerManager;
 use App\Services\MainManager;
@@ -60,6 +61,33 @@ class InterfaceController extends Controller
         return $this->render('interface/naturaliste.html.twig', [
             'application' => $form->createView(),
             'appStatut' => $appStatut
+        ]);
+    }
+
+    /**
+     * @Route("/interface/parametres", name="nao_interface_parametres")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function settings(Request $request)
+    {
+        $userId = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository(User::class)->findOneBy(['id'=>$userId->getId()]);
+
+        $form = $this->createForm(SettingsFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('success', 'Vous avez mis à jour vos paramètres de compte.');
+        }
+
+        return $this->render('interface/parametres.html.twig',[
+             'settings' => $form->createView(),
         ]);
     }
 

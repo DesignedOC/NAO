@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="col-md-12 col-lg-6 custom-box">
-                    <h1 class="h1box"><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">settings</i>Mon compte</h1>
+                    <h1 class="h1box"><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">account_box</i>Mon compte</h1>
                     {% if app.request.hasPreviousSession %}
                         {% for type, messages in app.session.flashbag.all() %}
                             {% for message in messages %}
@@ -40,10 +40,4 @@
 
 {% block javascripts %}
     <script src="{{ asset('build/js/app.js') }}"></script>
-    {#<script src="{{ asset('assets/js/bootstrap-datepicker.min.js') }}"></script>#}
-    {#<script type="javascript">#}
-        {#$(function () {#}
-           {##}
-        {#});#}
-    {#</script>#}
 {% endblock %}

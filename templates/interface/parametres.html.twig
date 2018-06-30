@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NAO - Paramètres{% endblock %}
+{% block description %}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include 'interface/parts/_sidebar.html.twig' %}
+<div class="container-left">
+    {% include 'interface/parts/_header.html.twig' %}
+    <div class="main-content">
+        <div class="row">
+            <div class="col-12">
+                <div class="col-md-12 col-lg-6 custom-box">
+                    <h1 class="h1box"><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">settings</i>Paramètres</h1>
+                    {% if app.request.hasPreviousSession %}
+                        {% for type, messages in app.session.flashbag.all() %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ type }}" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+                    {#<p class="text-muted">Vous pouvez configurer vos paramètres de compte pour l'utilisation de vos informations personnelles.</p>#}
+                    {{ form_start(settings) }}
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                {{ form_label(settings.obsEmail) }}
+                                {{ form_widget(settings.obsEmail) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                {{ form_label(settings.dataShare) }}
+                                {{ form_widget(settings.dataShare) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                {{ form_label(settings.newsletter) }}
+                                {{ form_widget(settings.newsletter) }}
+                            </div>
+                        </div>
+                        <hr class="mt-4 mb-4">
+                        <div>
+                            <button type="submit" class="btn btn-custom">Mettre à jour</button>
+                        </div>
+                    {{ form_end(settings) }}
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/app.js') }}"></script>
+{% endblock %}

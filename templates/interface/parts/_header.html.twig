@@ -27,7 +27,7 @@
             <div class="dropdown-menu dropdown-menu-right">
                 <a class="dropdown-item" href="{{ path('nao_interface_profile', { username: app.user }) }}">Profil</a>
                 <a class="dropdown-item" href="{{ path('fos_user_profile_edit') }}">Mon compte</a>
-                <a class="dropdown-item" href="#">Paramètres</a>
+                <a class="dropdown-item" href="{{ path('nao_interface_parametres') }}">Paramètres</a>
                 {% if is_granted('ROLE_ADMIN') %}
                     <a class="dropdown-item" href="{{ path('easyadmin') }}">Administration</a>
                 {% endif %}
