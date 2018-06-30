@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}NAO - La liste des observations{% endblock %}
+{% block title %}NAO - Mes observations{% endblock %}
 {% block description %}{% endblock %}
 
 {% block stylesheets %}
@@ -16,7 +16,7 @@
                 <div class="row">
                   <div class="col-12">
                   <div class="col-12 custom-box mb-4">
-                     <h1><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">style</i>Liste des observations <span class="pag-obs d-none d-lg-block float-right">Il y a <strong>{{ pagination.nbObservations }} observations</strong></span></h1>
+                     <h1><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">folder_open</i>Mes observations <span class="pag-obs d-none d-lg-block float-right">Vous avez <strong>{{ pagination.nbObservations }} observations</strong></span></h1>
                   </div>
                   <div class="row">
                   {% if observations %}
@@ -44,7 +44,8 @@
                   {% endfor %}
                   {% else %}
                     <div class="col-12">
-                        <p class="text-center">Il n'y a pas d'observations</p>
+                        <p class="text-center">Vous n'avez pas encore ajouté d'observations</p>
+                        <a href="{{ path('nao_interface_obs_ajouter') }}"><button type="submit" class="btn btn-custom">Ajouter une observation</button></a>
                     </div>
                   </div>
                   {% endif %}

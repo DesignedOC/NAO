@@ -69,6 +69,23 @@ class ObservationRepository extends ServiceEntityRepository
     }
 
     /**
+     * Count all observations of User | Published or not
+     * @param $userId
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getCountOfAllByUser($userId)
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('COUNT(u)')
+            ->where('u.user = :userId')
+            ->setParameter('userId', $userId)
+        ;
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
      * Get the number of observations
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
@@ -118,6 +135,35 @@ class ObservationRepository extends ServiceEntityRepository
             ->select('u')
             ->where('u.statut = 2')
             ->orderBy('u.date', 'DESC')
+            ->setMaxResults(10)
+            ->setFirstResult($page * 10 - 10);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Get all observations for User | Mes observations
+     * @param $page
+     * @param $userId
+     * @return mixed
+     */
+    public function findAllObsByUser($page, $userId)
+    {
+
+        if (!is_numeric($page)) {
+            throw new InvalidArgumentException("La page que vous souhaitez atteindre ne semble pas valide");
+        }
+
+        if($page < 1)
+        {
+            throw new NotFoundHttpException("Désolé la page souhaitée n'existe pas");
+        }
+
+        $qb = $this->createQueryBuilder('u')
+            ->select('u')
+            ->orderBy('u.date', 'DESC')
+            ->where('u.user = :userId')
+            ->setParameter('userId', $userId)
             ->setMaxResults(10)
             ->setFirstResult($page * 10 - 10);
 

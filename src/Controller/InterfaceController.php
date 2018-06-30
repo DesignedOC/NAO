@@ -64,6 +64,35 @@ class InterfaceController extends Controller
     }
 
     /**
+     * @Route("/interface/classement", name="nao_interface_classement")
+     * @param Request $request
+     * @param MainManager $mainManager
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function classement(Request $request, MainManager $mainManager)
+    {
+
+        $user = $this->getUser();
+
+        $appStatut = $mainManager->getApplicationByStatut($user);
+
+        $application = new Application();
+        $form = $this->createForm(NaturalistType::class, $application);
+        $form->handleRequest($request);
+//        if ($form->isSubmitted() && $form->isValid())
+//        {
+//            $application->setUser($user);
+//            $this->getDoctrine()->getManager()->persist($application);
+//            $this->getDoctrine()->getManager()->flush();
+//            $this->addFlash('success', 'Votre candidature est bien prise en compte. Veuillez patienter pour obtenir une réponse.');
+//        }
+//        return $this->render('interface/naturaliste.html.twig', [
+//            'application' => $form->createView(),
+//            'appStatut' => $appStatut
+//        ]);
+    }
+
+    /**
      * @Route("/interface/candidatures/{page}", requirements={"page" = "\d+"}, name="nao_interface_candidatures")
      * @param $page
      * @return \Symfony\Component\HttpFoundation\Response

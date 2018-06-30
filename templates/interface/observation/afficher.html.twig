@@ -31,14 +31,14 @@
                     <div class="col-12">
                         <nav aria-label="breadcrumb">
                           <ol class="breadcrumb">
-                          {% if 'observations' in app.request.headers.get('referer') %}
+                          {% if '/observations/' in app.request.headers.get('referer') %}
                             <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Liste des observations</a></li>
-                            {% elseif 'validations' in app.request.headers.get('referer') %}
+                            {% elseif '/validations/' in app.request.headers.get('referer') %}
                             <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Validations</a></li>
-                            {% elseif 'user' in app.request.headers.get('referer') %}
+                            {% elseif '/user/' in app.request.headers.get('referer') %}
                             <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Utilisateur</a></li>
-                            {% elseif 'mes-observations' in app.request.headers.get('referer') %}
-                            <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Mes Observations</a></li>
+                            {% elseif '/mes-observations/' in app.request.headers.get('referer') %}
+                            <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Mes observations</a></li>
                           {% endif %}
                             <li class="breadcrumb-item active" aria-current="page">Fiche observation</li>
                           </ol>

@@ -26,7 +26,7 @@ class ObservationController extends Controller
      * @param $page
      * @return array
      */
-    public function indexAction($page)
+    public function obsListShow($page)
     {
         $em = $this->getDoctrine()->getManager();
         $observations = $em->getRepository(Observation::class)->findObservationsPublished($page);
@@ -48,6 +48,40 @@ class ObservationController extends Controller
             'pagination' => $pagination,
         );
     }
+
+    /**
+     * List of observations by pages
+     * @Route("mes-observations/{page}", requirements={"page" = "\d+"}, name="mes_observations")
+     * @Template("interface/mes-observations.html.twig")
+     * @param $page
+     * @return array
+     */
+    public function obsMyListShow($page)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $observations = $em->getRepository(Observation::class)->findAllObsByUser($page, $user->getId());
+        $nbObservations = $em->getRepository(Observation::class)->getCountOfAllByUser($user->getId());
+
+        $nbPages = ceil($nbObservations / 10);
+
+
+        if($page != 1 && $page > $nbPages)
+        {
+            throw new NotFoundHttpException("La page que vous essayez d'atteindre n'existe pas");
+        }
+        $pagination = [
+            'page' => $page,
+            'nbPages' => $nbPages,
+            'nbObservations' => $nbObservations
+        ];
+        return array(
+            'observations' => $observations,
+            'pagination' => $pagination,
+        );
+    }
+
     /**
      * @Route("observation/ajouter", name="obs_ajouter")
      * @Template("interface/observation/ajouter.html.twig")

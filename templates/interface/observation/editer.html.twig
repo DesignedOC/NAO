@@ -21,10 +21,8 @@
                     <div class="col-12">
                         <nav aria-label="breadcrumb">
                           <ol class="breadcrumb">
-                          {% if 'validations' in app.request.headers.get('referer') %}
+                          {% if '/validations/' in app.request.headers.get('referer') %}
                             <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Validations</a></li>
-                            {% elseif 'mes-observations' in app.request.headers.get('referer') %}
-                            <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Mes Observations</a></li>
                           {% endif %}
                             <li class="breadcrumb-item active" aria-current="page">Editer</li>
                           </ol>
