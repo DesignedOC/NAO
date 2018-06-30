@@ -1,4 +1,3 @@
-
 {% extends 'base.html.twig' %}
 {% block description %}{% endblock %}
 {% block stylesheets %}
@@ -147,7 +146,7 @@
                                             '<span class="date-pub">- Validé le'+locations[count].date+'</span></p><hr>'+
                                             '<img src="" alt="">'+
                                             '<p>'+locations[count].description+'</p>'+
-                                            '<div class="card-footer text-center"><a href="{{ path('nao_interface_obs_afficher', {'id':1}) }}" class="btn btn-primary text-center">Fiche observation</a></div>'+
+                                            '<div class="card-footer text-center"><a href="{{ path('fos_user_registration_register', {'id':1}) }}" class="btn btn-primary text-center">Nous rejoindre</a></div>'+
                                             '</div>'+
                                             '</div>';
                                     infowindow.setContent(contentString);
@@ -210,15 +209,7 @@
         }
     </script>
 
-     <script>
-        var isGranted = false;
-        {% if app.user %}
-            isGranted = true;
-        {% endif %}
-
-        var searchUrl = "{{path('nao_interface_map_search')  }}";
-   
-    </script>
+     
 
 <script src="{{ asset('build/js/front.js') }}"></script>
        
