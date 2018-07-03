@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
     <a class="navbar-brand" href="{{ path('nao_interface') }}">Dashboard</a>
     <div class="search ml-lg-5 mr-auto">
-        <form class="form-inline my-0 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Trouver des utilisateurs et des observations" aria-label="Search">
+        <form class="form-inline my-0 my-lg-0" action="{{ path('nao_interface_search') }}">
+            <input class="form-control mr-sm-2" type="text" name="q" placeholder="Trouver des utilisateurs sur la plateforme" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Recherche</button>
         </form>
     </div>
@@ -59,9 +59,9 @@
 </div>
 <div class="collapse" id="search-collapse">
     <div class="search-fix">
-            <form role="search" method="get" class="search-form" action="#">
-                <input type="search" class="search-field form-control" placeholder="Rechercher..." title="Search for:">
-                <button class="btn btn-primary-custom" name="submit" type="submit"><i class="material-icons">search</i></button>
+            <form role="search" method="get" class="search-form" action="{{ path('nao_interface_search') }}">
+                <input type="search" name="q" class="search-field form-control" placeholder="Chercher des utilisateurs..." title="Search for:">
+                <button class="btn btn-primary-custom" type="submit"><i class="material-icons">search</i></button>
             </form>
     </div>
 </div>

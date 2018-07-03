@@ -1,8 +1,11 @@
 <?php
 namespace App\Controller;
 use App\Entity\Bird;
+use App\Entity\Player;
+use App\Entity\Tournament;
 use App\Form\ObservationEditType;
 use App\Services\MailerManager;
+use App\Services\TournamentManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,7 +53,7 @@ class ObservationController extends Controller
     }
 
     /**
-     * List of observations by pages
+     * List of observations by pages of the current user
      * @Route("mes-observations/{page}", requirements={"page" = "\d+"}, name="mes_observations")
      * @Template("interface/mes-observations.html.twig")
      * @param $page
@@ -105,7 +108,7 @@ class ObservationController extends Controller
             $observation->setUser($currentUser);
             $em->persist($observation);
             $em->flush();
-            return $this->redirectToRoute("nao_interface_observations", ['page' => 1]);
+            return $this->redirectToRoute("nao_interface_mes_observations", ['page' => 1]);
         }
         return array(
             'form' => $form->createView(),
@@ -117,9 +120,10 @@ class ObservationController extends Controller
      * @Template("interface/observation/editer.html.twig")
      * @param Request $request
      * @param $id
+     * @param TournamentManager $tournamentManager
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function editAction(Request $request, $id)
+    public function editAction(Request $request, $id, TournamentManager $tournamentManager)
     {
         $this->denyAccessUnlessGranted('ROLE_NATURALIST', null, 'Vous ne pouvez pas accéder à cette page');
 
@@ -137,8 +141,8 @@ class ObservationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $observation->setStatut(2);
+            $tournamentManager->addPointsToTournament($observation->getUser());
             $em->persist($observation);
             $em->flush();
             $this->addFlash('success', 'Vous avez correctement modifié et validé une observation');
@@ -152,12 +156,13 @@ class ObservationController extends Controller
 
     /**
      * @Route("observation/statut/{id}/{statut}", requirements={"id" = "\d+", "statut" = "\d+"}, name="obs_statut")
-     * @param MailerManager $mailerManager
      * @param $id
      * @param $statut
+     * @param MailerManager $mailerManager
+     * @param TournamentManager $tournamentManager
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function statutAction($id, $statut, MailerManager $mailerManager)
+    public function statutAction($id, $statut, MailerManager $mailerManager, TournamentManager $tournamentManager)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -175,6 +180,7 @@ class ObservationController extends Controller
         if($statut == 2)
         {
             $observation->setStatut(2);
+            $tournamentManager->addPointsToTournament($observation->getUser());
             $em->persist($observation);
             $em->flush();
             $this->addFlash('success', 'Vous avez correctement validé une observation');
