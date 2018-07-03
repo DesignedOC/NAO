@@ -59,7 +59,7 @@ class BirdController extends Controller
 
     /**
      * Autocomplete pour le nomVern
-     * @Route("/bird/lb-nom/autocomplete", name="bird_nomvern_autocomplete")
+     * @Route("/bird/nom-vern/autocomplete", name="bird_nomvern_autocomplete")
      * @param Request $request
      * @return JsonResponse
      */
@@ -72,7 +72,7 @@ class BirdController extends Controller
         $birds = $em->getRepository(Bird::class)->findBirdByNomVern($term);
 
         foreach ($birds as $bird) {
-            $nomVerns[] = $bird->getLbNom();
+            $nomVerns[] = $bird->getNomVern();
         }
         return new JsonResponse($nomVerns);
     }
