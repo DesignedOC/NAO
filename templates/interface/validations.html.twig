@@ -30,24 +30,25 @@
                         {% endif %}
                     {% endfor %}
                     <p class="text-muted">Vous êtes naturaliste, ce qui implique de contribuer à la vérification et la validation des observations postées.</p>
+                    <div class="responsive-table-line">
                     <table class="table table-hover table-responsive-sm">
                         <thead class="thead-dark">
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Utilisateur</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Actions</th>
+                            <th data-title="ID">#</th>
+                            <th data-title="Utilisateur" scope="col">Utilisateur</th>
+                            <th data-title="Date" scope="col">Date</th>
+                            <th data-title="Status" scope="col">Status</th>
+                            <th data-title="Actions" scope="col">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for observation in observations %}
                         <tr>
-                            <th scope="row">{{ observation.id }}</th>
-                            <td><a href="{{ path('nao_interface_profile', {'username' : observation.user.username }) }}">{{ observation.user.username|capitalize }}</a></td>
-                            <td>{{ observation.date|date("d/m/Y") }}</td>
-                            <td>{% if observation.statut == 1 %} En attente{% endif %}</td>
-                            <td>
+                            <td data-title="ID">{{ observation.id }}</td>
+                            <td data-title="Utilisateur" scope="row"><a href="{{ path('nao_interface_profile', {'username' : observation.user.username }) }}">{{ observation.user.username|capitalize }}</a></td>
+                            <td data-title="Date">{{ observation.date|date("d/m/Y") }}</td>
+                            <td data-title="Status">{% if observation.statut == 1 %} En attente{% endif %}</td>
+                            <td data-title="Actions">
                                 <div class="dropdown show">
                                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Validator
@@ -62,6 +63,7 @@
                         {% endfor %}
                         </tbody>
                     </table>
+                    </div>
                     {% if observations is empty %}
                         <p class="text-muted text-center">Vous n'avez pas encore d'observation à valider</p>
                     {% endif %}

@@ -30,25 +30,25 @@
                         {% endif %}
                     {% endfor %}
                     <p class="text-muted">En tant que naturaliste, vous allez l'opportunité de décider quels seront les prochains membres à devenir naturaliste.</p>
-                    <div class="">
+                    <div class="responsive-table-line">
                     <table class="table table-hover table-responsive-sm">
                         <thead class="thead-dark">
                         <tr>
                             <th scope="col" data-title="Id">#</th>
                             <th scope="col" data-title="Utilisateur">Utilisateur</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Détails</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col" data-title="Date">Date</th>
+                            <th scope="col" data-title="Détails">Détails</th>
+                            <th scope="col" data-title="Actions">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for application in applications %}
                         <tr>
-                            <th scope="row" data-title="Id">{{ application.id }}</th>
-                            <td><a href="{{ path('nao_interface_profile', {'username' : application.user.username }) }}">{{ application.user.username|capitalize }}</a></td>
-                            <td>{{ application.date|date("d/m/Y") }}</td>
-                            <td><a href="#" data-username="{{ application.user.username }}" data-description="{{ application.description }}" data-experience="{{ application.experience }}" data-toggle="modal" class="d-link" data-target="#myModal" onclick="getData(this);">Candidature</a></td>
-                            <td>
+                            <td scope="row" data-title="Id">{{ application.id }}</td>
+                            <td data-title="Utilisateur"><a href="{{ path('nao_interface_profile', {'username' : application.user.username }) }}">{{ application.user.username|capitalize }}</a></td>
+                            <td data-title="Date">{{ application.date|date("d/m/Y") }}</td>
+                            <td data-title="Détails"><a href="#" data-username="{{ application.user.username }}" data-description="{{ application.description }}" data-experience="{{ application.experience }}" data-toggle="modal" class="d-link" data-target="#myModal" onclick="getData(this);">Candidature</a></td>
+                            <td data-title="Actions">
                                 <a href="{{ path('nao_interface_app_edit', {'username': application.user.username, 'id': application.id, 'statut': 2 }) }}"><i class="fas fa-check-circle" style="vertical-align: middle; font-size: 1.3em;color: #1bbb1b;"></i></a>
                                 <a href="{{ path('nao_interface_app_edit', {'username': application.user.username, 'id': application.id, 'statut': 1 }) }}"><i class="fas fa-times-circle" style="vertical-align: middle; font-size: 1.3em;color: #cc1313;"></i></a>
                             </td>
