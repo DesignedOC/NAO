@@ -121,9 +121,13 @@ class ObservationController extends Controller
      * @param Request $request
      * @param $id
      * @param TournamentManager $tournamentManager
+     * @param MailerManager $mailerManager
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function editAction(Request $request, $id, TournamentManager $tournamentManager)
+    public function editAction(Request $request, $id, TournamentManager $tournamentManager, MailerManager $mailerManager)
     {
         $this->denyAccessUnlessGranted('ROLE_NATURALIST', null, 'Vous ne pouvez pas accéder à cette page');
 
@@ -143,6 +147,7 @@ class ObservationController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $observation->setStatut(2);
             $tournamentManager->addPointsToTournament($observation->getUser());
+            $mailerManager->sendConfirmObservation($observation->getUser(), $observation);
             $em->persist($observation);
             $em->flush();
             $this->addFlash('success', 'Vous avez correctement modifié et validé une observation');
@@ -161,6 +166,9 @@ class ObservationController extends Controller
      * @param MailerManager $mailerManager
      * @param TournamentManager $tournamentManager
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function statutAction($id, $statut, MailerManager $mailerManager, TournamentManager $tournamentManager)
     {
@@ -181,6 +189,7 @@ class ObservationController extends Controller
         {
             $observation->setStatut(2);
             $tournamentManager->addPointsToTournament($observation->getUser());
+            $mailerManager->sendConfirmObservation($observation->getUser(), $observation);
             $em->persist($observation);
             $em->flush();
             $this->addFlash('success', 'Vous avez correctement validé une observation');
@@ -190,6 +199,7 @@ class ObservationController extends Controller
         if($statut == 0)
         {
             $observation->setStatut(0);
+            $mailerManager->sendDeclinedObservation($observation->getUser(), $observation);
             $em->persist($observation);
             $em->flush();
             $this->addFlash('info', 'Vous avez correctement rejeté cette observation');

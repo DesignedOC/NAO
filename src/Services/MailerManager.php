@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Entity\Observation;
 use App\Entity\User;
 
 class MailerManager {
@@ -26,6 +27,49 @@ class MailerManager {
         $this->mailer = $mailer;
         $this->templating = $templating;
     }
+
+    /**
+     * @param User $user
+     * @param Observation $observation
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function sendConfirmObservation(User $user, $observation)
+    {
+        if($user->isObsEmail() == 1)
+        {
+            $subject = 'Validation de votre observation';
+            $from = MailerManager::mail;
+            $to = $user->getEmail();
+            $body = $this->templating->render('mails/observation/validation.html.twig', [
+                'user' => $user, 'observation' => $observation
+            ]);
+            $this->send($subject, $from, $to, $body);
+        }
+    }
+
+    /**
+     * @param User $user
+     * @param $observation
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function sendDeclinedObservation(User $user, $observation)
+    {
+        if($user->isObsEmail() == 1)
+        {
+            $subject = 'Refus de votre observation';
+            $from = MailerManager::mail;
+            $to = $user->getEmail();
+            $body = $this->templating->render('mails/observation/declined.html.twig', [
+                'user' => $user, 'observation' => $observation
+            ]);
+            $this->send($subject, $from, $to, $body);
+        }
+    }
+
     /**
      * Send Contact from Contact Form
      *
