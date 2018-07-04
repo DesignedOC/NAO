@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Bird;
+use App\Entity\Observation;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Services\TaxrefBaseImport;
@@ -93,4 +94,18 @@ class BirdController extends Controller
             'controller_name' => 'BirdController',
         ]);
      }
+
+    /**
+     * @Route("map-search", name="map_search")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function searchBirdMap(Request $request)
+    {
+        $birdNomVern = $request->get('nomVern');
+//        $birdNomVern = 'blablabla';
+        $em = $this->getDoctrine()->getManager();
+        $observations = $em->getRepository(Observation::class)->findBirdWithObservation($birdNomVern);
+        return new JsonResponse($observations);
+    }
 }
