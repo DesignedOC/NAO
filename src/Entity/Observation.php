@@ -4,6 +4,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+
 /**
  * @ORM\Table(name="nao_observ")
  * @ORM\Entity(repositoryClass="App\Repository\ObservationRepository")

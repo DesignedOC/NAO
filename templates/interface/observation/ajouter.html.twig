@@ -2,14 +2,13 @@
 {% block description %}{% endblock %}
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
-
-
-
-
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 <link rel="stylesheet" href="{{ asset('build/js/observAutocomplete.css') }}">
 
-
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
 
 <style>
@@ -114,33 +113,39 @@
                     {{ form(form) }}
                 </div>
                 <div class="col-lg-6">
-                
-                    <h5>La carte vous géolocalise automatiquement. Voici votre position actuelle :</h1>
+                    <h5>La carte vous géolocalise automatiquement. Voici votre position actuelle :</h5>
+
                     <div id="map"></div>
                 </div>
          
     <script>
 var map, infoWindow, marker;
-      function initMap() {
-          //CREATION MAP
-          var myLatLng = {lat: -34.397, lng: 150.644};
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: myLatLng,
-          zoom: 6
-        });
-          //CREATION INFOWINDOW
-       
-         infoWindow = new google.maps.InfoWindow({pixelOffset: new google.maps.Size(0, -35)});
-          //CREATION MARKER
-         marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: map,
-                    title: 'Hello World!',
-                    draggable:true
-                });
+function initMap() {
 
-        // GEOLOCALISATIOB
+    //CREATION MAP
+
+    var myLatLng = {lat: 46.227638, lng: 2.213749000000007};
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: myLatLng,
+        zoom: 6
+    });
+
+    //CREATION INFOWINDOW
+
+    infoWindow = new google.maps.InfoWindow({pixelOffset: new google.maps.Size(0, -35)});
+
+    //CREATION MARKER
+    marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        //  title: 'Hello World!',
+        // empecher de bouger le marqueur quand on est geolocalisé
+       // draggable:true
+    });
+        // GEOLOCALISATION
+
         if (navigator.geolocation) {
+
           navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
               lat: position.coords.latitude,
@@ -149,29 +154,68 @@ var map, infoWindow, marker;
               
               document.getElementById('observation_latitude').value = pos.lat;
               document.getElementById('observation_longitude').value = pos.lng;
-              
+
+
             marker.setPosition(pos);
-                var contentString = "Vous êtes ici.";
+            var contentString = "Vous êtes ici.";
             infoWindow.setPosition(pos);
             infoWindow.setContent(contentString);
             infoWindow.open(map);
             map.setCenter(pos);
           }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
+           handleLocationError(true, infoWindow, map.getCenter());
           });
+
         } else {
+
           // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
+            //document.getElementById('message').value ='';
+            handleLocationError(false, infoWindow, map.getCenter());
+
         }
+
       }
 
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
+
+
+          infoWindow.setPosition(pos);
+          infoWindow.setContent(browserHasGeolocation ?
+              'Error: The Geolocation service failed.' :
+              'Error: Your browser doesn\'t support geolocation.');
+          infoWindow.open(map);
+
+          window.onload=function(){
+              var map;
+              function initialize() {
+                  var myLatlng = new google.maps.LatLng(46.227638, 2.213749000000007);
+
+                  var myOptions = {
+                      zoom: 6,
+                      center: myLatlng,
+                    //  mapTypeId: google.maps.MapTypeId.ROADMAP
+                  };
+                  map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+                  var marker = new google.maps.Marker({
+                      draggable: true,
+                      position: myLatlng,
+                      map: map,
+                      title: "Choisir la localisation de l\'oiseau"
+                  });
+
+                  google.maps.event.addListener(marker, 'dragend', function (event) {
+                      document.getElementById("observation_latitude").value = event.latLng.lat();
+                      document.getElementById("observation_longitude").value = event.latLng.lng();
+                      infoWindow.open(map, marker);
+                  });
+              }
+              google.maps.event.addDomListener(window, "load", initialize());
+          }
+
       }
+
+
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB1pM1lEVpFhq3Fne8yzNchvi0FNheYoY&callback=initMap">
@@ -186,6 +230,6 @@ var map, infoWindow, marker;
 var lbNomUrl = "{{ path('bird_lbnom_autocomplete') }}";
 var vernNomUrl = "{{ path('bird_nomvern_autocomplete') }}";
     </script>
-     <script src="{{ asset('assets/js/geolocation.js') }}"></script>
+   {#  <script src="{{ asset('assets/js/geolocation.js') }}"></script>#}
  <script src="{{ asset('build/js/observAutocomplete.js') }}"></script>
  {% endblock %}
