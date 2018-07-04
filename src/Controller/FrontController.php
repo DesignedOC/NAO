@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Entity\Observation;
 use App\Form\ContactType;
 use App\Services\MailerManager;
 use App\Services\MainManager;
@@ -93,5 +95,19 @@ class FrontController extends Controller
         return $this->render('front/contact.html.twig', [
             'contact' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("map-search", name="map_search")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function searchBirdMap(Request $request)
+    {
+        $birdNomVern = $request->get('nomVern');
+//        $birdNomVern = 'blablabla';
+        $em = $this->getDoctrine()->getManager();
+        $observations = $em->getRepository(Observation::class)->findBirdWithObservation($birdNomVern);
+        return new JsonResponse($observations);
     }
 }
