@@ -219,7 +219,7 @@ class Observation
     /**
      * @return user
      */
-    public function getUser()
+    public function getUser() : User
     {
         return $this->user;
     }
@@ -277,7 +277,10 @@ class Observation
         $this->updatedAt = $updatedAt;
         return $this;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getLibelleStatut()
     {
         switch ($this->statut) {

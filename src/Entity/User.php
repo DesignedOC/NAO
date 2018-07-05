@@ -72,16 +72,6 @@ class User extends BaseUser
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Observation", mappedBy="user", cascade = {"remove"})
-     */
-    private $observations;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Application", mappedBy="user")
-     */
-    private $applications;
-
-    /**
      * Get Email every time your observation is acccepted
      * @ORM\Column(name="usr_obsemail", type="boolean", nullable=true)
      * @var Boolean
@@ -101,6 +91,21 @@ class User extends BaseUser
      * @var Boolean
      */
     private $newsletter;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Observation", mappedBy="user", cascade = {"remove"})
+     */
+    private $observations;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Player", mappedBy="user")
+     */
+    private $players;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Application", mappedBy="user")
+     */
+    private $applications;
 
     /**
      * User constructor.
@@ -277,6 +282,31 @@ class User extends BaseUser
     public function removeObservation(Observation $observation)
     {
         $this->observations->removeElement($observation);
+    }
+
+    /**
+     * @return Collection|Player[]
+     */
+    public function getPlayer() : Collection
+    {
+        return $this->players;
+    }
+
+    /**
+     * @param Player $player
+     */
+    public function addPlayer(Player $player)
+    {
+        $this->players[] = $player;
+        $player->setUser($this);
+    }
+
+    /**
+     * @param Player $player
+     */
+    public function removePlayer(Player $player)
+    {
+        $this->players->removeElement($player);
     }
 
     /**

@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use App\Entity\Application;
 use App\Entity\Observation;
+use App\Entity\Player;
+use App\Entity\Tournament;
 use App\Entity\User;
 use App\Form\NaturalistType;
 use App\Form\SettingsFormType;
@@ -102,22 +104,33 @@ class InterfaceController extends Controller
 
         $user = $this->getUser();
 
-        $appStatut = $mainManager->getApplicationByStatut($user);
+        $em = $this->getDoctrine()->getManager();
 
-        $application = new Application();
-        $form = $this->createForm(NaturalistType::class, $application);
-        $form->handleRequest($request);
-//        if ($form->isSubmitted() && $form->isValid())
-//        {
-//            $application->setUser($user);
-//            $this->getDoctrine()->getManager()->persist($application);
-//            $this->getDoctrine()->getManager()->flush();
-//            $this->addFlash('success', 'Votre candidature est bien prise en compte. Veuillez patienter pour obtenir une réponse.');
-//        }
-//        return $this->render('interface/naturaliste.html.twig', [
-//            'application' => $form->createView(),
-//            'appStatut' => $appStatut
-//        ]);
+        $lastTn = $em->getRepository(Tournament::class)->findLastTournament();
+        $players = $em->getRepository(Player::class)->findTopTenByTournament($lastTn);
+
+        return $this->render('interface/classement.html.twig', [
+            'lastTn' => $lastTn,
+            'players' => $players
+        ]);
+    }
+
+    /**
+     * @Route("/interface/recherche", name="nao_interface_search")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function searchAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $q = $request->get('q');
+
+        $results = $em->getRepository(User::class)->findUserBySearch($q);
+
+        return $this->render('interface/search.html.twig', [
+            'results' => $results,
+            'q' => $q
+        ]);
     }
 
     /**
