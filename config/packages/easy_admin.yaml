@@ -12,6 +12,8 @@ easy_admin:
             - { entity: 'User', icon: 'user', label: 'Utilisateurs', default: true }
             - { label: 'Gestion des observations' }
             - { entity: 'Observation', icon: 'binoculars', label: 'Observation' }
+            - { label: 'Gestion des Tournois' }
+            - { entity: 'Tournament', icon: 'binoculars', label: 'Tournois' }
             - { label: 'Gestion des espèces' }
             - { entity: 'Bird', icon: 'themeisle', label: 'Oiseaux' }
             - { label: 'Base de données' }
@@ -165,6 +167,53 @@ easy_admin:
                     - { property: 'bird', label: 'Oiseau'}
                     - { property: 'picture' ,type: 'image', base_path: '%app.path.observations%'}
                     - { property: 'description'}
+
+
+        Tournament:
+            disabled_actions: ['delete', 'edit']
+            class: App\Entity\Tournament
+            help: 'Le dernier tournoi en date est utilisé comme tournoi principal sur la page "classement" du site.'
+            list:
+                 title:  'Gestion des tournois'
+                 actions:
+                      - { name: 'fermer' }
+                      - { name: 'new', label: 'Créer un Tournoi'}
+                 fields:
+                       - { property: 'id'}
+                       - { property: 'title', label: 'Nom du tournoi'}
+                       - { property: 'startDate', label: 'Date de début'}
+                       - { property: 'endDate', label: 'Date de fin'}
+                       - { property: 'active', label: 'Actif', type: 'boolean'}
+                       - { property: 'players', label: 'Participants'}
+            new:
+                 title: 'Ajouter un tournoi'
+                 fields:
+                      - { type: 'group', css_class: 'col-sm-6'}
+                      - { property: 'title', label: 'Nom du tournoi :'}
+                      - { property: 'rules', label: 'Les règles du tournoi :'}
+                      - { property: 'endNote',
+                          type: 'choice',
+                          type_options: {
+                                  choices: {
+                                  '1 jour':'1 jour',
+                                  '2 jours':'2 jours',
+                                  '3 jours':'3 jours',
+                                  '4 jours':'4 jours',
+                                  '5 jours':'5 jours',
+                                  '6 jours':'6 jours',
+                                  'Une semaine':'Une semaine',
+                                  '15 jours':'15 jours',
+                                  'Deux semaines':'Deux semaines',
+                                  'Trois semaines':'Trois semaines',
+                                  'Un mois':'Un mois',
+                                  'Deux mois':'Deux mois',
+                                  'Trois mois':'Trois mois',
+                                  'Six mois':'Six mois',
+                                  'Une année':'Une année'
+                          }},
+                          label: 'Durée du tournoi :',
+                          help: 'Ajouter une date de fin ne signifie pas que le tournoi va se fermer automatiquement. Vous devez fermer manuellement ce tournoi depuis la liste des tournois.'}
+
 
         Bird:
             disabled_actions: ['delete']
