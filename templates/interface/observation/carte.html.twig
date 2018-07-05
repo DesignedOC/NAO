@@ -32,33 +32,6 @@
 {% endblock %}
 
 {% block javascripts %}
-{{ parent() }}
-<script>
-        $(function() {
-            $( "#observation_bird_lbNom").autocomplete({
-                source: "{{ path('bird_lbnom_autocomplete') }}",
-                minLength: 2,
-                select: function( event, ui ) {
-                    $("#observation_bird_lbNom").val(ui.item.value);
-                    return false;
-                },
-                change: function (event, ui) {
-                    $( "#observation_bird_lbNom" ).val( ui.item ? ui.item.value : $(this).val() );
-                }
-            });
-            $( "#observation_bird_nomVern").autocomplete({
-                source: "{{ path('bird_nomvern_autocomplete') }}",
-                minLength: 2,
-                select: function( event, ui ) {
-                    $("#observation_bird_nomVern").val(ui.item.value);
-                    return false;
-                },
-                change: function (event, ui) {
-                    $( "#observation_bird_nomVern" ).val( ui.item? ui.item.value : $(this).val() );
-                }
-            });
-        });
-    </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB1pM1lEVpFhq3Fne8yzNchvi0FNheYoY"></script>
     <script src="{{ asset('build/js/app.js') }}"></script>
     <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
@@ -79,12 +52,9 @@
                     data: {"nomVern": nomVern},
                     async: true,
                     success: function (data) {
-//                        initMap();
                         console.log(data);
                         locations = data;
                         for (var count = 0; count < data.length; count++) {
-                            {#var showPath = "{{ path('observation_afficher', {'id':locations[count].id\"}) }}";#}
-//                            console.log(showPath);
                             marker = new google.maps.Marker({
                                 position: new google.maps.LatLng(locations[count].latitude, locations[count].longitude),
                                 map: map,
@@ -125,23 +95,7 @@
                 zoom: 6,
                 mapTypeId:google.maps.MapTypeId.ROADMAP
             });
-//            marker = new google.maps.Marker({
-//                position: center,
-//                map: map,
-//                title: 'Lima'
-//            });
             infowindow =  new google.maps.InfoWindow({});
-//            var contentString = '<div id="content" class="card">'+
-//                    '<div id="bodyContent" class="card-body">'+
-//                    '<p id="title" class="card-title title">Titre</p>'+
-//                    '<p id="author" class="card-title author">Post� par <b>Auteur</b><span class="date-pub">- Valid� le 08/10/1991</span></p><hr>'+
-//                    '<img src="" alt="">'+
-//                    '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, provident. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, sint!</p>'+
-//                    '<div class="card-footer text-center"><a href="#" class="btn btn-primary text-center">Fiche observation</a></div>'+
-//                    '</div>'+
-//                    '</div>';
-//            infowindow.setContent(contentString);
-//            infowindow.open(map, marker);
             google.maps.event.addListener(infowindow, 'domready', function() {
                 var iwOuter = $('.gm-style-iw');
                 var iwBackground = iwOuter.prev();

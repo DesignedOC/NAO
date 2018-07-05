@@ -146,7 +146,7 @@ class Bird
 
     public function __toString()
     {
-        return $this->getNomVern();
+        return $this->getNomVern(). ' - '.$this->getLbNom();
     }
 
     public function getId()
