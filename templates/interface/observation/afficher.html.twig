@@ -29,24 +29,26 @@
                 <div class="row">
                     {% if app.request.headers.get('referer') %}
                     <div class="col-12">
-                        <nav aria-label="breadcrumb">
-                          <ol class="breadcrumb">
-                          {% if '/observations/' in app.request.headers.get('referer') %}
-                            <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Liste des observations</a></li>
-                            {% elseif '/validations/' in app.request.headers.get('referer') %}
-                            <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Validations</a></li>
-                            {% elseif '/user/' in app.request.headers.get('referer') %}
-                            <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Utilisateur</a></li>
-                            {% elseif '/mes-observations/' in app.request.headers.get('referer') %}
-                            <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Mes observations</a></li>
-                          {% endif %}
-                            <li class="breadcrumb-item active" aria-current="page">Fiche observation</li>
-                          </ol>
-                        </nav>
+                        <div class="col-12 col-md-12 col-lg-12 col-xl-8 pl-0 pr-0">
+                            <nav aria-label="breadcrumb">
+                              <ol class="breadcrumb">
+                              {% if '/observations/' in app.request.headers.get('referer') %}
+                                <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Liste des observations</a></li>
+                                {% elseif '/validations/' in app.request.headers.get('referer') %}
+                                <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Validations</a></li>
+                                {% elseif '/user/' in app.request.headers.get('referer') %}
+                                <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Utilisateur</a></li>
+                                {% elseif '/mes-observations/' in app.request.headers.get('referer') %}
+                                <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Mes observations</a></li>
+                              {% endif %}
+                                <li class="breadcrumb-item active" aria-current="page">Fiche observation</li>
+                              </ol>
+                            </nav>
+                        </div>
                     </div>
                     {% endif %}
                     <div class="col-12">
-                        <div class="col-12 col-md-12 col-lg-8 custom-box">
+                        <div class="col-12 col-md-12 col-lg-12 col-xl-8 custom-box">
                                 <h1 class="h1box"><i class="fas fa-map-marker-alt marker-alt" ></i>Observation #{{ observation.id }} <span class="{% if observation.statut == 2 %}ico-obs-g{% elseif observation.statut == 1 %}ico-obs-b{% elseif observation.statut == 0 %}ico-obs-r{% endif %} float-right"><i class="fas fa-leaf"></i></span></h1>
                             <div class="row">
                             <div class="col-md-4">

@@ -14,16 +14,16 @@
     <div class="main-content">
         <div class="row">
             <div class="col-12">
-                <div class="col-md-12 col-lg-6 custom-box">
+                <div class="col-md-12 col-lg-12 col-xl-6 custom-box">
                     <h1 class="h1box"><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">timer</i>Classement</h1>
                     {% if lastTn %}
                         <div class="row">
                             <div class="col-12">
                                 <p>Tournoi en cours : <strong>{{ lastTn.title }}</strong></p>
                             </div>
-                            <div class="col-md-12 col-lg-12">
-                                <p>Date de début : <strong>{{ lastTn.startDate|date("d/m/Y") }}</strong></p>
-                                <p>Durée du tournoi : <strong>{{ lastTn.endNote }}</strong></p>
+                            <div class="col-12">
+                                <p>Date de début : <strong>{{ lastTn.startDate|date("d/m/Y") }}</strong> - Durée du tournoi : <strong>{{ lastTn.endNote }}</strong></p>
+                                <p><a href="#" data-rules="{{ lastTn.rules }}" data-toggle="modal" class="d-link" data-target="#myModal" onclick="getData(this);">Règlement du tournoi</a></p>
                             </div>
                         </div>
                     <div class="responsive-table-line">
@@ -72,8 +72,33 @@
          </div>
     </div>
 </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Règlement du tournoi <span class="app-username"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="app-rules"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Fermer</button>
+                 </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('build/js/app.js') }}"></script>
+    <script type="application/javascript">
+        function getData(obj){
+            var rules = obj.getAttribute('data-rules');
+            var appRules = document.querySelector(".app-rules");
+            appRules.textContent = rules;
+        }
+    </script>
 {% endblock %}

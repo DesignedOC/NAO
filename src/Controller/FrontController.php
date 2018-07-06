@@ -36,11 +36,10 @@ class FrontController extends Controller
     {
         $observations = $mainManager->getAllCountObservations();
         $birds = $mainManager->getAllCountBirds();
-        dump($birds);
 
         return $this->render('front/association.html.twig',[
                'observations' => $observations,
-                'birds' => $birds
+               'birds' => $birds
         ]);
     }
 
