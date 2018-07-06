@@ -1,8 +1,11 @@
-<h1>Bonjour {{ player.user.username }}</h1>
+{% extends 'mails/layout.html.twig' %}
 
-<p>Bravo ! Vous avez terminé à la deuxième place du tournoi "{{ tournament.title }}" se déroulant du {{ tournament.startDate|date("d/m/Y") }} au {{ tournament.endDate|date("d/m/Y") }}. </p>
-<p>N'hésitez pas à consulter la page classement pour voir les nouveaux tournois.</p>
-
-L'ensemble de l'équipe<br>
-Nos Amis les Oiseaux
+{% block body %}
+    <tr>
+        <td align="center" class="text-one">Bonjour {{ player.user.username }}</td>
+    </tr>
+    <tr>
+        <td align="center"  class="text-two">Bravo ! Vous avez terminé à la deuxième place du tournoi "<strong>{{ tournament.title }}</strong>" se déroulant du <strong>{{ tournament.startDate|date("d/m/Y") }}</strong> au <strong>{{ tournament.endDate|date("d/m/Y") }}</strong>. <br>N'hésitez pas à consulter la page classement pour voir les nouveaux tournois.</td>
+    </tr>
+{% endblock %}
 
