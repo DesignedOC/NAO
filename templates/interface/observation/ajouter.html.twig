@@ -3,7 +3,7 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/js/observAutocomplete.css') }}">
+   <link rel="stylesheet" href="{{ asset('build/js/observAutocomplete.css') }}">
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -123,7 +123,25 @@
                     <div id="map"></div>
                 </div>
 
+
                 <script>
+                    $(function() {
+                        $( "#observation_bird_nomVern").autocomplete({
+                            source: "{{ path('bird_nomvern_autocomplete') }}",
+                            minLength: 10,
+                            select: function( event, ui ) {
+                                $("#observation_bird_nomVern").val(ui.item.value);
+                                return false;
+                            },
+                            change: function (event, ui) {
+                                $( "#observation_bird_nomVern" ).val( ui.item? ui.item.value : $(this).val() );
+                            }
+                        });
+
+                    });
+                </script>
+                <script>
+
                     var map, infoWindow, marker;
 
                     function initMap() {
@@ -194,6 +212,7 @@
 
 
                 </script>
+
                 <script async defer
                         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB1pM1lEVpFhq3Fne8yzNchvi0FNheYoY&callback=initMap">
                 </script>
@@ -204,10 +223,9 @@
 {% endblock %}
  {% block javascripts %}
      <script>
-
-         var lbNomUrl = "{{ path('bird_lbnom_autocomplete') }}";
          var vernNomUrl = "{{ path('bird_nomvern_autocomplete') }}";
+         var lbNomUrl = "{{ path('bird_lbnom_autocomplete') }}";
      </script>
      {#  <script src="{{ asset('assets/js/geolocation.js') }}"></script>#}
-     <script src="{{ asset('build/js/observAutocomplete.js') }}"></script>
+  {#  <script src="{{ asset('build/js/observAutocomplete.js') }}"></script>#}
  {% endblock %}

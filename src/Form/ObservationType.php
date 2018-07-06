@@ -29,7 +29,8 @@ class ObservationType extends AbstractType
             ->add('longitude',HiddenType::class, array('label' => 'Ajouter la longitude : '))
             ->add('pictureFile',FileType::class, array('label' => 'Ajouter une photo de l\'oiseau : '))
             ->add('bird',EntityType::class, array(
-                'class' => Bird::class
+                'label' => 'Choisir l\'oiseau',
+                'class' => Bird::class,
             ))
             ->add('description', TextareaType::class, array('label' => 'Ajouter une courte description : '))
             ->add('save', SubmitType::class, array('label' => 'Valider votre saisie', 'attr' => array('class' => 'btn btn-custom mt-4')))

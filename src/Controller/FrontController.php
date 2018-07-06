@@ -32,7 +32,6 @@ class FrontController extends Controller
 
 
 
-
     /**
      * @Route("/association", name="nao_association")
      * @param MainManager $mainManager
@@ -105,7 +104,6 @@ class FrontController extends Controller
     public function searchBirdMap(Request $request)
     {
         $birdNomVern = $request->get('nomVern');
-//        $birdNomVern = 'blablabla';
         $em = $this->getDoctrine()->getManager();
         $observations = $em->getRepository(Observation::class)->findBirdWithObservation($birdNomVern);
         return new JsonResponse($observations);

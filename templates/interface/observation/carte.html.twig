@@ -23,6 +23,9 @@
         <div class="col-md-3">
             <button id="btn-valider" class="btn btn-primary btn-block">Valider</button>
         </div>
+        <div class="col-md-3">
+            <button id="clearMap" class="btn btn-default">Réinitialiser la carte</button>
+        </div>
     </div>
     <div class="row">
         <div class="map-container mt-5">
@@ -41,10 +44,15 @@
         var map, marker, infoWindow;
         var locations = [];
         var searchUrl = "{{ path('nao_interface_map_search')  }}";
+
+        $('#clearMap').click(function (data) {
+            data.preventDefault();
+            location.reload();
+        });
         $(function () {
             $(document).on('click', '#btn-valider', function () {
                 var nomVern = $('#input-nom-vern').val();
-                console.log(nomVern);
+                //console.log(nomVern);
                 $.ajax({
                     url: searchUrl,
                     type: "POST",
@@ -52,14 +60,16 @@
                     data: {"nomVern": nomVern},
                     async: true,
                     success: function (data) {
-                        console.log(data);
+                      //  console.log(data);
                         locations = data;
-                        for (var count = 0; count < data.length; count++) {
-                            marker = new google.maps.Marker({
-                                position: new google.maps.LatLng(locations[count].latitude, locations[count].longitude),
-                                map: map,
-                                title: locations[count].nomVern
-                            });
+
+                            for (var count = 0; count < data.length; count++) {
+                                marker = new google.maps.Marker({
+                                    position: new google.maps.LatLng(locations[count].latitude, locations[count].longitude),
+                                    map: map,
+                                    title: locations[count].nomVern
+                                });
+
                             google.maps.event.addListener(marker, 'click', (function (marker, count) {
                                 return function () {
                                     var contentString = '<div id="content" class="card">'+
