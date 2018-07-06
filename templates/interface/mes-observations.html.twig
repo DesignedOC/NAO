@@ -21,7 +21,7 @@
                   <div class="row">
                   {% if observations %}
                   {% for observation in observations %}
-                      <section class="col-xs-12 col-md-6 col-lg-3 mb-4 mb-lg-0 row-none">
+                      <section class="col-xs-12 col-md-6 col-lg-3 mb-4 mb-lg-4 row-none">
                             <div class="col-md-12 obs-list pb-3">
                                     <h2 class="pt-3 pb-3 mb-2"><span class="bs-rm">Observation</span> #{{ observation.id }}<span class="{% if observation.statut == 2 %}ico-obs-g{% elseif observation.statut == 1 %}ico-obs-b{% elseif observation.statut == 0 %}ico-obs-r{% endif %} float-right"><i class="fas fa-leaf"></i></span></h2>
                                     <div class="row">
