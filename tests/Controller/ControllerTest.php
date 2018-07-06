@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -21,7 +21,7 @@ class ControllerTest extends WebTestCase
 
     /**
      * All theses pages are redirected to connexion due to restricted permissions
-     * Interface Routes
+     * Interface and Admin Routes
      * @dataProvider urlProviderInaccessiblePages
      * @param $url
      */
@@ -30,6 +30,19 @@ class ControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', $url);
         $this->assertTrue($client->getResponse()->isRedirection());
+    }
+
+    /**
+     * All theses pages not exist and get notfound
+     * Interface Routes
+     * @dataProvider urlProviderNotFoundPages
+     * @param $url
+     */
+    public function testNotFoundPages($url)
+    {
+        $client = static::createClient();
+        $client->request('GET', $url);
+        $this->assertTrue($client->getResponse()->isNotFound());
     }
 
 
@@ -44,7 +57,8 @@ class ControllerTest extends WebTestCase
             ['/interface/classement'],
             ['/interface/mes-observations/1'],
             ['/interface/memory'],
-            ['/interface/compte/edit']
+            ['/interface/compte/edit'],
+            ['/admin']
         ];
     }
 
@@ -53,15 +67,23 @@ class ControllerTest extends WebTestCase
     {
         return [
             ['/'],
-            ['/observations'],
-            ['/association'],
+//            ['/observations'],
+//            ['/association'],
             ['/connexion'],
             ['/inscription'],
-            ['/association'],
             ['/conditions-generales'],
             ['/mentions-legales'],
             ['/foire-aux-questions'],
             ['/contact']
+        ];
+    }
+
+    // Provide list of not found page
+    public function urlProviderNotFoundPages()
+    {
+        return [
+            ['/test'],
+            ['/interface/test'],
         ];
     }
 }
