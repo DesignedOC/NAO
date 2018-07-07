@@ -18,12 +18,7 @@
         <div class="col-md-4">
             <h5>Newsletter</h5>
             <p class="newsletter">Inscrivez-vous à notre Newsletter pour recevoir toutes les actualités et nouveautés de notre site internet</p>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Votre adresse email" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button">Valider</button>
-                </div>
+            {{ render(controller( 'App\\Controller\\NewsletterController::index', {request: app.request})) }}
             </div>
         </div>
-    </div>
 </footer>
