@@ -118,6 +118,8 @@
         var map, marker, infowindow;
         var locations = [];
         var searchUrl = "{{path('map_search')  }}";
+
+
   $('#clearMap').click(function (data) {
         data.preventDefault();
         location.reload();
@@ -134,18 +136,21 @@
                     data: {"nomVern": nomVern},
                     async: true,
                     success: function (data) {
-                        console.log(data);
-                        locations = data;
-                        for (var count = 0; count < data.length; count++) {
-                            marker = new google.maps.Marker({
-                                position: new google.maps.LatLng(locations[count].latitude, locations[count].longitude),
-                                map: map,
-                                title: locations[count].nomVern
-                            });
-                            google.maps.event.addListener(marker, 'click', (function (marker, count) {
-                                console.log("test 1");
-                                return function () {
-                                    var contentString = '<div id="content" class="card">'+
+                        //console.log(data);
+
+                            for (var count = 0; count < data.length; count++) {
+
+                                marker = new google.maps.Marker({
+                                    position: new google.maps.LatLng(locations[count].latitude, locations[count].longitude),
+                                    map: map,
+                                    title: locations[count].nomVern
+
+                                });
+
+                                google.maps.event.addListener(marker, 'click', (function (marker, count) {
+                                    // console.log("test 1");
+                                    return function () {
+                                        var contentString = '<div id="content" class="card">'+
                                             '<div id="bodyContent" class="card-body">'+
                                             '<p id="title" class="card-title title">'+locations[count].nomVern+'</p>'+
                                             '<p id="author" class="card-title author">Posté par <b>'+locations[count].username+'</b>'+
@@ -155,21 +160,22 @@
                                             '<div class="card-footer text-center"><a href="{{ path('fos_user_registration_register', {'id':1}) }}" class="btn btn-primary text-center">Nous rejoindre</a></div>'+
                                             '</div>'+
                                             '</div>';
-                                    infowindow.setContent(contentString);
-                                    infowindow.open(map, marker);
-                                }
-                            })(marker, count));
-                            google.maps.event.addListener(map, 'click', function() {
-                                infowindow.close();
-                            });
-                        }
+                                        infowindow.setContent(contentString);
+                                        infowindow.open(map, marker);
+                                    }
+                                })(marker, count));
+                                google.maps.event.addListener(map, 'click', function() {
+                                    infowindow.close();
+                                });
+
+                            }
+
+
                     },
-                    error: function (data) {
-                          if(!locations[count])
-                              {
-                                  alert("Pas encore d'observations pour cet oiseau");
+                    error: function () {
+
+
                                   //document.getElementById('message').innerHTML='<p>Pas encore d\'observations pour cet oiseau</p>';
-                              }
                     }
                 });
             });
