@@ -23,6 +23,9 @@
     </div>
     <div class="container association mb-5 mt-5"> 
     <div class="row">
+        <div class="col-md-12">
+            <div id="message"></div>
+        </div>
         <div class="col-md-6">
      
             <input id="input-nom-vern" type="text" class="form-control" placeholder="Tapez le nom d'une espèce...">
@@ -32,7 +35,7 @@
             <button id="btn-valider" class="btn btn-primary btn-block">Valider</button>
         </div>
         <div class="col-md-3">
-        <button id="clearMap" class="btn btn-default">Réinitialiser la carte</button>
+        <button id="clearMap" class="btn btn-default">Nouvelle recherche</button>
 </div>
     </div>
       <div class="row">
@@ -82,34 +85,7 @@
 
 
 {% block javascripts %}
-    {#{{ parent() }}
-      <script>
-        $(function() {
-            $( "#observation_bird_lbNom").autocomplete({
-                source: "{{ path('bird_lbnom_autocomplete') }}",
-                minLength: 2,
-                select: function( event, ui ) {
-                    $("#observation_bird_lbNom").val(ui.item.value);
-                    return false;
-                },
-                change: function (event, ui) {
-                    $( "#observation_bird_lbNom" ).val( ui.item ? ui.item.value : $(this).val() );
-                }
-            });
-            $( "#observation_bird_nomVern").autocomplete({
-                source: "{{ path('bird_nomvern_autocomplete') }}",
-                minLength: 2,
-                select: function( event, ui ) {
-                    $("#observation_bird_nomVern").val(ui.item.value);
-                    return false;
-                },
-                change: function (event, ui) {
-                    $( "#observation_bird_nomVern" ).val( ui.item? ui.item.value : $(this).val() );
-                }
-            });
-        });
-    </script>#}
- 
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB1pM1lEVpFhq3Fne8yzNchvi0FNheYoY"></script>
     <script src="{{ asset('build/js/app.js') }}"></script>
   
@@ -146,46 +122,34 @@
                     data: {"nomVern": nomVern},
                     async: true,
                     success: function (data) {
-                        //console.log(data);
                            locations = data;
+
                             for (var count = 0; count < data.length; count++) {
 
-                                marker = new google.maps.Marker({
-                                    position: new google.maps.LatLng(locations[count].latitude, locations[count].longitude),
-                                    map: map,
-                                    title: locations[count].nomVern
+                                    marker = new google.maps.Marker({
+                                        position: new google.maps.LatLng(locations[count].latitude, locations[count].longitude),
+                                        map: map,
+                                        title: locations[count].nomVern
 
-                                });
+                                    });
 
-                                google.maps.event.addListener(marker, 'click', (function (marker, count) {
-                                    // console.log("test 1");
-                                    return function () {
-                                        var contentString = '<div id="content" class="card">'+
-                                            '<div id="bodyContent" class="card-body">'+
-                                            '<p id="title" class="card-title title">'+locations[count].nomVern+'</p>'+
-                                            '<p id="author" class="card-title author">Posté par <b>'+locations[count].username+'</b>'+
-                                            '<span class="date-pub">- Validé le'+locations[count].date+'</span></p><hr>'+
-                                            '<img src="" alt="">'+
-                                            '<p>'+locations[count].description+'</p>'+
-                                            '<div class="card-footer text-center"><a href="{{ path('fos_user_registration_register', {'id':1}) }}" class="btn btn-primary text-center">Nous rejoindre</a></div>'+
-                                            '</div>'+
-                                            '</div>';
-                                        infowindow.setContent(contentString);
-                                        infowindow.open(map, marker);
-                                    }
-                                })(marker, count));
-                                google.maps.event.addListener(map, 'click', function() {
-                                    infowindow.close();
-                                });
+                                    google.maps.event.addListener(marker, 'click', (function (marker, count) {
+                                        return function () {
+                                            var contentString = '<div id="content" class="card">' + '<div id="bodyContent" class="card-body">' + '<p id="title" class="card-title title">' + locations[count].nomVern + '</p>' + '<p id="author" class="card-title author">Posté par <b>' + locations[count].username + '</b>' + '<span class="date-pub">- Validé le' + locations[count].date + '</span></p><hr>' + '<img src="" alt="">' + '<p>' + locations[count].description + '</p>' + '<div class="card-footer text-center"><a href="{{ path('fos_user_registration_register', {'id':1}) }}" class="btn btn-primary text-center">Nous rejoindre</a></div>' + '</div>' + '</div>';
+                                            infowindow.setContent(contentString);
+                                            infowindow.open(map, marker);
+                                        }
+                                    })(marker, count));
+                                    google.maps.event.addListener(map, 'click', function () {
+                                        infowindow.close();
+                                    });
 
                             }
-
+                        if (data.length < 1){document.getElementById('message').innerHTML='<p> Il n\'y a pas encore d\'observations pour cet oiseau</p>';}
 
                     },
                     error: function () {
 
-
-                                  //document.getElementById('message').innerHTML='<p>Pas encore d\'observations pour cet oiseau</p>';
                     }
                 });
             });
@@ -214,7 +178,7 @@
         });
         //////////////////////////////////////////////////////////////////////////////////////////
         // CLEAR MAP POUR RELANCER RECHERCHE
-        $('#clearMap').click(function (data) {
+          $('#clearMap').click(function (data) {
             data.preventDefault();
             location.reload();
         });

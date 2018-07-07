@@ -16,6 +16,9 @@
  <div class="main-content">
 
     <div class="row">
+        <div class="col-md-12">
+            <div id="message"></div>
+        </div>
         <div class="col-md-6">
             <input id="input-nom-vern" type="text" class="form-control" placeholder="Rechercher un oiseau">
         </div>
@@ -24,7 +27,7 @@
             <button id="btn-valider" class="btn btn-primary btn-block">Valider</button>
         </div>
         <div class="col-md-3">
-            <button id="clearMap" class="btn btn-default">Réinitialiser la carte</button>
+            <button id="clearMap" class="btn btn-default">Nouvelle recherche</button>
         </div>
     </div>
     <div class="row">
@@ -41,9 +44,11 @@
     <script src="{{ asset('assets/js/gmaps.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
     <script type="application/javascript">
+
         var map, marker, infoWindow;
         var locations = [];
         var searchUrl = "{{ path('nao_interface_map_search')  }}";
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
         // INITIALISATION DE LA CARTE
         function initMap() {
@@ -98,6 +103,7 @@
                                 infowindow.close();
                             });
                         }
+                        if (data.length < 1){document.getElementById('message').innerHTML='<p> Il n\'y a pas encore d\'observations pour cet oiseau</p>';}
                     },
                     error: function () {
                         console.log('error');
