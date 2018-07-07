@@ -1,0 +1,12 @@
+{% extends 'mails/layout.html.twig' %}
+
+{% block body %}
+    <tr>
+        <td align="center" class="text-one">Bonjour {{ user.username }}</td>
+    </tr>
+    <tr>
+        <td align="center"  class="text-two">Votre ajout pour l'observation #{{ observation.id }} a été refusée. Il se peut que les informations ne soient pas corrects. N'hésitez pas à contacter notre support si vous pensez que ce refus n'est pas justifié.</td>
+    </tr>
+{% endblock %}
+
+

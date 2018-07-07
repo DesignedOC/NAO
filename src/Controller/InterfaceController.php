@@ -2,8 +2,12 @@
 namespace App\Controller;
 
 use App\Entity\Application;
+use App\Entity\Observation;
+use App\Entity\Player;
+use App\Entity\Tournament;
 use App\Entity\User;
 use App\Form\NaturalistType;
+use App\Form\SettingsFormType;
 use App\Services\BadgeManager;
 use App\Services\MailerManager;
 use App\Services\MainManager;
@@ -63,6 +67,73 @@ class InterfaceController extends Controller
     }
 
     /**
+     * @Route("/interface/parametres", name="nao_interface_parametres")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function settings(Request $request)
+    {
+        $userId = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository(User::class)->findOneBy(['id'=>$userId->getId()]);
+
+        $form = $this->createForm(SettingsFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('success', 'Vous avez mis à jour vos paramètres de compte.');
+        }
+
+        return $this->render('interface/parametres.html.twig',[
+             'settings' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/interface/classement", name="nao_interface_classement")
+     * @param Request $request
+     * @param MainManager $mainManager
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function classement(Request $request, MainManager $mainManager)
+    {
+
+        $user = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+
+        $lastTn = $em->getRepository(Tournament::class)->findLastTournament();
+        $players = $em->getRepository(Player::class)->findTopTenByTournament($lastTn);
+
+        return $this->render('interface/classement.html.twig', [
+            'lastTn' => $lastTn,
+            'players' => $players
+        ]);
+    }
+
+    /**
+     * @Route("/interface/recherche", name="nao_interface_search")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function searchAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $q = $request->get('q');
+
+        $results = $em->getRepository(User::class)->findUserBySearch($q);
+
+        return $this->render('interface/search.html.twig', [
+            'results' => $results,
+            'q' => $q
+        ]);
+    }
+
+    /**
      * @Route("/interface/candidatures/{page}", requirements={"page" = "\d+"}, name="nao_interface_candidatures")
      * @param $page
      * @return \Symfony\Component\HttpFoundation\Response
@@ -70,6 +141,8 @@ class InterfaceController extends Controller
      */
     public function candidatures($page)
     {
+        $this->denyAccessUnlessGranted('ROLE_NATURALIST', null, 'Vous ne pouvez pas accéder à cette page');
+
         $em = $this->getDoctrine()->getManager();
         $applications = $em->getRepository(Application::class)->findToPublishByStatut($page);
         $nbApplications = $em->getRepository(Application::class)->findAppCountByStatut();
@@ -90,6 +163,39 @@ class InterfaceController extends Controller
             'applications' => $applications,
             'pagination' => $pagination
         ]); 
+    }
+
+
+    /**
+     * @Route("/interface/validations/{page}", requirements={"page" = "\d+"}, name="nao_interface_validations")
+     * @param $page
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function validations($page)
+    {
+
+        $this->denyAccessUnlessGranted('ROLE_NATURALIST', null, 'Vous ne pouvez pas accéder à cette page');
+
+        $em = $this->getDoctrine()->getManager();
+        $observations = $em->getRepository(Observation::class)->findObservByStatut($page);
+        $nbObs = $em->getRepository(Observation::class)->findObservCountByStatut();
+
+        $nbPages = ceil($nbObs / 10);
+
+        if($page != 1 && $page > $nbPages)
+        {
+            throw new NotFoundHttpException("La page que vous essayez d'atteindre n'existe pas");
+        }
+
+        $pagination = [
+            'page' => $page,
+            'nbPages' => $nbPages
+        ];
+
+        return $this->render('interface/validations.html.twig', [
+            'observations' => $observations,
+            'pagination' => $pagination
+        ]);
     }
 
     /**
