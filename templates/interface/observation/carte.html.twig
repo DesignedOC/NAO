@@ -48,7 +48,7 @@
         var map, marker, infoWindow;
         var locations = [];
         var searchUrl = "{{ path('nao_interface_map_search')  }}";
-
+        var markers = [];
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
         // INITIALISATION DE LA CARTE
         function initMap() {
@@ -83,6 +83,7 @@
                                     map: map,
                                     title: locations[count].nomVern
                                 });
+                                markers.push(marker);
                             google.maps.event.addListener(marker, 'click', (function (marker, count) {
                                 return function () {
                                     var contentString = '<div id="content" class="card">'+
@@ -103,6 +104,8 @@
                                 infowindow.close();
                             });
                         }
+                        var markerCluster = new MarkerClusterer(map, markers,
+                            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
                         if (data.length < 1){document.getElementById('message').innerHTML='<p> Il n\'y a pas encore d\'observations pour cet oiseau</p>';}
                     },
                     error: function () {
@@ -147,5 +150,6 @@ var lbNomUrl = "{{ path('bird_lbnom_autocomplete') }}";
 var vernNomUrl = "{{ path('bird_nomvern_autocomplete') }}";
     </script>
  <script src="{{ asset('build/js/observAutocomplete.js') }}"></script>
+    <script src="{{ asset('../assets/js/markerclusterer.js') }}"></script>
 
 {% endblock %}

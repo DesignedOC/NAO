@@ -87,26 +87,31 @@
 {% block javascripts %}
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB1pM1lEVpFhq3Fne8yzNchvi0FNheYoY"></script>
+
     <script src="{{ asset('build/js/app.js') }}"></script>
-  
+
 
     <script type="application/javascript">
 
         var map, marker, infowindow;
         var locations = [];
         var searchUrl = "{{path('map_search')  }}";
+        var markers = [];
+
+
 
 /////////////////////////////////////////////////////////////////////////////////////
         // INITIALISATION DE LA CARTE
         function initMap() {
             var center = {lat: 47.12025, lng: 2.123654};
-            map = new google.maps.Map(document.getElementById('map'), {
+            var options = {
                 center: center,
                 zoom: 6,
                 mapTypeId:google.maps.MapTypeId.ROADMAP
-            });
-
+            };
+            map = new google.maps.Map(document.getElementById('map'),options);
         }
+
   /////////////////////////////////////////////////////////////////////////////
         // RECHERCHE NOM VERN ET MISE EN PLACE DES MARQUEURS
         infowindow =  new google.maps.InfoWindow();
@@ -123,15 +128,15 @@
                     async: true,
                     success: function (data) {
                            locations = data;
-
                             for (var count = 0; count < data.length; count++) {
 
                                     marker = new google.maps.Marker({
                                         position: new google.maps.LatLng(locations[count].latitude, locations[count].longitude),
                                         map: map,
-                                        title: locations[count].nomVern
+                                        title: locations[count].nomVern,
 
                                     });
+                                    markers.push(marker);
 
                                     google.maps.event.addListener(marker, 'click', (function (marker, count) {
                                         return function () {
@@ -145,6 +150,8 @@
                                     });
 
                             }
+                        var markerCluster = new MarkerClusterer(map, markers,
+                            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
                         if (data.length < 1){document.getElementById('message').innerHTML='<p> Il n\'y a pas encore d\'observations pour cet oiseau</p>';}
 
                     },
@@ -188,7 +195,8 @@
      
 
 <script src="{{ asset('build/js/front.js') }}"></script>
-       
+<script src="{{ asset('../assets/js/markerclusterer.js') }}"></script>
+
 <script>
 var lbNomUrl = "{{ path('bird_lbnom_autocomplete') }}";
 var vernNomUrl = "{{ path('bird_nomvern_autocomplete') }}";
