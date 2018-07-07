@@ -3,7 +3,11 @@
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    
+ 
+     <link rel="stylesheet" href="{{ asset('build/js/observAutocomplete.css') }}">
+
+
+
 {% endblock %}
 {% block body %}
 {% include 'interface/parts/_sidebar.html.twig' %}
@@ -12,21 +16,18 @@
  <div class="main-content">
 
     <div class="row">
+        <div class="col-md-12">
+            <div id="message"></div>
+        </div>
         <div class="col-md-6">
             <input id="input-nom-vern" type="text" class="form-control" placeholder="Rechercher un oiseau">
         </div>
-        <div class="col-md-3">
-            <div class="dropdown">
-                <button class="btn btn-default" data-toggle="dropdown" id="menu1">Tous les departements <i class="fa fa-caret-down"></i></button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Departement #1</a>
-                    <a class="dropdown-item" href="#">Departement #2</a>
-                    <a class="dropdown-item" href="#">Departement #3</a>
-                </div>
-            </div>
-        </div>
+        
         <div class="col-md-3">
             <button id="btn-valider" class="btn btn-primary btn-block">Valider</button>
+        </div>
+        <div class="col-md-3">
+            <button id="clearMap" class="btn btn-default">Nouvelle recherche</button>
         </div>
     </div>
     <div class="row">
@@ -37,46 +38,36 @@
 {% endblock %}
 
 {% block javascripts %}
-{{ parent() }}
-<script>
-        $(function() {
-            $( "#observation_bird_lbNom").autocomplete({
-                source: "{{ path('bird_lbnom_autocomplete') }}",
-                minLength: 2,
-                select: function( event, ui ) {
-                    $("#observation_bird_lbNom").val(ui.item.value);
-                    return false;
-                },
-                change: function (event, ui) {
-                    $( "#observation_bird_lbNom" ).val( ui.item ? ui.item.value : $(this).val() );
-                }
-            });
-            $( "#observation_bird_nomVern").autocomplete({
-                source: "{{ path('bird_nomvern_autocomplete') }}",
-                minLength: 2,
-                select: function( event, ui ) {
-                    $("#observation_bird_nomVern").val(ui.item.value);
-                    return false;
-                },
-                change: function (event, ui) {
-                    $( "#observation_bird_nomVern" ).val( ui.item? ui.item.value : $(this).val() );
-                }
-            });
-        });
-    </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB1pM1lEVpFhq3Fne8yzNchvi0FNheYoY"></script>
     <script src="{{ asset('build/js/app.js') }}"></script>
     <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('assets/js/gmaps.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
     <script type="application/javascript">
+
         var map, marker, infoWindow;
         var locations = [];
         var searchUrl = "{{ path('nao_interface_map_search')  }}";
+        var markers = [];
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // INITIALISATION DE LA CARTE
+        function initMap() {
+            var center = {lat: 47.12025, lng: 2.123654};
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: center,
+                zoom: 6,
+                mapTypeId:google.maps.MapTypeId.ROADMAP
+            });
+        }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // RECHERCHE NOM VERN ET MISE EN PLACE DES MARQUEURS
+        infowindow =  new google.maps.InfoWindow({});
+
         $(function () {
             $(document).on('click', '#btn-valider', function () {
                 var nomVern = $('#input-nom-vern').val();
-                console.log(nomVern);
                 $.ajax({
                     url: searchUrl,
                     type: "POST",
@@ -84,27 +75,25 @@
                     data: {"nomVern": nomVern},
                     async: true,
                     success: function (data) {
-//                        initMap();
-                        console.log(data);
                         locations = data;
-                        for (var count = 0; count < data.length; count++) {
-                            {#var showPath = "{{ path('observation_afficher', {'id':locations[count].id\"}) }}";#}
-//                            console.log(showPath);
-                            marker = new google.maps.Marker({
-                                position: new google.maps.LatLng(locations[count].latitude, locations[count].longitude),
-                                map: map,
-                                title: locations[count].nomVern
-                            });
+
+                            for (var count = 0; count < data.length; count++) {
+                                marker = new google.maps.Marker({
+                                    position: new google.maps.LatLng(locations[count].latitude, locations[count].longitude),
+                                    map: map,
+                                    title: locations[count].nomVern
+                                });
+                                markers.push(marker);
                             google.maps.event.addListener(marker, 'click', (function (marker, count) {
                                 return function () {
                                     var contentString = '<div id="content" class="card">'+
                                             '<div id="bodyContent" class="card-body">'+
                                             '<p id="title" class="card-title title">'+locations[count].nomVern+'</p>'+
-                                            '<p id="author" class="card-title author">Posté par <b>'+locations[count].username+'</b>'+
-                                            '<span class="date-pub">- Validé le'+locations[count].date+'</span></p><hr>'+
+                                            '<p id="author" class="card-title author">PostÃ© par <b>'+locations[count].username+'</b>'+
+                                            '<span class="date-pub">- ValidÃ© le '+locations[count].date+'</span></p><hr>'+
                                             '<img src="" alt="">'+
                                             '<p>'+locations[count].description+'</p>'+
-                                            '<div class="card-footer text-center"><a href="{{ path('nao_interface_obs_afficher', {'id':1}) }}" class="btn btn-primary text-center">Fiche observation</a></div>'+
+                                            '<div class="card-footer text-center"><a href="{{ path('nao_interface_obs_show', {'id': 'id' }) }}" class="btn btn-primary text-center">Fiche observation</a></div>'+
                                             '</div>'+
                                             '</div>';
                                     infowindow.setContent(contentString);
@@ -115,6 +104,9 @@
                                 infowindow.close();
                             });
                         }
+                        var markerCluster = new MarkerClusterer(map, markers,
+                            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+                        if (data.length < 1){document.getElementById('message').innerHTML='<p> Il n\'y a pas encore d\'observations pour cet oiseau</p>';}
                     },
                     error: function () {
                         console.log('error');
@@ -123,47 +115,41 @@
             });
         });
         google.maps.event.addDomListener(window, 'load', initMap);
-        function initMap() {
-            var center = {lat: 47.12025, lng: 2.123654};
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: center,
-                zoom: 6,
-                mapTypeId:google.maps.MapTypeId.ROADMAP
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+        google.maps.event.addListener(infowindow, 'domready', function() {
+            var iwOuter = $('.gm-style-iw');
+            var iwBackground = iwOuter.prev();
+            iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+            iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+            var iwCloseBtn = iwOuter.next();
+            iwCloseBtn.css({
+                opacity: '1',
+                right: '38px', top: '3px',
+                border: '7px solid #48b5e9',
+                'border-radius': '50%',
+                'box-shadow': '0 0 5px #3990B9'
             });
-//            marker = new google.maps.Marker({
-//                position: center,
-//                map: map,
-//                title: 'Lima'
-//            });
-            infowindow =  new google.maps.InfoWindow({});
-//            var contentString = '<div id="content" class="card">'+
-//                    '<div id="bodyContent" class="card-body">'+
-//                    '<p id="title" class="card-title title">Titre</p>'+
-//                    '<p id="author" class="card-title author">Posté par <b>Auteur</b><span class="date-pub">- Validé le 08/10/1991</span></p><hr>'+
-//                    '<img src="" alt="">'+
-//                    '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, provident. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, sint!</p>'+
-//                    '<div class="card-footer text-center"><a href="#" class="btn btn-primary text-center">Fiche observation</a></div>'+
-//                    '</div>'+
-//                    '</div>';
-//            infowindow.setContent(contentString);
-//            infowindow.open(map, marker);
-            google.maps.event.addListener(infowindow, 'domready', function() {
-                var iwOuter = $('.gm-style-iw');
-                var iwBackground = iwOuter.prev();
-                iwBackground.children(':nth-child(2)').css({'display' : 'none'});
-                iwBackground.children(':nth-child(4)').css({'display' : 'none'});
-                var iwCloseBtn = iwOuter.next();
-                iwCloseBtn.css({
-                    opacity: '1',
-                    right: '38px', top: '3px',
-                    border: '7px solid #48b5e9',
-                    'border-radius': '50%',
-                    'box-shadow': '0 0 5px #3990B9'
-                });
-                iwCloseBtn.mouseout(function(){
-                     $(this).css({opacity: '1'});
-                });
+            iwCloseBtn.mouseout(function(){
+                $(this).css({opacity: '1'});
             });
-        }
+        });
+//////////////////////////////////////////////////////////////////////////////////////////
+        // CLEAR MAP POUR RELANCER RECHERCHE
+        $('#clearMap').click(function (data) {
+            data.preventDefault();
+            location.reload();
+        });
+        ////////////////////////////////////////////////////////////////////////////////
     </script>
+
+    <script>
+var lbNomUrl = "{{ path('bird_lbnom_autocomplete') }}";
+var vernNomUrl = "{{ path('bird_nomvern_autocomplete') }}";
+    </script>
+ <script src="{{ asset('build/js/observAutocomplete.js') }}"></script>
+    <script src="{{ asset('../assets/js/markerclusterer.js') }}"></script>
+
 {% endblock %}

@@ -137,6 +137,7 @@ class InterfaceController extends Controller
      * @Route("/interface/candidatures/{page}", requirements={"page" = "\d+"}, name="nao_interface_candidatures")
      * @param $page
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function candidatures($page)
     {

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Entity\Observation;
 use App\Form\ContactType;
 use App\Services\MailerManager;
 use App\Services\MainManager;
@@ -20,12 +22,13 @@ class FrontController extends Controller
     }
 
     /**
-     * @Route("/observations", name="observations")
+     * @Route("/observations", name="nao_observations")
      */
     public function observations()
     {
         return $this->render('front/observations.html.twig');
     }
+
 
     /**
      * @Route("/association", name="nao_association")
@@ -88,5 +91,18 @@ class FrontController extends Controller
         return $this->render('front/contact.html.twig', [
             'contact' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("map-search", name="map_search")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function searchBirdMap(Request $request)
+    {
+        $birdNomVern = $request->get('nomVern');
+        $em = $this->getDoctrine()->getManager();
+        $observations = $em->getRepository(Observation::class)->findBirdWithObservation($birdNomVern);
+        return new JsonResponse($observations);
     }
 }
