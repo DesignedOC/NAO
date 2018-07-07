@@ -110,7 +110,6 @@ class User extends BaseUser
     /**
      * User constructor.
      */
-
     public function __construct()
     {
         parent::__construct();
