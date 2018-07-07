@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
     <a class="navbar-brand" href="{{ path('nao_interface') }}">Dashboard</a>
     <div class="search ml-lg-5 mr-auto">
-        <form class="form-inline my-0 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Recherche" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <form class="form-inline my-0 my-lg-0" action="{{ path('nao_interface_search') }}">
+            <input class="form-control mr-sm-2" type="text" name="q" placeholder="Trouver des utilisateurs sur la plateforme" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Recherche</button>
         </form>
     </div>
     <div class="account">
@@ -27,7 +27,10 @@
             <div class="dropdown-menu dropdown-menu-right">
                 <a class="dropdown-item" href="{{ path('nao_interface_profile', { username: app.user }) }}">Profil</a>
                 <a class="dropdown-item" href="{{ path('fos_user_profile_edit') }}">Mon compte</a>
-                <a class="dropdown-item" href="#">Paramètres</a>
+                <a class="dropdown-item" href="{{ path('nao_interface_parametres') }}">Paramètres</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="dropdown-item" href="{{ path('easyadmin') }}">Administration</a>
+                {% endif %}
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
             </div>
@@ -38,8 +41,8 @@
 <div class="nav-mobile">
     <div class="container-fluid">
             <div class="row">
-                <div class="col-3">
-                    <a href="#"><i class="material-icons">add</i></a>
+                <div class="col-2">
+                    <a href="{{ path('nao_interface_obs_ajouter') }}"><i class="material-icons">add</i></a>
                 </div>
                 <div class="col">
                     <div class="d-flex justify-content-center">
@@ -56,9 +59,9 @@
 </div>
 <div class="collapse" id="search-collapse">
     <div class="search-fix">
-            <form role="search" method="get" class="search-form" action="#">
-                <input type="search" class="search-field form-control" placeholder="Rechercher..." title="Search for:">
-                <button class="btn btn-primary-custom" name="submit" type="submit"><i class="material-icons">search</i></button>
+            <form role="search" method="get" class="search-form" action="{{ path('nao_interface_search') }}">
+                <input type="search" name="q" class="search-field form-control" placeholder="Chercher des utilisateurs..." title="Search for:">
+                <button class="btn btn-primary-custom" type="submit"><i class="material-icons">search</i></button>
             </form>
     </div>
 </div>

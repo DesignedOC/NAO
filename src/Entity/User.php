@@ -72,9 +72,35 @@ class User extends BaseUser
     private $updatedAt;
 
     /**
+     * Get Email every time your observation is acccepted
+     * @ORM\Column(name="usr_obsemail", type="boolean", nullable=true)
+     * @var Boolean
+     */
+    private $obsEmail;
+
+    /**
+     * Allow the association to use your data for search program
+     * @ORM\Column(name="usr_datashare", type="boolean", nullable=true)
+     * @var Boolean
+     */
+    private $dataShare;
+
+    /**
+     * Subscribe on newsletter by member statut
+     * @ORM\Column(name="usr_newsletter", type="boolean", nullable=true)
+     * @var Boolean
+     */
+    private $newsletter;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Observation", mappedBy="user", cascade = {"remove"})
      */
     private $observations;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Player", mappedBy="user")
+     */
+    private $players;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Application", mappedBy="user")
@@ -90,6 +116,9 @@ class User extends BaseUser
         $this->observations = new ArrayCollection();
         $this->updatedAt = new DateTime();
         $this->dateFrom = new DateTime();
+        $this->setObsEmail(0);
+        $this->setDataShare(0);
+        $this->setNewsletter(0);
     }
 
     /**
@@ -255,6 +284,31 @@ class User extends BaseUser
     }
 
     /**
+     * @return Collection|Player[]
+     */
+    public function getPlayer() : Collection
+    {
+        return $this->players;
+    }
+
+    /**
+     * @param Player $player
+     */
+    public function addPlayer(Player $player)
+    {
+        $this->players[] = $player;
+        $player->setUser($this);
+    }
+
+    /**
+     * @param Player $player
+     */
+    public function removePlayer(Player $player)
+    {
+        $this->players->removeElement($player);
+    }
+
+    /**
      * @return Collection|Application[]
      */
     public function getApplications(): Collection
@@ -279,5 +333,53 @@ class User extends BaseUser
     public function removeApplication(Application $application): self
     {
         $this->applications->removeElement($application);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isObsEmail(): bool
+    {
+        return $this->obsEmail;
+    }
+
+    /**
+     * @param bool $obsEmail
+     */
+    public function setObsEmail(bool $obsEmail): void
+    {
+        $this->obsEmail = $obsEmail;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDataShare(): bool
+    {
+        return $this->dataShare;
+    }
+
+    /**
+     * @param bool $dataShare
+     */
+    public function setDataShare(bool $dataShare): void
+    {
+        $this->dataShare = $dataShare;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNewsletter(): bool
+    {
+        return $this->newsletter;
+    }
+
+    /**
+     * @param bool $newsletter
+     */
+    public function setNewsletter(bool $newsletter): void
+    {
+        $this->newsletter = $newsletter;
     }
 }

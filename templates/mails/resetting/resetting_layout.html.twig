@@ -1,0 +1,19 @@
+{% extends 'mails/layout.html.twig' %}
+
+{% block body %}
+    <tr>
+        <td align="center" class="text-one">Bonjour {{ user.username }}</td>
+    </tr>
+    <tr>
+        <td align="center"  class="text-two">Pour réinitialiser votre mot de passe, merci de vous rendre sur <a href="{{ confirmationUrl }}" target="_blank">"<strong>réinitialiser votre mot de passe"</strong></a>. <br>Si vous rencontrez des problèmes, veuillez contacter le support.</td>
+    </tr>
+    <tr>
+        <td align="center" class="button-mobile-padding">
+            <table border="0" cellspacing="0" cellpadding="0" class="button-mobile-container">
+                <tr>
+                    <td align="center"><a href="{{ confirmationUrl }}" target="_blank"  class="button-mobile">réinitialiser votre mot de passe</a></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NAO - Paramètres{% endblock %}
+{% block description %}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include 'interface/parts/_sidebar.html.twig' %}
+<div class="container-left">
+    {% include 'interface/parts/_header.html.twig' %}
+    <div class="main-content">
+        <div class="row">
+            <div class="col-12">
+                <div class="col-md-12 col-lg-6 custom-box">
+                    <h1 class="h1box"><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">search</i>Recherche {% if q %} pour "{{ q }}"{% endif %}</h1>
+                    {% if results %}
+                        {% for result in results %}
+                            <div class="col-12">
+                                <h3 class="h5"><a href="{{ path('nao_interface_profile', { username : result.username}) }}">{{ result.username|capitalize }}</a></h3>
+                                <a href="{{ path('nao_interface_profile', { username : result.username}) }}"><p>Dernière connexion : {{ result.lastLogin|date("d/m/Y") }}</p></a>
+                            </div>
+                        {% endfor %}
+                        {% else %}
+                        <p class="text-muted text-center">Aucun résultat trouvé pour la recherche "{{ q }}"</p>
+                    {% endif %}
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/app.js') }}"></script>
+{% endblock %}

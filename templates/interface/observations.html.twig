@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}NAO - Devenir naturaliste{% endblock %}
+{% block title %}NAO - La liste des observations{% endblock %}
 {% block description %}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 {% endblock %}
 
 {% block body %}
@@ -14,31 +15,48 @@
                 <div class="main-content">
                 <div class="row">
                   <div class="col-12">
-                  <div class="col-md-12 col-6 custom-box">
-                     <h1 class="h1box"><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">turned_in</i>Liste des observations</h1>
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>id</th>
-                                <th>LbNom</th>
-                                <th>Nom Vern</th>
-                                <th>Latitude</th>
-                                <th>Longitude</th>
-                                <th>Statut</th>
-                            </tr>
-                            {% for observation in observations %}
-                                <tr>
-                                    <td>#{{ observation.id }}</td>
-                                    <td>{{ observation.bird.lbNom }}</td>
-                                    <td>{{ observation.bird.nomVern }}</td>
-                                    <td>{{ observation.latitude }}</td>
-                                    <td>{{ observation.longitude }}</td>
-                                    <td>{{ observation.libelleStatut }}</td>
-                                </tr>
-                            {% endfor %}
-                        </table>
+                  <div class="col-12 custom-box mb-4">
+                     <h1><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">style</i>Liste des observations <span class="pag-obs d-none d-lg-block float-right">Il y a <strong>{{ pagination.nbObservations }} observations</strong></span></h1>
+                  </div>
+                  <div class="row">
+                  {% if observations %}
+                  {% for observation in observations %}
+                      <section class="col-xs-12 col-md-6 col-lg-3 mb-4 mb-lg-4 row-none">
+                            <div class="col-md-12 obs-list pb-3">
+                                    <h2 class="pt-3 pb-3 mb-2"><span class="bs-rm">Observation</span> #{{ observation.id }}<span class="{% if observation.statut == 2 %}ico-obs-g{% elseif observation.statut == 1 %}ico-obs-b{% elseif observation.statut == 0 %}ico-obs-r{% endif %} float-right"><i class="fas fa-leaf"></i></span></h2>
+                                    <div class="row">
+                                    <div class="col-md-12 row-none">
+                                        <p class="nb mb-2">Observation postée le <strong>{{ observation.date|date("d/m/Y") }}</strong> par <a href="{{ path('nao_interface_profile', { username: observation.user.username }) }}">{{ observation.user.username|capitalize }}</a></p>
+                                        <a href="{{ path('nao_interface_obs_show', { id : observation.id }) }}"><img src="{{ asset('uploads/observations/'~observation.picture) }}"  class="img-fluid" alt=""></a>
+                                    </div>
+                                    <div class="col-md-12 mt-2 row-none">
+                                        {% if observation.bird.nomVern != null and observation.bird.lbNom != null %}
+                                            <h3 class="h5 mb-1 mt-3 mt-md-0">{{ observation.bird.nomVern }}</h3>
+                                            <h4 class="h5 obs-h3">{{ observation.bird.lbNom }}</h4>
+                                            {% else %}
+                                            <p class="text-muted bg-b">{{ observation.description|slice(0, 90) ~ '...' }}</p>
+                                        {% endif %}
+                                        <a href="{{ path('nao_interface_obs_show', { id : observation.id }) }}"><button type="submit" class="btn btn-custom btn-block mt-3">En voir plus</button></a>
+                                    </div>
+                                 </div>
+                            </div>
+                      </section>
+                  {% endfor %}
+                  {% else %}
+                    <div class="col-12">
+                        <p class="text-center">Il n'y a pas d'observations</p>
+                    </div>
+                  </div>
+                  {% endif %}
+                  </div>
+                  <div class="mt-4 mb-5">
                       {% include 'interface/parts/_pagination.html.twig' %}
                   </div>
                   </div>
                 </div>
-                </div>
+             </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/app.js') }}"></script>
 {% endblock %}
