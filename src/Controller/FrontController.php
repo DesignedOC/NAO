@@ -19,7 +19,6 @@ class FrontController extends Controller
         return $this->render('front/index.html.twig');
     }
 
-
     /**
      * @Route("/observations", name="observations")
      */
@@ -27,9 +26,6 @@ class FrontController extends Controller
     {
         return $this->render('front/observations.html.twig');
     }
-
-
-
 
     /**
      * @Route("/association", name="nao_association")
@@ -40,11 +36,10 @@ class FrontController extends Controller
     {
         $observations = $mainManager->getAllCountObservations();
         $birds = $mainManager->getAllCountBirds();
-        dump($birds);
 
         return $this->render('front/association.html.twig',[
                'observations' => $observations,
-                'birds' => $birds
+               'birds' => $birds
         ]);
     }
 

@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NAO - Classement{% endblock %}
+{% block description %}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include 'interface/parts/_sidebar.html.twig' %}
+<div class="container-left">
+    {% include 'interface/parts/_header.html.twig' %}
+    <div class="main-content">
+        <div class="row">
+            <div class="col-12">
+                <div class="col-md-12 col-lg-12 col-xl-6 custom-box">
+                    <h1 class="h1box"><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">timer</i>Classement</h1>
+                    {% if lastTn %}
+                        <div class="row">
+                            <div class="col-12">
+                                <p>Tournoi en cours : <strong>{{ lastTn.title }}</strong></p>
+                            </div>
+                            <div class="col-12">
+                                <p>Date de début : <strong>{{ lastTn.startDate|date("d/m/Y") }}</strong> - Durée du tournoi : <strong>{{ lastTn.endNote }}</strong></p>
+                                <p><a href="#" data-rules="{{ lastTn.rules }}" data-toggle="modal" class="d-link" data-target="#myModal" onclick="getData(this);">Règlement du tournoi</a></p>
+                            </div>
+                        </div>
+                    <div class="responsive-table-line">
+                        <table class="table table-hover table-responsive-sm">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th data-title="Position" scope="col">Position</th>
+                            <th data-title="Utilisateur" scope="col">Utilisateur</th>
+                            <th data-title="Type" scope="col">Type</th>
+                            <th data-title="Points" scope="col">Points</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% if players %}
+                                {% for player in players %}
+                                <tr>
+                                    <td data-title="Position">{{ loop.index }}</td>
+                                    <td data-title="Utilisateur"><a href="{{ path('nao_interface_profile', {'username' : player.user.username }) }}">{{ player.user.username|capitalize }}</a></td>
+                                    {% for roles in player.user.roles %}
+                                        {% if roles == 'ROLE_NATURALIST' %}
+                                            <td data-title="Type">Naturaliste</td>
+                                            {% else %}
+                                            <td data-title="Type">Passionné(e)</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <td data-title="Points">{{ player.points }}</td>
+                                </tr>
+                                {% endfor %}
+                            {% endif %}
+                        </tbody>
+                    </table>
+                    </div>
+                    {% else %}
+                        <div class="alert alert-primary text-center" role="alert">
+                            Il n'y a pas encore de tournoi actif. Veuillez revenir plus tard.
+                        </div>
+                        <div class="text-center">
+                            <img src="{{ asset('assets/img/trophy.jpg') }}" class="img-fluid img-thumbnail" alt="Trophée des tournois NAO">
+                        </div>
+                    {% endif %}
+                    {% if lastTn and players == null %}
+                         <p class="text-center">Il n'y a pas encore de participants inscrits au tournoi en cours</p>
+                    {% endif %}
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Règlement du tournoi <span class="app-username"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="app-rules"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Fermer</button>
+                 </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/app.js') }}"></script>
+    <script type="application/javascript">
+        function getData(obj){
+            var rules = obj.getAttribute('data-rules');
+            var appRules = document.querySelector(".app-rules");
+            appRules.textContent = rules;
+        }
+    </script>
+{% endblock %}

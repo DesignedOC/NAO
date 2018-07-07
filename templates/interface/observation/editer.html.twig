@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NAO - Editer l'observation #{{ observation.id }}{% endblock %}
+{% block description %}{% endblock %}
+
+{% form_theme form 'bundles/VichUploaderBundle/views/Form/fields.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+{% endblock %}
+
+{% block body %}
+{% include 'interface/parts/_sidebar.html.twig' %}
+<div class="container-left">
+{% include 'interface/parts/_header.html.twig' %}
+<div class="main-content">
+    <div class="row">
+                {% if app.request.headers.get('referer') %}
+                    <div class="col-12">
+                    <div class="col-12 col-md-12 col-lg-12 col-xl-8 pl-0 max-w-xxl pr-0">
+                        <nav aria-label="breadcrumb">
+                          <ol class="breadcrumb">
+                          {% if '/validations/' in app.request.headers.get('referer') %}
+                            <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Validations</a></li>
+                          {% endif %}
+                            <li class="breadcrumb-item active" aria-current="page">Editer</li>
+                          </ol>
+                        </nav>
+                        </div>
+                    </div>
+                {% endif %}
+    <div class="col-12">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-8 max-w-xxl mb-5 custom-box">
+                    <h1 class="h1box">Editer l'observation #{{ observation.id }} <span class="{% if observation.statut == 2 %}ico-obs-g{% elseif observation.statut == 1 %}ico-obs-b{% elseif observation.statut == 0 %}ico-obs-r{% endif %} float-right"><i class="fas fa-leaf"></i></span></h1>
+                    <h2 class="h5 mb-3 obs-ed-loc">Localisation de l'observation</h2>
+                    <div class="map-editform mb-4">
+                        <div id="map"></div>
+                    </div>
+                    {{ form_start(form) }}
+                    <div class="form-group">
+                        {{ form_label(form.pictureFile) }}
+                        {{ form_widget(form.pictureFile) }}
+                    </div>
+                   <div class="form-group">
+                        <h3 class="h5 pt-4 mb-4 obs-loc">Les informations sur l'Oiseau</h3>
+                        {{ form_widget(form.bird) }}
+                   </div>
+                   <div class="form-group">
+                    {{ form_label(form.description) }}
+                    {{ form_widget(form.description) }}
+                   </div>
+                   <hr class="mt-4 mb-4">
+                    <div class="d-flex align-content-sm-center flex-wrap">
+                      <div class="p-2">
+                           <a href="{{ path('nao_interface_obs_statut', { id: observation.id, statut: 0}) }}"><button type="button" class="btn btn-danger">Rejeter</button></a>
+                      </div>
+                      <div class="p-2">
+                           <a href="{{ path('nao_interface_obs_statut', { id: observation.id, statut: 2}) }}"><button type="button" class="btn btn-success">Valider</button></a>
+                      </div>
+                      <div class="ml-md-auto p-2">
+                           <button type="submit" class="btn btn-custom">Modifier et Valider</button>
+                      </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+            <script src="{{ asset('build/js/app.js') }}"></script>
+            <script type="application/javascript">
+                function initMapShow() {
+                    var pos = {lat: {{ observation.latitude }}, lng: {{ observation.longitude }} };
+                    var map = new google.maps.Map(
+                        document.getElementById('map'), {zoom: 12, center: pos});
+                    var marker = new google.maps.Marker({position: pos, map: map});
+                }
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB1pM1lEVpFhq3Fne8yzNchvi0FNheYoY&callback=initMapShow"></script>
+{% endblock %}

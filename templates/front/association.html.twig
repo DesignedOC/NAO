@@ -20,7 +20,8 @@
         <div class="row">
                 <div class="col-md-8">
                     <h2 class="h4 mb-4">Qui sommes-nous ? </h2>
-                    <p>Fondé par Michel Dujardin en 2010, Nos Amis les oiseaux est une association à but non lucratif. Son fondateur a pour objectif d'aider à la conservation des oiseaux et de leur habitat en étudiant les effets néfastes qu'ont le climat et l'urbanisation sur eux. Basé à Avallon, Nos Amis les Oiseaux doivent redoubler d'efforts pour trouver de nouveaux moyens de sensibilisation du public. Aujourd'hui, plus de 8 ans après, Michel Dujardin a eu l'idée d'un regroupement de professionnels et de passionnés sur une même plateforme. C'est pourquoi, Afin d'avertir la population sur le danger qui menacent les oiseaux, , il a créé (nom du site ici).  </p>
+                    <p>Fondé par Michel Dujardin en 2010, Nos Amis les oiseaux est une association à but non lucratif. Son fondateur a pour objectif d'aider à la conservation des oiseaux et de leur habitat en étudiant les effets néfastes qu'ont le climat et l'urbanisation sur eux. Basé à Avallon, Nos Amis les Oiseaux doivent redoubler d'efforts pour trouver de nouveaux moyens de sensibilisation du public. Aujourd'hui, plus de 8 ans après, Michel Dujardin a eu l'idée d'un regroupement de professionnels et de passionnés sur une même plateforme. C'est pourquoi, Afin d'avertir la population sur le danger qui menacent les oiseaux, , il a créé
+                        <a href="{{ path('nao_home') }}">NAO</a>.  </p>
                 </div>
                 <div class="col-md-4">
                     <img src="{{ asset('assets/img/bird-profile.jpg') }}"  class="img-fluid" alt="">
@@ -31,11 +32,13 @@
         <div class="container text-center">
             <div class="row">
                 <div class="col-md-3 mb-3 mb-md-0">
-                        {% if birds < 7000 %}
+                    {% if birds is not null %}
+                        {% if birds < "7000" %}
                             <h3>{{ birds }}</h3>
                         {% else %}
                             <h3>7000+</h3>
                         {% endif %}
+                    {% endif %}
                     <h4 class="text-uppercase h5">Espèces</h4>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
@@ -47,10 +50,12 @@
                     <h4 class="text-uppercase h5">Donations</h4>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    {% if observations < 5000 %}
-                        <h3>{{ observations }}</h3>
-                    {% else %}
-                        <h3>5000+</h3>
+                    {% if observations is not null %}
+                        {% if observations < "5000" %}
+                            <h3>{{ observations }}</h3>
+                        {% else %}
+                            <h3>5000+</h3>
+                        {% endif %}
                     {% endif %}
                     <h4 class="text-uppercase h5">Observations</h4>
                 </div>

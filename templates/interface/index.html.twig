@@ -5,6 +5,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 {% endblock %}
 
 {% block body %}
@@ -12,24 +13,49 @@
     <div class="container-left">
     {% include 'interface/parts/_header.html.twig' %}
         <div class="main-content">
-            <h1>Accueil</h1>
-
-            <div id="title_interface">S'informer</div>
-<div id="section_interface">Recherche les espèces sur la carte :</div> Découvrez dès maintenant où  vos oiseaux préférés ont été le plus aperçus!</br>
-<div id="section_interface">Découvrir les profils des autres utilisateurs : </div>Vous avez la possibilité de consulter le profil des autres passionnés.</br>
-<div id="section_interface">Découvrir les observations sur les différents oiseaux : </div>Grâce à une base de donnée bien fournie, vous pouvez retrouver des observations détaillées sur l'oiseau de votre choix.</br> </br>
-
-
-<div id="title_interface">Participer</div>
-<div id="section_interface">Ajouter une observation :</div> Qu'est ce qu'une observation? Un moyen pour vous de partager avec la communauté les oiseaux que vous rencontrez lors de vos promenades !</br>
-<div id="section_interface">Devenir naturaliste : </div>Si vous êtes un professionel et désirez faire partie de notre équipe, cliquez sur le bouton "Devenir naturaliste" et postulez en répondant aux questions !</br>
-<div id="section_interface">Faire un don :</div> Nous lançons un appel aux dons pour aider notre association à grandir.  </br> </br>
-
-
-<div id="title_interface">En prime</div>
-<div id="section_interface">Badges : </div>Plus vous vous fidélisez à l'association, plus on vous récompense ! Différents badges sont à gagner en vous impliquant sérieusement dans la vie de notre site !</br>
-<div id="section_interface">Jeux :</div> Pour les petits et les plus grands, Memory Bird vous apprendra à reconnaître les oiseaux ! </br>
-<div id="section_interface">Classement :</div> Vous retrouvez ici la liste des membres du site les plus actifs du moment! Les passionnés ayant le plus de badges se trouvent en haut de la liste.</br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="custom-box">
+                        <h1 class="h1box mb-1">Bienvenue dans l'interface NAO</h1>
+                        <div class="home-imgtop"></div>
+                        <h2 class="h6 mt-3">La plateforme de l'Association NAO</h2>
+                        <p>NAO a eu l'idée d'un regroupement de professionnels et de passionnés sur une même plateforme et qui est celle sur laquelle vous vous trouvez actuellement. Nous vous remercions pour la confiance que vous nous accordez et espérons que vous prendez du plaisir parmis nous.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-3 mt-md-3 mt-lg-0">
+                    <div class="custom-box">
+                        <h1 class="h1box mb-1"><i class="fas fa-question-circle" style="font-size: 24px; vertical-align: middle;margin-right: 8px;"></i>S'informer</h1>
+                        <h2 class="h6 mt-3">Recherche les espèces sur la carte</h2>
+                        <p>Découvrez dès maintenant où ont été le plus aperçus vos oiseaux préférés !</p>
+                        <h2 class="h6 mt-3">Découvrir les profils des autres utilisateurs</h2>
+                        <p>Vous avez la possibilité de consulter le profil des autres passionnés.</p>
+                        <h2 class="h6 mt-3">Découvrir les observations sur les différents oiseaux</h2>
+                        <p>Grâce à une base de donnée bien fournie, vous pouvez retrouver des observations détails sur l'oiseau de votre choix.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-3 mt-md-3 mt-lg-3">
+                    <div class="custom-box">
+                        <h1 class="h1box mb-1"><i class="fas fa-bullhorn" style="font-size: 24px; vertical-align: middle;margin-right: 8px;"></i>Participer</h1>
+                        <h2 class="h6 mt-3">Ajouter une observation</h2>
+                        <p>Qu'est ce qu'une observation? Un moyen pour vous de partager avec la communauté les oiseaux que vous rencontrez lors de vos promenades !</p>
+                        <h2 class="h6 mt-3">Devenir naturaliste</h2>
+                        <p>Si vous êtes un professionel et désirez faire partie de notre équipe, cliquez sur le bouton "Devenir naturaliste" et postulez en répondant aux questions !</p>
+                        <h2 class="h6 mt-3">Faire un don</h2>
+                        <p>Nous lancons un appel aux dons pour aider notre association à grandir. Pour faire un don en ligne rendez-vous sur notre page dédiée <a href="https://www.paypal.com/pools/c/848Pyu38OO">Paypal</a>. </p>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-3 mt-md-3 mt-lg-3">
+                    <div class="custom-box">
+                        <h1 class="h1box mb-1"><i class="fas fa-trophy" style="font-size: 24px; vertical-align: middle;margin-right: 8px;"></i>En prime</h1>
+                        <h2 class="h6 mt-3">Badges</h2>
+                        <p>Plus vous vous fidélisez au site, plus on vous récompense ! Différents badges sont à gagner en vous impliquant sérieusement dans la vie de notre site !</p>
+                        <h2 class="h6 mt-3">Jeux</h2>
+                        <p>Pour les petits et les plus grands, Memory Bird vous apprendra à reconnaître les oiseaux ! </p>
+                        <h2 class="h6 mt-3">Classement</h2>
+                        <p>Vous retrouvez ici la liste des membres du site les plus actifs du moments ! Les passionnés ayant le plus de badges se trouvent en haut de la liste.</p>
+                    </div>
+                </div>
+             </div>
         </div>
     </div>
 {% endblock %}

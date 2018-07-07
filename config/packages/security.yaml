@@ -39,16 +39,18 @@ fos_user:
         db_driver: orm
         firewall_name: main
         user_class: App\Entity\User
+        service:
+                mailer: fos_user.mailer.twig_swift
         from_email:
                 address:        '%env(MAILER_ADDRESS)%'
                 sender_name:    '%env(MAILER_SENDER)%'
         registration:
                 confirmation:
                         enabled: true
-                        template: FOSUserBundle:Registration:email.txt.twig
+                        template: mails/registration/registration.html.twig
         resetting:
                 email:
-                    template: FOSUserBundle:Resetting:email.txt.twig
+                    template: mails/resetting/resetting.html.twig
         profile:
                 form:
                     type: App\Form\ProfileFormType

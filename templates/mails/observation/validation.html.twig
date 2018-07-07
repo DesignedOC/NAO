@@ -1,0 +1,11 @@
+{% extends 'mails/layout.html.twig' %}
+
+{% block body %}
+    <tr>
+        <td align="center" class="text-one">Bonjour {{ user.username }}</td>
+    </tr>
+    <tr>
+        <td align="center"  class="text-two">Votre ajout pour l'observation #{{ observation.id }} a été acceptée. Votre observation est dorénavant en ligne sur le site. Si vous ne souhaitez plus recevoir des emails de confirmation. <br>Veuillez vous rendre dans votre espace paramètres pour le configurer.</td>
+    </tr>
+{% endblock %}
+
