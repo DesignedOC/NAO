@@ -152,7 +152,7 @@
 
                         //CREATION INFOWINDOW
 
-                        infoWindow = new google.maps.InfoWindow({pixelOffset: new google.maps.Size(0, -35)});
+                    //    infoWindow = new google.maps.InfoWindow({pixelOffset: new google.maps.Size(0, -35)});
 
                         //CREATION MARKER
                         marker = new google.maps.Marker({
@@ -179,8 +179,8 @@
 
                                 marker.setPosition(pos);
                                 var contentString = "Vous êtes ici.";
-                                infoWindow.setPosition(pos);
-                                infoWindow.setContent(contentString);
+                               // infoWindow.setPosition(pos);
+                               // infoWindow.setContent(contentString);
                                 infoWindow.open(map);
                                 map.setCenter(pos);
                             }, function () {
@@ -199,8 +199,8 @@
                     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 
-                        infoWindow.setPosition(pos);
-                        infoWindow.setContent(browserHasGeolocation ? 'Votre service de géolocalisation n\'est pas activé. Merci de déplacer le curseur pour choisir l\'emplacement de votre observation' : 'Error: Your browser doesn\'t support geolocation.');
+                     //   infoWindow.setPosition(pos);
+                      //  infoWindow.setContent(browserHasGeolocation ? 'Votre service de géolocalisation n\'est pas activé. Merci de déplacer le curseur pour choisir l\'emplacement de votre observation' : 'Error: Your browser doesn\'t support geolocation.');
                         infoWindow.open(map);
 
                     }
