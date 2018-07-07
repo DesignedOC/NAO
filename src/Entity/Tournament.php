@@ -42,13 +42,13 @@ class Tournament
     private $rules;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="Vous devez saisir une note concernant la date de fin du tournoi")
      */
     private $endNote;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Player", mappedBy="tournament")
+     * @ORM\OneToMany(targetEntity="App\Entity\Player", mappedBy="tournament", cascade = {"remove"})
      */
     private $players;
 
