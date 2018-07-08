@@ -140,7 +140,7 @@
 
                                     google.maps.event.addListener(marker, 'click', (function (marker, count) {
                                         return function () {
-                                            var contentString = '<div id="content" class="card">' + '<div id="bodyContent" class="card-body">' + '<p id="title" class="card-title title">' + locations[count].nomVern + '</p>' + '<p id="author" class="card-title author">Posté par <b>' + locations[count].username + '</b>' + '<span class="date-pub">- Validé le' + locations[count].date + '</span></p><hr>' + '<img src="" alt="">' + '<p>' + locations[count].description + '</p>' + '<div class="card-footer text-center"><a href="{{ path('fos_user_registration_register', {'id':1}) }}" class="btn btn-primary text-center">Nous rejoindre</a></div>' + '</div>' + '</div>';
+                                            var contentString = '<div id="content" class="card">' + '<div id="bodyContent" class="card-body">' + '<p id="title" class="card-title title">' + locations[count].nomVern + '</p>' + '<p id="author" class="card-title author">Posté par <b>' + locations[count].username + '</b>' + '<span class="date-pub">- Validé le' + locations[count].date + '</span></p><hr>' + '<img src="" alt="">' + '<p>' + locations[count].description + '</p>' + '<div class="card-footer text-center"><a href="{{ path('fos_user_registration_register') }}" class="btn btn-primary text-center">Nous rejoindre</a></div>' + '</div>' + '</div>';
                                             infowindow.setContent(contentString);
                                             infowindow.open(map, marker);
                                         }
