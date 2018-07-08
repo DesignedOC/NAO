@@ -67,8 +67,8 @@ class ControllerTest extends WebTestCase
     {
         return [
             ['/'],
-//            ['/observations'],
-//            ['/association'],
+            ['/observations'],
+            ['/association'],
             ['/connexion'],
             ['/inscription'],
             ['/conditions-generales'],

@@ -34,8 +34,8 @@ easy_admin:
                 fields:
                     - { property: 'Email', label: 'Email', type: 'email' }
         Taxref:
-            disabled_actions: ['new','delete']
-         #   disabled_actions: ['delete']
+         #   disabled_actions: ['new','delete']
+            disabled_actions: ['delete']
             class: App\Entity\Taxref
             list:
                 title: 'Base de données'
@@ -50,10 +50,10 @@ easy_admin:
                 title: 'Importer le nouveau fichier Taxref'
                 fields:
                     - { property: 'TaxrefFile', type: 'file', base_path: '%app.path.taxref%'}
-      #      new:
-      #          title: 'Créer le nouveau fichier'
-      #          fields:
-      #              - { property: 'TaxrefFile', type: 'file', base_path: '%app.path.taxref%'}
+            new:
+                title: 'Créer le nouveau fichier'
+                fields:
+                    - { property: 'TaxrefFile', type: 'file', base_path: '%app.path.taxref%'}
 
 
         User:
