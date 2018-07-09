@@ -8,18 +8,16 @@ easy_admin:
         menu:
             - { label: 'Retour Interface',icon: 'home', route: 'nao_interface' }
             - { label: 'le blog' ,icon: 'book', url: 'http://naonews.pw/', target: '_blank' }
-            - { label: 'Gestion des utilisateurs' }
+            - { label: 'Gestion Site' }
             - { entity: 'User', icon: 'user', label: 'Utilisateurs', default: true }
-            - { label: 'Gestion des observations' }
             - { entity: 'Observation', icon: 'binoculars', label: 'Observation' }
+            - { entity: 'Newsletter', icon: 'envelope', label: 'Newsletter'}
+            - { entity: 'Tournament', icon: 'binoculars', label: 'Tournois' }
+            - { entity: 'Bird', icon: 'themeisle', label: 'Oiseaux' }
+            - { label: 'Gestion de la newsletter' }
             - label: 'Gestion de la newsletter'
               children:
                 - { label: 'Exporter les emails', route: 'exportEmail' }
-            - { entity: 'Newsletter', icon: 'envelope', label: 'Newsletter'}
-            - { label: 'Gestion des Tournois' }
-            - { entity: 'Tournament', icon: 'binoculars', label: 'Tournois' }
-            - { label: 'Gestion des espèces' }
-            - { entity: 'Bird', icon: 'themeisle', label: 'Oiseaux' }
             - { label: 'Base de données' }
             - label: 'Base de données'
               children:
@@ -34,8 +32,8 @@ easy_admin:
                 fields:
                     - { property: 'Email', label: 'Email', type: 'email' }
         Taxref:
-            disabled_actions: ['new','delete']
-         #   disabled_actions: ['delete']
+         #   disabled_actions: ['new','delete']
+            disabled_actions: ['delete']
             class: App\Entity\Taxref
             list:
                 title: 'Base de données'
@@ -50,10 +48,10 @@ easy_admin:
                 title: 'Importer le nouveau fichier Taxref'
                 fields:
                     - { property: 'TaxrefFile', type: 'file', base_path: '%app.path.taxref%'}
-      #      new:
-      #          title: 'Créer le nouveau fichier'
-      #          fields:
-      #              - { property: 'TaxrefFile', type: 'file', base_path: '%app.path.taxref%'}
+            new:
+                title: 'Créer le nouveau fichier'
+                fields:
+                    - { property: 'TaxrefFile', type: 'file', base_path: '%app.path.taxref%'}
 
 
         User:

@@ -210,11 +210,13 @@ class Observation
     }
 
     /**
-     * @param User $user
+     * @param User|null $user
+     * @return $this
      */
-    public function setUser(User $user)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
+        return $this;
     }
 
     /**

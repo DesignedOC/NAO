@@ -84,8 +84,6 @@
         var searchUrl = "{{path('map_search')  }}";
         var markers = [];
 
-/////////////////////////////////////////////////////////////////////////////////////
-        // INITIALISATION DE LA CARTE
         function initMap() {
             var center = {lat: 47.12025, lng: 2.123654};
             var options = {
@@ -96,8 +94,6 @@
             map = new google.maps.Map(document.getElementById('map'),options);
         }
 
-  /////////////////////////////////////////////////////////////////////////////
-        // RECHERCHE NOM VERN ET MISE EN PLACE DES MARQUEURS
         infowindow =  new google.maps.InfoWindow();
 
         $(function () {
@@ -121,10 +117,10 @@
 
                                     });
                                     markers.push(marker);
-
+                                {% if not is_granted('ROLE_NATURALIST') %}
                                     google.maps.event.addListener(marker, 'click', (function (marker, count) {
                                         return function () {
-                                            var contentString = '<div id="content" class="card">' + '<div id="bodyContent" class="card-body">' + '<p id="title" class="card-title title">' + locations[count].nomVern + '</p>' + '<p id="author" class="card-title author">Posté par <b>' + locations[count].username + '</b>' + '<span class="date-pub">- Validé le' + locations[count].date + '</span></p><hr>' + '<img src="" alt="">' + '<p>' + locations[count].description + '</p>' + '<div class="card-footer text-center"><a href="{{ path('fos_user_registration_register', {'id':1}) }}" class="btn btn-primary text-center">Nous rejoindre</a></div>' + '</div>' + '</div>';
+                                            var contentString = '<div id="content" class="card">' + '<div id="bodyContent" class="card-body">' + '<p id="title" class="card-title title">' + locations[count].nomVern + '</p>' + '<p id="author" class="card-title author">Posté par <b>' + locations[count].username + '</b>' + '<span class="date-pub">- Validé le' + locations[count].date + '</span></p><hr>' + '<img src="" alt="">' + '<p>' + locations[count].description + '</p>' + '<div class="card-footer text-center"><a href="{{ path('fos_user_registration_register') }}" class="btn btn-primary text-center">Nous rejoindre</a></div>' + '</div>' + '</div>';
                                             infowindow.setContent(contentString);
                                             infowindow.open(map, marker);
                                         }
@@ -132,6 +128,33 @@
                                     google.maps.event.addListener(map, 'click', function () {
                                         infowindow.close();
                                     });
+                                {% else %}
+                                google.maps.event.addListener(marker, 'click', (function (marker, count) {
+
+                                        return function () {
+                                            var id = locations[count].id;
+                                            var url = window.location.host;
+
+                                            var contentString = '<div id="content" class="card">'+
+                                                '<div id="bodyContent" class="card-body">'+
+                                                '<p id="title" class="card-title title">'+locations[count].nomVern+'</p>'+
+                                                '<p id="author" class="card-title author">Posté par <b>'+locations[count].username+'</b>'+
+                                                '<span class="date-pub">- Validé le '+locations[count].date+'</span></p><hr>'+
+                                                '<img src="" alt="">'+
+                                                '<p>'+locations[count].description+'</p>'+
+                                                '<div class="card-footer text-center"><a  href="http://'+ url +'/interface/observation/'+locations[count].id+'"  class="btn btn-primary text-center" >Fiche observation</a></div>'+
+                                                '</div>';
+
+                                            infowindow.setContent(contentString);
+                                            infowindow.open(map, marker);
+                                        }
+                                    }
+                                )(marker, count));
+
+                                google.maps.event.addListener(map, 'click', function() {
+                                    infowindow.close();
+                                });
+                                {% endif %}
 
                             }
                         var markerCluster = new MarkerClusterer(map, markers,
@@ -147,7 +170,6 @@
         });
         google.maps.event.addDomListener(window, 'load', initMap);
 
-        //////////////////////////////////////////////////////////////////////////////////////////////
 
 
         google.maps.event.addListener(infowindow, 'domready', function() {
@@ -167,13 +189,11 @@
                 $(this).css({opacity: '1'});
             });
         });
-        //////////////////////////////////////////////////////////////////////////////////////////
-        // CLEAR MAP POUR RELANCER RECHERCHE
+
           $('#clearMap').click(function (data) {
             data.preventDefault();
             location.reload();
         });
-        ////////////////////////////////////////////////////////////////////////////////
     </script>
 
      
