@@ -14,26 +14,43 @@ class UserFixtures extends Fixture
      */
     public function load(ObjectManager $manager)
     {
-//        $src = __DIR__."/../Resources/doc/mydocument.pdf";
-
-        for ($i = 0; $i < 4; $i++) {
-            $user = new User();
-            $user->setUsername($this->firstnameData());
-            $manager->persist($user);
-        }
-
+    // $user = $userManager->createUser();
+        $user = new User();
+        $user->setEmail('admin@admin.com');
+        $user->setUsername('admin');
+        $user->setPlainPassword('admin');
+        $user->setEnabled(true);
+        $user->addRole('ROLE_SUPER_ADMIN');
+         $manager->persist($user);
         $manager->flush();
+
+        $user = new User();
+        $user->setEmail('natu@natu.com');
+        $user->setUsername('natu');
+        $user->setPlainPassword('natu');
+        $user->setEnabled(true);
+        $user->addRole('ROLE_NATURALIST');
+        $manager->persist($user);
+        $manager->flush();
+
+        $user = new User();
+        $user->setEmail('user@user.com');
+        $user->setUsername('user');
+        $user->setPlainPassword('user');
+        $user->setEnabled(true);
+        $user->addRole('ROLE_USER');
+        $manager->persist($user);
+        $manager->flush();
+
     }
 
     /**
-     * @return array
+     * Get the order of this fixture
+     * @return integer
      */
-    private function firstnameData()
+    public function getOrder()
     {
-        return [
-            'Christophe',
-            'Bernard'
-        ];
+        return 2;
     }
 
 }
