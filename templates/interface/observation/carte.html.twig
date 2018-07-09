@@ -5,7 +5,6 @@
 
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
-{#<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">#}
 <link rel="stylesheet" href="{{ asset('build/js/observAutocomplete.css') }}">
 {% endblock %}
 
@@ -41,9 +40,9 @@
 {% block javascripts %}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB1pM1lEVpFhq3Fne8yzNchvi0FNheYoY"></script>
     <script src="{{ asset('build/js/app.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('assets/js/gmaps.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
+    {# <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>#}
+   {# <script src="{{ asset('assets/js/gmaps.js') }}"></script>#}
+    {# <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>#}
     <script type="application/javascript">
 
         var map, marker, infoWindow;
@@ -51,8 +50,6 @@
         var searchUrl = "{{ path('nao_interface_map_search')  }}";
         var markers = [];
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // INITIALISATION DE LA CARTE
         function initMap() {
             var center = {lat: 47.12025, lng: 2.123654};
             map = new google.maps.Map(document.getElementById('map'), {
@@ -62,9 +59,6 @@
             });
         }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        // RECHERCHE NOM VERN ET MISE EN PLACE DES MARQUEURS
         infowindow =  new google.maps.InfoWindow({});
 
         $(function () {
@@ -93,10 +87,6 @@
                                     var id = locations[count].id;
                                     var url = window.location.host;
 
-                                    console.log(id);
-                                     var route = "{{ path('nao_interface_obs_show', { 'id': "PLACEHOLDER" }) }}";
-
-
                                     var contentString = '<div id="content" class="card">'+
                                             '<div id="bodyContent" class="card-body">'+
                                             '<p id="title" class="card-title title">'+locations[count].nomVern+'</p>'+
@@ -104,21 +94,11 @@
                                             '<span class="date-pub">- Validé le '+locations[count].date+'</span></p><hr>'+
                                             '<img src="" alt="">'+
                                             '<p>'+locations[count].description+'</p>'+
-                                       // balise +
-                                           // '<p>'+locations[count].id+'</p>'+
-                                        {# '<div class="card-footer text-center"><a  href="{{ path('nao_interface_obs_show',{ 'id': "PLACEHOLDER" }  ) }}"  class="btn btn-primary text-center" >Fiche observation</a></div>'+#}
-                                         '<div class="card-footer text-center"><a  href="http://'+ url +'/interface/observation/'+locations[count].id+'"  class="btn btn-primary text-center" >Fiche observation</a></div>'+
-
-
-                                        '</div>';
+                                            '<div class="card-footer text-center"><a  href="http://'+ url +'/interface/observation/'+locations[count].id+'"  class="btn btn-primary text-center" >Fiche observation</a></div>'+
+                                            '</div>';
 
                                     infowindow.setContent(contentString);
                                     infowindow.open(map, marker);
-                                   // window.location = route.replace("PLACEHOLDER", id);
-
-                                    //window.location = route.replace("PLACEHOLDER", id);
-                                   //window.location = route.replace("PLACEHOLDER", id);
-
                                 }
                             }
                             )(marker, count));
@@ -142,8 +122,6 @@
         google.maps.event.addDomListener(window, 'load', initMap);
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-
         google.maps.event.addListener(infowindow, 'domready', function() {
             var iwOuter = $('.gm-style-iw');
             var iwBackground = iwOuter.prev();
@@ -161,20 +139,19 @@
                 $(this).css({opacity: '1'});
             });
         });
-//////////////////////////////////////////////////////////////////////////////////////////
-        // CLEAR MAP POUR RELANCER RECHERCHE
+
         $('#clearMap').click(function (data) {
             data.preventDefault();
             location.reload();
         });
-        ////////////////////////////////////////////////////////////////////////////////
+
     </script>
 
     <script>
 var lbNomUrl = "{{ path('bird_lbnom_autocomplete') }}";
 var vernNomUrl = "{{ path('bird_nomvern_autocomplete') }}";
     </script>
- <script src="{{ asset('build/js/observAutocomplete.js') }}"></script>
+    <script src="{{ asset('build/js/observAutocomplete.js') }}"></script>
     <script src="{{ asset('../assets/js/markerclusterer.js') }}"></script>
 
 {% endblock %}
