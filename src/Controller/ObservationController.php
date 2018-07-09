@@ -28,7 +28,6 @@ class ObservationController extends Controller
      * @Template("interface/observations.html.twig")
      * @param $page
      * @return array
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function obsListShow($page)
     {
@@ -36,7 +35,6 @@ class ObservationController extends Controller
         $observations = $em->getRepository(Observation::class)->findObservationsPublished($page);
         $nbObservations = $em->getRepository(Observation::class)->findAllObservationsCountByStatut();
         $nbPages = ceil($nbObservations / 10);
-
 
         if($page != 1 && $page > $nbPages)
         {
