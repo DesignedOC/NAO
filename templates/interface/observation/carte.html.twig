@@ -90,12 +90,15 @@
 
 
                             google.maps.event.addListener(marker, 'click', (function (marker, count) {
-                                var id = locations[count].id;
-                                var route = "{{ path('nao_interface_obs_show', { 'id': "PLACEHOLDER"}) }}";
-                                //console.log(id);
-                                return function () {
 
+
+
+
+                                return function () {
+                                    var id = locations[count].id;
                                     console.log(id);
+                                     var route = "{{ path('nao_interface_obs_show', { 'id': "PLACEHOLDER" }) }}";
+
                                     var contentString = '<div id="content" class="card">'+
                                             '<div id="bodyContent" class="card-body">'+
                                             '<p id="title" class="card-title title">'+locations[count].nomVern+'</p>'+
@@ -104,25 +107,34 @@
                                             '<img src="" alt="">'+
                                             '<p>'+locations[count].description+'</p>'+
                                            // '<p>'+locations[count].id+'</p>'+
+                                         '<div class="card-footer text-center"><a  href="{{ path('nao_interface_obs_show',{ 'id': "PLACEHOLDER" }  ) }}"  class="btn btn-primary text-center" >Fiche observation</a></div>'+
 
-                                        // '<div class="card-footer text-center"><a  href="{{ path('nao_interface_obs_show',{ 'id': "PLACEHOLDER" }  ) }}"  class="btn btn-primary text-center >Fiche observation</a></div>'+
-                                         '<div class="card-footer text-center"><a  href="{{ path('nao_interface_obs_show',{ 'id': "PLACEHOLDER" }  ) }}"  class="btn btn-primary text-center">Fiche observation</a></div>'+
                                             '</div>';
+
 
                                     infowindow.setContent(contentString);
                                     infowindow.open(map, marker);
 
-                                /*  function test()
-                                  {
-                                      window.location = route.replace("PLACEHOLDER", id);
-                                  }*/
                                    window.location = route.replace("PLACEHOLDER", id);
+
+                                 //    window.location = route.replace("PLACEHOLDER", id);
+
+                                  /*  google.maps.event.addListener(a,'click', function()
+                                    {
+                                        window.location = route.replace("PLACEHOLDER", id);
+
+                                    });*/
 
                                 }
                             })(marker, count));
+
                             google.maps.event.addListener(map, 'click', function() {
                                 infowindow.close();
                             });
+
+
+
+
                         }
                         var markerCluster = new MarkerClusterer(map, markers,
                             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});

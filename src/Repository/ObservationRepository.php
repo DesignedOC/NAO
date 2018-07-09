@@ -208,6 +208,7 @@ class ObservationRepository extends ServiceEntityRepository
             ->leftJoin('o.bird', 'b')
             ->leftJoin('o.user', 'u');
         $qb->where($qb->expr()->like('b.nomVern', ':nomVern '))
+            ->andWhere('o.statut = 2')
             ->setParameter("nomVern", $birdNomVern);
         return $qb->getQuery()->getScalarResult();
     }
