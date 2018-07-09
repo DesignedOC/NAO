@@ -33,7 +33,7 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
         //$user = new User();
         $user->setEmail('admin@admin.com');
         $user->setUsername('admin');
-        $user->setPlainPassword('admin');
+        $user->setPlainPassword('5c23tjLG');
         $user->setEnabled(true);
         $user->addRole('ROLE_ADMIN');
          $manager->persist($user);
@@ -43,8 +43,8 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
         $user = $userManager->createUser();
         //$user = new User();
         $user->setEmail('natu@natu.com');
-        $user->setUsername('natu');
-        $user->setPlainPassword('natu');
+        $user->setUsername('naturaliste');
+        $user->setPlainPassword('5Mb2j8pF');
         $user->setEnabled(true);
         $user->addRole('ROLE_NATURALIST');
         $manager->persist($user);
@@ -55,7 +55,7 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
         //$user = new User();
         $user->setEmail('user@user.com');
         $user->setUsername('user');
-        $user->setPlainPassword('user');
+        $user->setPlainPassword('f76Q8Gzq');
         $user->setEnabled(true);
         $user->addRole('ROLE_USER');
         $manager->persist($user);
