@@ -8,14 +8,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\Finder;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
-class TaxrefFixtures extends AbstractFixture implements ContainerAwareInterface,OrderedFixtureInterface
+class TaxrefFixtures extends Fixture implements ContainerAwareInterface,OrderedFixtureInterface
 {
-
     private $container;
-    /**
-     * Sets the container.
-     * @param ContainerInterface|null $container
-     */
+
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
@@ -26,8 +22,9 @@ class TaxrefFixtures extends AbstractFixture implements ContainerAwareInterface,
         set_time_limit(0);
         // Bundle to manage file and directories
         $finder = new Finder();
-        $finder->in('sql');
+        $finder->in('public/sql');
         $finder->name('taxref.sql');
+
         foreach( $finder as $file ){
             $content = $file->getContents();
             $stmt = $this->container->get('doctrine.orm.entity_manager')->getConnection()->prepare($content);

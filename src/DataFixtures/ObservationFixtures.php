@@ -17,13 +17,13 @@ class ObservationFixtures extends Fixture implements OrderedFixtureInterface
         $observation->setDate(new \DateTime());
         $observation->setLatitude('48.2555');
         $observation->setLongitude('2.62545');
-        $observation->setPicture('uploads/observations/5b2a820b90c58533077425.jpg');
+        $observation->setPicture('5b2a6d5d63668228460405.jpg');
         $observation->setStatut('2');
         $observation->setDescription('Superbe oiseau !');
-       $bird = $manager->getRepository('App:Taxref')->find(352);
-       $user = $manager->getRepository('App:User')->find(3);
-       $observation->setBird($bird);
-       $observation->setUser($user);
+        $bird = $manager->getRepository('App:Bird')->find(2);
+        $user = $manager->getRepository('App:User')->find(3);
+        $observation->setBird($bird);
+        $observation->setUser($user);
         $manager->persist($observation);
         $manager->flush();
 
@@ -32,10 +32,10 @@ class ObservationFixtures extends Fixture implements OrderedFixtureInterface
         $observation->setDate(new \DateTime());
         $observation->setLatitude('48.2555');
         $observation->setLongitude('3.62545');
-        $observation->setPicture('uploads/observations/5b2a820b90c58533077425.jpg');
+        $observation->setPicture('5b3b75f9a55be877382999.jpg');
         $observation->setStatut('2');
         $observation->setDescription('Superbe oiseau !');
-        $bird = $manager->getRepository('App:Taxref')->find(352);
+        $bird = $manager->getRepository('App:Bird')->find(2);
         $user = $manager->getRepository('App:User')->find(2);
         $observation->setBird($bird);
         $observation->setUser($user);
@@ -46,10 +46,10 @@ class ObservationFixtures extends Fixture implements OrderedFixtureInterface
         $observation->setDate(new \DateTime());
         $observation->setLatitude('48.2555');
         $observation->setLongitude('5.62545');
-        $observation->setPicture('uploads/observations/5b2a820b90c58533077425.jpg');
+        $observation->setPicture('5b439c1811327988108571.jpg');
         $observation->setStatut('2');
         $observation->setDescription('Superbe oiseau !');
-        $bird = $manager->getRepository('App:Taxref')->find(352);
+        $bird = $manager->getRepository('App:Bird')->find(2);
         $user = $manager->getRepository('App:User')->find(1);
         $observation->setBird($bird);
         $observation->setUser($user);
