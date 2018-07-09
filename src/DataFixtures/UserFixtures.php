@@ -30,7 +30,6 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
     {
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->createUser();
-        //$user = new User();
         $user->setEmail('admin@admin.com');
         $user->setUsername('admin');
         $user->setPlainPassword('5c23tjLG');
@@ -41,7 +40,6 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
 
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->createUser();
-        //$user = new User();
         $user->setEmail('natu@natu.com');
         $user->setUsername('naturaliste');
         $user->setPlainPassword('5Mb2j8pF');
@@ -52,7 +50,6 @@ class UserFixtures extends Fixture implements ContainerAwareInterface
 
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->createUser();
-        //$user = new User();
         $user->setEmail('user@user.com');
         $user->setUsername('user');
         $user->setPlainPassword('f76Q8Gzq');
