@@ -36,7 +36,7 @@
             </div>
         </div>
      </div>
- </div>
+     </div>
 {% endblock %}
 {% block javascripts %}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB1pM1lEVpFhq3Fne8yzNchvi0FNheYoY"></script>
@@ -84,20 +84,18 @@
                                     position: new google.maps.LatLng(locations[count].latitude, locations[count].longitude),
                                     map: map,
                                     title: locations[count].nomVern,
-
                                 });
                                 markers.push(marker);
 
-
                             google.maps.event.addListener(marker, 'click', (function (marker, count) {
-
-
-
 
                                 return function () {
                                     var id = locations[count].id;
+                                    var url = window.location.host;
+
                                     console.log(id);
                                      var route = "{{ path('nao_interface_obs_show', { 'id': "PLACEHOLDER" }) }}";
+
 
                                     var contentString = '<div id="content" class="card">'+
                                             '<div id="bodyContent" class="card-body">'+
@@ -106,34 +104,28 @@
                                             '<span class="date-pub">- Validé le '+locations[count].date+'</span></p><hr>'+
                                             '<img src="" alt="">'+
                                             '<p>'+locations[count].description+'</p>'+
+                                       // balise +
                                            // '<p>'+locations[count].id+'</p>'+
-                                         '<div class="card-footer text-center"><a  href="{{ path('nao_interface_obs_show',{ 'id': "PLACEHOLDER" }  ) }}"  class="btn btn-primary text-center" >Fiche observation</a></div>'+
+                                        {# '<div class="card-footer text-center"><a  href="{{ path('nao_interface_obs_show',{ 'id': "PLACEHOLDER" }  ) }}"  class="btn btn-primary text-center" >Fiche observation</a></div>'+#}
+                                         '<div class="card-footer text-center"><a  href="http://'+ url +'/interface/observation/'+locations[count].id+'"  class="btn btn-primary text-center" >Fiche observation</a></div>'+
 
-                                            '</div>';
 
+                                        '</div>';
 
                                     infowindow.setContent(contentString);
                                     infowindow.open(map, marker);
+                                   // window.location = route.replace("PLACEHOLDER", id);
 
-                                   window.location = route.replace("PLACEHOLDER", id);
-
-                                 //    window.location = route.replace("PLACEHOLDER", id);
-
-                                  /*  google.maps.event.addListener(a,'click', function()
-                                    {
-                                        window.location = route.replace("PLACEHOLDER", id);
-
-                                    });*/
+                                    //window.location = route.replace("PLACEHOLDER", id);
+                                   //window.location = route.replace("PLACEHOLDER", id);
 
                                 }
-                            })(marker, count));
+                            }
+                            )(marker, count));
 
                             google.maps.event.addListener(map, 'click', function() {
                                 infowindow.close();
                             });
-
-
-
 
                         }
                         var markerCluster = new MarkerClusterer(map, markers,

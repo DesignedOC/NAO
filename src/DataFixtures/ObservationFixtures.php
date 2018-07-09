@@ -56,6 +56,34 @@ class ObservationFixtures extends Fixture implements OrderedFixtureInterface
         $manager->persist($observation);
         $manager->flush();
 
+        $observation = new Observation();
+        $observation->setDate(new \DateTime());
+        $observation->setLatitude('48.2555');
+        $observation->setLongitude('3.62545');
+        $observation->setPicture('5b3b75f9a55be877382999.jpg');
+        $observation->setStatut('2');
+        $observation->setDescription('Superbe oiseau !');
+        $bird = $manager->getRepository('App:Bird')->find(2);
+        $user = $manager->getRepository('App:User')->find(2);
+        $observation->setBird($bird);
+        $observation->setUser($user);
+        $manager->persist($observation);
+        $manager->flush();
+
+        $observation = new Observation();
+        $observation->setDate(new \DateTime());
+        $observation->setLatitude('48.2555');
+        $observation->setLongitude('3.6545');
+        $observation->setPicture('5b3b75f9a55be877382999.jpg');
+        $observation->setStatut('2');
+        $observation->setDescription('Superbe oiseau !');
+        $bird = $manager->getRepository('App:Bird')->find(2);
+        $user = $manager->getRepository('App:User')->find(2);
+        $observation->setBird($bird);
+        $observation->setUser($user);
+        $manager->persist($observation);
+        $manager->flush();
+
     }
     /**
      * Get the order of this fixture
