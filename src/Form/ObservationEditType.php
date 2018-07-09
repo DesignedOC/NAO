@@ -1,6 +1,8 @@
 <?php
 namespace App\Form;
+use App\Entity\Bird;
 use App\Entity\Observation;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,7 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use App\Form\BirdType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Class ObservationType
@@ -27,9 +28,11 @@ class ObservationEditType extends AbstractType
 //            ->add('latitude',NumberType::class, array('label' => 'Ajouter la latitude : '))
 //            ->add('longitude',NumberType::class, array('label' => 'Ajouter la longitude : '))
             ->add('pictureFile',VichImageType::class, array('label' => 'Ajouter une photo de l\'oiseau : ', 'required' => false))
-            ->add('bird',BirdType::class)
+            ->add('bird',EntityType::class, array(
+                'label' => 'Choisir l\'oiseau',
+                'class' => Bird::class,
+            ))
             ->add('description', TextareaType::class, array('label' => 'Ajouter une courte description : '))
-//            ->add('save', SubmitType::class, array('label' => 'Valider votre saisie', 'attr' => array('class' => 'btn btn-custom mt-4')))
         ;
     }
     public function configureOptions(OptionsResolver $resolver)
