@@ -21,7 +21,7 @@
                     <div class="alert alert-primary" role="alert">
                         Votre candidature <strong>#{{ appStatut.id }}</strong> est actuellement en train d'être étudié. Veuillez patienter le temps qu'un naturaliste puisse valider ou refuser votre demande.
                     </div>
-                    <a href="{{ path('nao_interface') }}"><button type="submit" class="btn btn-custom">Revenur à l'Accueil</button></a>
+                    <a href="{{ path('nao_interface') }}"><button type="submit" class="btn btn-custom">Revenir à l'Accueil</button></a>
                 {% endif %}
                 {% if appStatut.statut == 0 %}
                         <div class="alert alert-warning" role="alert">
