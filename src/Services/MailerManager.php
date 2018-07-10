@@ -17,7 +17,7 @@ class MailerManager {
     /**
      * @Const Mail Musée du Louvre
      */
-    private const mail = 'no-reply@nao.com';
+    private const mail = 'agence.projet.oc@gmail.com';
     /**
      * MailerManager constructor.
      * @param \Swift_Mailer $mailer
