@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NAO - Observation #{{ observation.id }}{% endblock %}
+{% block description %}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <style>
+        div#map {
+            width: 100%;
+            height: 200px;
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {% include 'interface/parts/_sidebar.html.twig' %}
+        <div class="container-left">
+            {% include 'interface/parts/_header.html.twig' %}
+                <div class="main-content">
+                <div class="row">
+                    {% if app.request.headers.get('referer') %}
+                    <div class="col-12">
+                        <div class="col-12 col-md-12 col-lg-12 col-xl-8 max-w-xxl pl-0 pr-0">
+                            <nav aria-label="breadcrumb">
+                              <ol class="breadcrumb">
+                              {% if '/observations/' in app.request.headers.get('referer') %}
+                                <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Liste des observations</a></li>
+                                {% elseif '/validations/' in app.request.headers.get('referer') %}
+                                <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Validations</a></li>
+                                {% elseif '/user/' in app.request.headers.get('referer') %}
+                                <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Utilisateur</a></li>
+                                {% elseif '/mes-observations/' in app.request.headers.get('referer') %}
+                                <li class="breadcrumb-item"><a href="{{ app.request.headers.get('referer') }}">Mes observations</a></li>
+                              {% endif %}
+                                <li class="breadcrumb-item active" aria-current="page">Fiche observation</li>
+                              </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="col-12">
+                        <div class="col-12 col-md-12 col-lg-12 col-xl-8 custom-box max-w-xxl mb-5">
+                                <h1 class="h1box"><i class="fas fa-map-marker-alt marker-alt" ></i>Observation #{{ observation.id }} <span class="{% if observation.statut == 2 %}ico-obs-g{% elseif observation.statut == 1 %}ico-obs-b{% elseif observation.statut == 0 %}ico-obs-r{% endif %} float-right"><i class="fas fa-leaf"></i></span></h1>
+                            <div class="row">
+                            <div class="col-md-4">
+                                <a href="#" class="popup">
+                                    <img src="{{ asset('uploads/observations/'~observation.picture) }}"  class="img-fluid" alt="Observation {{ observation.id }} - Image">
+                                </a>
+                            </div>
+                            <div class="col-md-8">
+                                <h2 class="h4 mb-1 mt-3 mt-md-0">{{ observation.bird.nomVern }}</h2>
+                                <h3 class="h5 mb-3 obs-h3 pb-3">{{ observation.bird.lbNom }}</h3>
+                                <p class="nb mb-2">Observation postée le <strong>{{ observation.date|date("d/m/Y") }}</strong> par <a href="{{ path('nao_interface_profile', { username: observation.user.username }) }}">{{ observation.user.username|capitalize }}</a></p>
+                                <p class="text-muted bg-b">{{ observation.description }}</p>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <h3 class="h5 pt-3 mb-4 obs-loc">Localisation de l'observation</h3>
+                                <div id="map"></div>
+                                <ul class="foot-obs p-2">
+                                    <li class="mr-3">Latitude : <strong>{{ observation.latitude }}</strong></li>
+                                    <li class="mr-3">Longitude : <strong>{{ observation.longitude }}</strong></li>
+                                </ul>
+                             </div>
+                        </div>
+                        </div>
+                    </div>
+            </div>
+     </div>
+     <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <img src="" class="imagepreview" style="width: 100%;height: 100%;" >
+              </div>
+            </div>
+          </div>
+     </div>
+{% endblock %}
+
+{% block javascripts %}
+            <script src="{{ asset('build/js/app.js') }}"></script>
+            <script type="application/javascript">
+                function initMapShow() {
+                    var pos = {lat: {{ observation.latitude }}, lng: {{ observation.longitude }} };
+                    var map = new google.maps.Map(
+                        document.getElementById('map'), {zoom: 12, center: pos});
+                    var marker = new google.maps.Marker({position: pos, map: map});
+                }
+
+                $('.popup').on('click', function() {
+                    $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+                    $('#imagemodal').modal('show');
+                });
+
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB1pM1lEVpFhq3Fne8yzNchvi0FNheYoY&callback=initMapShow"></script>
+{% endblock %}

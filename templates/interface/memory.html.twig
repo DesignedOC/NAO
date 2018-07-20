@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NAO - Jeu Memory{% endblock %}
+{% block description %}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+    <link href="{{ asset('assets/css/style.css') }}" rel='stylesheet' type='text/css' />
+{% endblock %}
+
+{% block body %}
+{% include 'interface/parts/_sidebar.html.twig' %}
+<div class="container-left">
+    {% include 'interface/parts/_header.html.twig' %}
+    <div class="main-content">
+        <div class="col-12 pb-0 pl-md-0 pr-md-0">
+            <div class="custom-box">
+                <h1 class="h1box mb-1"><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">videogame_asset</i>Jeu Memory bird</h1>
+            </div>
+        </div>
+        <div class="col-12 pb-0 pl-md-0 pr-md-0 memory-bird">
+            <div class="custom-box pt-0">
+                <div class="row">
+                    <div class="col-md-6 mr-0 pr-md-0">
+                        <div class="custom-box pt-1">
+                        <table>
+                            <tr>
+                                <td class="case" id="case0"></td>
+                                <td class="case" id="case1"></td>
+                                <td class="case" id="case2"></td>
+                                <td class="case" id="case3"></td>
+                            </tr>
+                            <tr>
+                                <td class="case" id="case4"></td>
+                                <td class="case" id="case5"></td>
+                                <td class="case" id="case6"></td>
+                                <td class="case" id="case7"></td>
+                            </tr>
+                            <tr>
+                                <td class="case" id="case8"></td>
+                                <td class="case" id="case9"></td>
+                                <td class="case" id="case10"></td>
+                                <td class="case" id="case11"></td>
+                            </tr>
+                        </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mr-0 pl-md-0">
+                        <div class="custom-box pt-1">
+                            <input type="button" class="btn btn-custom-prim mb-2" value="Nouvelle partie" onclick="location.reload();"/>
+                            <input type="button" class="btn btn-custom-prim mb-2" value="Comment jouer ?" onclick="afficher_cacher('texte');"/>
+
+                            <div id="paireOk"></div>
+                            <div id="noms"></div>
+                            <div id="level"></div>
+                            <div class="game">
+                                <div id="temps"></div>
+                                <div id="coups"></div>
+                            </div>
+                            <div id="texte" class="texte">
+                                <p> Le but du jeu est de retrouver toutes les paires tout en apprenant le nom
+                                 des oiseaux </p>
+                            </div>
+                    </div>
+                    </div>
+               </div>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/app.js') }}"></script>
+    <script src="{{ asset('assets/js/memory.js') }}"></script>
+{% endblock %}
+

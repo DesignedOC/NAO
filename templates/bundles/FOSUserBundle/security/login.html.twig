@@ -1,5 +1,32 @@
 {% extends "@FOSUser/layout.html.twig" %}
 
-{% block fos_user_content %}
-    {{ include('@FOSUser/Security/login_content.html.twig') }}
-{% endblock fos_user_content %}
+{% block title %}Nos Amis les Oiseaux - Connexion{% endblock %}
+{% block description %}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/front.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+{% endblock %}
+{% block body %}
+    {% include 'front/parts/_header.html.twig' %}
+    <div class="headline mb-4">
+        <div class="container">
+            <h1 class="pt-4 mb-1 text-center">Se connecter</h1>
+            <p class="text-center">Les autres membres vous attendents.</p>
+        </div>
+    </div>
+    <div class="container mt-5 mb-5">
+        <div class="d-flex justify-content-md-center">
+            {% block fos_user_content %}
+                {{ include('@FOSUser/security/login_content.html.twig') }}
+            {% endblock fos_user_content %}
+        </div>
+    </div>
+
+    <div class="footer-black">
+        {% include 'front/parts/_footer.html.twig' %}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('build/js/front.js') }}"></script>
+{% endblock %}

@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -51,7 +49,7 @@ class Observation
      *     maxSize="2M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="picture")
+     * @Vich\UploadableField(mapping="observations_images", fileNameProperty="picture")
      * @var File
      */
     private $pictureFile;
@@ -97,7 +95,6 @@ class Observation
         $this->statut = 1;
         $this->updatedAt = new \DateTime();
     }
-
     /**
      * @return mixed
      */
@@ -114,20 +111,20 @@ class Observation
         return $this->date;
     }
 
-/**
- * @param \DateTimeInterface $date
- * @return Observation
- */
-public function setDate(\DateTimeInterface $date): self
-{
-    $this->date = $date;
-    return $this;
-}
+    /**
+     * @param \DateTimeInterface $date
+     * @return Observation
+     */
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+        return $this;
+    }
 
-/**
- * @return float|null
- */
-public function getLatitude(): ?float
+    /**
+     * @return float|null
+     */
+    public function getLatitude(): ?float
     {
         return $this->latitude;
     }
@@ -137,10 +134,10 @@ public function getLatitude(): ?float
      * @return Observation
      */
     public function setLatitude(float $latitude): self
-{
-    $this->latitude = $latitude;
-    return $this;
-}
+    {
+        $this->latitude = $latitude;
+        return $this;
+    }
 
     /**
      * @return float|null
@@ -155,10 +152,10 @@ public function getLatitude(): ?float
      * @return Observation
      */
     public function setLongitude(float $longitude): self
-{
-    $this->longitude = $longitude;
-    return $this;
-}
+    {
+        $this->longitude = $longitude;
+        return $this;
+    }
 
     /**
      * @return null|string
@@ -174,7 +171,6 @@ public function getLatitude(): ?float
     public function setPicture(?string $picture): void
     {
         $this->picture = $picture;
-
     }
 
     /**
@@ -194,7 +190,6 @@ public function getLatitude(): ?float
         if (null != $picture) {
             $this->updatedAt = new \DateTime();
         }
-
     }
 
     /**
@@ -204,32 +199,33 @@ public function getLatitude(): ?float
     {
         return $this->bird;
     }
-
     /**
-     * @param string $bird
+     * @param Bird $bird
      * @return Observation
      */
     public function setBird(Bird $bird = null)
-{
-    $this->bird = $bird;
-    return $this;
-}
+    {
+        $this->bird = $bird;
+        return $this;
+    }
 
     /**
-     * @param User $user
+     * @param User|null $user
+     * @return $this
      */
-    public function setUser(User $user)
-{
-    $this->user = $user;
-}
+    public function setUser(User $user = null)
+    {
+        $this->user = $user;
+        return $this;
+    }
 
     /**
      * @return user
      */
-    public function getUser()
-{
-    return $this->user;
-}
+    public function getUser() : User
+    {
+        return $this->user;
+    }
 
     /**
      * @return null|string
@@ -244,10 +240,10 @@ public function getLatitude(): ?float
      * @return Observation
      */
     public function setStatut(string $statut): self
-{
-    $this->statut = $statut;
-    return $this;
-}
+    {
+        $this->statut = $statut;
+        return $this;
+    }
 
     /**
      * @return null|string
@@ -262,42 +258,45 @@ public function getLatitude(): ?float
      * @return Observation
      */
     public function setDescription(string $description): self
-{
-    $this->description = $description;
-    return $this;
-}
+    {
+        $this->description = $description;
+        return $this;
+    }
 
     /**
      * @return \DateTime
      */
     public function getUpdatedAt()
-{
-    return $this->updatedAt;
-}
+    {
+        return $this->updatedAt;
+    }
 
     /**
      * @param $updatedAt
      * @return $this
      */
     public function setUpdatedAt($updatedAt)
-{
-    $this->updatedAt = $updatedAt;
-
-    return $this;
-}
-
-    public function getLibelleStatut()
-{
-    switch ($this->statut) {
-        case 0:
-            return 'rejeté';
-            break;
-        case 1:
-            return 'en attente de validation';
-            break;
-        case 2;
-            return 'validé';
-            break;
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
     }
-}
+
+    /**
+     * @return string
+     */
+    public function getLibelleStatut()
+    {
+        switch ($this->statut) {
+            case 0:
+                return 'rejeté';
+                break;
+            case 1:
+                return 'en attente de validation';
+                break;
+            case 2;
+                return 'validé';
+                break;
+        }
+    }
+
 }

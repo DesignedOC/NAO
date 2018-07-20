@@ -1,0 +1,24 @@
+{% if success %}
+    <p>Vous êtes désormais inscrit à notre newsletter</p>
+    <p>Un email vient de vous être envoyé </p>
+{% else %}
+    {{ form_start(form) }}
+    <div class="input-group mb-3">
+        {{ form_errors(form.email) }}
+        {{ form_widget(form.email,
+            {'attr': {
+                'class': 'form-control',
+                'placeholder': 'Votre adresse email',
+                'aria-describedby':'basic-addon2',
+                'aria-label': 'Recipient\'s username'
+            }}) }}
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">Valider</button>
+        </div>
+
+    </div>
+    {{ form_end(form) }}
+{% endif %}
+
+
+

@@ -1,0 +1,19 @@
+{% extends 'mails/layout.html.twig' %}
+
+{% block body %}
+<tr>
+    <td align="center" class="text-one">Bonjour {{ user.username }}</td>
+</tr>
+<tr>
+    <td align="center"  class="text-two">Pour valider votre compte utilisateur, merci de vous rendre sur <a href="{{ confirmationUrl }}" target="_blank">"<strong>Valider votre compte"</strong></a>. <br>Ce lien ne peut être utilisé qu'une seule fois pour valider votre compte.</td>
+</tr>
+<tr>
+    <td align="center" class="button-mobile-padding">
+        <table border="0" cellspacing="0" cellpadding="0" class="button-mobile-container">
+            <tr>
+                <td align="center"><a href="{{ confirmationUrl }}" target="_blank"  class="button-mobile">Valider votre compte</a></td>
+            </tr>
+        </table>
+    </td>
+</tr>
+{% endblock %}

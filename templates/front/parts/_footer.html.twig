@@ -1,35 +1,24 @@
-<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">NAO</a>
-    <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Notifications</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Profile</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Switch account</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-    </div>
-</nav>
+<footer class="container py-5 footer-cu footer-black">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{ asset('assets/img/logo.png') }}" width="40" height="40" class="d-inline-block align-top" alt="Nos Amis les Oiseaux">
+            <small class="d-block mb-3 mt-3 text-muted">© Tous droits réservés - {{ "now"|date("Y") }}</small>
+            <a href="https://www.facebook.com/Nos-Amis-les-Oiseaux-201982923929583/" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/nao.association/" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="col-md-4">
+            <ul class="list-unstyled text-small">
+                <li><a  href="{{ path('nao_conditions') }}">Conditions générales</a></li>
+                <li><a href="{{ path('nao_mentions') }}">Mentions légales</a></li>
+                <li><a href="{{ path('nao_faq') }}">Foire aux Questions</a></li>
+                <li><a href="https://www.paypal.com/pools/c/848Pyu38OO" target="_blank">Donation</a></li>
+                <li><a href="{{ path('nao_contact') }}">Contact</a></li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h5>Newsletter</h5>
+            <p class="newsletter">Inscrivez-vous à notre Newsletter pour recevoir toutes les actualités et nouveautés de notre site internet</p>
+            {{ render(controller( 'App\\Controller\\NewsletterController::index', {request: app.request})) }}
+            </div>
+        </div>
+</footer>

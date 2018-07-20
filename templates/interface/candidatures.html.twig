@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NAO - Devenir naturaliste{% endblock %}
+{% block description %}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+{% endblock %}
+
+{% block body %}
+{% include 'interface/parts/_sidebar.html.twig' %}
+<div class="container-left">
+    {% include 'interface/parts/_header.html.twig' %}
+    <div class="main-content">
+        <div class="row">
+            <div class="col-12">
+                <div class="col-md-12 col-md-8 custom-box app-show">
+                    <h1 class="h1box"><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">gavel</i>Candidatures</h1>
+                    {% for label, messages in app.flashes(['success', 'info']) %}
+                        {% if messages is defined %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ label }}" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                    <p class="text-muted">En tant que naturaliste, vous allez l'opportunité de décider quels seront les prochains membres à devenir naturaliste.</p>
+                    <div class="responsive-table-line">
+                    <table class="table table-hover table-responsive-sm">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" data-title="Id">#</th>
+                            <th scope="col" data-title="Utilisateur">Utilisateur</th>
+                            <th scope="col" data-title="Date">Date</th>
+                            <th scope="col" data-title="Détails">Détails</th>
+                            <th scope="col" data-title="Actions">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for application in applications %}
+                        <tr>
+                            <td scope="row" data-title="Id">{{ application.id }}</td>
+                            <td data-title="Utilisateur"><a href="{{ path('nao_interface_profile', {'username' : application.user.username }) }}">{{ application.user.username|capitalize }}</a></td>
+                            <td data-title="Date">{{ application.date|date("d/m/Y") }}</td>
+                            <td data-title="Détails"><a href="#" data-username="{{ application.user.username }}" data-description="{{ application.description }}" data-experience="{{ application.experience }}" data-toggle="modal" class="d-link" data-target="#myModal" onclick="getData(this);">Candidature</a></td>
+                            <td data-title="Actions">
+                                <a href="{{ path('nao_interface_app_edit', {'username': application.user.username, 'id': application.id, 'statut': 2 }) }}"><i class="fas fa-check-circle" style="vertical-align: middle; font-size: 1.3em;color: #1bbb1b;"></i></a>
+                                <a href="{{ path('nao_interface_app_edit', {'username': application.user.username, 'id': application.id, 'statut': 1 }) }}"><i class="fas fa-times-circle" style="vertical-align: middle; font-size: 1.3em;color: #cc1313;"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if applications is empty %}
+                        <p class="text-muted text-center">Aucune candidature n'a été déposée</p>
+                    {% endif %}
+                    </div>
+                    {% include 'interface/parts/_pagination.html.twig' %}
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Candidature <span class="app-username"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="h6">Veuillez décrire votre expérience ?</p>
+                    <p class="app-experience"></p>
+                    <p class="h6">Pourquoi voulez-vous devenir un naturaliste ?</p>
+                    <p class="app-description"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/app.js') }}"></script>
+    <script type="application/javascript">
+        function getData(obj){
+            var username = obj.getAttribute('data-username');
+            var experience = obj.getAttribute('data-experience');
+            var description = obj.getAttribute('data-description');
+
+            var appUsername = document.querySelector(".app-username");
+            var appDesc = document.querySelector(".app-description");
+            var appExp = document.querySelector(".app-experience");
+            appUsername.textContent = username;
+            appDesc.textContent = experience;
+            appExp.textContent = description;
+        }
+    </script>
+{% endblock %}
+

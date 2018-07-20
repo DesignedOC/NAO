@@ -1,0 +1,11 @@
+{% extends 'mails/layout.html.twig' %}
+
+{% block body %}
+    <tr>
+        <td align="center" class="text-one">Bonjour {{ user.username }}</td>
+    </tr>
+    <tr>
+        <td align="center"  class="text-two">Votre demande <strong>#{{ application.id }}</strong> pour devenir naturaliste a été acceptée. Vous avez dorénavant la possibilité de gérer les accès des autres membres. <br>Pensez à vous reconnecter pour que ce changement soit effectif.</td>
+    </tr>
+{% endblock %}
+

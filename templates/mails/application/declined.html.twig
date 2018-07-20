@@ -1,0 +1,10 @@
+{% extends 'mails/layout.html.twig' %}
+
+{% block body %}
+    <tr>
+        <td align="center" class="text-one">Bonjour {{ user.username }}</td>
+    </tr>
+    <tr>
+        <td align="center"  class="text-two">Nous sommes désolé mais votre candidature #{{ application.id }} pour devenir naturaliste a été refusée. Il se peut que vous n'ayez pas suffisamment d'expérience pour obtenir ce statut. Ne vous découragez pas, nous procéderons à un reset des demandes dans les prochains mois. <br>Vous pourrez donc renouveler votre demande un peu plus tard.</td>
+    </tr>
+{% endblock %}

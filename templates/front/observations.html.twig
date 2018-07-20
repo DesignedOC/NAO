@@ -1,0 +1,210 @@
+{% extends 'base.html.twig' %}
+{% block title %}Nos Amis les Oiseaux - Carte des observations{% endblock %}
+{% block description %}Trouver des observations d'oiseaux sur notre carte et consulter les détails{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('build/css/front.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ asset('build/js/observAutocomplete.css') }}">
+{% endblock %}
+
+{% block body %}
+ {% include 'front/parts/_header.html.twig' %}
+    <div class="headline mb-4">
+        <div class="container">
+            <h1 class="pt-4 mb-1">Carte des observations</h1>
+            <p>Vous pouvez rechercher les espèces de votre choix !</p>
+        </div>
+    </div>
+    <div class="container association mb-5 mt-5"> 
+        <div class="row">
+            <div class="col-md-12">
+                <div id="message"></div>
+            </div>
+            <div class="col-md-6">
+                <input id="input-nom-vern" type="text" class="form-control" placeholder="Tapez le nom d'une espèce...">
+            </div>
+            <div class="col-md-3 mt-md-0 mt-2">
+                <button id="btn-valider" class="btn btn-custom btn-block">Valider</button>
+            </div>
+            <div class="col-md-3 mt-md-0 mt-2">
+                <button id="clearMap" class="btn btn-default">Nouvelle recherche</button>
+            </div>
+        </div>
+    </div>
+    <div class="map-container mt-2">
+        <div id="map"></div>
+    </div>
+    <section class="content-mid joinus">
+            <div class="container text-center">
+                <h2>Rejoignez les passionnés d'ornithologie en vous inscrivant <strong>dès maintenant</strong></h2>
+                <p>Ouvert à tous et sans avoir de conaissances. Rejoignez une communauté grandissante avec des amateurs et des experts. Postez votre première observation et montez en grade !</p>
+                <p>
+                    <a class="btn btn-asso btn-md" href="{{ path('nao_association') }}" role="button">L'association</a>
+                    {% if app.user %}
+                        <a class="btn btn-join btn-md" href="{{ path('nao_interface') }}" role="button">Nous rejoindre</a>
+                    {% else %}
+                        <a class="btn btn-join btn-md" href="{{ path('fos_user_registration_register') }}" role="button">Nous rejoindre</a>
+                    {% endif %}
+                </p>
+            </div>
+    </section>
+
+    {# Modal #}
+    <div id="infoModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Pour voir plus, veuillez vous inscrire</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-primary">S'inscrire</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-black">
+        {% include 'front/parts/_footer.html.twig' %}
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB1pM1lEVpFhq3Fne8yzNchvi0FNheYoY"></script>
+    <script src="{{ asset('build/js/app.js') }}"></script>
+    <script type="application/javascript">
+
+        var map, marker, infowindow;
+        var locations = [];
+        var searchUrl = "{{path('map_search')  }}";
+        var markers = [];
+
+        function initMap() {
+            var center = {lat: 47.12025, lng: 2.123654};
+            var options = {
+                center: center,
+                zoom: 6,
+                mapTypeId:google.maps.MapTypeId.ROADMAP
+            };
+            map = new google.maps.Map(document.getElementById('map'),options);
+        }
+
+        infowindow =  new google.maps.InfoWindow();
+
+        $(function () {
+            $(document).on('click', '#btn-valider', function () {
+                var nomVern = $('#input-nom-vern').val();
+                console.log(nomVern);
+                $.ajax({
+                    url: searchUrl,
+                    type: "POST",
+                    dataType: "json",
+                    data: {"nomVern": nomVern},
+                    async: true,
+                    success: function (data) {
+                           locations = data;
+                            for (var count = 0; count < data.length; count++) {
+
+                                    marker = new google.maps.Marker({
+                                        position: new google.maps.LatLng(locations[count].latitude, locations[count].longitude),
+                                        map: map,
+                                        title: locations[count].nomVern,
+
+                                    });
+                                    markers.push(marker);
+                                {% if not is_granted('ROLE_NATURALIST') %}
+                                    google.maps.event.addListener(marker, 'click', (function (marker, count) {
+                                        return function () {
+                                            var contentString = '<div id="content" class="card">' + '<div id="bodyContent" class="card-body">' + '<p id="title" class="card-title title">' + locations[count].nomVern + '</p>' + '<p id="author" class="card-title author">Posté par <b>' + locations[count].username + '</b>' + '<span class="date-pub">- Validé le' + locations[count].date + '</span></p><hr>' + '<img src="" alt="">' + '<p>' + locations[count].description + '</p>' + '<div class="card-footer text-center"><a href="{{ path('fos_user_registration_register') }}" class="btn btn-primary text-center">Nous rejoindre</a></div>' + '</div>' + '</div>';
+                                            infowindow.setContent(contentString);
+                                            infowindow.open(map, marker);
+                                        }
+                                    })(marker, count));
+                                    google.maps.event.addListener(map, 'click', function () {
+                                        infowindow.close();
+                                    });
+                                {% else %}
+                                google.maps.event.addListener(marker, 'click', (function (marker, count) {
+
+                                        return function () {
+                                            var id = locations[count].id;
+                                            var url = window.location.host;
+
+                                            var contentString = '<div id="content" class="card">'+
+                                                '<div id="bodyContent" class="card-body">'+
+                                                '<p id="title" class="card-title title">'+locations[count].nomVern+'</p>'+
+                                                '<p id="author" class="card-title author">Posté par <b>'+locations[count].username+'</b>'+
+                                                '<span class="date-pub">- Validé le '+locations[count].date+'</span></p><hr>'+
+                                                '<img src="" alt="">'+
+                                                '<p>'+locations[count].description+'</p>'+
+                                                '<div class="card-footer text-center"><a  href="http://'+ url +'/interface/observation/'+locations[count].id+'"  class="btn btn-primary text-center" >Fiche observation</a></div>'+
+                                                '</div>';
+
+                                            infowindow.setContent(contentString);
+                                            infowindow.open(map, marker);
+                                        }
+                                    }
+                                )(marker, count));
+
+                                google.maps.event.addListener(map, 'click', function() {
+                                    infowindow.close();
+                                });
+                                {% endif %}
+
+                            }
+                        var markerCluster = new MarkerClusterer(map, markers,
+                            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+                        if (data.length < 1){document.getElementById('message').innerHTML='<p> Il n\'y a pas encore d\'observations pour cet oiseau</p>';}
+
+                    },
+                    error: function () {
+
+                    }
+                });
+            });
+        });
+        google.maps.event.addDomListener(window, 'load', initMap);
+
+
+
+        google.maps.event.addListener(infowindow, 'domready', function() {
+            var iwOuter = $('.gm-style-iw');
+            var iwBackground = iwOuter.prev();
+            iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+            iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+            var iwCloseBtn = iwOuter.next();
+            iwCloseBtn.css({
+                opacity: '1',
+                right: '38px', top: '3px',
+                border: '7px solid #48b5e9',
+                'border-radius': '50%',
+                'box-shadow': '0 0 5px #3990B9'
+            });
+            iwCloseBtn.mouseout(function(){
+                $(this).css({opacity: '1'});
+            });
+        });
+
+          $('#clearMap').click(function (data) {
+            data.preventDefault();
+            location.reload();
+        });
+    </script>
+
+     
+
+<script src="{{ asset('build/js/front.js') }}"></script>
+<script src="{{ asset('../assets/js/markerclusterer.js') }}"></script>
+
+<script>
+var lbNomUrl = "{{ path('bird_lbnom_autocomplete') }}";
+var vernNomUrl = "{{ path('bird_nomvern_autocomplete') }}";
+    </script>
+ <script src="{{ asset('build/js/observAutocomplete.js') }}"></script>
+
+{% endblock %}

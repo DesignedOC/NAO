@@ -1,0 +1,290 @@
+easy_admin:
+    site_name: 'Administration'
+    formats:
+        date: 'd/m/Y'
+    design:
+        brand-color: #42aed7;
+        form_theme: 'vertical'
+        menu:
+            - { label: 'Retour Interface',icon: 'home', route: 'nao_interface' }
+            - { label: 'le blog' ,icon: 'book', url: 'http://naonews.pw/', target: '_blank' }
+            - { label: 'Gestion Site' }
+            - { entity: 'User', icon: 'user', label: 'Utilisateurs', default: true }
+            - { entity: 'Observation', icon: 'binoculars', label: 'Observation' }
+            - { entity: 'Newsletter', icon: 'envelope', label: 'Newsletter'}
+            - { entity: 'Tournament', icon: 'binoculars', label: 'Tournois' }
+            - { entity: 'Bird', icon: 'themeisle', label: 'Oiseaux' }
+            - { label: 'Gestion de la newsletter' }
+            - label: 'Gestion de la newsletter'
+              children:
+                - { label: 'Exporter les emails', route: 'exportEmail' }
+            - { label: 'Base de données' }
+            - label: 'Base de données'
+              children:
+                - { entity: 'Taxref', label: 'Importer le fichier' }
+                - { label: 'Importer la BDD', route: 'taxrefBaseImport' }
+
+    entities:
+        Newsletter:
+            class: App\Entity\Newsletter
+            list:
+                title: 'Emails inscrits à la Newsletter'
+                fields:
+                    - { property: 'Email', label: 'Email', type: 'email' }
+        Taxref:
+         #   disabled_actions: ['new','delete']
+            disabled_actions: ['delete']
+            class: App\Entity\Taxref
+            list:
+                title: 'Base de données'
+                help: 'Attention, votre fichier doit respecter le format TAXREF.csv. Pour importer la nouvelle base, veuillez poursuivre en cliquant sur Importer la BDD'
+                actions:
+                    - { name: 'edit', icon: 'pencil', label: 'Importer le nouveaux fichier', title: 'Editer' }
+
+                fields:
+                    - { property: 'Taxref', type: 'file'}
+
+            edit:
+                title: 'Importer le nouveau fichier Taxref'
+                fields:
+                    - { property: 'TaxrefFile', type: 'file', base_path: '%app.path.taxref%'}
+            new:
+                title: 'Créer le nouveau fichier'
+                fields:
+                    - { property: 'TaxrefFile', type: 'file', base_path: '%app.path.taxref%'}
+
+
+        User:
+            class: App\Entity\User
+            list:
+                title: 'Utilisateurs'
+                actions:
+                    - { name: 'show', icon: 'eye', label: 'Voir', title: 'Voir' }
+                    - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
+                    - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
+                    - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
+
+
+                fields:
+                    - { property: 'id' }
+                    - { property: 'enabled', label: 'Actif' }
+                    - { property: 'image' ,type: 'image', base_path: '%app.path.avatar%'}
+                    - { property: 'username', label: 'Pseudo' }
+                    - { property: 'roles', label: 'Rôle' }
+                    - { property: 'birth', label: 'Date de naissance',format: 'd/m/Y' }
+                    - { property: 'email', label: 'Email', type: 'email' }
+                    - { property: 'lastLogin', label: 'Dernière connexion',format: 'd/m/Y' }
+
+            new:
+                title: "Créer un nouvel utilisateur"
+                fields:
+                    - { type: 'tab',css_class: 'col-sm-6', label: 'Informations : Identité',icon: 'user'}
+                    - { property: 'lastname', label: 'Nom' }
+                    - { property: 'firstname', label: 'Prénom' }
+                    - { property: 'birth', label: ' Date de naissance', type: 'birthday' }
+                    - { type: 'tab', css_class: 'col-sm-6',label: 'Informations : Compte', icon: 'user'}
+                    - { property: 'email', label: 'Email', type: 'email' }
+                    - { property: 'username', label: 'Pseudo' }
+                    - { property: 'plainPassword', type: 'text',label: 'Mot de passe', type_options: { required: true } }
+                    - { property: 'imageFile' ,type: 'vich_image'}
+                    - { type: 'tab',css_class: 'col-sm-6', label: 'Informations : Rôle ',icon: 'user'}
+                    - { property: 'roles' ,type: 'choice',label: 'Rôle', type_options: { multiple: true, required: true, choices : { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN', 'ROLE_NATURALIST': 'ROLE_NATURALIST' } }}
+                    - { property: 'enabled', label: 'Actif' }
+            edit:
+                title: "Edition du profil utilisateur"
+                fields:
+                    - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Identité', icon: 'user'}
+                    - { property: 'lastname',label: 'Nom' }
+                    - { property: 'firstname', label: 'Prénom' }
+                    - { property: 'birth', label: 'Date de naissance', type: 'birthday' }
+                    - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Rôle', icon: 'user'}
+                    - { property: 'roles', type: 'choice',label: 'Rôle', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN', 'ROLE_NATURALIST': 'ROLE_NATURALIST' } } }
+                    - { property: 'lastLogin', label: 'Dernière connexion',format: 'd/m/Y' }
+                    - { property: 'enabled', label: 'Actif' }
+                    - { type: 'group', css_class: 'col-sm-12', label: 'Informations : Compte', icon: 'user'}
+                    - { property: 'email', label: 'Email', type: 'email' }
+                    - { property: 'username', label: 'Pseudo' }
+                    - { property: 'plainPassword', type: 'text', type_options: { required: false } }
+                    - { property: 'imageFile' ,type: 'vich_image'}
+
+            show:
+                title: "Voir du profil utilisateur"
+                fields:
+                    - { property: 'lastname',label: 'Nom' }
+                    - { property: 'firstname', label: 'Prénom' }
+                    - { property: 'birth', label: 'Date de naissance', format: 'd/m/Y' }
+                    - { property: 'username', label: 'Pseudo' }
+                    - { property: 'email', label: 'Email', type: 'email' }
+                    - { property: 'image' ,type: 'image', base_path: '%app.path.avatar%'}
+                    - { property: 'enabled', label: 'Actif' }
+                    - { property: 'roles', label: 'Rôle' }
+                    - { property: 'lastLogin', label: 'Dernière connexion',format: 'd/m/Y' }
+        Observation:
+            class: App\Entity\Observation
+            list:
+                title: 'Observations'
+                actions:
+                    - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
+                    - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
+                    - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
+                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+                fields:
+                    - { property: 'id'}
+                    - { property: 'date', type: 'date'}
+                    - { property: 'user', label: 'Utilisateur'}
+                    - { property: 'libelleStatut'}
+                    - { property: 'latitude'}
+                    - { property: 'longitude'}
+                    - { property: 'picture' ,label: 'Image' ,type: 'image', base_path: '%app.path.observations%'}
+                    - { property: 'bird', label: 'Oiseau' }
+                    - { property: 'description'}
+            new:
+                title: 'Créer une nouvelle observation'
+                fields:
+                    - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Observations', icon: 'binoculars'}
+                    - { property: 'date', type: 'date'}
+                    - { property: 'user', label: 'Utilisateur'}
+                    - { property: 'statut', type: 'choice', type_options: { choices: { 'rejeté': '0', 'en attente de validation': '1', 'validé': '2'}}}
+                    - { property: 'latitude'}
+                    - { property: 'longitude'}
+                    - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Oiseaux', icon: 'themeisle'}
+                    - { property: 'bird', label: 'Oiseau' }
+                    - { property: 'pictureFile',type: 'vich_image'}
+                    - { property: 'description'}
+            edit:
+                title: "Editer l'observation"
+                fields:
+                    - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Observations', icon: 'binoculars'}
+                    - { property: 'date', type: 'date'}
+                    - { property: 'user', label: 'Utilisateur'}
+                    - { property: 'statut',  type: 'choice', type_options: { choices: { 'rejeté': '0', 'en attente de validation': '1', 'validé': '2'}}}
+                    - { property: 'latitude'}
+                    - { property: 'longitude'}
+                    - { type: 'group', css_class: 'col-sm-6', label: 'Informations : Oiseaux', icon: 'themeisle'}
+                    - { property: 'bird', label: 'Oiseau'}
+                    - { property: 'pictureFile',type: 'vich_image' }
+                    - { property: 'description'}
+            show:
+                title: "voir l'observation"
+                fields:
+                    - { property: 'date', type: 'date'}
+                    - { property: 'user', label: 'Utilisateur'}
+                    - { property: 'libelleStatut', label: 'statut'}
+                    - { property: 'latitude'}
+                    - { property: 'longitude'}
+                    - { property: 'bird', label: 'Oiseau'}
+                    - { property: 'picture' ,type: 'image', base_path: '%app.path.observations%'}
+                    - { property: 'description'}
+
+
+        Tournament:
+            disabled_actions: ['delete', 'edit']
+            class: App\Entity\Tournament
+            help: 'Le dernier tournoi en date est utilisé comme tournoi principal sur la page "classement" du site.'
+            list:
+                 title:  'Gestion des tournois'
+                 actions:
+                      - { name: 'fermer' }
+                      - { name: 'new', label: 'Créer un Tournoi'}
+                 fields:
+                       - { property: 'id'}
+                       - { property: 'title', label: 'Nom du tournoi'}
+                       - { property: 'startDate', label: 'Date de début'}
+                       - { property: 'endDate', label: 'Date de fin'}
+                       - { property: 'active', label: 'Actif', type: 'boolean'}
+                       - { property: 'players', label: 'Participants'}
+            new:
+                 title: 'Ajouter un tournoi'
+                 fields:
+                      - { type: 'group', css_class: 'col-sm-6'}
+                      - { property: 'title', label: 'Nom du tournoi :'}
+                      - { property: 'rules', label: 'Les règles du tournoi :'}
+                      - { property: 'endNote',
+                          type: 'choice',
+                          type_options: {
+                                  choices: {
+                                  '1 jour':'1 jour',
+                                  '2 jours':'2 jours',
+                                  '3 jours':'3 jours',
+                                  '4 jours':'4 jours',
+                                  '5 jours':'5 jours',
+                                  '6 jours':'6 jours',
+                                  'Une semaine':'Une semaine',
+                                  '15 jours':'15 jours',
+                                  'Deux semaines':'Deux semaines',
+                                  'Trois semaines':'Trois semaines',
+                                  'Un mois':'Un mois',
+                                  'Deux mois':'Deux mois',
+                                  'Trois mois':'Trois mois',
+                                  'Six mois':'Six mois',
+                                  'Une année':'Une année'
+                          }},
+                          label: 'Durée du tournoi :',
+                          help: 'Ajouter une date de fin ne signifie pas que le tournoi va se fermer automatiquement. Vous devez fermer manuellement ce tournoi depuis la liste des tournois.'}
+
+
+        Bird:
+            disabled_actions: ['delete']
+            class: App\Entity\Bird
+            list:
+                title: 'Espèces'
+                actions:
+                    - { name: 'edit', icon: 'pencil', label: 'Editer', title: 'Editer' }
+                 #   - { name: 'delete', icon: 'eraser', label: 'Supprimer', title: 'Supprimer' }
+                    - { name: 'new', icon: 'plus-circle', label: 'Ajouter', title: 'Ajouter' }
+                    - { name: 'show', icon: '', label: 'Voir', title: 'Voir' }
+
+                fields:
+
+                #    - { property: 'id'}
+                    - { property: 'cdNom'}
+                    - { property: 'nomVern'}
+                    - { property: 'ordre'}
+                    - { property: 'famille'}
+                    - { property: 'lbNom'}
+                    - { property: 'habitat'}
+                    - { property: 'statutFR'}
+            new:
+                title: 'Ajouter un Oiseau'
+                fields:
+                    - { type: 'group', css_class: 'col-sm-6'}
+                    - { property: 'nomVern'}
+                    - { property: 'ordre'}
+                    - { property: 'famille'}
+                    - { property: 'cdNom'}
+                    - { type: 'group', css_class: 'col-sm-6'}
+                    - { property: 'lbNom'}
+                    - { property: 'habitat'}
+                    - { property: 'statutFR'}
+            edit:
+                title: "Editer l'oiseau"
+                fields:
+                    - { type: 'group', css_class: 'col-sm-6'}
+                    - { property: 'nomVern'}
+                    - { property: 'ordre'}
+                    - { property: 'famille'}
+                    - { property: 'cdNom'}
+                    - { type: 'group', css_class: 'col-sm-6'}
+                    - { property: 'lbNom'}
+                    - { property: 'habitat'}
+                    - { property: 'statutFR'}
+            show:
+                title: "Voir l'oiseau"
+                fields:
+                    - { property: 'nomVern'}
+                    - { property: 'ordre'}
+                    - { property: 'famille'}
+                    - { property: 'cdNom'}
+                    - { property: 'lbNom'}
+                    - { property: 'habitat'}
+                    - { property: 'statutFR'}
+
+
+
+
+
+
+
+
+
+

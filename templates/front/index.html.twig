@@ -1,10 +1,134 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Interface - Accueil{% endblock %}
-{% block description %}{% endblock %}
+{% block title %}Nos Amis les Oiseaux - Association d'ornithologie{% endblock %}
+{% block description %}Nos amis les oiseaux est une association loi 1901 qui regroupe les passionnés d'ornithologies sur cette plateforme de partage amusante...{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/front.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+{% endblock %}
 
 {% block body %}
     {% include 'front/parts/_header.html.twig' %}
-    <h1>Accueil</h1>
-    {#{% include 'front/parts/_footer.html.twig' %}#}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center">
+                    <h1><strong>Se lancer</strong> à la découverte de <span style = "display: block;">l'ornithologie avec <strong>Nos Amis les Oiseaux</strong></span></h1>
+                    <p>Partager vos observations et vos découvertes avec <span style = "display: block;">la communauté à travers notre application</span></p>
+                    {% if app.user %}
+                        <a class="btn btn-primary btn-lg" href="{{ path('nao_interface') }}" role="button">Nous Rejoindre</a>
+                    {% else %}
+                        <a class="btn btn-primary btn-lg" href="{{ path('fos_user_registration_register') }}" role="button">Nous Rejoindre</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="content-mid">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <h2 class="text-center">Une nouvelle façon de s'amuser en découvrant la <strong>nature</strong> tout en préservant la <strong>biodiversité</strong></h2>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="home-parts pt-5 pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="icon-parts">
+                        <p><i class="fas fa-glasses"></i></p>
+                    </div>
+                    <p><strong>Observer</strong> et découvrir les <strong>espèces d'oiseaux</strong> dans la nature</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="icon-parts">
+                        <p><i class="fas fa-camera-retro"></i></p>
+                    </div>
+                    <p><strong>Capturer les oiseaux</strong> que vous rencontrez avec <strong>votre smartphone</strong></p>
+                </div>
+                <div class="col-md-3">
+                    <div class="icon-parts">
+                        <p><i class="fas fa-map"></i></p>
+                    </div>
+                    <p><strong>Localiser</strong> et poster les <strong>observations</strong> que vous faites sur la carte</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="icon-parts">
+                        <p><i class="fas fa-clipboard-list"></i></p>
+                    </div>
+                    <p><strong>Validation</strong> par des experts et <strong>gagner des points</strong> au classement</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container divider mt-5 mb-5 content-home">
+        <h2 class="text-center mb-5">Chercher <span>les observations</span> sur la carte</h2>
+        <div class="row">
+            <div class="col-md-8">
+                <img src="{{ asset('assets/img/desktop-marks.jpg') }}" class="img-fluid" alt="Les oiseaux - Programme de recherche">
+            </div>
+            <div class="col-md-4">
+                <p>Nous vous invitons à découvrir notre carte qui vous permettra de parcourir la France depuis chez vous ! Elle permet aux membres du site de rechercher une espèce et de visualiser les lieux fréquenter par cette dernière.
+                </p>
+                {% if app.user %}
+                    <a class="btn btn-md" href="{{ path('nao_interface') }}" role="button">Nous rejoindre</a>
+                {% else %}
+                    <a class="btn btn-md" href="{{ path('fos_user_registration_register') }}" role="button">Nous rejoindre</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="bg-home">
+        <div class="container divider mt-5 mb-5 content-home">
+            <div class="row">
+                <div class="col-md-5">
+                    <span class="ico-h"><i class="fas fa-trophy"></i></span>
+                    <h2 class="mb-5 mt-3"><span>Découvrir</span> la diversité des espèces tout en jouant avec <span>Memory Bird</span></h2>
+                    <p>Un moyen ludique et facile de découvrir toutes les espèces d'oiseaux tout en s'amusant. C'est l'idée folle de l'association " Nos Amis Les Oiseaux ".</p>
+                </div>
+                <div class="col-md-7 mt-md-5 mt-lg-0">
+                    <img src="{{ asset('assets/img/grid-jeu.jpg') }}" class="img-fluid" alt="Les oiseaux - Programme de recherche">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-home">
+        <div class="container divider mt-5 mb-5 content-home">
+            <div class="row">
+                <div class="col-md-7">
+                    <img src="{{ asset('assets/img/Birds.png') }}" class="img-fluid mt-4" alt="Les oiseaux - Programme de recherche">
+                </div>
+                <div class="col-md-5">
+                    <span class="ico-h"><i class="fas fa-leaf"></i></span>
+                    <h2 class="mb-5 mt-3"><span>Participer</span> au programme de recherche sur <span>la biodiversité</span></h2>
+                    <p>L'application NAO est un projet de collaboration qui a pour but de collecter des informations afin d’étudier les effets du climat et de l’urbanisation sur les oiseaux. Aider la nature sans avoir de connaissances.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="content-mid joinus">
+        <div class="container text-center">
+            <h2>Rejoignez les passionnés d'ornithologie en vous inscrivant <strong>dès maintenant</strong></h2>
+            <p>Ouvert à tous et sans avoir de connaissances. Rejoignez une communauté grandissante avec des amateurs et des experts. Postez votre première observation et montez en grade !</p>
+            <p>
+                <a class="btn btn-asso btn-md" href="{{ path('nao_association') }}" role="button">L'association</a>
+                {% if app.user %}
+                    <a class="btn btn-join btn-md" href="{{ path('nao_interface') }}" role="button">Nous rejoindre</a>
+                {% else %}
+                    <a class="btn btn-join btn-md" href="{{ path('fos_user_registration_register') }}" role="button">Nous rejoindre</a>
+                {% endif %}
+            </p>
+        </div>
+    </section>
+    <div class="footer-white">
+        {% include 'front/parts/_footer.html.twig' %}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/front.js') }}"></script>
 {% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NAO - Devenir naturaliste{% endblock %}
+{% block description %}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+{% endblock %}
+
+{% block body %}
+{% include 'interface/parts/_sidebar.html.twig' %}
+<div class="container-left">
+    {% include 'interface/parts/_header.html.twig' %}
+    <div class="main-content">
+        <div class="row">
+            <div class="col-12">
+                <div class="col-md-12 col-md-8 custom-box valid-show">
+                    <h1 class="h1box"><i class="material-icons" style="font-size: 24px; vertical-align: middle;margin-right: 8px;">verified_user</i>Validations</h1>
+                    {% for label, messages in app.flashes(['success', 'info']) %}
+                        {% if messages is defined %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ label }}" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                    <p class="text-muted">Vous êtes naturaliste, ce qui implique de contribuer à la vérification et la validation des observations postées.</p>
+                    <div class="responsive-table-line">
+                    <table class="table table-hover table-responsive-sm">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th data-title="ID">#</th>
+                            <th data-title="Utilisateur" scope="col">Utilisateur</th>
+                            <th data-title="Date" scope="col">Date</th>
+                            <th data-title="Status" scope="col">Status</th>
+                            <th data-title="Actions" scope="col">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for observation in observations %}
+                        <tr>
+                            <td data-title="ID">{{ observation.id }}</td>
+                            <td data-title="Utilisateur" scope="row"><a href="{{ path('nao_interface_profile', {'username' : observation.user.username }) }}">{{ observation.user.username|capitalize }}</a></td>
+                            <td data-title="Date">{{ observation.date|date("d/m/Y") }}</td>
+                            <td data-title="Status">{% if observation.statut == 1 %} En attente{% endif %}</td>
+                            <td data-title="Actions">
+                                <div class="dropdown show">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Validator
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="{{ path('nao_interface_obs_edit', {id : observation.id}) }}">Editer</a>
+                                        <a class="dropdown-item" href="{{ path('nao_interface_obs_show', {id : observation.id}) }}">Afficher</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                    {% if observations is empty %}
+                        <p class="text-muted text-center">Vous n'avez pas encore d'observation à valider</p>
+                    {% endif %}
+                    {% include 'interface/parts/_pagination.html.twig' %}
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/app.js') }}"></script>
+{% endblock %}
+

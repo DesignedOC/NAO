@@ -1,0 +1,37 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block title %}Nos Amis les Oiseaux - Vérifier votre boite email{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/front.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+{% endblock %}
+{% block body %}
+    {% include 'front/parts/_header.html.twig' %}
+<div class="headline mb-4">
+    <div class="container">
+        <h1 class="pt-4 mb-1 text-center">Vérifier votre boite email</h1>
+        <p class="text-center">Un lien pour générer un nouveau mot de passe vous a été envoyé</p>
+    </div>
+</div>
+<div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-md-center">
+        <section class="col-md-7">
+            {% block fos_user_content %}
+            <p>
+            {{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}
+            </p>
+            {% endblock %}
+        </section>
+    </div>
+</div>
+
+    <div class="footer-black">
+        {% include 'front/parts/_footer.html.twig' %}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('build/js/front.js') }}"></script>
+{% endblock %}
