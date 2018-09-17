@@ -1,0 +1,20 @@
+h1 {
+  color: salmon;
+  font-size: 26px;
+  text-align: center;
+}
+
+.bouton-group button {
+  width: 25%;
+  padding: 10px;
+  background-color: darksalmon;
+  border: none;
+  cursor: pointer;
+  font-family: sans-surif;
+  font-size: 18px;
+  color: white;
+}
+
+.bouton-group button:hover {
+  background-color: maroon;
+}
